@@ -23,7 +23,8 @@ import {MatButtonModule, MatCheckboxModule} from '@angular/material';
     AlertModule.forRoot(),
     BrowserAnimationsModule,
     MatButtonModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
