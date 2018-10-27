@@ -21,4 +21,24 @@ class Subject{
         $stmt->execute();
         return $stmt;
     }
+    
+    public function checkAnswers($questions){
+        
+        $question = new Question($this->conn);
+        $questionsTotal = 0;
+        $questionsTrue = 0;
+        foreach ($questions as $answer){
+            $questionsTotal +=1;
+            if($question->checkAnswer($answer->answers)==1){
+                $questionsTrue+=1;
+            }
+        }
+        return array(
+            'total' => $questionsTotal,
+            'true' => $questionsTrue
+        );
+    }
+    
 }
+
+

@@ -23,5 +23,21 @@ class Question{
         return $stmt;
     }
     
+    public function checkAnswer($answers){
+        
+        $value = true;
+        foreach ($answers as $answer){
+        $query = "SELECT * FROM ANSWER_STATUS WHERE ID = ".$answer->id;
+        $stmt = $this->conn->prepare($query);
+        
+        $stmt->execute();
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+            if($answer->value != $row['IS_TRUE']){
+                $value = false;
+                break;
+            }
+        }
+        return intval($value);
+    }
     
 }
