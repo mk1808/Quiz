@@ -12,12 +12,14 @@ import {MatButtonModule, MatCheckboxModule} from '@angular/material';
 import {HttpClientModule} from "@angular/common/http";
 import { HeaderComponent } from './header/header/header.component';
 import { SideMenuComponent } from './side-menu/side-menu.component';
+import { TestViewComponent } from './test-view/test-view.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    SideMenuComponent
+    SideMenuComponent,
+    TestViewComponent
   ],
   imports: [
     BrowserModule,
