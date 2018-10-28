@@ -1,0 +1,19 @@
+<div class="sideMenu">
+  <h2>MENU</h2>
+
+  <div *ngFor="let menuItem of menuItems, let i = index" class=" bg-white menuItem">
+    <h5><a
+      class="btn btn-light"
+      data-toggle="collapse"
+      href="#item{{i}}"
+      role="button"
+      aria-expanded="false"
+      aria-controls="item"
+    >{{menuItem.name}}</a></h5>
+    <div class="collapse multi-collapse" id="item{{i}}">
+      <hr />
+      <a *ngFor="let item of menuItem.items" href="{{item.destination}}"  class="btn btn-light">{{item.name}}</a>
+    </div>
+  </div>
+</div>
+
