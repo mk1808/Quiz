@@ -28,3 +28,19 @@
   /*  position:relative;
     left:100px;*/
 }
+
+.navbarList{
+    width: max-content;
+    margin: 0 auto;
+    margin-top: auto;
+}
+
+.navbarList ul{
+    display: inline-block;
+    margin-bottom: 0;
+}
+
+.navbarList ul li{
+    display: inline-block;
+    background-color: white;
+}

@@ -13,13 +13,21 @@ import {HttpClientModule} from "@angular/common/http";
 import { HeaderComponent } from './header/header.component';
 import { SideMenuComponent } from './side-menu/side-menu.component';
 import { TestViewComponent } from './test-view/test-view.component';
+import { TestComponent } from './content/test/test.component';
+import { QuestionComponent } from './content/test/question/question.component';
+import { TestBeginComponent } from './content/test/test-begin/test-begin.component';
+import { TestEndComponent } from './content/test/test-end/test-end.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     SideMenuComponent,
-    TestViewComponent
+    TestViewComponent,
+    TestComponent,
+    QuestionComponent,
+    TestBeginComponent,
+    TestEndComponent
   ],
   imports: [
     BrowserModule,

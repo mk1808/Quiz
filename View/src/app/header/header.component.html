@@ -1,36 +1,33 @@
-<mat-toolbar class="appHeader"> 
-    <mat-toolbar-row  style="height:100%; width:auto;">
+<div class="appHeader"> 
+    <div  style="height:100%; width:auto;">
+     <div class="container-fluid">
+      <div class="row">
       <div class="col-3">
           <img src="assets/img/logo.gif" alt="logo Politechniki Rzeszowskiej" height="130px">
       </div>
-      <div class="col d-flex align-items-end"  style="height:100%; margin-left:150px;">
-        <div class="row ">
-              <nav class="navbar navbar-expand-lg navbar-light appNavbar" style="background-color: rgb(255, 255, 255);">
-              <a class="navbar-brand" href="#">Navbar</a>
-              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
-                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-              </button>
-              <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <div class="navbar-nav">
-                  <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
-                  <a class="nav-item nav-link active" href="#">Features</a>
-                  <a class="nav-item nav-link active" href="#">Pricing</a>
-                  <a class="nav-item nav-link active" href="#">Disabled</a>
-                </div>
+      <div class="col-6 "  style="height:100%; margin-top: auto ">
+        <div style="text-align: center" ><h1>
+          Materiały dydaktyczne WEiI 
+        </h1></div>
+        <div class="navbarList"> 
+              <ul>
+                <li>  <a class="nav-item nav-link active" href="#">Home 
+                  <span class="sr-only">(current)</span></a> </li>
+                  <li><a class="nav-item nav-link active" href="#">Features</a> </li>
+                  <li><a class="nav-item nav-link active" href="#">Pricing</a> </li>
+                  <li><a class="nav-item nav-link active" href="#">Disabled</a> </li>
+                </ul>       
               </div>
-            </nav>
-          </div>
 
       </div>
-      <div class="col d-flex align-items-start"  style="height:100%;">
-        <div class="row d-flex align-content-end " style="width:100%; " >
-          <div style="background-color: white; width:155px; height:35px">
-          <button mat-stroked-button float-right>Login</button> 
-         <button mat-stroked-button float-right color="primary">Register</button> 
+      <div class="col-3 d-flex align-items-start"  style="height:100%;">
+        <div class="row " style="margin-left: auto;">
+         
+          <button mat-raised-button float-right><i class="material-icons">person</i>Login</button> 
+         <button mat-raised-button float-right ><i class="material-icons">person_add</i> Register</button> 
+                </div>
       </div>
-          </div>
-      </div>
-      </mat-toolbar-row>
-</mat-toolbar>
+    </div></div>
+  </div>
+</div>
 <div class="underlineBar"></div>
