@@ -1,0 +1,32 @@
+<?php
+private $conn;
+private $table_name = "SUBJECT";
+
+public $ID;
+public $Name;
+
+
+public function getID()
+{
+    return $this->ID;
+}
+
+public function getName()
+{
+    return $this->Name;
+}
+
+public function setID($ID)
+{
+    $this->ID = $ID;
+}
+
+public function setName($Name)
+{
+    $this->Name = $Name;
+}
+
+public function __construct($db){
+    $this->conn = $db;
+}
+

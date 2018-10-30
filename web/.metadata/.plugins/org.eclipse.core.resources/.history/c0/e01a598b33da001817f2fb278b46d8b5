@@ -1,0 +1,40 @@
+<?php
+class Question{
+    private $conn;
+    private $tableName = "QUESTION";
+    
+    public $ID;
+    public $idSubject;
+    public $idCategory;
+    public $text;
+    public $code;
+    public $image;
+    
+    public function __construct($db){
+        $this->conn = $db;
+    }
+    
+    public function getAnswers($id){
+        //$query = "SELECT * FROM ".$this->tableName." WHERE ID = ".$id;
+        $query = "SELECT * FROM ANSWER WHERE ID_QUESTION = ".$id;
+        $stmt = $this->conn->prepare($query);
+        
+        $stmt->execute();
+        return $stmt;
+    }
+    
+    public function checkAnswer($id, $value){
+        
+        $answer = new Answer($db);
+        
+        $query = "SELECT ID FROM ANSWER_STATUS WHERE ID_QUESTION = ".$id;
+        $stmt = $this->conn->prepare($query);
+        
+        $stmt->execute();
+        while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+            if()
+        }
+        return intval($value);
+    }
+    
+}

@@ -1,0 +1,14 @@
+<?php
+class Question{
+    private $conn;
+    private $tableName = "QUESTION";
+    
+    public $ID;
+    public $IdSubject;
+    
+    public function __construct($db){
+        $this->conn = $db;
+    }
+    
+    
+}
