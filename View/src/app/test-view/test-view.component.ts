@@ -13,6 +13,8 @@ export class TestViewComponent implements OnInit {
   constructor(private testService: TestService) { }
 
   ngOnInit() {
+
+    console.log(this.testService.getResult());
     this.testService.getQuestions().subscribe(x => {
       this.obj = x;
       console.log(this.obj);
@@ -49,6 +51,8 @@ export class TestViewComponent implements OnInit {
 
     this.testService.checkAnswers(questionsStatuses).subscribe(x => {
       console.log(x);
+      this.testService.setResult(x);
+      console.log(this.testService.getResult());
     });
   }
 

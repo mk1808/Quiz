@@ -3,4 +3,5 @@
 
 body{
   background-image: url("assets/background-pattern.png");
+  min-height: -webkit-fill-available;
 }

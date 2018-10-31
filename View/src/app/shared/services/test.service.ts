@@ -1,25 +1,31 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {Observable} from "rxjs/index";
-import {Question, QuestionStatus, Result} from "../models/classes";
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Question, QuestionStatus, Result} from '../models/classes';
+import {Observable} from 'rxjs/index';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TestService {
 
+  private result = new Result();
+
   constructor(private http: HttpClient) { }
 
-  public getQuestions():Observable<Question[]>{
-      return this.http.get<Question[]>("http://localhost/web/web/api/controllers/getQuestionsQndAnswers.php");
+  public getQuestions(): Observable<Question[]> {
+      return this.http.get<Question[]>('http://localhost/web/web/api/controllers/getQuestionsQndAnswers.php');
   }
 
-  public checkAnswers(questions:QuestionStatus[]): Observable<any>{
-    let questions2 = JSON.stringify({"questions":questions});
-    //console.log({"questions":questions});
-    let headers = new HttpHeaders({
-      'Content-Type': 'application/json' });
-    let options = { headers: headers };
-      return this.http.post<any>("http://localhost:80/web/web/api/controllers/checkAnswers.php",questions2);
+  public checkAnswers(questions: QuestionStatus[]): Observable<any> {
+    return  this.http.post<Result>('http://localhost:80/web/web/api/controllers/checkAnswers.php', JSON.stringify({'questions': questions}));
   }
+
+  public setResult(result: Result) {
+    this.result = result;
+  }
+
+  public getResult(): Result {
+    return this.result;
+  }
+
 }

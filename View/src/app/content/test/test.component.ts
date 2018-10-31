@@ -8,14 +8,14 @@ import { Question } from 'src/app/shared/models/classes';
   styleUrls: ['./test.component.css']
 })
 export class TestComponent implements OnInit {
-  questions:Question[]=[];
-  questions1=Question;
-  constructor(private testService:TestService) {
+  questions: Question[] = [];
+  questions1 = Question;
+  constructor(private testService: TestService) {
 
   }
 
   ngOnInit() {
-    this.testService.getQuestions().subscribe(x=>{
+    this.testService.getQuestions().subscribe(x => {
       console.log(x);
 
       this.questions = x;
