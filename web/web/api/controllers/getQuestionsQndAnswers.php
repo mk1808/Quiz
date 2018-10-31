@@ -22,7 +22,6 @@ $num = $stmtQ->rowCount();
 
 if($num>0){
     $questions=array();
-    $questions["questions"]=array();
     while ($row = $stmtQ->fetch(PDO::FETCH_ASSOC)){
         //extract($row);
        //
@@ -48,7 +47,7 @@ if($num>0){
             "image" => $row['IMAGE'],
             "answers" => $answers
         );
-        array_push($questions["questions"], $question);
+        array_push($questions, $question);
     }
     
     // set response code - 200 OK
