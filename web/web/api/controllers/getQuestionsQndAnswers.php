@@ -7,6 +7,7 @@ header("Content-Type: application/json; charset=UTF-8");
 include_once '../config/database.php';
 include_once '../models/question.php';
 include_once '../models/answer.php';
+include_once '../models/category.php';
 include_once '../models/subject.php';
  
 // instantiate database and product object
@@ -15,6 +16,7 @@ $db = $database->getConnection();
 
 $subject = new Subject($db);
 $questionObj = new Question($db);
+$category = new Category($db);
 $stmtQ = $subject->getQuestions();
 $num = $stmtQ->rowCount();
 
@@ -27,22 +29,20 @@ if($num>0){
         $stmtA = $questionObj->getAnswers($row['ID']);
        // echo $stmtA;
         $answers = array();
-        
         while($rowA = $stmtA->fetch(PDO::FETCH_ASSOC)){
-            
             $answer = array(
                 "id"=>$rowA['ID'],
                 "text"=>$rowA['TEXT']
             );
-            
-            
+
             array_push($answers, $answer);
         }
-        
+
+        $stmtC = $category->getCategory($row['ID_CATEGORY']);
+
         $question=array(
             "id" => $row['ID'],
-            "idSubject" => $row['ID_SUBJECT'],
-            "idCategory" => $row['ID_CATEGORY'],
+            "category" => $stmtC->fetch()['NAME'],
             "text" => $row['TEXT'],
             "code" => html_entity_decode($row['CODE']),
             "image" => $row['IMAGE'],

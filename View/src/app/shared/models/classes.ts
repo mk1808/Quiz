@@ -1,18 +1,18 @@
-export class Subject{
+export class Subject {
   id: number;
   name: string;
 }
 
-export class Question{
+export class Question {
   id: number;
   category: string;
   text: string;
   code: string;
   image: string;
-  answer: Answer[];
+  answers: Answer[];
 }
 
-export class Answer{
+export class Answer {
   id: number;
   text: string;
 }
@@ -27,7 +27,7 @@ export class QuestionStatus {
   answers: AnswerStatus[];
 }
 
-export class Result{
+export class Result {
   total: number;
   true: number;
 }
