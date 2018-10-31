@@ -1,41 +1,33 @@
-
 <div class="container">
-    <section class="section">
-        <div fxLayout="column" fxLayoutAlign="space-around center"fxFlex="30%" >
-          <div class="col-3" style="padding: 0%"> 
-          <article class="message is-primary" style="background-color:#649494">
-                <div class="message-body">
-                 Kategoria
-                </div>
-              </article> 
-            </div>     
-  <article class="message is-primary" style="background-color:#649494">
-    <div class="message-body">
-      Lorem ipsum dolor sit amet, mea ne viderer veritus menandri, id scaevola gloriatur instructior sit.
-    </div>
-  </article>
-   <div fxLayout="row" *ngFor="let answer of answers; let i = index;">
-  <article class="message is-primary" [ngStyle]="{'background-color': colors[i]}">
-      <div class="message-body answer">
-          <mat-checkbox color="primary" (change)="getStatus(i)">
-            Lorem ipsum dolor sit amet, mea ne viderer veritus menandri, id scaevola gloriatur instructior sit.
-            </mat-checkbox>
-         </div>
-    </article></div> 
- </div>
-        <div fxLayout="column" >
-            <div class="row justify-content-between" style="margin-top:20px">
-   
-            <button mat-raised-button  >
-                <i class="material-icons">
-                    keyboard_arrow_left
-                    </i>Basic</button>
-        
-            <button mat-raised-button  class="btn pull-right">Basic   <i class="material-icons">
-                keyboard_arrow_right
-                </i></button>
-        </div>
+  <section class="section">
+    <div fxLayout="column" fxLayoutAlign="space-around center" fxFlex="30%">
+      <div class="col-3" style="padding: 0%">
+        <article class="message is-primary" style="background-color:#649494">
+          <div class="message-body">
+            Kategoria
+          </div>
+        </article>
       </div>
-      
+      <article class="message is-primary" style="background-color:#649494">
+        <div class="message-body"> {{question.text}}
+        </div>
+      </article>
+      <app-answer *ngFor="let answer of question.answers" [setAnswer]="answer"></app-answer>
+    </div>
+    <div fxLayout="column">
+      <div class="row justify-content-between" style="margin-top:20px">
+
+        <button mat-raised-button>
+          <i class="material-icons">
+            keyboard_arrow_left
+          </i>Basic</button>
+
+        <button mat-raised-button class="btn pull-right">Basic
+          <i class="material-icons">
+            keyboard_arrow_right
+          </i></button>
+      </div>
+    </div>
+
   </section>
 </div>
