@@ -10,6 +10,7 @@ const routes: Routes = [
   { path: 'test2', component: TestViewComponent },
   { path: 'begin', component: TestBeginComponent },
   { path: 'end', component: TestEndComponent }
+  
 ];
 
 @NgModule({
