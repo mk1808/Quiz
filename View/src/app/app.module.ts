@@ -18,6 +18,7 @@ import { QuestionComponent } from './content/test/question/question.component';
 import { TestBeginComponent } from './content/test/test-begin/test-begin.component';
 import { TestEndComponent } from './content/test/test-end/test-end.component';
 import { AnswerComponent } from './content/test/question/answer/answer.component';
+import {ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { AnswerComponent } from './content/test/question/answer/answer.component
     MatCheckboxModule,
     MatToolbarModule,
     MatMenuModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

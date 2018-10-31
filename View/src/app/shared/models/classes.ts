@@ -24,7 +24,7 @@ export class AnswerStatus {
 
 export class QuestionStatus {
   id: number;
-  answers: AnswerStatus[];
+  answers: AnswerStatus[]=[];
 }
 
 export class Result {

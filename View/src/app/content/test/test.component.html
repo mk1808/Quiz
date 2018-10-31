@@ -1,4 +1,4 @@
 
 <app-question *ngFor="let question of questions; let i = index;"
-[setQuestion]="question"></app-question>
+[setQuestion]="question" (questionStatus)="onChange($event)"></app-question>
 
