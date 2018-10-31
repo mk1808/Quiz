@@ -1,5 +1,5 @@
-import { Component, OnInit, Input} from '@angular/core';
-import { Answer } from 'src/app/shared/models/classes';
+import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import { Answer, AnswerStatus, QuestionStatus } from 'src/app/shared/models/classes';
 import { Question } from 'src/app/shared/models/classes';
 @Component({
   selector: 'app-question',
@@ -9,9 +9,14 @@ import { Question } from 'src/app/shared/models/classes';
 export class QuestionComponent implements OnInit {
 //answers:Answer[]=[];
 //colors:string[]=[];
-question:Question;
+question:Question; 
+status= new QuestionStatus;
+
+@Output() questionStatus = new EventEmitter<QuestionStatus>();
+
 @Input() set setQuestion(question:Question){
   this.question=question;
+  this.status.id=question.id;
   /* for (let i=0; i<this.question.answers.length; i++)
     {
       let color:string;
@@ -23,9 +28,29 @@ question:Question;
   constructor() {
     
    }
+   
+   public onChange(answerStatus:AnswerStatus){
+     let exist:boolean=false;
+    this.status.answers.forEach(element => {
+          if (element.id==answerStatus.id)
+          {
+            element=answerStatus;
+            exist=true;
+          }
+           
+
+    }
+    );
+
+    if (!exist){
+      this.status.answers.push(answerStatus);
+    }
+  
+    this.questionStatus.emit(this.status);
+   }
 
   ngOnInit(
-    
+
   ) {
     
   }

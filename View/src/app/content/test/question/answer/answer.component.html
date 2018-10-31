@@ -1,5 +1,5 @@
 <div fxLayout="row" >
-    <article class="message is-primary" (click)="onClick()">
+    <article class="message is-primary" (click)="onClick()" [ngStyle]="{'background-color': color}">
         <div class="message-body answer">
             <mat-checkbox color="primary" #checkbox>
                 {{answer.text}}
