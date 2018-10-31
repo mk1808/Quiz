@@ -9,6 +9,7 @@ import { MatCheckbox } from '@angular/material';
 })
 export class AnswerComponent implements OnInit {
   answer:Answer;
+  color:string;
   @Input() set setAnswer(answer:Answer){
     this.answer=answer;
   }
@@ -23,11 +24,13 @@ export class AnswerComponent implements OnInit {
   public onClick(){
     let answerS= new AnswerStatus;
     answerS.id=this.answer.id;
-    if (this.checkbox.value)
+    if (this.checkbox.value){
     answerS.value=1;
+    this.color="#649494";}
     else
-    answerS.value=0;
-    
+    {answerS.value=0;
+      this.color="white";
+    }
     this.onChange.emit(answerS);
     
   }
