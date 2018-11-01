@@ -9,8 +9,10 @@ const routes: Routes = [
   { path: 'test', component: TestComponent },
   { path: 'test2', component: TestViewComponent },
   { path: 'begin', component: TestBeginComponent },
-  { path: 'end', component: TestEndComponent }
-  
+  { path: 'end', component: TestEndComponent },
+  { path: '', redirectTo: '/test', pathMatch: 'full'},
+  { path: '**', redirectTo: '/test'}
+
 ];
 
 @NgModule({

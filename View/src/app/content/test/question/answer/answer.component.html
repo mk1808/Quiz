@@ -2,8 +2,9 @@
     <article class="message is-primary" (click)="onClick()" [ngStyle]="{'background-color': color}">
         <div class="message-body answer">
             <mat-checkbox color="primary" #checkbox (change)="checkbox.toggle()">
-                {{answer.text}}
+
               </mat-checkbox>
+          <p>{{answer.text}}</p>
            </div>
       </article>
 </div>

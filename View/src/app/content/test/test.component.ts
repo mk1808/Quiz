@@ -53,7 +53,7 @@ export class TestComponent implements OnInit {
       this.questionStatuses[id] = questionStatus;
     }
 
-    this.testService.checkAnswers(this.questionStatuses).subscribe(x => console.log(x));
+    // this.testService.checkAnswers(this.questionStatuses).subscribe(x => console.log(x));
   }
 
 
