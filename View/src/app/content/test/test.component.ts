@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TestService } from 'src/app/shared/services/test.service';
 import { Question, QuestionStatus } from 'src/app/shared/models/classes';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-test',
@@ -14,7 +15,7 @@ export class TestComponent implements OnInit {
   status = new QuestionStatus;
 
 
-  constructor(private testService: TestService) {
+  constructor(private testService: TestService, private router:Router) {
 
   }
 
@@ -54,6 +55,10 @@ export class TestComponent implements OnInit {
     }
 
     // this.testService.checkAnswers(this.questionStatuses).subscribe(x => console.log(x));
+  }
+
+  onSubmit(){
+    this.router.navigate(['/end']);
   }
 
 

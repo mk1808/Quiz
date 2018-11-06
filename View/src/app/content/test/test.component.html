@@ -2,3 +2,17 @@
 <app-question *ngFor="let question of questions; let i = index;"
 [setQuestion]="question" (questionStatus)="onChange($event)"></app-question>
 
+<div fxLayout="column">
+        <div class="row" style="margin-top:20px; margin-bottom:20px">
+  
+          
+  
+          <button mat-raised-button class="btn pull-right"
+           style="margin-left: auto; margin-right:10px; background-color:rgb(137, 231, 59)"
+           (click)="onSubmit()">
+            Zakończ
+            <i class="material-icons">
+              keyboard_arrow_right
+            </i></button>
+        </div>
+      </div>
