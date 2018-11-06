@@ -29,7 +29,7 @@ class Subject{
         $questionsTrue = 0;
         foreach ($questions as $answer){
             $questionsTotal +=1;
-            if($question->checkAnswer($answer->answers)==1){
+            if(count($answer->answers)!= 0&&$question->checkAnswer($answer->answers)==1){
                 $questionsTrue+=1;
             }
         }
