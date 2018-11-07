@@ -49,6 +49,7 @@ export class QuestionComponent implements OnInit {
       this.status.answers[id] = answerStatus;
     }
     this.questionStatus.emit(this.status);
+    
   }
 
   ngOnInit() {

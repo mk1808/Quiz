@@ -54,11 +54,17 @@ export class TestComponent implements OnInit {
       this.questionStatuses[id] = questionStatus;
     }
 
-    // this.testService.checkAnswers(this.questionStatuses).subscribe(x => console.log(x));
+    
   }
 
   onSubmit(){
-    this.router.navigate(['/end']);
+    this.testService.checkAnswers(this.questionStatuses).subscribe(x => 
+      { 
+        
+        this.testService.setResult(x);
+        this.router.navigate(['/end']);
+      });
+   
   }
 
 
