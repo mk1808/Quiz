@@ -29,7 +29,7 @@ export class TestEndComponent implements OnInit {
   }
   onSubmit (){
  
-      this.router.navigate(['/test']);
+      this.router.navigate(['/begin']);
     
   };
 
