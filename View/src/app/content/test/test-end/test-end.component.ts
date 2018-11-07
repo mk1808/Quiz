@@ -10,7 +10,7 @@ import { Result } from 'src/app/shared/models/classes';
 })
 export class TestEndComponent implements OnInit {
   total:number;
-  true:number;
+  trueAns:number;
   isPassed:boolean;
   truePercent:number;
   constructor(private testService: TestService, private router:Router) { }
@@ -19,13 +19,18 @@ export class TestEndComponent implements OnInit {
   ) {
     let result:Result= this.testService.getResult();
     this.total=result.total;
-    this.true=result.true;
-    this.truePercent=this.true/this.total*100;
+    this.trueAns=result.true;
+    this.truePercent=this.trueAns/this.total*100;
     this.isPassed=this.truePercent>=50;
-    console.log("total:"+this.total+" true:"+this.true+" procent:"+this.truePercent+ " "+this.isPassed);
+    console.log("total:"+this.total+" true:"+this.trueAns+" procent:"+this.truePercent+ " "+this.isPassed);
 
     console.log(this.testService.getResult());
    
   }
+  onSubmit (){
+ 
+      this.router.navigate(['/test']);
+    
+  };
 
 }
