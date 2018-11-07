@@ -5,13 +5,23 @@
         <article class="message is-primary" style="background-color:#649494">
           <div class="message-body">
               {{question.category}}
-              
           </div>
         </article>
       </div>
       <article class="message is-primary" style="background-color:#649494">
         <div class="message-body"> {{question.text}}
+            <div *ngIf="containsPhoto; else noPhoto">
+              <div style="text-align: center; margin-top:20px;" >
+                <img src={{question.image}} style="max-height: 150pt; border: 3px solid black;"> 
+              </div>
+
+            </div>
+            <ng-template #noPhoto>
+           <div> </div>  
+            </ng-template>
+           
         </div>
+        
       </article>
       <app-answer *ngFor="let answer of question.answers" [setAnswer]="answer" (onChange)="onChange($event)"></app-answer>
     </div>

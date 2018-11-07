@@ -10,12 +10,16 @@ export class QuestionComponent implements OnInit {
 
   question: Question;
   status = new QuestionStatus;
-
+  containsPhoto:boolean;
+ 
+  containsCode:boolean;
   @Output() questionStatus = new EventEmitter<QuestionStatus>();
 
   @Input() set setQuestion(question: Question) {
     this.question = question;
     this.status.id = question.id;
+
+   if (question.image!=null) this.containsPhoto=true;
 
     question.answers.forEach(
       answer => {
@@ -23,6 +27,7 @@ export class QuestionComponent implements OnInit {
         answerStatus.id = answer.id;
         answerStatus.value = 0;
         this.status.answers.push(answerStatus);
+        
       }
     );
   }
