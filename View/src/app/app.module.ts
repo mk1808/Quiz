@@ -19,6 +19,7 @@ import { TestBeginComponent } from './content/test/test-begin/test-begin.compone
 import { TestEndComponent } from './content/test/test-end/test-end.component';
 import { AnswerComponent } from './content/test/question/answer/answer.component';
 import {ReactiveFormsModule} from "@angular/forms";
+import { HighlightModule } from 'ngx-highlightjs';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import {ReactiveFormsModule} from "@angular/forms";
     MatToolbarModule,
     MatMenuModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HighlightModule.forRoot({ theme: 'foundation'})
   ],
   providers: [],
   bootstrap: [AppComponent]

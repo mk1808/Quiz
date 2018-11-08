@@ -1,6 +1,8 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {Answer, AnswerStatus, QuestionStatus} from 'src/app/shared/models/classes';
 import {Question} from 'src/app/shared/models/classes';
+
+import { HighlightModule, HighlightDirective} from 'ngx-highlightjs';
 @Component({
   selector: 'app-question',
   templateUrl: './question.component.html',
@@ -20,7 +22,7 @@ export class QuestionComponent implements OnInit {
     this.status.id = question.id;
 
    if (question.image!=null) this.containsPhoto=true;
-
+   if (question.code!="") this.containsCode=true;
     question.answers.forEach(
       answer => {
       const  answerStatus = new AnswerStatus();
