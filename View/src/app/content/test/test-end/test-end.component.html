@@ -6,23 +6,48 @@
           PODSUMOWANIE
         </div>
       </div>
-      <div fxLayout="row">
+      <div fxLayout="row" *ngIf="isPassed; else notPassed" >
         <div style="text-align: center;  FONT-FAMILY:Didact Gothic; color:black;
     font-size: 30px; font-weight: bold; margin-top:15px;">
          Uzyskano:
           <br>
-          {{trueAns}}/{{total}}
+          <span class="testPass">{{trueAns}}</span>
+          /{{total}}
            pkt 
           <br>
           {{truePercent}} %
-          <p *ngIf="isPassed; else notPassed">ZALICZONO</p>
-            <ng-template #notPassed>
-           <p> NIE ZALICZONO</p>  
-            </ng-template>
+          <p>
+              <span class="testPass">
+            ZALICZONO</span>
+          </p>
+         
 
          
         </div>
       </div>
+         <ng-template #notPassed>
+           
+            <div fxLayout="row"  >
+                <div style="text-align: center;  FONT-FAMILY:Didact Gothic; color:black;
+            font-size: 30px; font-weight: bold; margin-top:15px;">
+                 Uzyskano:
+                  <br>
+                  
+                  <span class="testFail">{{trueAns}}</span>
+                    /{{total}}
+                   pkt 
+                  <br>
+                  {{truePercent}} %
+                  <p>
+                      <span class="testFail">
+                  NIE ZALICZONO</span>
+                  </p>
+                 
+        
+                 
+                </div>
+              </div> 
+            </ng-template>
       <div fxLayout="row">
         <div>
           <button mat-raised-button style=" box-shadow: 0px 0px 18px 4px  rgba(1, 1, 1, 0.54);  

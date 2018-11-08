@@ -20,7 +20,7 @@ export class TestEndComponent implements OnInit {
     let result:Result= this.testService.getResult();
     this.total=result.total;
     this.trueAns=result.true;
-    this.truePercent=this.trueAns/this.total*100;
+    this.truePercent=Math.round(this.trueAns/this.total*100);
     this.isPassed=this.truePercent>=50;
     console.log("total:"+this.total+" true:"+this.trueAns+" procent:"+this.truePercent+ " "+this.isPassed);
 
