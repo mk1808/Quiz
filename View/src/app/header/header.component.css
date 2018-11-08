@@ -44,3 +44,16 @@
     display: inline-block;
     background-color: white;
 }
+
+.materials{
+    height:100%; 
+    margin-top: auto ;
+}
+
+.writing{
+    text-align: center; 
+    FONT-FAMILY:Didact Gothic; 
+    color: cadetblue; 
+    text-shadow: 2px 2px grey;
+    text-decoration: overline;
+}

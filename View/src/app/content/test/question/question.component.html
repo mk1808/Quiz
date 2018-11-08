@@ -11,8 +11,8 @@
       <article class="message is-primary" style="background-color:#649494">
         <div class="message-body"> {{question.text}}
             <div *ngIf="containsPhoto; else noPhoto">
-              <div style="text-align: center; margin-top:20px;" >
-                <img src={{question.image}} style="max-height: 150pt; border: 3px solid black;"> 
+              <div class="photoPosition" >
+                <img src={{question.image}} class="photoStyle"> 
               </div>
 
             </div>
@@ -20,7 +20,7 @@
            <div> </div>  
             </ng-template>
             <pre *ngIf="containsCode; else noCode" 
-            style="background-color: rgb(226,226,226); margin-top:20px;">
+            class="codeStyle">
             <code highlight [code]="question.code"></code></pre>
             <ng-template #noCode>
                 <div> </div>  

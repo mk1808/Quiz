@@ -1,60 +1,46 @@
 <div class="container">
-    <div fxLayout="column">
-      <div fxLayout="row">
-        <div style="text-align: center;  FONT-FAMILY:Didact Gothic; color: cadetblue;
-       text-shadow: 2px 2px grey;font-size: 70px; font-weight: bold; margin-top:15px;">
-          PODSUMOWANIE
-        </div>
+  <div fxLayout="column">
+    <div fxLayout="row">
+      <div class="summary">
+        PODSUMOWANIE
       </div>
-      <div fxLayout="row" *ngIf="isPassed; else notPassed" >
-        <div style="text-align: center;  FONT-FAMILY:Didact Gothic; color:black;
-    font-size: 30px; font-weight: bold; margin-top:15px;">
-         Uzyskano:
+    </div>
+    <div fxLayout="row" *ngIf="isPassed; else notPassed">
+      <div class="testScore">
+        Uzyskano:
+        <br>
+        <span class="testPass">{{trueAns}}</span>
+        /{{total}}
+        pkt
+        <br>
+        {{truePercent}} %
+        <p>
+          <span class="testPass">
+            ZALICZONO</span>
+        </p>
+      </div>
+    </div>
+    <ng-template #notPassed>
+      <div fxLayout="row">
+        <div class="testScore">
+          Uzyskano:
           <br>
-          <span class="testPass">{{trueAns}}</span>
+          <span class="testFail">{{trueAns}}</span>
           /{{total}}
-           pkt 
+          pkt
           <br>
           {{truePercent}} %
           <p>
-              <span class="testPass">
-            ZALICZONO</span>
+            <span class="testFail">
+              NIE ZALICZONO</span>
           </p>
-         
-
-         
         </div>
       </div>
-         <ng-template #notPassed>
-           
-            <div fxLayout="row"  >
-                <div style="text-align: center;  FONT-FAMILY:Didact Gothic; color:black;
-            font-size: 30px; font-weight: bold; margin-top:15px;">
-                 Uzyskano:
-                  <br>
-                  
-                  <span class="testFail">{{trueAns}}</span>
-                    /{{total}}
-                   pkt 
-                  <br>
-                  {{truePercent}} %
-                  <p>
-                      <span class="testFail">
-                  NIE ZALICZONO</span>
-                  </p>
-                 
-        
-                 
-                </div>
-              </div> 
-            </ng-template>
-      <div fxLayout="row">
-        <div>
-          <button mat-raised-button style=" box-shadow: 0px 0px 18px 4px  rgba(1, 1, 1, 0.54);  
-     height: 56px; font-size: 24px; display: block;
-  margin: auto; margin-top:30px;"
-            (click)="onSubmit()">PRZEJDŹ DO TESTU</button>
-        </div>
+    </ng-template>
+    <div fxLayout="row">
+      <div>
+        <button mat-raised-button class="continue" (click)="onSubmit()">PRZEJDŹ DO TESTU</button>
       </div>
     </div>
   </div>
+</div>

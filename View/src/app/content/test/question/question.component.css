@@ -2,3 +2,20 @@
    
 }
 
+.artStyle{
+
+}
+
+.photoStyle{
+    max-height: 150pt;
+    border: 3px solid black;
+}
+
+.photoPosition{
+    text-align: center; margin-top:20px;
+}
+
+.codeStyle{
+    background-color: rgb(226,226,226);
+     margin-top:20px;
+}

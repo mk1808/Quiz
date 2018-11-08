@@ -1,0 +1,10 @@
+.btnPosition{
+    margin-top:20px; 
+    margin-bottom:20px;
+}
+
+.btnStyle{
+    margin-left: auto; 
+    margin-right:10px; 
+    background-color:rgb(137, 231, 59);
+}
