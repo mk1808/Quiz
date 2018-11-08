@@ -19,6 +19,8 @@ export class TestEndComponent implements OnInit {
   ) {
     let result:Result= this.testService.getResult();
     this.total=result.total;
+	if (this.total == null)
+      this.router.navigate(['/begin']); 
     this.trueAns=result.true;
     this.truePercent=Math.round(this.trueAns/this.total*100);
     this.isPassed=this.truePercent>=50;
