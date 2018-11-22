@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { TestService } from 'src/app/shared/services/test.service';
-import { Question, QuestionStatus } from 'src/app/shared/models/classes';
-import { Router } from '@angular/router';
+import { TestService } from 'src/app/quiz/shared/services/test.service';
+import { Question, QuestionStatus } from 'src/app/quiz/shared/models/classes';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-test',
@@ -15,7 +15,7 @@ export class TestComponent implements OnInit {
   status = new QuestionStatus;
 
 
-  constructor(private testService: TestService, private router:Router) {
+  constructor(private testService: TestService, private router:Router, private route:ActivatedRoute) {
 
   }
 
@@ -62,7 +62,7 @@ export class TestComponent implements OnInit {
       { 
         
         this.testService.setResult(x);
-        this.router.navigate(['/end']);
+        this.router.navigate(['../end'], { relativeTo: this.route });
       });
    
   }

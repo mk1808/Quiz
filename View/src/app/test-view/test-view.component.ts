@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {TestService} from '../shared/services/test.service';
-import {AnswerStatus, Question, QuestionStatus} from '../shared/models/classes';
+
 
 @Component({
   selector: 'app-test-view',
@@ -8,12 +7,14 @@ import {AnswerStatus, Question, QuestionStatus} from '../shared/models/classes';
   styleUrls: ['./test-view.component.css']
 })
 export class TestViewComponent implements OnInit {
-
+/*
   obj: Question[] = [];
-  constructor(private testService: TestService) { }
+  */
+  constructor() { }
 
   ngOnInit() {
-
+  }
+  /*
     console.log(this.testService.getResult());
     this.testService.getQuestions().subscribe(x => {
       this.obj = x;
@@ -55,5 +56,5 @@ export class TestViewComponent implements OnInit {
       console.log(this.testService.getResult());
     });
   }
-
+*/
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { TestService } from 'src/app/shared/services/test.service';
-import { Result } from 'src/app/shared/models/classes';
+import { Router, ActivatedRoute } from '@angular/router';
+import { TestService } from 'src/app/quiz/shared/services/test.service';
+import { Result } from 'src/app/quiz/shared/models/classes';
 
 @Component({
   selector: 'app-test-end',
@@ -13,7 +13,7 @@ export class TestEndComponent implements OnInit {
   trueAns:number;
   isPassed:boolean;
   truePercent:number;
-  constructor(private testService: TestService, private router:Router) { }
+  constructor(private testService: TestService, private router:Router, private route:ActivatedRoute ) { }
 
   ngOnInit(
   ) {
@@ -31,7 +31,7 @@ export class TestEndComponent implements OnInit {
   }
   onSubmit (){
  
-      this.router.navigate(['/begin']);
+    this.router.navigate(['../begin'], { relativeTo: this.route });
     
   };
 
