@@ -5,6 +5,7 @@ import { QuizRoutingModule } from './quiz-routing.module';
 import { HeaderComponent } from './layout/header/header.component';
 import { HttpClientModule } from '@angular/common/http';
 import { MatButtonModule } from '@angular/material';
+import { FooterComponent } from './layout/footer/footer.component';
 
 @NgModule({
   imports: [
@@ -13,6 +14,6 @@ import { MatButtonModule } from '@angular/material';
     HttpClientModule,
     MatButtonModule
   ],
-  declarations: [LayoutComponent,HeaderComponent]
+  declarations: [LayoutComponent,HeaderComponent, FooterComponent]
 })
 export class QuizModule { }
