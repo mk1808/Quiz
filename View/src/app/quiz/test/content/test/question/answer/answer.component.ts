@@ -9,7 +9,7 @@ import { MatCheckbox } from '@angular/material';
 })
 export class AnswerComponent implements OnInit {
   answer: Answer;
-  color = 'white';
+  color = '#505050';
   answerS = new AnswerStatus();
   @Input() set setAnswer(answer: Answer) {
     this.answer = answer;
@@ -28,12 +28,12 @@ export class AnswerComponent implements OnInit {
       if (!this.checkbox.checked) {
       this.checkbox.checked = true;
       }
-      this.color = '#2b8e94'; } else {
+      this.color = '#707070'; } else {
       this.answerS.value = 0;
       if (this.checkbox.checked) {
       this.checkbox.toggle();
       }
-      this.color = 'white';
+      this.color = '#505050';
     }
 
     this.onChange.emit(this.answerS);
