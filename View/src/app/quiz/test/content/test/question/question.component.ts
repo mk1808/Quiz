@@ -1,8 +1,5 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
-import {Answer, AnswerStatus, QuestionStatus} from 'src/app/shared/models/classes';
-import {Question} from 'src/app/shared/models/classes';
-
-import { HighlightModule, HighlightDirective} from 'ngx-highlightjs';
+import { Question, AnswerStatus, QuestionStatus } from 'src/app/quiz/shared/models/classes';
 @Component({
   selector: 'app-question',
   templateUrl: './question.component.html',

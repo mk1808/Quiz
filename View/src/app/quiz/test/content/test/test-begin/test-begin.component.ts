@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, Route, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-test-begin',
@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 })
 export class TestBeginComponent implements OnInit {
 
-  constructor(private router:Router) { 
+  constructor(private router:Router, private route:ActivatedRoute) { 
     
   }
 
@@ -16,6 +16,6 @@ export class TestBeginComponent implements OnInit {
   }
 
   onSubmit(){
-    this.router.navigate(['/test']);
+    this.router.navigate(['../test'], { relativeTo: this.route });
   }
 }

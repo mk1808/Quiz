@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild} from '@angular/core';
-import { Answer, AnswerStatus } from 'src/app/shared/models/classes';
+import { Answer, AnswerStatus } from 'src/app/quiz/shared/models/classes';
 import { MatCheckbox } from '@angular/material';
 
 @Component({
