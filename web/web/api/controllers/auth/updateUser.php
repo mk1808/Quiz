@@ -26,40 +26,22 @@ include_once '../../models/user.php';
 $database = new Database();
 $db = $database->getConnection();
 
-
 // instantiate user object
 
 $user = new User($db);
 
-
-
-
-
 // get posted data
 $data = json_decode(file_get_contents("php://input"));
-
-
-
-
 
 // get jwt
 $jwt=isset($data->jwt) ? $data->jwt : "";
 
 // if jwt is not empty
-
-
-
 if($jwt){
 
     // if decode succeed, show user details
-
-
-
-
-try {
-
+    try {
             $decoded = JWT::decode($jwt, $key, array('HS256'));
-
             // set user property values
             $user->name = $data->name;
             $user->surname = $data->surname;
@@ -80,7 +62,8 @@ try {
                         "id" => $user->id,
                         "name" => $user->name,
                         "surname" => $user->surname,
-                        "email" => $user->email
+                        "email" => $user->email,
+                        "role" => $user->role
                     )
                 );
                 $jwt = JWT::encode($token, $key);

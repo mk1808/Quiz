@@ -102,34 +102,27 @@ class user
         $this->name=htmlspecialchars(strip_tags($this->name));
         $this->surname=htmlspecialchars(strip_tags($this->surname));
         $this->email=htmlspecialchars(strip_tags($this->email));
-        $this->email=htmlspecialchars(strip_tags($this->role));
-        $password_set=!empty($this->password) ? ", password = :password" : "";
-
-        // if no posted password, do not update the password
-        $query = 'UPDATE ' . $this->table_name . '
-            SET
-                NAME = "'.$this->name.'",
-                SURNAME = "'.$this->surname.'",
-                EMAIL = "'.$this->email.'",
-                ROLE = "'.$this->role."
-                {$password_set}
-            WHERE id = :id";
-
-        // prepare the query
-        $stmt = $this->conn->prepare($query);
-
-        // sanitize
-
-        // bind the values from the form
-        // hash the password before saving to database
+        $this->role=htmlspecialchars(strip_tags($this->role));
+        $password_hash = "";
         if(!empty($this->password)){
             $this->password=htmlspecialchars(strip_tags($this->password));
             $password_hash = password_hash($this->password, PASSWORD_BCRYPT);
-            $stmt->bindParam(':password', $password_hash);
-        }
 
-        // unique ID of record to be edited
-        $stmt->bindParam(':id', $this->id);
+            //$stmt->bindParam(':password', $password_hash);
+        }
+        $password_set=!empty($this->password) ? ', PASSWORD = "'.$password_hash : "";
+
+        // if no posted password, do not update the password
+        $query = 'UPDATE user SET
+                NAME = "'.$this->name.'",
+                SURNAME = "'.$this->surname.'",
+                EMAIL = "'.$this->email.'",
+                ROLE = "'.$this->role.'"'."
+                {$password_set}".'"'."
+            WHERE ID = ".$this->id.";";
+
+        // prepare the query
+        $stmt = $this->conn->prepare($query);
 
         // execute the query
         if($stmt->execute()){
