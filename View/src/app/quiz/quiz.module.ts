@@ -6,6 +6,8 @@ import { HeaderComponent } from './layout/header/header.component';
 import { HttpClientModule } from '@angular/common/http';
 import { MatButtonModule } from '@angular/material';
 import { FooterComponent } from './layout/footer/footer.component';
+import { LoginComponent } from './auth/login/login.component';
+import { RegisterComponent } from './auth/register/register.component';
 
 @NgModule({
   imports: [
@@ -14,6 +16,6 @@ import { FooterComponent } from './layout/footer/footer.component';
     HttpClientModule,
     MatButtonModule
   ],
-  declarations: [LayoutComponent,HeaderComponent, FooterComponent]
+  declarations: [LayoutComponent,HeaderComponent, FooterComponent, LoginComponent, RegisterComponent]
 })
 export class QuizModule { }
