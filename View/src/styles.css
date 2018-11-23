@@ -2,6 +2,10 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
 body{
-  background-image: url("assets/background-pattern.png");
-  min-height: -webkit-fill-available;
+  background-color: #2a2a2a;
+  min-height: 100%;
+}
+
+html{
+  height:100%;
 }

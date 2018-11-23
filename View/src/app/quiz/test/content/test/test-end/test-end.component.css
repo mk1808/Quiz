@@ -1,16 +1,16 @@
 .testPass{
-    color:green;
+    color:#55c155;
 }
 
 .testFail{
-    color:red;
+    color:#f14f4f;
 }
 
 .summary{
     text-align: center;  
     font-family:Didact Gothic; 
-    color: cadetblue;
-    text-shadow: 2px 2px grey;
+    color: #0281D6;
+    text-shadow: 2px 2px#505050;
     font-size: 70px; 
     font-weight: bold; 
     margin-top:15px;
@@ -19,7 +19,7 @@
 .testScore{
     text-align: center;  
     font-family:Didact Gothic; 
-    color:black;
+    color:#ededed;
     font-size: 30px; 
     font-weight: bold; 
     margin-top:15px;
@@ -32,4 +32,5 @@
     display: block;
     margin: auto; 
     margin-top:30px;
+    background-color: #707070
 }
