@@ -33,6 +33,10 @@ class user
         $this->role=htmlspecialchars(strip_tags($this->role));
         $password_hash = password_hash($this->password, PASSWORD_BCRYPT);
 
+        if ($this->emailExists()){
+            return false;
+        }
+
         $query = 'INSERT INTO user SET 
                 NAME = "'.$this->name.'",
                 SURNAME = "'.$this->surname.'",
