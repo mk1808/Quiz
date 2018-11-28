@@ -1,6 +1,6 @@
 <div class="container">
-  <div fxLayout="column">
-    <div fxLayout="row">
+  <div fxLayout="column" fxLayoutAlign="space-around center">
+    <div fxLayout="row" >
       <div class="login">
        Logowanie
       </div>
@@ -37,7 +37,8 @@
       Nie masz konta?
     </div>
     <div fxLAyout="row">     
-      <button mat-raised-button class="continue newAccount">Zarejestruj</button>
+      <button mat-raised-button class="continue newAccount"
+      (click)="onClick()">Zarejestruj</button>
     </div>
  
     
