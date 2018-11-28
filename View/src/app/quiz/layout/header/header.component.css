@@ -4,7 +4,9 @@
 }
 
 .logoHeader{
-    margin-left: 25px;
+    height: 110px;
+    padding-top:8px;
+    padding-bottom: 8px;
 }
 
 .appNavbar{
@@ -18,7 +20,6 @@
     height:3px;
     width:100%;
     background-color: #0281D6;
-    
 }
 
 .loginRegister{

@@ -14,6 +14,7 @@ import { SideMenuComponent } from './side-menu/side-menu.component';
 import { TestViewComponent } from './test-view/test-view.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import { HighlightModule } from 'ngx-highlightjs';
+import { FlexLayoutModule } from "@angular/flex-layout";
 
 @NgModule({
   declarations: [
@@ -31,7 +32,10 @@ import { HighlightModule } from 'ngx-highlightjs';
     ModalModule.forRoot(),
     AlertModule.forRoot(),
     BrowserAnimationsModule,
-    HttpClientModule
+    HttpClientModule,
+    FlexLayoutModule
+    
+    
   ],
   providers: [],
   bootstrap: [AppComponent]

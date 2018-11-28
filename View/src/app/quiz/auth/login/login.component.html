@@ -1,0 +1,47 @@
+<div class="container">
+  <div fxLayout="column" fxLayoutAlign="space-around center">
+    <div fxLayout="row" >
+      <div class="login">
+       Logowanie
+      </div>
+    </div>
+    <br>
+    <div fxLayout="row" class="inputPos">
+  <div class="input-group mb-3">
+    <div class="input-group-prepend" >
+      <span class="input-group-text inputStyle"  ><i class="material-icons">
+        person
+        </i></span>
+    </div>
+    <input type="text" class="form-control" placeholder="Login" 
+    aria-label="Username" aria-describedby="basic-addon1">
+  </div>  
+  </div>
+  <div fxLayout="row" class="inputPos">
+    <div class="input-group mb-3">
+      <div class="input-group-prepend" >
+        <span class="input-group-text inputStyle"  ><i class="material-icons">
+          lock
+          </i></span>
+      </div>
+      <input type="text" class="form-control" placeholder="Hasło" 
+      aria-label="Username" aria-describedby="basic-addon1">
+    </div>  
+    </div>
+    <div fxLAyout="row">
+      <button mat-raised-button class="continue">Zaloguj</button>
+    </div>
+    <br>
+    <br>
+    <div fxLAyout="row" class="registerText">
+      Nie masz konta?
+    </div>
+    <div fxLAyout="row">     
+      <button mat-raised-button class="continue newAccount"
+      (click)="onClick()">Zarejestruj</button>
+    </div>
+ 
+    
+    <br>
+</div>
+</div>
