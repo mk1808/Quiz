@@ -1,6 +1,6 @@
 import {FormGroup, ValidationErrors, ValidatorFn} from '@angular/forms';
 import {AbstractControl} from '@angular/forms';
-
+/*
 export function passwordValidator: ValidatorFn = 
 (control: FormGroup):ValidationErrors | null => {
     const password= control.get('password');
@@ -10,7 +10,7 @@ export function passwordValidator: ValidatorFn =
     { 'identityRevealed': true } : null;
     };
   }
-
+*/
   /*export const PasswordValidation: ValidatorFn = (control: FormGroup): ValidationErrors | null => {
     const newPassword= control.get('newPassword');
     const newPasswordCheck = control.get('newPasswordCheck');

@@ -10,6 +10,7 @@ import { MatButtonModule, MatToolbarModule, MatCheckboxModule, MatMenuModule } f
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HighlightModule } from 'ngx-highlightjs';
+import { TestListComponent } from './content/test-list/test-list.component';
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import { HighlightModule } from 'ngx-highlightjs';
     QuestionComponent,
     TestBeginComponent,
     TestEndComponent,
-    AnswerComponent]
+    AnswerComponent,
+    TestListComponent]
 })
 export class TestModule { }
