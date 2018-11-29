@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-new-test',
@@ -6,8 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./new-test.component.css']
 })
 export class NewTestComponent implements OnInit {
-
-  constructor() { }
+  newTestForm: FormGroup = this.fb.group({});
+  constructor(private fb: FormBuilder) { }
 
   ngOnInit() {
   }

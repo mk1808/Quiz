@@ -10,14 +10,14 @@ import { MatButtonModule, MatToolbarModule, MatCheckboxModule, MatMenuModule } f
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HighlightModule } from 'ngx-highlightjs';
-import { TestListComponent } from './content/test-list/test-list.component';
+import { TestListStudentComponent } from './content/test-list-student/test-list-student.component';
+
 
 
 @NgModule({
   imports: [
     CommonModule,
     TestRoutingModule,
-    
     MatButtonModule,
     MatCheckboxModule,
     MatToolbarModule,
@@ -32,6 +32,6 @@ import { TestListComponent } from './content/test-list/test-list.component';
     TestBeginComponent,
     TestEndComponent,
     AnswerComponent,
-    TestListComponent]
+    TestListStudentComponent]
 })
 export class TestModule { }

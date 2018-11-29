@@ -20,13 +20,7 @@
 
 
 .login{
-    text-align: center;  
-    FONT-FAMILY:Didact Gothic; 
-    color: #0281D6;
-    text-shadow: 2px 2px #505050;
-    font-size: 70px; 
-    font-weight: bold; 
-    margin-top:15px;
+    margin-bottom: 10px;
 }
 
 .inputPos{
