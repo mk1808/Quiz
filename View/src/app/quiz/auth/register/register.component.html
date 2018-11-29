@@ -1,3 +1,4 @@
+<form [formGroup]="registerForm">
 <div class="container" >
     <div fxLayout="column" fxLayoutAlign="space-around center">
       <div fxLayout="row">
@@ -18,7 +19,7 @@
           </i></span>
       </div>
       <input type="text" class="form-control" placeholder="Login" 
-      aria-label="Username" aria-describedby="basic-addon1">
+      aria-label="Username" aria-describedby="basic-addon1" formControlName="username">
     </div>  
     </div>
     <div fxLayout="row" class="inputPos">
@@ -29,7 +30,7 @@
             </i></span>
         </div>
         <input type="password" class="form-control" placeholder="Hasło" 
-        aria-label="Hasło" aria-describedby="basic-addon1">
+        aria-label="Hasło" aria-describedby="basic-addon1" formControlName="password">
       </div>  
       </div>
       <div fxLayout="row" class="inputPos">
@@ -40,7 +41,7 @@
               </i></span>
           </div>
           <input type="password" class="form-control" placeholder="Powtórz hasło" 
-          aria-label="Powtórz hasło" aria-describedby="basic-addon1">
+          aria-label="Powtórz hasło" aria-describedby="basic-addon1" formControlName="passwordRepeat">
         </div>  
         </div>
 
@@ -59,7 +60,7 @@
                 </i></span>
             </div>
             <input type="text" class="form-control" placeholder="E-mail" 
-            aria-label="E-mail" aria-describedby="basic-addon1">
+            aria-label="E-mail" aria-describedby="basic-addon1" formControlName="email">
           </div>  
           </div>
 
@@ -71,7 +72,7 @@
               </i></span>
           </div>
           <input type="text" class="form-control" placeholder="Imię" 
-          aria-label="Imię" aria-describedby="basic-addon1">
+          aria-label="Imię" aria-describedby="basic-addon1" formControlName="name">
         </div>  
         </div>
 
@@ -83,7 +84,7 @@
                 </i></span>
             </div>
             <input type="text" class="form-control" placeholder="Nazwisko" 
-            aria-label="Nazwisko" aria-describedby="basic-addon1">
+            aria-label="Nazwisko" aria-describedby="basic-addon1" formControlName="surname">
           </div>  
           </div>
           </div>
@@ -93,7 +94,8 @@
       <div fxLayout="column">
     
       <div fxLAyout="row">
-        <button mat-raised-button class="continue">Utwórz nowe konto</button>
+        <button mat-raised-button class="continue"
+        (click)="onRegister()">Utwórz nowe konto</button>
       </div>
       <br>
       <br>
@@ -103,4 +105,4 @@
       <br>
   </div>
 
-  
+</form>
