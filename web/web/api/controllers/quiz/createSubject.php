@@ -23,15 +23,15 @@ $subject = new Subject($db);
 $data = json_decode(file_get_contents("php://input"));
 
 $subject->name = $data->name;
-$subject->author = $data->author;
+$subject->id_author = $data->author;
 $subject->nOQuestions = $data->nOQuestions;
 $subject->multipleChoice = $data->multipleChoice;
 $subject->separatePage = $data->separatePage;
 $subject->canBack = $data->canBack;
 $subject->limitedTime = $data->limitedTime;
-$subject->forQuestion = $data->forQuestion;
+$subject->course = $data->course;
 $subject->time = $data->time;
-$subject->forUnregister = $data->forUnregister;
+$subject->description = $data->description;
 
 
 if($subject->create()){

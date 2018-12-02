@@ -136,4 +136,18 @@ class user
         return false;
     }
 
+
+    public function  getResultForQuestion($id_user, $id_question){
+        $query = "SELECT * FROM user_result WHERE ID_USER = ".$id_user." AND ID_SUBJECT = ".$id_question;
+        $stmt = $this->conn->prepare($query);
+
+        $stmt->execute();
+
+        $value= $stmt->fetch(PDO::FETCH_ASSOC);
+
+
+        //$value = array( $stmt->fetch(PDO::FETCH_ASSOC));
+        return $value;
+    }
+
 }

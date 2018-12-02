@@ -6,13 +6,14 @@ class Answer{
     public $ID;
     public $idQuestion;
     public $text;
+    public $status;
     
     public function __construct($db){
         $this->conn = $db;
     }
     
     public function checkAnswer($id){
-        $query = "SELECT IS_TRUE FROM ANSWER_STATUS WHERE ID = ".$id;
+        $query = "SELECT STATUS FROM ANSWER WHERE ID = ".$id;
         $stmt = $this->conn->prepare($query);
         
         $stmt->execute();
