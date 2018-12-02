@@ -2,9 +2,6 @@
     margin-bottom: 10px;
 }
 
-.inputStyle{
-    border:0;
-}
 .registerText{
     color:#ededed;
     text-align: center;
@@ -12,23 +9,6 @@
 
 .newAccount{
     margin-top:10px; 
-}
-
-.inputPos{
-    margin: auto;
-    width:200px;
-}
-
-.inputColor{
-    color:#ededed;
-}
-
-.input-group-text{
-    background-color: #707070;
-}
-
-.form-control{
-    background-color:#ededed;
 }
 
 .colleft{

@@ -32,3 +32,20 @@ html{
   margin-top:30px !important;
   background-color: #707070
 }
+
+.inputStyle{
+  border:0;
+}
+
+.inputPos{
+  margin: auto;
+  width:200px;
+}
+
+.input-group-text{
+  background-color: #707070;
+}
+
+.form-control{
+  background-color:#ededed;
+}
