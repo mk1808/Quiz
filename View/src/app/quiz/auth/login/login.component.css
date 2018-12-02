@@ -5,14 +5,6 @@
     color:#ededed;
     text-align: center;
 }
-.continue{
-    box-shadow: 0px 0px 18px 4px  rgba(1, 1, 1, 0.54);  
-    height: 35px; font-size: 18px; 
-    display: block;
-    margin: auto; 
-    margin-top:30px;
-    background-color: #707070;
-}
 
 .newAccount{
     margin-top:10px; 
