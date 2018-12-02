@@ -1,7 +1,8 @@
+<form [formGroup]="userForm">
 <div class="container">
   <div fxLayout="column" fxLayoutAlign="space-around center">
     <div fxLayout="row" >
-      <div class="login">
+      <div class="wTitle login">
        Logowanie
       </div>
     </div>
@@ -9,12 +10,13 @@
     <div fxLayout="row" class="inputPos">
   <div class="input-group mb-3">
     <div class="input-group-prepend" >
-      <span class="input-group-text inputStyle"  ><i class="material-icons">
+      <span class="input-group-text inputStyle"  >
+        <i class="material-icons">
         person
         </i></span>
     </div>
     <input type="text" class="form-control" placeholder="Login" 
-    aria-label="Username" aria-describedby="basic-addon1">
+    aria-label="Username" aria-describedby="basic-addon1"  formControlName="username">
   </div>  
   </div>
   <div fxLayout="row" class="inputPos">
@@ -24,12 +26,13 @@
           lock
           </i></span>
       </div>
-      <input type="text" class="form-control" placeholder="Hasło" 
-      aria-label="Username" aria-describedby="basic-addon1">
+      <input type="password" class="form-control" placeholder="Hasło" 
+      aria-label="Username" aria-describedby="basic-addon1"  formControlName="password">
     </div>  
     </div>
     <div fxLAyout="row">
-      <button mat-raised-button class="continue">Zaloguj</button>
+      <button mat-raised-button class="continue "
+      (click)="onLogIn()">Zaloguj</button>
     </div>
     <br>
     <br>
@@ -40,8 +43,7 @@
       <button mat-raised-button class="continue newAccount"
       (click)="onClick()">Zarejestruj</button>
     </div>
- 
-    
     <br>
 </div>
 </div>
+</form>

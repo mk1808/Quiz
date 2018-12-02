@@ -11,3 +11,41 @@ body{
 html{
   height:100%;
 }
+
+.wTitle{
+  text-align: center;  
+  FONT-FAMILY:Didact Gothic; 
+  color: #0281D6;
+  text-shadow: 2px 2px #505050;
+  font-size: 70px; 
+  font-weight: bold; 
+  margin-top:15px;
+}
+
+.continue{ 
+  text-align: center;
+  box-shadow: 0px 0px 18px 4px  rgba(1, 1, 1, 0.54);  
+  height: 40px; 
+  font-size: 20px; 
+  display: block !important;
+  margin:0 auto !important;
+  margin-top:30px !important;
+  background-color: #707070
+}
+
+.inputStyle{
+  border:0;
+}
+
+.inputPos{
+  margin: auto;
+  width:200px;
+}
+
+.input-group-text{
+  background-color: #707070;
+}
+
+.form-control{
+  background-color:#ededed;
+}

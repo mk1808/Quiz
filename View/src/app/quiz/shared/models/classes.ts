@@ -31,3 +31,12 @@ export class Result {
   total: number;
   true: number;
 }
+
+export interface User{
+  id:number,
+  name:string,
+  surname:string,
+  email:string,
+  password:string,
+  role:number
+}
