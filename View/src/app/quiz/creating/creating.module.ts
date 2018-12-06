@@ -5,9 +5,10 @@ import { NewTestComponent } from './new-test/new-test.component';
 import { NewQuestionComponent } from './new-test/new-question/new-question.component';
 import { ResumeTestComponent } from './new-test/resume-test/resume-test.component';
 import { TestListComponent } from './test-list/test-list.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatButtonModule, MatToolbarModule, MatCheckboxModule, MatMenuModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { NgxMaskModule } from 'ngx-mask';
 
 
 @NgModule({
@@ -19,7 +20,11 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatToolbarModule, 
     MatCheckboxModule, 
     MatMenuModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    NgxMaskModule.forChild(),
+    MatCheckboxModule,
+    FormsModule
+
   ],
   declarations: [NewTestComponent, NewQuestionComponent, ResumeTestComponent, TestListComponent]
 })
