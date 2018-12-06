@@ -48,4 +48,28 @@ html{
 
 .form-control{
   background-color:#ededed;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  
 }
+
+.input-group-prepend{
+  height: 38px;
+  z-index: 0;
+  margin-right: -3px;
+}
+
+.form-group{
+  width:205px!important;
+}
+
+.form-check-input{
+  color:#ededed;
+  height: 20px;
+  width: 20px;
+  margin-right:10px;
+}
+
+.form-check-label{
+  color:#ededed;
+  }

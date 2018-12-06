@@ -15,6 +15,8 @@ import { TestViewComponent } from './test-view/test-view.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import { HighlightModule } from 'ngx-highlightjs';
 import { FlexLayoutModule } from "@angular/flex-layout";
+import { NgxMaskModule } from 'ngx-mask';
+
 
 @NgModule({
   declarations: [

@@ -1,0 +1,42 @@
+.colleft{
+    
+} 
+
+.colright{
+    
+} 
+
+.inputPos{
+    width:250px;
+    margin:0;
+    margin-bottom: 16px;
+  }
+
+.textAreaSize{
+    height:8em;
+    width:360px;
+}
+
+.rowPos{
+    margin-top:60px;
+    width:100%;
+    min-height: 270px;
+}
+
+.bottomRowPos{
+    margin-top:30px;
+    /*width:100%;*/
+ 
+}
+
+.checkPos{
+    margin-top:40px;
+}
+
+.durationPos{
+    margin-top:20px;
+}
+
+.wTitle{
+    margin-bottom: 30px !important;
+}
