@@ -72,4 +72,12 @@ class Question{
         return false;
     }
 
+    public function getQuestion($id){
+        $query = "SELECT * FROM question WHERE ID = ".$id;
+        $stmt = $this->conn->prepare($query);
+
+        $stmt->execute();
+        return $stmt;
+    }
+
 }

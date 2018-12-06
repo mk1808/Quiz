@@ -1,24 +1,24 @@
 <?php
-class Category{
+
+/**
+ * Created by IntelliJ IDEA.
+ * User: Marq
+ * Date: 29.11.2018
+ * Time: 21:13
+ */
+class Course
+{
     private $conn;
-    private $tableName = "CATEGORY";
-    
+    private $tableName = "courses";
+
     public $ID;
     public $name;
-    
+
     public function __construct($db){
         $this->conn = $db;
     }
 
-    public function getCategory($id){
-        $query = "SELECT * FROM CATEGORY WHERE ID = ".$id;
-        $stmt = $this->conn->prepare($query);
-
-        $stmt->execute();
-        return $stmt;
-    }
-
-    public function getCategoriesList(){
+    public function getCoursesList(){
         $query = "SELECT * FROM ".$this->tableName;
         //$query = "SELECT * FROM QUESTION";
         $stmt = $this->conn->prepare($query);
