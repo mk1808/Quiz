@@ -1,30 +1,4 @@
-export interface Answer {
-  id: number;
-  idQuestion: number;
-  text: string;
-  status: boolean;
-}
-
-export interface Category {
-  id: number;
-  name: string;
-}
-
-export interface Cours {
-  id: number;
-  name: string;
-}
-
-export interface Question {
-  id: number;
-  idSubject: number;
-  idCategory: number;
-  text: string;
-  code: string;
-  image: string;
-}
-
-export interface Subject {
+export class Subject {
   id: number;
   name: string;
   idAuthor: number;
@@ -38,18 +12,59 @@ export interface Subject {
   description: string;
 }
 
-export interface User {
+export class Question {
   id: number;
-  name: string;
-  surname: string;
-  email: string;
-  password: string;
-  role: number;
+  category: string;
+  idSubject:number;
+  text: string;
+  code: string;
+  image: string;
+  answers: Answer[];
 }
 
-export interface UserResult {
+export class Answer {
+  id: number;
+  text: string;
+  idQuestion:number;
+  status:boolean;
+}
+
+export class AnswerStatus {
+  id: number;
+  value: number;
+}
+
+export class QuestionStatus {
+  id: number;
+  answers: AnswerStatus[]=[];
+}
+
+export class Result {
+  total: number;
+  true: number;
+}
+
+export class User{
+  id:number,
+  name:string,
+  surname:string,
+  email:string,
+  password:string,
+  role:number
+}
+export class UserResult {
   id: number;
   idUser: number;
   idSubject: number;
   result: number;
+}
+
+export class Category {
+  id: number;
+  name: string;
+}
+
+export class Cours {
+  id: number;
+  name: string;
 }
