@@ -66,7 +66,7 @@ class Question{
         $stmt->bindParam(':image', $this->image);
 
         if($stmt->execute()){
-            return true;
+            return $this->conn->lastInsertId();
         }
 
         return false;

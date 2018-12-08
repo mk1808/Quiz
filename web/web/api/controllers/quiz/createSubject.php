@@ -33,10 +33,10 @@ $subject->course = $data->course;
 $subject->time = $data->time;
 $subject->description = $data->description;
 
-
-if($subject->create()){
+$stmt = $subject->create();
+if(!stmt==false){
     http_response_code(200);
-    echo json_encode(array("message" => "Subject was created."));
+    echo json_encode(array("message"=>"User was created", "id"=>$stmt));
 }
 else{
     http_response_code(400);
