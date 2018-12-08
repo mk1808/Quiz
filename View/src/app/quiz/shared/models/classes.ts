@@ -45,12 +45,12 @@ export class Result {
 }
 
 export class User{
-  id:number,
-  name:string,
-  surname:string,
-  email:string,
-  password:string,
-  role:number
+  id:number;
+  name:string;
+  surname:string;
+  email:string;
+  password:string;
+  role:number;
 }
 export class UserResult {
   id: number;
