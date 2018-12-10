@@ -4,12 +4,13 @@ export class Subject {
   idAuthor: number;
   nOQuestions: number;
   multipleChoice: boolean;
-  separatePage: boolean;
-  canBack: boolean;
+  separatePage: boolean=false;
+  canBack: boolean=false;
   limitedTime: boolean;
   time: number;
   course: string;
   description: string;
+
 }
 
 export class Question {

@@ -67,7 +67,7 @@ export class NewTestComponent implements OnInit {
       
       subject.course=this.newTestForm.controls.course.value;
       subject.nOQuestions=this.newTestForm.controls.nOQuestions.value;
-      this.creating.createSubject(subject).subscribe(x=> console.log(x), e=>console.log(e));
+      this.creating.createSubject(subject).subscribe(x=> console.log(x.id), e=>console.log(e));
     }
   }
 }
