@@ -60,11 +60,11 @@ export class UserResult {
 }
 
 export class Category {
-  id: number;
-  name: string;
+  ID: number;
+  NAME: string;
 }
 
-export class Cours {
-  id: number;
-  name: string;
+export interface Cours {
+  ID: number;
+  NAME: string;
 }

@@ -32,11 +32,10 @@
                   <select class="form-control" id="exampleFormControlSelect1" 
                   formControlName="course" >
                     <option selected>Kierunek studiów</option>
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
+                    <option *ngFor="let course of coursesTable">
+                        {{course.NAME}}
+                    </option>
+             
                   </select>
                 </div>
               </div>
@@ -54,14 +53,11 @@
                       <select class="form-control" id="exampleFormControlSelect1" 
                       formControlName="multipleChoice">
                         <option selected>Krotność</option>
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
+                        <option>jednokrotny</option>
+                        <option>wielokrotny</option>
                       </select>
                     </div>
-                  </div>
+                  </div>    
               </div>
               <div fxLayout="row">
                   
@@ -75,7 +71,7 @@
                       
                         <div class="form-group ">
                         <input class="form-control" type="number" placeholder="Ilość pytań"
-                          id="example-number-input"formControlName="nOQuestions" >
+                          id="example-number-input" formControlName="nOQuestions" >
                     </div>
               </div></div>
           </div>
@@ -128,7 +124,7 @@
             </div>
             <div fxLayout="column" fxFlex="50%" class="colleft" fxLayoutAlign="start center" > 
                 <div fxLayout="row" class="inputPos">
-                    <button mat-raised-button class="continue"
+                    <button mat-raised-button class="continue"  (click)="onCreate()"
                     >Zatwierdź</button>
                   </div>
             </div>

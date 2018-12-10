@@ -1,0 +1,16 @@
+.inputPos{
+    width:250px;
+    margin:0;
+    margin-bottom: 16px;
+  }
+
+.checkPos{
+  margin-right: 10px;
+    margin-top: 10px;
+}
+
+.rowPos{
+    margin-top:60px;
+    width:100%;
+    min-height: 270px;
+}
