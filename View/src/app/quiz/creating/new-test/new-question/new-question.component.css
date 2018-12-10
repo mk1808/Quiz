@@ -14,3 +14,19 @@
     width:100%;
     min-height: 270px;
 }
+
+.textAreaSize{
+    height:5em;
+    width:425px;
+    margin-bottom:32px;
+}
+
+.smallTextAreaSize{
+    height:4em;
+    width:400px;
+    margin-bottom:32px;
+}
+
+.inputSize{
+    width:425px;
+}
