@@ -1,0 +1,22 @@
+<div class="treeContainer">
+<button class="quizButton"
+        type="button"
+        data-toggle="collapse"
+        data-target="#questionList"
+        aria-expanded="true"
+        aria-controls="questionList">Nazwa Quizu</button>
+  <div class="collapse multi-collapse show" id="questionList">
+
+    <div *ngFor="let question of questions; let i = index">
+      <button class="quizButton questionButton"
+              (click)="collapse(i)"> {{i+1}} &nbsp;&nbsp;&nbsp;{{question.text}}</button>
+      <div id="question{{i}}"  class="quizCollapse">
+          <ol>
+            <li *ngFor="let answer of question.answers; let i = index"><p>{{answer.text}}</p></li>
+          </ol>
+      </div>
+      <div></div>
+    </div>
+  </div>
+
+</div>

@@ -9,6 +9,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatButtonModule, MatToolbarModule, MatCheckboxModule, MatMenuModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { NgxMaskModule } from 'ngx-mask';
+import { QuestionListComponent } from './new-test/new-question/question-list/question-list.component';
 
 
 @NgModule({
@@ -16,9 +17,9 @@ import { NgxMaskModule } from 'ngx-mask';
     CommonModule,
     CreatingRoutingModule,
     ReactiveFormsModule,
-    MatButtonModule, 
-    MatToolbarModule, 
-    MatCheckboxModule, 
+    MatButtonModule,
+    MatToolbarModule,
+    MatCheckboxModule,
     MatMenuModule,
     FlexLayoutModule,
     NgxMaskModule.forChild(),
@@ -26,6 +27,6 @@ import { NgxMaskModule } from 'ngx-mask';
     FormsModule
 
   ],
-  declarations: [NewTestComponent, NewQuestionComponent, ResumeTestComponent, TestListComponent]
+  declarations: [NewTestComponent, NewQuestionComponent, ResumeTestComponent, TestListComponent, QuestionListComponent]
 })
 export class CreatingModule { }

@@ -1,0 +1,71 @@
+.treeContainer{
+  width:100%;
+  min-height:200px;
+  border:2px solid #ededed;
+  border-radius: 10px;
+  padding:5px;
+}
+
+.quizButton{
+  width:100%;
+  color:#ededed;
+  background-color: #707070;
+  border: 0;
+  overflow: hidden !important;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+
+.questionButton{
+  max-width:90%;
+  margin-left: 20px;
+  margin-top:15px;
+  background-color: #2a2a2a;
+  font-size: 0.9em;
+  text-align: left;
+  -webkit-transition-duration: 300ms;
+  -moz-transition-duration: 300ms;
+  -o-transition-duration: 300ms;
+  transition-duration: 300ms;
+
+}
+.questionButton:hover {
+  height: auto;
+  overflow: visible !important;
+  text-overflow: unset;
+  white-space: initial;
+}
+
+li{
+  color: #ededed;
+  font-size: 0.7em;
+  margin: 10px;
+  margin-left: 50px;
+}
+
+li p{
+  height:18px;
+  overflow: hidden !important;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+li p:hover {
+  height:auto;
+  overflow: visible !important;
+  text-overflow: unset;
+  white-space: initial;
+}
+
+.quizCollapse{
+  max-height:0;
+  overflow: hidden;
+  -webkit-transition-duration: 300ms;
+  -moz-transition-duration: 300ms;
+  -o-transition-duration: 300ms;
+  transition-duration: 700ms ;
+}
+
+.quizShow{
+  max-height:100%;
+}
