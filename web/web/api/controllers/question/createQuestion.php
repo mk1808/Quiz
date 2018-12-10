@@ -28,10 +28,10 @@ $question->text = $data->text;
 $question->code = $data->code;
 $question->image = $data->image;
 
-
-if($question->create()){
+$stmt = $question->create();
+if(!stmt==false){
     http_response_code(200);
-    echo json_encode(array("message" => "Question was created."));
+    echo json_encode(array("message"=>"Question was created", "id"=>$stmt));
 }
 else{
     http_response_code(400);
