@@ -35,6 +35,7 @@ $subject->time = $data->time;
 $subject->description = $data->description;
 
 $stmt = $subject->create();
+
 if($stmt>0){
     http_response_code(200);
     echo json_encode(array("message"=>"Subject was created", "id"=>$stmt));

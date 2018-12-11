@@ -45,7 +45,9 @@
             </div>
           </div>
         </div>
-        <div fxLayout="column" fxFlex="40%"></div>
+        <div fxLayout="column" fxFlex="40%">
+          <app-question-list></app-question-list>
+        </div>
       </div>
       <div fxLayout="row">
         <div fxLayout="column" fxFlex="33%" fxLayoutAlign="start center">
@@ -60,7 +62,7 @@
         </div>
         <div fxLayout="column" fxFlex="33%" fxLayoutAlign="start center">
           <div fxLayout="row" class="inputPos">
-            <button mat-raised-button class="continue">Dodaj pytanie</button>
+            <button mat-raised-button class="continue" (click)="onAdd()">Dodaj pytanie</button>
           </div>
         </div>
 
