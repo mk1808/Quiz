@@ -37,11 +37,11 @@ if($num>0){
             array_push($answers, $answer);
         }
 
-        $stmtC = $category->getCategory($row['ID_CATEGORY']);
+        //$stmtC = $category->getCategory($row['CATEGORY']);
 
         $question=array(
             "id" => $row['ID'],
-            "category" => $stmtC->fetch()['NAME'],
+            "category" => $row['CATEGORY'],
             "text" => $row['TEXT'],
             "code" => html_entity_decode($row['CODE']),
             "image" => $row['IMAGE'],

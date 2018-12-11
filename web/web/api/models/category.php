@@ -19,7 +19,7 @@ class Category{
     }
 
     public function getCategoriesList(){
-        $query = "SELECT * FROM ".$this->tableName;
+        $query = "SELECT CATEGORY FROM question GROUP BY CATEGORY";
         //$query = "SELECT * FROM QUESTION";
         $stmt = $this->conn->prepare($query);
 
@@ -27,7 +27,7 @@ class Category{
 
         $value = array();
         for($i = 0; $i < $stmt->rowCount(); $i++){
-            $value[$i]= $stmt->fetch(PDO::FETCH_ASSOC);
+            $value[$i]= $stmt->fetch(PDO::FETCH_ASSOC)['CATEGORY'];
         }
 
         //$value = array( $stmt->fetch(PDO::FETCH_ASSOC));

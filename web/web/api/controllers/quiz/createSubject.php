@@ -12,6 +12,7 @@ header("Access-Control-Max-Age: 3600");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
 
+
 include_once '../../config/database.php';
 include_once '../../models/subject.php';
 
@@ -23,7 +24,7 @@ $subject = new Subject($db);
 $data = json_decode(file_get_contents("php://input"));
 
 $subject->name = $data->name;
-$subject->id_author = $data->author;
+$subject->id_author = $data->idAuthor;
 $subject->nOQuestions = $data->nOQuestions;
 $subject->multipleChoice = $data->multipleChoice;
 $subject->separatePage = $data->separatePage;
@@ -34,9 +35,9 @@ $subject->time = $data->time;
 $subject->description = $data->description;
 
 $stmt = $subject->create();
-if(!stmt==false){
+if($stmt>0){
     http_response_code(200);
-    echo json_encode(array("message"=>"User was created", "id"=>$stmt));
+    echo json_encode(array("message"=>"Subject was created", "id"=>$stmt));
 }
 else{
     http_response_code(400);
