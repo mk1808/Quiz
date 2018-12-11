@@ -20,7 +20,7 @@ export class Question {
   text: string;
   code: string;
   image: string;
-  answers: Answer[];
+  answers: Answer[]=[];
 }
 
 export class Answer {

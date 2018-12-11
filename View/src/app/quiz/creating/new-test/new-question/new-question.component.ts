@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Answer, Question } from 'src/app/quiz/shared/models/classes';
+import { CreatingService } from 'src/app/quiz/shared/services/creating.service';
 
 @Component({
   selector: 'app-new-question',
@@ -23,7 +24,7 @@ export class NewQuestionComponent implements OnInit {
     checkAnswer3:[false],
   });
   answers=[new Answer, new Answer, new Answer, new Answer ];
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private creating:CreatingService ) { }
 
   ngOnInit() {
   }
@@ -53,6 +54,8 @@ export class NewQuestionComponent implements OnInit {
         status:this.newQuestionForm.controls.checkAnswer3.value,
         id:null,idQuestion:null}
 
+        this.creating.createQuestion(question).subscribe(x=>console.log(x),e=>console.log(e) );
+    
     }
   }
 }

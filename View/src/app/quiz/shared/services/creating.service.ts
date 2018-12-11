@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs/index';
-import { Subject } from '../models/classes';
+import { Subject, Question } from '../models/classes';
 
 
 @Injectable({
@@ -14,5 +14,11 @@ export class CreatingService {
     return this.http.post<any>('http://localhost/web/web/api/controllers/quiz/createSubject.php',
     JSON.stringify(subject),
     {headers:{"Access-Control-Allow-Origin":"*"}});
+}
+
+public createQuestion(question:Question): Observable<Question> {
+  return this.http.post<any>('http://localhost/web/web/api/controllers/question/createQuestion.php',
+  JSON.stringify(question),
+  {headers:{"Access-Control-Allow-Origin":"*"}});
 }
 }
