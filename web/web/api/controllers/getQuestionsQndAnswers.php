@@ -24,7 +24,7 @@ if($num>0){
     $questions=array();
     while ($row = $stmtQ->fetch(PDO::FETCH_ASSOC)){
         //extract($row);
-       //
+        //
         $stmtA = $questionObj->getAnswers($row['ID']);
        // echo $stmtA;
         $answers = array();
