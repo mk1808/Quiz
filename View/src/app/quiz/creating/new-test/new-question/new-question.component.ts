@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Answer, Question } from 'src/app/quiz/shared/models/classes';
 import { CreatingService } from 'src/app/quiz/shared/services/creating.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-new-question',
@@ -24,7 +25,8 @@ export class NewQuestionComponent implements OnInit {
     checkAnswer3:[false],
   });
   answers=[new Answer, new Answer, new Answer, new Answer ];
-  constructor(private fb: FormBuilder, private creating:CreatingService ) { }
+  constructor(private fb: FormBuilder, private creating:CreatingService,
+    private router:Router, private route:ActivatedRoute ) { }
 
   ngOnInit() {
   }
@@ -33,6 +35,8 @@ export class NewQuestionComponent implements OnInit {
     if (this.newQuestionForm.valid)
     {
       let question = new Question;
+      //////////////////////////////////////////
+      question.idSubject=1;
       question.category=this.newQuestionForm.controls.category.value;
       question.text=this.newQuestionForm.controls.question.value;
       question.code=this.newQuestionForm.controls.code.value;
@@ -72,5 +76,8 @@ export class NewQuestionComponent implements OnInit {
     this.newQuestionForm.controls.checkAnswer1.setValue(false);
     this.newQuestionForm.controls.checkAnswer2.setValue(false);
     this.newQuestionForm.controls.checkAnswer3.setValue(false);
+  }
+  onBack(){
+    this.router.navigate(['../'], { relativeTo: this.route });
   }
 }
