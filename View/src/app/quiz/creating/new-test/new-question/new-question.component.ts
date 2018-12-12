@@ -58,4 +58,19 @@ export class NewQuestionComponent implements OnInit {
     
     }
   }
+
+  onClear(){
+    this.newQuestionForm.controls.category.setValue('');
+    this.newQuestionForm.controls.question.setValue('');
+    this.newQuestionForm.controls.code.setValue('');
+    this.newQuestionForm.controls.photo.setValue('');
+    this.newQuestionForm.controls.answer0.setValue('');
+    this.newQuestionForm.controls.answer1.setValue('');
+    this.newQuestionForm.controls.answer2.setValue('');
+    this.newQuestionForm.controls.answer3.setValue('');
+    this.newQuestionForm.controls.checkAnswer0.setValue(false);
+    this.newQuestionForm.controls.checkAnswer1.setValue(false);
+    this.newQuestionForm.controls.checkAnswer2.setValue(false);
+    this.newQuestionForm.controls.checkAnswer3.setValue(false);
+  }
 }
