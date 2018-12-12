@@ -24,7 +24,7 @@ class Subject{
     
     public function getQuestions(){
         //$query = "SELECT * FROM ".$this->tableName." WHERE ID = ".$id;
-        $query = "SELECT * FROM QUESTION";
+        $query = "SELECT * FROM QUESTION ";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         return $stmt;

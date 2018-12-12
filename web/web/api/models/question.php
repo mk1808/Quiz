@@ -1,14 +1,18 @@
 <?php
+
+include_once 'answer.php';
+
 class Question{
     private $conn;
     private $tableName = "QUESTION";
     
     public $ID;
     public $idSubject;
-    public $idCategory;
+    public $category;
     public $text;
     public $code;
     public $image;
+    public $answers;
     
     public function __construct($db){
         $this->conn = $db;
@@ -42,31 +46,31 @@ class Question{
 
     public function create(){
         $this->idSubject=strval(htmlspecialchars(strip_tags($this->idSubject)));
-        //$this->idCategory=strval(htmlspecialchars(strip_tags($this->idCategory)));
+        $this->category=strval(htmlspecialchars(strip_tags($this->category)));
         $this->text=htmlspecialchars(strip_tags($this->text));
         $this->code=htmlspecialchars(strip_tags($this->code));
         $this->image=htmlspecialchars(strip_tags($this->image));
 
-
         $query = 'INSERT INTO question SET
                 ID_SUBJECT = '.$this->idSubject.',
-                ID_CATEGORY = '.$this->idCategory.',
+                CATEGORY = "'.$this->category.'",
                 TEXT = "'.$this->text.'",
                 CODE = "'.$this->code.'",
                 IMAGE = "'.$this->image.'";';
-       /*$query = "INSERT INTO question (ID_SUBJECT, ID_CATEGORY, TEXT, CODE, IMAGE)
- VALUES ('$this->idSubject', '$this->idCategory', '$this->text', '$this->code','$this->image')";*/
 
         $stmt = $this->conn->prepare($query);
 
-        $stmt->bindParam(':idSubject', intval($this->idSubject));
-        $stmt->bindParam(':idCategory', $this->idCategory);
-        $stmt->bindParam(':text', $this->text);
-        $stmt->bindParam(':code', $this->code);
-        $stmt->bindParam(':image', $this->image);
+//        http_response_code(200);
+//        echo json_encode(array($stmt));
 
         if($stmt->execute()){
-            return $this->conn->lastInsertId();
+
+            $answer = new Answer($this->conn);
+            if ($answer->createAnswer($this->answers, $this->conn->lastInsertId()))
+             return 1;
+             else {
+                 return -2;
+             }
         }
 
         return -1;
