@@ -27,12 +27,12 @@ class Question{
         
         $value = true;
         foreach ($answers as $answer){
-        $query = "SELECT * FROM ANSWER_STATUS WHERE ID = ".$answer->id;
+        $query = "SELECT STATUS FROM ANSWER WHERE ID = ".$answer->id;
         $stmt = $this->conn->prepare($query);
         
         $stmt->execute();
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
-            if($answer->value != $row['IS_TRUE']){
+            if($answer->value != $row['STATUS']){
                 $value = false;
                 break;
             }
@@ -69,7 +69,7 @@ class Question{
             return $this->conn->lastInsertId();
         }
 
-        return false;
+        return -1;
     }
 
     public function getQuestion($id){

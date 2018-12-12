@@ -12,6 +12,7 @@ header("Access-Control-Max-Age: 3600");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
 
+
 include_once '../../config/database.php';
 include_once '../../models/subject.php';
 
@@ -34,7 +35,8 @@ $subject->time = $data->time;
 $subject->description = $data->description;
 
 $stmt = $subject->create();
-if(!@stmt==false){
+
+if($stmt>0){
     http_response_code(200);
     echo json_encode(array("message"=>"Subject was created", "id"=>$stmt));
 }

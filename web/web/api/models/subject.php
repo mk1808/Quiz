@@ -86,7 +86,7 @@ class Subject{
         if($stmt->execute()){
             return $this->conn->lastInsertId();
         }
-        return false;
+        return -1;
 
     }
 
