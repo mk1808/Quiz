@@ -12,12 +12,11 @@ export class CreatingService {
   constructor(private http: HttpClient) { }
   public createSubject(subject:Subject): Observable<Subject> {
     return this.http.post<any>('http://localhost/web/web/api/controllers/quiz/createSubject.php',
-    JSON.stringify(subject),
-    {headers:{"Access-Control-Allow-Origin":"*"}});
+    JSON.stringify(subject));
 }
 
 public createQuestion(question:Question): Observable<any> {
-  
+
   return this.http.post('http://localhost/web/web/api/controllers/question/createQuestion.php',
   JSON.stringify(question));
 }

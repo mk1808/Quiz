@@ -9,12 +9,12 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
   public logIn(email:string, password:string): Observable<any> {
-    return this.http.post<any>('http://localhost/web/web/api/controllers/auth/login.php', 
-    {email:email, password:password},{headers:{"Access-Control-Allow-Origin":"*"}});
+    return this.http.post<any>('http://localhost/web/web/api/controllers/auth/login.php',
+      JSON.stringify({email:email, password:password}));
 }
-public register(email:string, password:string, 
+public register(email:string, password:string,
   name:string, surname:string, username:string ): Observable<any> {
-  return this.http.post<any>('http://localhost/web/web/api/controllers/auth/createUser.php', 
-  {email:email, password:password, name:name, surname:surname});
+  return this.http.post<any>('http://localhost/web/web/api/controllers/auth/createUser.php',
+    JSON.stringify({email:email, password:password, name:name, surname:surname}));
 }
 }
