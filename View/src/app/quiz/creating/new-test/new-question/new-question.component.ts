@@ -17,7 +17,7 @@ export class NewQuestionComponent implements OnInit {
   @ViewChild('questionList')
   questionList:QuestionListComponent;
 
-  idSubject:string;
+
   newQuestionForm: FormGroup = this.fb.group({
     category: ['', Validators.required],
     question: ['', Validators.required],
@@ -34,6 +34,7 @@ export class NewQuestionComponent implements OnInit {
   });
   answers=[new Answer, new Answer, new Answer, new Answer ];
   quizName:string;
+  idSubject:string;
   constructor(private fb: FormBuilder, private creating:CreatingService,
     private test:TestService, private router:Router, private route:ActivatedRoute,  
     private cookie:CookieService ) { }

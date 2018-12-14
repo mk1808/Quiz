@@ -4,6 +4,7 @@ import { Subject, Cours, User } from '../../shared/models/classes';
 import { DictionaryService } from '../../shared/services/dictionary.service';
 import { CreatingService } from '../../shared/services/creating.service';
 import { CookieService } from 'ngx-cookie-service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -25,7 +26,10 @@ export class NewTestComponent implements OnInit {
   coursesTable:Cours[]=[];
   user:User;
   constructor(private fb: FormBuilder,private dictionary:DictionaryService,
-     private creating:CreatingService, private cookie:CookieService ) { }
+     private creating:CreatingService, private cookie:CookieService,
+     private router:Router, private route:ActivatedRoute ) { 
+      this.route.params.subscribe( x => console.log(x));
+     }
 
   ngOnInit() {
     this.user=(JSON.parse(this.cookie.get('user')));

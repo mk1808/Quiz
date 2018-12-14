@@ -3,18 +3,13 @@
         <div  class="wTitle">
           Podsumowanie
         </div>
-        <div  class="welcomeTest">
-       
-            Nazwa:<br>
-            Kierunek studiów:
-            <br>
-            Ilość pytań:
-            <br>
-            Wybór:
-            <br>
-            Limit czasu:
-            <br>
-            Opis:
+        <div  class="testDetails" >
+            <span class="detailsNames">Nazwa: </span>{{subject.name}}<br>
+            <span class="detailsNames">Kierunek studiów: </span> {{subject.course}}<br>
+            <span class="detailsNames">Ilość pytań: </span>{{subject.nOQuestions}}<br>
+            <span class="detailsNames">Wybór: </span>{{subject.multipleChoice? "wielokrotny"  : "jednokrotny"  }}<br>
+            <span class="detailsNames"> Limit czasu: </span>{{subject.limitedTime==1? subject.time  : "brak " }}<br>
+            <span class="detailsNames"> Opis: </span>{{subject.description!=undefined? subject.description  : "brak " }}
           
       </div>
         <div  class="treePos" >
@@ -24,30 +19,19 @@
           </div>
         </div>
         <div fxLayout="row">
-          <div fxLayout="column" fxFlex="33%" fxLayoutAlign="start center">
+          <div fxLayout="column" fxFlex="50%" fxLayoutAlign="start center">
             <div fxLayout="row" class="inputPos">
-              <button mat-raised-button class="continue" (click)="onBack()">Wróć</button>
+              <button mat-raised-button class="continue" (click)="onEdit()">Edytuj</button>
             </div>
           </div>
-          <div fxLayout="column" fxFlex="33%" fxLayoutAlign="start center">
+          <div fxLayout="column" fxFlex="50%" fxLayoutAlign="start center">
             <div fxLayout="row" class="inputPos">
-              <button mat-raised-button class="continue" (click)="onClear()" >Wyczyść pytanie</button>
-            </div>
-          </div>
-          <div fxLayout="column" fxFlex="33%" fxLayoutAlign="start center">
-            <div fxLayout="row" class="inputPos">
-              <button mat-raised-button class="continue" (click)="onAdd()">Dodaj pytanie</button>
+              <button mat-raised-button class="continue" (click)="onMain()" >Przejdź do widoku głównego</button>
             </div>
           </div>
   
         </div>
-        <div fxLayout="row">
-          <div fxLayout="column" fxFlex="100%" fxLayoutAlign="start center">
-            <div fxLayout="row" class="inputPos">
-              <button mat-raised-button class="continue" (click)="onResume()">Zatwierdź quiz</button>
-            </div>
-          </div>
-        </div>
+       
       </div>
     </div>
   
