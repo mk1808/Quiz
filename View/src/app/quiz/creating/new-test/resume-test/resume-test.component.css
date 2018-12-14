@@ -1,0 +1,46 @@
+.treePos{
+    width: 100% !important;
+    margin-top:60px;
+}
+
+.welcomeTest{
+    text-align: center;  
+    FONT-FAMILY:Didact Gothic; 
+    color:#ededed;
+    font-size: 30px; 
+    font-weight: bold; 
+    margin-top:60px;
+}
+
+.inputPos{
+    width:250px;
+    margin:0;
+    margin-bottom: 16px;
+  }
+
+.checkPos{
+  margin-right: 10px;
+    margin-top: 10px;
+}
+
+.rowPos{
+    margin-top:60px;
+    width:100%;
+    min-height: 270px;
+}
+
+.textAreaSize{
+    height:5em;
+    width:425px;
+    margin-bottom:32px;
+}
+
+.smallTextAreaSize{
+    height:4em;
+    width:400px;
+    margin-bottom:32px;
+}
+
+.inputSize{
+    width:425px;
+}

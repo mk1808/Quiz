@@ -1,3 +1,53 @@
-<p>
-  resume-test works!
-</p>
+    <div class="container">
+      <div fxLayout="column" fxLayoutAlign="space-around center" fxFlex="100%">
+        <div  class="wTitle">
+          Podsumowanie
+        </div>
+        <div  class="welcomeTest">
+       
+            Nazwa:<br>
+            Kierunek studiów:
+            <br>
+            Ilość pytań:
+            <br>
+            Wybór:
+            <br>
+            Limit czasu:
+            <br>
+            Opis:
+          
+      </div>
+        <div  class="treePos" >
+          
+          <div fxLayout="column"  fxFlex="100%">
+            <app-question-list #questionList></app-question-list>
+          </div>
+        </div>
+        <div fxLayout="row">
+          <div fxLayout="column" fxFlex="33%" fxLayoutAlign="start center">
+            <div fxLayout="row" class="inputPos">
+              <button mat-raised-button class="continue" (click)="onBack()">Wróć</button>
+            </div>
+          </div>
+          <div fxLayout="column" fxFlex="33%" fxLayoutAlign="start center">
+            <div fxLayout="row" class="inputPos">
+              <button mat-raised-button class="continue" (click)="onClear()" >Wyczyść pytanie</button>
+            </div>
+          </div>
+          <div fxLayout="column" fxFlex="33%" fxLayoutAlign="start center">
+            <div fxLayout="row" class="inputPos">
+              <button mat-raised-button class="continue" (click)="onAdd()">Dodaj pytanie</button>
+            </div>
+          </div>
+  
+        </div>
+        <div fxLayout="row">
+          <div fxLayout="column" fxFlex="100%" fxLayoutAlign="start center">
+            <div fxLayout="row" class="inputPos">
+              <button mat-raised-button class="continue" (click)="onResume()">Zatwierdź quiz</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  

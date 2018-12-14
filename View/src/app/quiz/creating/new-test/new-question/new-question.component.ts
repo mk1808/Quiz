@@ -100,4 +100,7 @@ export class NewQuestionComponent implements OnInit {
   onBack(){
     this.router.navigate(['../'], { relativeTo: this.route });
   }
+  onResume(){
+    this.router.navigate(['../resume'], { relativeTo: this.route });
+  }
 }

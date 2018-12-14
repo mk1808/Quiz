@@ -11,8 +11,9 @@ import { CookieService } from 'ngx-cookie-service';
 export class QuestionListComponent implements OnInit {
   idSubject:string;
   questions: Question[] = [];
-
-  constructor(private testService: TestService,  private cookie:CookieService) { }
+  quizName:string;
+  constructor(private testService: TestService,  private cookie:CookieService,
+    private test:TestService) { }
 
   ngOnInit() {
  
@@ -20,7 +21,10 @@ export class QuestionListComponent implements OnInit {
     this.testService.getQuestionsByIdSubject(this.idSubject).subscribe(x => {
       this.questions = x;
     });
-  }
+    this.test.getQuizDetails(this.idSubject).subscribe(x=>{
+      this.quizName=x.NAME;
+      console.log(x);
+  })}
 
   collapse(i){
     if(document.getElementById('question'+i).classList.contains("quizShow")){
