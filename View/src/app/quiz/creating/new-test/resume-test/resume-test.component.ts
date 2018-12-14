@@ -13,7 +13,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class ResumeTestComponent implements OnInit {
 
   constructor(  private cookie:CookieService,  private test:TestService, 
-    private router:Router, private route:ActivatedRoute) { }
+    private router:Router, private route:ActivatedRoute) {
+     }
   idSubject:string;
   subject:Subject=new Subject();
 
@@ -31,7 +32,7 @@ export class ResumeTestComponent implements OnInit {
     });
   }
   onEdit(){
-    this.router.navigate(['../'], { relativeTo: this.route });
+    this.router.navigate(['../'+this.idSubject], { relativeTo: this.route });
 
   }
 

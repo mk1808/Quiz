@@ -1,4 +1,4 @@
-<form [formGroup]="newTestForm">
+<form [formGroup]="newTestForm" *ngIf="initialized">
   <div class="container">
     <div fxLayout="column" fxLayoutAlign="space-around center" fxFlex="100%">
       <div fxLayout="row" class="wTitle">
@@ -53,8 +53,9 @@
                       <select class="form-control" id="exampleFormControlSelect1" 
                       formControlName="multipleChoice">
                         <option selected>Krotność</option>
-                        <option>jednokrotny</option>
-                        <option>wielokrotny</option>
+                        <option *ngFor="let choice of multipleChoiceTable">
+                                {{choice}}
+                            </option>
                       </select>
                     </div>
                   </div>    
