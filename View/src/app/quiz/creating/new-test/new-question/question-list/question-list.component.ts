@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {TestService} from "../../../../shared/services/test.service";
 import {Question} from "../../../../shared/models/classes";
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-question-list',
@@ -8,13 +9,15 @@ import {Question} from "../../../../shared/models/classes";
   styleUrls: ['./question-list.component.css']
 })
 export class QuestionListComponent implements OnInit {
-
+  idSubject:string;
   questions: Question[] = [];
 
-  constructor(private testService: TestService) { }
+  constructor(private testService: TestService,  private cookie:CookieService) { }
 
   ngOnInit() {
-    this.testService.getQuestions().subscribe(x => {
+ 
+    this.idSubject=this.cookie.get('idSubject');
+    this.testService.getQuestionsByIdSubject(this.idSubject).subscribe(x => {
       this.questions = x;
     });
   }

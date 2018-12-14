@@ -28,4 +28,10 @@ export class TestService {
     return this.result;
   }
 
+  public getQuestionsByIdSubject(id): Observable<any> {
+    return this.http.get<any>('http://localhost/web/web/api/controllers/question/getQuestionsWithAnswersForQuiz.php?id='+ id );
+}
+  public getQuizDetails(id): Observable<any> {
+  return this.http.get<any>('http://localhost/web/web/api/controllers/quiz/getQuizDetails.php?id='+ id );
+}  
 }

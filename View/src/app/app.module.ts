@@ -16,6 +16,7 @@ import {ReactiveFormsModule} from "@angular/forms";
 import { HighlightModule } from 'ngx-highlightjs';
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { NgxMaskModule } from 'ngx-mask';
+import { CookieService } from 'ngx-cookie-service';
 
 
 @NgModule({
@@ -35,11 +36,12 @@ import { NgxMaskModule } from 'ngx-mask';
     AlertModule.forRoot(),
     BrowserAnimationsModule,
     HttpClientModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+  
     
     
   ],
-  providers: [],
+  providers: [CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

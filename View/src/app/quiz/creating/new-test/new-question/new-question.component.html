@@ -2,7 +2,7 @@
   <div class="container">
     <div fxLayout="column" fxLayoutAlign="space-around center" fxFlex="100%">
       <div fxLayout="row" class="wTitle">
-        Nazwa quizu
+        {{quizName}}
       </div>
       <div fxLayout="row" class="rowPos" fxFlex="100%">
         <div fxLayout="column" fxFlex="60%" fxLayoutAlign="start center">
@@ -46,7 +46,7 @@
           </div>
         </div>
         <div fxLayout="column" fxFlex="40%">
-          <app-question-list></app-question-list>
+          <app-question-list #questionList></app-question-list>
         </div>
       </div>
       <div fxLayout="row">

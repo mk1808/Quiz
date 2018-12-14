@@ -1,15 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Answer, Question } from 'src/app/quiz/shared/models/classes';
 import { CreatingService } from 'src/app/quiz/shared/services/creating.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
+import { QuestionListComponent } from './question-list/question-list.component';
+import { TestService } from 'src/app/quiz/shared/services/test.service';
 
 @Component({
   selector: 'app-new-question',
   templateUrl: './new-question.component.html',
   styleUrls: ['./new-question.component.css']
 })
+
 export class NewQuestionComponent implements OnInit {
+  @ViewChild('questionList')
+  questionList:QuestionListComponent;
+
+  idSubject:string;
   newQuestionForm: FormGroup = this.fb.group({
     category: ['', Validators.required],
     question: ['', Validators.required],
@@ -25,10 +33,18 @@ export class NewQuestionComponent implements OnInit {
     checkAnswer3:[false],
   });
   answers=[new Answer, new Answer, new Answer, new Answer ];
+  quizName:string;
   constructor(private fb: FormBuilder, private creating:CreatingService,
-    private router:Router, private route:ActivatedRoute ) { }
+    private test:TestService, private router:Router, private route:ActivatedRoute,  
+    private cookie:CookieService ) { }
 
   ngOnInit() {
+    this.idSubject=this.cookie.get('idSubject');
+    this.test.getQuizDetails(this.idSubject).subscribe(x=>{
+      this.quizName=x.NAME;
+      console.log(x);
+    });
+
   }
 
   onAdd(){
@@ -36,7 +52,8 @@ export class NewQuestionComponent implements OnInit {
     {
       let question = new Question;
       //////////////////////////////////////////
-      question.idSubject=1;
+      question.idSubject=this.idSubject;
+      
       question.category=this.newQuestionForm.controls.category.value;
       question.text=this.newQuestionForm.controls.question.value;
       question.code=this.newQuestionForm.controls.code.value;
@@ -58,7 +75,10 @@ export class NewQuestionComponent implements OnInit {
         status:this.newQuestionForm.controls.checkAnswer3.value,
         id:null,idQuestion:null}
 
-        this.creating.createQuestion(question).subscribe(x=>console.log(x),e=>console.log(e) );
+        this.creating.createQuestion(question).subscribe(x=>
+          {//console.log(x);
+          this.questionList.ngOnInit();
+          this.onClear();},e=>console.log(e) );
     
     }
   }

@@ -15,6 +15,6 @@ export class AuthService {
 public register(email:string, password:string, 
   name:string, surname:string, username:string ): Observable<any> {
   return this.http.post<any>('http://localhost/web/web/api/controllers/auth/createUser.php', 
-  {email:email, password:password, name:name, surname:surname},{headers:{"Access-Control-Allow-Origin":"*"}});
+  {email:email, password:password, name:name, surname:surname});
 }
 }

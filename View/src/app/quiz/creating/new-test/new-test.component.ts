@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { Subject, Cours } from '../../shared/models/classes';
+import { Subject, Cours, User } from '../../shared/models/classes';
 import { DictionaryService } from '../../shared/services/dictionary.service';
 import { CreatingService } from '../../shared/services/creating.service';
+import { CookieService } from 'ngx-cookie-service';
 
 
 @Component({
@@ -18,13 +19,18 @@ export class NewTestComponent implements OnInit {
     multipleChoice: ['Krotność wyboru', Validators.required],
     time: [''],
     course: ['Kierunek studiów'],
-    description: [''  ],
+    description: [''  ]
   });
   limitedTime: boolean=false;
   coursesTable:Cours[]=[];
-  constructor(private fb: FormBuilder,private dictionary:DictionaryService, private creating:CreatingService ) { }
+  user:User;
+  constructor(private fb: FormBuilder,private dictionary:DictionaryService,
+     private creating:CreatingService, private cookie:CookieService ) { }
 
   ngOnInit() {
+    this.user=(JSON.parse(this.cookie.get('user')));
+    //console.log(this.cookie.get('user'));
+
     this.newTestForm.controls.time.disable();
     this.dictionary.getCourses().subscribe( x =>
       {
@@ -53,7 +59,7 @@ export class NewTestComponent implements OnInit {
       }
 
       subject.id=2;
-      subject.idAuthor=1;
+      subject.idAuthor=this.user.id;
       subject.description=this.newTestForm.controls.description.value;
       subject.name=this.newTestForm.controls.name.value;
       if (this.newTestForm.controls.multipleChoice.value=="jednokrotny"){
@@ -67,7 +73,13 @@ export class NewTestComponent implements OnInit {
       
       subject.course=this.newTestForm.controls.course.value;
       subject.nOQuestions=this.newTestForm.controls.nOQuestions.value;
-      this.creating.createSubject(subject).subscribe(x=> console.log(x.id), e=>console.log(e));
+      this.creating.createSubject(subject).subscribe(x=>
+        { 
+          console.log(x.id); 
+          this.cookie.set("idSubject", x.id.toString());  
+        }, e=>console.log(e));
+        
+
     }
   }
 }

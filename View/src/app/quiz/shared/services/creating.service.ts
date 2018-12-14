@@ -16,9 +16,9 @@ export class CreatingService {
     {headers:{"Access-Control-Allow-Origin":"*"}});
 }
 
-public createQuestion(question:Question): Observable<Question> {
-  return this.http.post<any>('http://localhost/web/web/api/controllers/question/createQuestion.php',
-  JSON.stringify(question),
-  {headers:{"Access-Control-Allow-Origin":"*"}});
+public createQuestion(question:Question): Observable<any> {
+  
+  return this.http.post('http://localhost/web/web/api/controllers/question/createQuestion.php',
+  JSON.stringify(question));
 }
 }

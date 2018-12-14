@@ -16,7 +16,7 @@ export class Subject {
 export class Question {
   id: number;
   category: string;
-  idSubject:number;
+  idSubject:string;
   text: string;
   code: string;
   image: string;
