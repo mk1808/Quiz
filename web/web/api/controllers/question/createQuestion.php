@@ -13,7 +13,6 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 
 
 
-
 include_once '../../config/database.php';
 include_once '../../models/question.php';
 
@@ -30,7 +29,6 @@ $question->text = $data->text;
 $question->code = $data->code;
 $question->image = $data->image;
 $question->answers = $data->answers;
-
 
 $stmt = $question->create();
 

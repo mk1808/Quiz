@@ -26,7 +26,7 @@ $user->name = $data->name;
 $user->surname = $data->surname;
 $user->email = $data->email;
 $user->password = $data->password;
-$user->role = $data->role;
+$user->role = "1";
 
 if($user->create()){
     http_response_code(200);

@@ -15,13 +15,13 @@ include_once '../../models/subject.php';
 $database = new Database();
 $db = $database->getConnection();
 
-$data = json_decode(file_get_contents("php://input"));
+//$data = json_decode(file_get_contents("php://input"));
 $subject= new Subject($db);
 
 
-if(!empty($data)){
+if(!empty($_GET['id'])){
 
-    $ans = $subject->getSubjectDetail($data->id);
+    $ans = $subject->getSubjectDetail($_GET['id']);
     http_response_code(200);
     echo json_encode($ans);
 }

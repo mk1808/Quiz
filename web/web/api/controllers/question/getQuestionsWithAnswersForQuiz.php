@@ -21,11 +21,14 @@ include_once '../../models/subject.php';
 $database = new Database();
 $db = $database->getConnection();
 
-$data = json_decode(file_get_contents("php://input"));
+//$data = (file_get_contents("php://input"));
+//$data = json_decode(file_get_contents("php://input"));
+
+
 $questionObj= new Question($db);
 
 $category = new Category($db);
-$stmtQ = $questionObj->getQuestion($data->id);
+$stmtQ = $questionObj->getQuestionsForQuiz($_GET['id']);
 $num = $stmtQ->rowCount();
 
 if($num>0){
@@ -44,11 +47,11 @@ if($num>0){
             array_push($answers, $answer);
         }
 
-        $stmtC = $category->getCategory($row['ID_CATEGORY']);
+        //$stmtC = $category->getCategory($row['ID_CATEGORY']);
 
         $question=array(
             "id" => $row['ID'],
-            "category" => $stmtC->fetch()['NAME'],
+            "category" => $row['CATEGORY'],
             "text" => $row['TEXT'],
             "code" => html_entity_decode($row['CODE']),
             "image" => $row['IMAGE'],

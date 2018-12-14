@@ -84,4 +84,12 @@ class Question{
         return $stmt;
     }
 
+    public function getQuestionsForQuiz($id){
+        $query = "SELECT * FROM question WHERE ID_SUBJECT = ".$id;
+        $stmt = $this->conn->prepare($query);
+
+        $stmt->execute();
+        return $stmt;
+    }
+
 }
