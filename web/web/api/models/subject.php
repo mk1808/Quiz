@@ -134,6 +134,41 @@ class Subject{
         //$value = array( $stmt->fetch(PDO::FETCH_ASSOC));
         return $value;
     }
+
+    public function update(){
+        $this->id=htmlspecialchars(strip_tags($this->id));
+        $this->name=htmlspecialchars(strip_tags($this->name));
+        $this->id_author=htmlspecialchars(strip_tags($this->id_author));
+        $this->nOQuestions=htmlspecialchars(strip_tags($this->nOQuestions));
+        $this->multipleChoice=htmlspecialchars(strip_tags($this->multipleChoice));
+        $this->separatePage=htmlspecialchars(strip_tags($this->separatePage));
+        $this->canBack=htmlspecialchars(strip_tags($this->canBack));
+        $this->limitedTime=htmlspecialchars(strip_tags($this->limitedTime));
+        $this->time=htmlspecialchars(strip_tags($this->time));
+        $this->course=htmlspecialchars(strip_tags($this->course));
+        $this->description=htmlspecialchars(strip_tags($this->description));
+
+
+        $query = 'UPDATE subject SET 
+                NAME = "'.$this->name.'",
+                N_O_QUESTIONS = "'.$this->nOQuestions.'",
+                MULTIPLE_CHOICE = "'.$this->multipleChoice.'",
+                SEPARATE_PAGE = "'.$this->separatePage.'",
+                CAN_BACK = "'.$this->canBack.'",
+                LIMITED_TIME = "'.$this->limitedTime.'",
+                TIME = "'.$this->time.'",
+                COURSE = "'.$this->course.'",
+                DESCRIPTION = "'.$this->description.'"
+                WHERE ID = '.$this->id.';';
+
+        $stmt = $this->conn->prepare($query);
+
+        if($stmt->execute()){
+            return 1;
+        }
+        return -1;
+
+    }
 }
 
 
