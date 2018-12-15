@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Subject } from 'src/app/quiz/shared/models/classes';
+import { AuthService } from 'src/app/quiz/shared/services/auth.service';
+import { CookieService } from 'ngx-cookie-service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-student-main-panel',
@@ -7,9 +11,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StudentMainPanelComponent implements OnInit {
 
-  constructor() { }
+  tests:Subject[]=[];
+  course:string='2EF-DI';
+  constructor(private cookie:CookieService, private auth:AuthService,
+    private router:Router, private route:ActivatedRoute) { }
 
   ngOnInit() {
+    /*   this.idUser=JSON.parse(this.cookie.get('user')).id; */
+    this.auth.getTestsByCourse(this.course).subscribe(x =>{
+      this.tests=x;
+      console.log(this.tests); 
+    })
+  }
+  onTest(id:string){
+    
+    this.cookie.set("idSubject", id.toString());
+    this.router.navigate(['../test_begin'], { relativeTo: this.route });
+
   }
  
 }

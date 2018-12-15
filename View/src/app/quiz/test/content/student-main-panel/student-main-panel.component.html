@@ -7,7 +7,20 @@
     </div>
     <div fxLayout="row" fxLayoutAlign="space-around center">
       <div class="welcomeTest">
-    Poniżej znajdują się quizy przygotowane dla Ciebie
+        Poniżej znajdują się quizy przygotowane dla Ciebie
+      </div>
+    </div>
+    <div fxLayout="row" fxFlex="80%">
+
+      <div class="treeContainer">
+        <div class="collapse multi-collapse show" id="questionList">
+
+          <div *ngFor="let test of tests; let i = index">
+            <button class="quizButton questionButton" (click)="onTest(i+1)">
+              {{i+1}} &nbsp;&nbsp;&nbsp;{{test.NAME}}</button>
+            <div></div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

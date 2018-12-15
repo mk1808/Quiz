@@ -22,4 +22,9 @@ public getTests(id): Observable<Subject[]> {
   return this.http.get<Subject[]>
   ('http://localhost/web/web/api/controllers/quiz/getQuizListForAuthor.php?id='+ id);
 }
+
+public getTestsByCourse(course): Observable<Subject[]> {
+  return this.http.get<Subject[]>
+  ('http://localhost/web/web/api/controllers/quiz/getQuizForCourse.php?id='+ course);
+}
 }
