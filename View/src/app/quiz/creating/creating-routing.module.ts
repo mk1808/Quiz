@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { NewTestComponent } from './new-test/new-test.component';
 import { NewQuestionComponent } from './new-test/new-question/new-question.component';
 import { ResumeTestComponent } from './new-test/resume-test/resume-test.component';
-import { TestListComponent } from './test-list/test-list.component';
+import { TeacherMainPanelComponent } from './teacher-main-panel/teacher-main-panel.component';
 
 
 const routes: Routes = [
@@ -11,14 +11,8 @@ const routes: Routes = [
   { path: 'new_test/new_question', component: NewQuestionComponent},
   { path: 'new_test/resume', component: ResumeTestComponent},
   { path: 'new_test/:id', component: NewTestComponent},
-
-
-  { path: 'test_list', component: TestListComponent},
+  { path: 'teacher_panel', component: TeacherMainPanelComponent},
   { path: '', redirectTo: '/creating/new_test', pathMatch: 'full'}
-
-
-
-
 ];
 
 @NgModule({

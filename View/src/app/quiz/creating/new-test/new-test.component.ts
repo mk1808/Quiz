@@ -14,51 +14,32 @@ import { TestService } from '../../shared/services/test.service';
   styleUrls: ['./new-test.component.css']
 })
 export class NewTestComponent implements OnInit {
-   limitedTime: boolean=false;
-  coursesTable:Cours[]=[];
-  multipleChoiceTable:string[]=['jednokrotny','wielokrotny']
-  user:User;
-  newTest:boolean;
-  idExistingTest:number;
-  initialized:boolean=false;
-
-  sName:string;
-  sNOQuestions: string;
-  sLimitedTime: boolean;
-  sMultipleChoice: string;
-  sTime: string;
-  sCourse: string;
-  sDescription:string;
-
-
+  limitedTime: boolean = false;
+  coursesTable: Cours[] = [];
+  multipleChoiceTable: string[] = ['jednokrotny', 'wielokrotny']
+  user: User;
+  newTest: boolean;
+  idExistingTest: number;
+  initialized: boolean = false;
   newTestForm: FormGroup;
-/*    = this.fb.group({
-    name: [this.sName, Validators.required],
-    nOQuestions: [this.sNOQuestions, Validators.required],
-    limitedTime: [this.sLimitedTime],
-    multipleChoice: [this.sMultipleChoice, Validators.required],
-    time: [this.sTime],
-    course: [this.sCourse],
-    description: [this.sDescription ]
-  }); */
 
-
-  constructor(private fb: FormBuilder,private dictionary:DictionaryService,
-     private creating:CreatingService, private cookie:CookieService,
-     private router:Router, private route:ActivatedRoute,  private test:TestService ) {
-      this.route.params.subscribe( x => {console.log(x);
-        let id=x['id'];
-      if (id!=undefined) {this.newTest=false; this.idExistingTest=id;} else {this.newTest=true;}
-    console.log(this.newTest);
-    console.log(this.idExistingTest);});
-
-     }
+  constructor(private fb: FormBuilder, private dictionary: DictionaryService,
+    private creating: CreatingService, private cookie: CookieService,
+    private router: Router, private route: ActivatedRoute, private test: TestService) {
+    this.route.params.subscribe(x => {
+      console.log(x);
+      let id = x['id'];
+      if (id != undefined) { this.newTest = false; this.idExistingTest = id; } else { this.newTest = true; }
+      console.log(this.newTest);
+      console.log(this.idExistingTest);
+    });
+  }
 
   ngOnInit() {
-    this.user=(JSON.parse(this.cookie.get('user')));
+    this.user = (JSON.parse(this.cookie.get('user')));
 
-    if(this.newTest)
-    {this.newTestForm = this.fb.group({
+    if (this.newTest) {
+    this.newTestForm = this.fb.group({
       name: ['', Validators.required],
       nOQuestions: ['', Validators.required],
       limitedTime: [false],
@@ -67,108 +48,67 @@ export class NewTestComponent implements OnInit {
       course: ['Kierunek studiów'],
       description: ['']
     });
-  this.initialized=true;
-  this.newTestForm.controls.time.disable();
-  this.dictionary.getCourses().subscribe( x =>
-    {
-      console.log(x[1].NAME);
-      this.coursesTable=x;
-    })
-  }
+      this.initialized = true;
+      this.newTestForm.controls.time.disable();
+      this.dictionary.getCourses().subscribe(x => {
+        console.log(x[1].NAME);
+        this.coursesTable = x;
+      })
+    }
     else {
 
-      this.dictionary.getCourses().subscribe( x =>
-        {
-          console.log(x[1].NAME);
-          this.coursesTable=x;
-        })
-      this.test.getQuizDetails(this.idExistingTest).subscribe(x=>{
+      this.dictionary.getCourses().subscribe(x => {
+        console.log(x[1].NAME);
+        this.coursesTable = x;
+      })
+      this.test.getQuizDetails(this.idExistingTest).subscribe(x => {
         console.log(x);
-         this.newTestForm = this.fb.group({
+        this.newTestForm = this.fb.group({
           name: [x.NAME, Validators.required],
           nOQuestions: [x.N_O_QUESTIONS, Validators.required],
-          limitedTime: [x.LIMITED_TIME=0? false:true],
-          multipleChoice: [x.MULTIPLE_CHOICE=0? 'jednokrotny':'wielokrotny',Validators.required],
+          limitedTime: [x.LIMITED_TIME = 0 ? false : true],
+          multipleChoice: [x.MULTIPLE_CHOICE = 0 ? 'jednokrotny' : 'wielokrotny', Validators.required],
           time: ['01:01'],
           course: [x.COURSE],
           description: [x.DESCRIPTION]
         });
-        this.initialized=true;
+        this.initialized = true;
       });
-
-
-
-
-
-    }
-    /* //console.log(this.cookie.get('user'));
-    if(this.newTest){
-      this.sName='';
-      this.sNOQuestions='';
-      this.sLimitedTime=false;
-      this.sMultipleChoice= 'Krotność wyboru';
-      this.sTime='';
-      this.sCourse='Kierunek studiów';
-      this.sDescription='';
-    }
-    else{
-      this.sName='';
-      this.sNOQuestions='';
-      this.sLimitedTime=false;
-      this.sMultipleChoice= 'Krotność wyboru';
-      this.sTime='';
-      this.sCourse='Kierunek studiów'
-      this.sDescription=''; */
-
-
-  }
-
-  isEmpty(){
-    if(this.newTest){
-
     }
   }
-  onClickLimitedTime(){
-    if (!this.newTestForm.controls.limitedTime.value)
-    {
+
+  onClickLimitedTime() {
+    if (!this.newTestForm.controls.limitedTime.value) {
       this.newTestForm.controls.time.enable();
     }
-    else {this.newTestForm.controls.time.disable();}
+    else { this.newTestForm.controls.time.disable(); }
   }
 
-  onCreate(){
-    if (this.newTestForm.valid)
-    {
-
+  onCreate() {
+    if (this.newTestForm.valid) {
       let subject = new Subject();
-      if (this.newTestForm.controls.limitedTime){
-        subject.time=(this.newTestForm.controls.time.value.split(":")[0])*60
-        +this.newTestForm.controls.time.value.split(":")[1]*1;
-
+      if (this.newTestForm.controls.limitedTime) {
+        subject.time = (this.newTestForm.controls.time.value.split(":")[0]) * 60
+          + this.newTestForm.controls.time.value.split(":")[1] * 1;
       }
-
-      subject.id=2;
-      subject.idAuthor=this.user.id;
-      subject.description=this.newTestForm.controls.description.value;
-      subject.name=this.newTestForm.controls.name.value;
-      if (this.newTestForm.controls.multipleChoice.value=="jednokrotny"){
-        subject.multipleChoice=false;
+      subject.id = 2;
+      subject.idAuthor = this.user.id;
+      subject.description = this.newTestForm.controls.description.value;
+      subject.name = this.newTestForm.controls.name.value;
+      if (this.newTestForm.controls.multipleChoice.value == "jednokrotny") {
+        subject.multipleChoice = false;
       }
       else {
-        subject.multipleChoice=true;
+        subject.multipleChoice = true;
       }
 
-      subject.limitedTime=this.newTestForm.controls.limitedTime.value;
-
-      subject.course=this.newTestForm.controls.course.value;
-      subject.nOQuestions=this.newTestForm.controls.nOQuestions.value;
-      this.creating.createSubject(subject).subscribe(x=>
-        {
-          console.log(x.id);
-          this.cookie.set("idSubject", x.id.toString());
-        }, e=>console.log(e));
-
-
+      subject.limitedTime = this.newTestForm.controls.limitedTime.value;
+      subject.course = this.newTestForm.controls.course.value;
+      subject.nOQuestions = this.newTestForm.controls.nOQuestions.value;
+      this.creating.createSubject(subject).subscribe(x => {
+        console.log(x.id);
+        this.cookie.set("idSubject", x.id.toString());
+      }, e => console.log(e));
     }
   }
 }
