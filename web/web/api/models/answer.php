@@ -45,4 +45,31 @@ class Answer{
 
         return false;
     }
+
+    public function update($answers)
+    {
+        $i = 0;
+        foreach($answers as $answer){
+        $query = 'UPDATE answer SET ';
+            $answer->id = strval(htmlspecialchars(strip_tags($answer->id)));
+            $answer->text = strval(htmlspecialchars(strip_tags($answer->text)));
+            $answer->status = strval(htmlspecialchars(strip_tags($answer->status)));
+            if($answer->status==""){
+                $answer->status=0;
+            }
+            $query=$query.'
+            STATUS = '.($answer->status).', TEXT = "'.($answer->text).'" WHERE ID = '.$answer->id;
+
+        $stmt = $this->conn->prepare($query);
+            if($stmt->execute()){
+               $i++;
+            }
+        }
+        if ($i > 2){
+            return true;
+        }
+
+        return false;
+    }
+
 }

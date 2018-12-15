@@ -6,7 +6,7 @@ class Question{
     private $conn;
     private $tableName = "QUESTION";
     
-    public $ID;
+    public $id;
     public $idSubject;
     public $category;
     public $text;
@@ -90,6 +90,39 @@ class Question{
 
         $stmt->execute();
         return $stmt;
+    }
+
+    public function update(){
+        $this->id=strval(htmlspecialchars(strip_tags($this->id)));
+        $this->idSubject=strval(htmlspecialchars(strip_tags($this->idSubject)));
+        $this->category=strval(htmlspecialchars(strip_tags($this->category)));
+        $this->text=htmlspecialchars(strip_tags($this->text));
+        $this->code=htmlspecialchars(strip_tags($this->code));
+        $this->image=htmlspecialchars(strip_tags($this->image));
+
+        $query = 'UPDATE question SET
+                CATEGORY = "'.$this->category.'",
+                TEXT = "'.$this->text.'",
+                CODE = "'.$this->code.'",
+                IMAGE = "'.$this->image.'"
+                WHERE ID = '.$this->id.';';
+
+        $stmt = $this->conn->prepare($query);
+
+//        http_response_code(200);
+//        echo json_encode(array($stmt));
+
+        if($stmt->execute()){
+
+            $answer = new Answer($this->conn);
+            if ($answer->update($this->answers))
+                return 1;
+            else {
+                return -2;
+            }
+        }
+
+        return -1;
     }
 
 }
