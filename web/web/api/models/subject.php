@@ -1,5 +1,8 @@
 <?php
 
+
+include_once 'UserResult.php';
+
 class Subject{
     private $conn;
     private $tableName = "SUBJECT";
@@ -55,6 +58,36 @@ class Subject{
             'true' => $questionsTrue
         );
     }
+
+    public function checkAnswersSaveResult($questions, $idUser, $idSubject){
+
+        $question = new Question($this->conn);
+        $questionsTotal = 0;
+        $questionsTrue = 0;
+        foreach ($questions as $answer){
+            $questionsTotal +=1;
+            if(count($answer->answers)!= 0&&$question->checkAnswer($answer->answers)==1){
+                $questionsTrue+=1;
+            }
+        }
+        $userResult = new UserResult($this->conn);
+        $userResult->idUser =  $idUser;
+        $userResult->idSubject = $idSubject;
+        $userResult->result = $questionsTrue/$questionsTotal;
+
+        if($userResult->checkUserResultForSubject()->rowCount() > 0){
+            $userResult->update();
+        }
+        else {
+            $userResult->create();
+        }
+
+        return array(
+            'total' => $questionsTotal,
+            'true' => $questionsTrue
+        );
+    }
+
 
     public function create(){
         $this->name=htmlspecialchars(strip_tags($this->name));
