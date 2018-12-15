@@ -1,0 +1,80 @@
+.welcomeTest{
+    text-align: center;  
+    FONT-FAMILY:Didact Gothic; 
+    color:#ededed;
+    font-size: 30px; 
+    font-weight: bold; 
+    margin-top:15px;
+    margin-bottom: 30px;
+}
+
+.treeContainer{
+    width:100%;
+    min-height:200px;
+    border:2px solid #ededed;
+    border-radius: 10px;
+    padding:5px;
+  }
+  
+  .quizButton{
+    width:100%;
+    color:#ededed;
+    background-color: #707070;
+    border: 0;
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  
+  
+  .questionButton{
+    max-width:90%;
+    margin-left: 20px;
+    margin-top:15px;
+    background-color: #2a2a2a;
+    font-size: 0.9em;
+    text-align: left;
+  
+  }
+  .questionButton:hover {
+    height: auto;
+    overflow: visible !important;
+    text-overflow: unset;
+    white-space: initial;
+  }
+  
+  li{
+    color: #ededed;
+    font-size: 0.7em;
+    margin: 10px;
+    margin-left: 50px;
+  }
+  
+  li p{
+    height:18px;
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  li p:hover {
+    height:auto;
+    overflow: visible !important;
+    text-overflow: unset;
+    white-space: initial;
+  }
+  
+  .quizCollapse{
+    max-height:0;
+    overflow: hidden;
+  }
+  
+  .quizShow{
+    max-height:100%;
+  }
+  
+  #questionList{
+  
+    max-height: 700px;
+    overflow-y: scroll;
+  }
+  

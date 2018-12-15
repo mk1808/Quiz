@@ -11,5 +11,5 @@ export class StudentMainPanelComponent implements OnInit {
 
   ngOnInit() {
   }
-
+ 
 }
