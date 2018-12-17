@@ -19,6 +19,7 @@ class user
     public $role;
     public $created;
     public $modified;
+	public $course;
 
     public function __construct($db){
         $this->conn = $db;
@@ -57,7 +58,7 @@ class user
     function emailExists(){
 
         // query to check if email exists
-        $query = "SELECT ID, NAME, SURNAME, PASSWORD, ROLE
+        $query = "SELECT ID, NAME, SURNAME, PASSWORD, ROLE, COURSE
             FROM user
             WHERE EMAIL = ?
             LIMIT 0,1";
@@ -89,7 +90,7 @@ class user
             $this->surname = $row['SURNAME'];
             $this->password = $row['PASSWORD'];
             $this->role = $row['ROLE'];
-
+			$this->course = $row['COURSE'];
             // return true because email exists in the database
             return true;
         }
