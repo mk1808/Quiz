@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
   onLogIn(){
     this.auth.logIn(this.userForm.controls.username.value, this.userForm.controls.password.value).subscribe
     (x=>{console.log(x);
-    console.log(jwt_decode(x.jwt).data.role);
+    console.log(jwt_decode(x.jwt).data);
     this.role=jwt_decode(x.jwt).data.role;
     this.cookie.set("jwt", x.jwt, 0.5);
     this.cookie.set("user",JSON.stringify(jwt_decode(x.jwt).data));
