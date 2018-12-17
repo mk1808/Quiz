@@ -1,34 +1,82 @@
-<div class="appHeader">
-    <div  style="height:100%; width:auto;">
-     <div class="container-fluid">
-      <div class="row">
-      <div class="col-3 ">
-          <img src="assets/img/logo3-100px.png" alt="logo" class="logoHeader" >
-      </div>
-      <div class="col-6 materials">
-    <!--    <div class="writing" ><h1>
-          MATERIAŁY DYDAKTYCZNE
-        </h1></div>
-       <div class="navbarList">
-              <ul>
-                <li>  <a class="nav-item nav-link active" href="#">Home
-                  <span class="sr-only">(current)</span></a> </li>
-                  <li><a class="nav-item nav-link active" href="#">Features</a> </li>
-                  <li><a class="nav-item nav-link active" href="#">Pricing</a> </li>
-                  <li><a class="nav-item nav-link active" href="#">Disabled</a> </li>
-                </ul>
-              </div>
-            --> 
-      </div>
-      <div class="col-3 d-flex align-items-start"  style="height:100%;">
-        <div class="row " style="margin-left: auto;">
-          
-          <button mat-raised-button float-right ><i class="material-icons">person</i>Login</button>
-         <button mat-raised-button float-right ><i class="material-icons">person_add</i> Register</button>
-          </div>
-      </div>
-    </div></div>
+<nav class="navbar navbar-expand-md appHeader">
+  <img src="assets/img/logo3-100px.png" alt="logo" class="logoHeader">
+
+  <div *ngIf="logged" class="name" >{{name}}</div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#appMenu" aria-controls="appMenu" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon">==</span>
+  </button>
+
+
+  <div class="collapse navbar-collapse" id="appMenu">
+
+    <ul class="navbar-nav mr-auto appNavbar">
+      <li class="nav-item appNavItem" (click)="wyloguj()" *ngIf="logged">
+        Wyloguj
+      </li>
+      <li class="nav-item appNavItem"
+          routerLink="/register"
+          routerLinkActive="appNavItemActive"
+          (click)="menuAction('rej')"
+          *ngIf="!logged">
+        Rejestracja
+      </li>
+      <li class="nav-item appNavItem"
+          routerLink="/login"
+          routerLinkActive="appNavItemActive"
+          (click)="menuAction('log')"
+          *ngIf="!logged">
+        Logowanie
+      </li>
+    </ul>
   </div>
-</div>
+
+
+
+<!--<div class="appHeader">
+
+  <div style="height:100%; width:auto;">
+    <div class="container-fluid">
+      <div>
+        <div>
+          <img src="assets/img/logo3-100px.png" alt="logo" class="logoHeader">
+
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                  data-target="#menu" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+
+        </div>
+
+        <div class="collapse navbar-collapse" id="menu">
+          <ul class="nav navbar-nav navbar-right ">
+            <li class=""><a href="/" title='' class='first'>Home</a></li>
+            <li class=" "><a href="/page/kontakt"  title='' class='last' >Kontakt</a></li>
+            <li class=""><a href="/javapro/login">Logowanie</a>
+            </li>
+          </ul>
+        </div>
+
+
+        <!--
+        <div class="col-6 materials">
+
+        </div>
+        <div class="col-3 d-flex align-items-start"  style="height:100%;">
+          <div class="row " style="margin-left: auto;">
+
+            <button mat-raised-button float-right ><i class="material-icons">person</i>Login</button>
+           <button mat-raised-button float-right ><i class="material-icons">person_add</i> Register</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>-->
+</nav>
 <div class="underlineBar"></div>
-  
+

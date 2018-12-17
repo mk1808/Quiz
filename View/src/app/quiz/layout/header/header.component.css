@@ -1,6 +1,11 @@
 .appHeader{
     /*height:130px;*/
     background-color:#2a2a2a;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+#appMenu{
 }
 
 .logoHeader{
@@ -10,10 +15,36 @@
 }
 
 .appNavbar{
-    height:50px;
-   /* position: relative;
-    bottom:-40px;
-    left:270px;*/
+margin-right: 90px !important;
+  margin-left: auto;
+  cursor: context-menu;
+}
+
+.appNavItem{
+  color:#ededed;
+  display:block;
+  font-size: 17px;
+  padding: 42px 10px;
+  transition-duration: 500ms;
+}
+
+.appNavItem:hover{
+  background-color: #0281D6;
+}
+
+.appNavItemActive {
+  background-color: #0281D6;
+}
+
+.navbar-toggler-icon{
+  color:#ededed;
+}
+
+.name {
+  color:#ededed;
+  margin-left:37%;
+  width:300px;
+  text-align: center;
 }
 
 .underlineBar{
@@ -47,14 +78,14 @@
 }
 
 .materials{
-    height:100%; 
+    height:100%;
     margin-top: auto ;
 }
 
 .writing{
-    text-align: center; 
-    FONT-FAMILY:Didact Gothic; 
-    color: cadetblue; 
+    text-align: center;
+    FONT-FAMILY:Didact Gothic;
+    color: cadetblue;
     text-shadow: 2px 2px grey;
     text-decoration: overline;
 }
