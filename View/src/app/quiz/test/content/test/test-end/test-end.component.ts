@@ -34,5 +34,9 @@ export class TestEndComponent implements OnInit {
     this.router.navigate(['../begin'], { relativeTo: this.route });
     
   };
-
+  onBack (){
+ 
+    this.router.navigate(['../student_panel'], { relativeTo: this.route });
+    
+  };
 }

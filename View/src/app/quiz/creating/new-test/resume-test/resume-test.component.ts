@@ -37,7 +37,7 @@ export class ResumeTestComponent implements OnInit {
   }
 
   onMain(){
-    this.router.navigate(['../'], { relativeTo: this.route });
+    this.router.navigate(['../../teacher_panel'], { relativeTo: this.route });
 
   }
 

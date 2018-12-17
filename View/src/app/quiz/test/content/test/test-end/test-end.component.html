@@ -1,11 +1,11 @@
 <div class="container">
   <div fxLayout="column">
-    <div fxLayout="row">
+    <div >
       <div class="wTitle">
         PODSUMOWANIE
       </div>
     </div>
-    <div fxLayout="row" *ngIf="isPassed; else notPassed">
+    <div  *ngIf="isPassed; else notPassed">
       <div class="testScore">
         Uzyskano:
         <br>
@@ -21,7 +21,7 @@
       </div>
     </div>
     <ng-template #notPassed>
-      <div fxLayout="row">
+      <div >
         <div class="testScore">
           Uzyskano:
           <br>
@@ -37,10 +37,18 @@
         </div>
       </div>
     </ng-template>
-    <div fxLayout="row">
-      <div>
-        <button mat-raised-button class="continue bigButton" (click)="onSubmit()">ROZWIĄŻ TEST PONOWNIE</button>
-      </div>
-    </div>
+    <div  class="bottomRowPos" fxLayoutAlign="start center">
+           
+              <div fxLayout="row" class="inputPos" >
+                  <button mat-raised-button class="continue"
+                  style="margin-right:15px !important" (click)="onSubmit()"
+                  >Rozwiąż ponownie</button>
+                  <button mat-raised-button class="continue" (click)="onBack()" 
+                  style="margin-left:15px !important"
+                  >Wróć</button>
+                </div>
+        </div>
+
+
   </div>
 </div>
