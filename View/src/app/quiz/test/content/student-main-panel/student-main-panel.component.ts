@@ -12,12 +12,12 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class StudentMainPanelComponent implements OnInit {
 
   tests:Subject[]=[];
-  course:string='2EF-DI';
+  course:string;
   constructor(private cookie:CookieService, private auth:AuthService,
     private router:Router, private route:ActivatedRoute) { }
 
   ngOnInit() {
-    /*   this.idUser=JSON.parse(this.cookie.get('user')).id; */
+    this.course=JSON.parse(this.cookie.get('user')).course; 
     this.auth.getTestsByCourse(this.course).subscribe(x =>{
       this.tests=x;
       console.log(this.tests); 

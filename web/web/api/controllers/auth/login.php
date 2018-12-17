@@ -50,7 +50,8 @@ if($email_exists && password_verify($data->password, $user->password)){
             "name" => $user->name,
             "surname" => $user->surname,
             "email" => $user->email,
-            "role" => $user->role
+            "role" => $user->role,
+			"course" => $user->course
         )
     );
 

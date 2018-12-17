@@ -29,3 +29,20 @@
     height:56px;
     font-size: 24px;
 }
+
+.posit{
+    margin-bottom:70px;
+}
+
+.inputPos{
+
+   
+    margin-bottom: 16px;
+    width:400px;
+  }
+
+.continue{
+    display:inline !important;
+    margin:0 auto;
+
+}

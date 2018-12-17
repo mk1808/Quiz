@@ -83,7 +83,10 @@ export class NewTestComponent implements OnInit {
     }
     else { this.newTestForm.controls.time.disable(); }
   }
-
+  
+  onBack(){
+    this.router.navigate(['../teacher_panel'], { relativeTo: this.route });
+  }
   onCreate() {
     if (this.newTestForm.valid) {
       let subject = new Subject();
@@ -109,6 +112,7 @@ export class NewTestComponent implements OnInit {
         console.log(x.id);
         this.cookie.set("idSubject", x.id.toString());
       }, e => console.log(e));
+      this.router.navigate(['./new_question'], { relativeTo: this.route });
     }
   }
 }
