@@ -8,12 +8,13 @@ import {ActivatedRoute, NavigationEnd, NavigationStart, Router, RoutesRecognized
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-
+  mainPath="";
   logged:boolean = false;
   name:string ;
   constructor(private cookie:CookieService,private router:Router, private route:ActivatedRoute) {
     this.router.events.subscribe(event => {
         //calls this stuff when navigation ends
+
       if (event instanceof RoutesRecognized)
         this.checkLogged();
     });
@@ -24,10 +25,19 @@ export class HeaderComponent implements OnInit {
   }
 
   checkLogged(){
-    if(this.cookie.get('user')=="") this.logged = false;
+    if(this.cookie.get('user')=="") {
+      this.logged = false;
+    }
     else {
       this.logged = true;
       this.name = JSON.parse(this.cookie.get('user')).name+" "+JSON.parse(this.cookie.get('user')).surname;
+      if (JSON.parse(this.cookie.get('user')).role==1)
+      {
+        this.mainPath='/creating/teacher_panel';
+      }
+      else {
+        this.mainPath='/quiz/student_panel';
+      }
     }
   }
 
@@ -37,8 +47,6 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['/login']);
   }
 
-  menuAction(button){
-    console.log(button);
-  }
+
 
 }

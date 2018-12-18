@@ -11,20 +11,24 @@
   <div class="collapse navbar-collapse" id="appMenu">
 
     <ul class="navbar-nav mr-auto appNavbar">
+      <li class="nav-item appNavItem"
+          [routerLink]="mainPath"
+          routerLinkActive="appNavItemActive"
+          *ngIf="logged">
+        Strona Główna
+      </li>
       <li class="nav-item appNavItem" (click)="wyloguj()" *ngIf="logged">
         Wyloguj
       </li>
       <li class="nav-item appNavItem"
           routerLink="/register"
           routerLinkActive="appNavItemActive"
-          (click)="menuAction('rej')"
           *ngIf="!logged">
         Rejestracja
       </li>
       <li class="nav-item appNavItem"
           routerLink="/login"
           routerLinkActive="appNavItemActive"
-          (click)="menuAction('log')"
           *ngIf="!logged">
         Logowanie
       </li>
