@@ -42,8 +42,7 @@ export class HeaderComponent implements OnInit {
   }
 
   wyloguj(){
-    this.cookie.set("jwt", '',null,'/');
-    this.cookie.set("user",'',null,'/');
+    this.cookie.deleteAll();
     this.router.navigate(['/login']);
   }
 
