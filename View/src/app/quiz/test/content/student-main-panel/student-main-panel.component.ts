@@ -25,7 +25,7 @@ export class StudentMainPanelComponent implements OnInit {
   }
   onTest(id:string){
     
-    this.cookie.set("idSubject", id.toString());
+    this.cookie.set("idSubject", id.toString(), null,"/");
     this.router.navigate(['../test_begin'], { relativeTo: this.route });
 
   }
