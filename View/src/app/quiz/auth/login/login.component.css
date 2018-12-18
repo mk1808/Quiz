@@ -10,3 +10,13 @@
 .login{
     margin-bottom: 10px;
 }
+
+.testDetails{
+    text-align: center;  
+    FONT-FAMILY:Didact Gothic; 
+    color:#ededed;
+    font-size: 20px; 
+    font-weight: bold; 
+    margin-top:20px;
+    text-align:left;
+}

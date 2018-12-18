@@ -34,7 +34,12 @@
       <button mat-raised-button class="continue "
       (click)="onLogIn()">Zaloguj</button>
     </div>
-    <br>
+    
+    <div class="testDetails">
+        
+        {{regFail==true? "Logowanie nie powiodło się ":"" }}
+        
+        </div><br>
     <br>
     <div fxLAyout="row" class="registerText">
       Nie masz konta?

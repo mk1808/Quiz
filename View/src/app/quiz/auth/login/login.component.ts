@@ -19,6 +19,7 @@ export class LoginComponent implements OnInit {
     private auth:AuthService, private cookie:CookieService ) {}
   
   role:number;
+  regFail:boolean=false;
 
   ngOnInit() {
   }
@@ -42,7 +43,7 @@ if (this.role==1)
   else {
     this.router.navigate(['../quiz/student_panel'], { relativeTo: this.route });
   }
-    }, e=>console.log(e));
+    }, e=>{console.log(e); this.regFail=true;});
     
   }  
 }
