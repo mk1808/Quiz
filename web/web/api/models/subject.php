@@ -202,6 +202,24 @@ class Subject{
         return -1;
 
     }
+
+    public function getQuestionCountForQuiz($id){
+        $query = 'SELECT COUNT(ID_SUBJECT) FROM question WHERE ID_SUBJECT = "'.$id.'" GROUP BY ID_SUBJECT';
+        //$query = "SELECT * FROM QUESTION";
+        $stmt = $this->conn->prepare($query);
+
+        $stmt->execute();
+
+        $value= $stmt->fetch(PDO::FETCH_ASSOC)["COUNT(ID_SUBJECT)"];
+        $ans = [];
+        if($value>0){
+            $ans = [count => $value];
+        }
+        else {
+            $ans = [count => 0];
+        }
+        return $ans;
+    }
 }
 
 
