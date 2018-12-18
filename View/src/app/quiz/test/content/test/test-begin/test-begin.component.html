@@ -11,7 +11,7 @@
       Jest to test {{subject.multipleChoice? "wielokrotnego":"jednokrotnego"}} wyboru. <br>     
       {{subject.limitedTime? "Czas na rozwiązanie quizu wynosi: " + subject.time + " min." :
       "Quiz nie posiada limitu czasu." }} <br>
-      {{subject.description!=undefined? "Opis: " + subject.description : " "}} <br>
+      {{(subject.description!=undefined)&&(subject.description!="")&&(subject.description!=null)? "Opis: " + subject.description : " "}} <br>
       Zapraszamy!
     </div>
  <div class="posit">
