@@ -22,6 +22,8 @@ export class NewTestComponent implements OnInit {
   idExistingTest: number;
   initialized: boolean = false;
   newTestForm: FormGroup;
+  testName:string="";
+
 
   constructor(private fb: FormBuilder, private dictionary: DictionaryService,
     private creating: CreatingService, private cookie: CookieService,
@@ -36,6 +38,10 @@ export class NewTestComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.dictionary.getCourses().subscribe(x => {
+      console.log(x[1].NAME);
+      this.coursesTable = x;
+    });
     this.user = (JSON.parse(this.cookie.get('user')));
 
     if (this.newTest) {
@@ -50,25 +56,30 @@ export class NewTestComponent implements OnInit {
     });
       this.initialized = true;
       this.newTestForm.controls.time.disable();
-      this.dictionary.getCourses().subscribe(x => {
-        console.log(x[1].NAME);
-        this.coursesTable = x;
-      })
+
     }
     else {
 
-      this.dictionary.getCourses().subscribe(x => {
-        console.log(x[1].NAME);
-        this.coursesTable = x;
-      })
+
       this.test.getQuizDetails(this.idExistingTest).subscribe(x => {
         console.log(x);
+        this.testName= x.NAME;
+        let hoursN = Math.floor(x.TIME/60);
+        let minutesN = x.TIME - hoursN*60;
+
+        let hours = String(hoursN);
+        let minutes = String(minutesN);
+
+        if(hoursN<10) hours = "0"+ String(hoursN);
+        if(minutesN<10) minutes = "0"+ String(minutesN);
+
+
         this.newTestForm = this.fb.group({
           name: [x.NAME, Validators.required],
           nOQuestions: [x.N_O_QUESTIONS, Validators.required],
-          limitedTime: [x.LIMITED_TIME = 0 ? false : true],
-          multipleChoice: [x.MULTIPLE_CHOICE = 0 ? 'jednokrotny' : 'wielokrotny', Validators.required],
-          time: ['01:01'],
+          limitedTime: [x.LIMITED_TIME == 0 ? false : true],
+          multipleChoice: [x.MULTIPLE_CHOICE == 0 ? 'jednokrotny' : 'wielokrotny', Validators.required],
+          time: [hours+":"+minutes],
           course: [x.COURSE],
           description: [x.DESCRIPTION]
         });
@@ -83,7 +94,7 @@ export class NewTestComponent implements OnInit {
     }
     else { this.newTestForm.controls.time.disable(); }
   }
-  
+
   onBack(){
     this.router.navigate(['../teacher_panel'], { relativeTo: this.route });
   }
