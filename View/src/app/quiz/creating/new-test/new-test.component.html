@@ -35,7 +35,7 @@
                   <select class="form-control" id="exampleFormControlSelect1"
                   formControlName="course" >
                     <option selected>Kierunek studiów</option>
-                    <option *ngFor="let course of coursesTable">
+                    <option *ngFor="let course of coursesTable" [value]="course.NAME">
                         {{course.NAME}}
                     </option>
 
@@ -55,8 +55,8 @@
 
                       <select class="form-control" id="exampleFormControlSelect1"
                       formControlName="multipleChoice">
-                        <option selected>Krotność</option>
-                        <option *ngFor="let choice of multipleChoiceTable">
+                        <option >Krotność</option>
+                        <option *ngFor="let choice of multipleChoiceTable" [value]="choice">
                                 {{choice}}
                             </option>
                       </select>
