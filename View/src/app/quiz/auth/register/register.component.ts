@@ -9,6 +9,8 @@ import { AuthService } from '../../shared/services/auth.service';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
+  regSuccess:boolean=false;
+  regFail:boolean=false;
   registerForm: FormGroup = this.fb.group({
     username: ['', Validators.required],
     password: ['', Validators.required],
@@ -29,8 +31,12 @@ export class RegisterComponent implements OnInit {
       this.registerForm.controls.email.value, 
       this.registerForm.controls.name.value,
       this.registerForm.controls.surname.value
+
       ).subscribe
-    (x=>console.log(x), e=>console.log(e));
+    (x=>{console.log(x);
+    this.regSuccess=true;}, 
+    e=>{console.log(e);
+    this.regFail=true;});
   }
 
 }
