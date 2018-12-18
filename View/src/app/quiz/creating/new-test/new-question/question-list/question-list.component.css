@@ -65,5 +65,5 @@ li p:hover {
 #questionList{
 
   max-height: 700px;
-  overflow-y: scroll;
+  overflow-y: auto;
 }

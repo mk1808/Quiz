@@ -6,17 +6,17 @@
         </div>
       </div>
       <div >
-         
+
             <button mat-raised-button class="continue bigButton" (click)="onNew()" >
                 <i class="material-icons" style="font-size: 40px">
                     add
                     </i>
               Dodaj nowy quiz</button>
-          
+
         </div>
 
       <div  fxLayoutAlign="space-around center">
-        
+
         <div class="welcomeTest">
       Poniżej znajdują się utworzone przez Ciebie quizy
         </div>
@@ -25,17 +25,17 @@
 
           <div class="treeContainer">
                 <div class="collapse multi-collapse show" id="questionList">
-              
+
                   <div *ngFor="let test of tests; let i = index">
-                    <button class="quizButton questionButton" (click)="onView(i+1)"> 
+                    <button class="quizButton questionButton" (click)="onView(test.ID)">
                       {{i+1}} &nbsp;&nbsp;&nbsp;{{test.NAME}}</button>
                     <div></div>
                   </div>
                 </div>
-              
+
               </div>
 
-        
+
       </div>
     </div>
   </div>

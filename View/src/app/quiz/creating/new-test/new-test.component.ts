@@ -122,8 +122,8 @@ export class NewTestComponent implements OnInit {
       this.creating.createSubject(subject).subscribe(x => {
         console.log(x.id);
         this.cookie.set("idSubject", x.id.toString());
+        this.router.navigate(['./new_question'], { relativeTo: this.route });
       }, e => console.log(e));
-      this.router.navigate(['./new_question'], { relativeTo: this.route });
     }
   }
 }

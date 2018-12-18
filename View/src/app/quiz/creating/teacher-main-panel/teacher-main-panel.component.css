@@ -1,9 +1,9 @@
 .welcomeTest{
-    text-align: center;  
-    FONT-FAMILY:Didact Gothic; 
+    text-align: center;
+    FONT-FAMILY:Didact Gothic;
     color:#ededed;
-    font-size: 30px; 
-    font-weight: bold; 
+    font-size: 30px;
+    font-weight: bold;
     margin-top:15px;
     margin-bottom: 30px;
 }
@@ -16,7 +16,7 @@
     padding:5px;
     margin-bottom:40px;
   }
-  
+
   .quizButton{
     width:100%;
     color:#ededed;
@@ -26,8 +26,8 @@
     text-overflow: ellipsis;
     white-space: nowrap;
   }
-  
-  
+
+
   .questionButton{
     max-width:90%;
     margin-left: 20px;
@@ -35,7 +35,7 @@
     background-color: #2a2a2a;
     font-size: 1.2em;
     text-align: left;
-  
+
   }
   .questionButton:hover {
     height: auto;
@@ -55,7 +55,7 @@
     margin: 10px;
     margin-left: 50px;
   }
-  
+
   li p{
     height:18px;
     overflow: hidden !important;
@@ -68,22 +68,22 @@
     text-overflow: unset;
     white-space: initial;
   }
-  
+
   .quizCollapse{
     max-height:0;
     overflow: hidden;
   }
-  
+
   .quizShow{
     max-height:100%;
   }
-  
+
   #questionList{
     max-height: 700px;
-    overflow-y: scroll;
+    overflow-y: auto;
   }
-  
-  
+
+
 .bigButton{
   height:56px;
   font-size: 24px;
