@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, Route, ActivatedRoute } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
+import { Subject } from 'src/app/quiz/shared/models/classes';
+import { TestService } from 'src/app/quiz/shared/services/test.service';
 
 @Component({
   selector: 'app-test-begin',
@@ -7,12 +10,25 @@ import { Router, Route, ActivatedRoute } from '@angular/router';
   styleUrls: ['./test-begin.component.css']
 })
 export class TestBeginComponent implements OnInit {
-
-  constructor(private router:Router, private route:ActivatedRoute) { 
+  idSubject:string;
+  subject:Subject=new Subject();
+  constructor(private router:Router, private route:ActivatedRoute,
+    private cookie:CookieService,  private test:TestService ) { 
     
   }
 
   ngOnInit() {
+    this.idSubject=this.cookie.get('idSubject');
+    this.test.getQuizDetails(this.idSubject).subscribe(x=>{
+      this.subject.name=x.NAME;
+      this.subject.course=x.COURSE;
+      this.subject.nOQuestions=x.N_O_QUESTIONS;
+      this.subject.limitedTime=x.LIMITED_TIME;
+      this.subject.multipleChoice=x.MULTIPLE_CHOICE;
+      this.subject.description=x.DESCRIPTION;
+      this.subject.time=x.TIME;
+      console.log("subj  ",this.subject);
+    });
   }
 
   onSubmit(){

@@ -18,3 +18,13 @@
 .colright{
     margin-left:20px;
 } 
+
+.testDetails{
+    text-align: center;  
+    FONT-FAMILY:Didact Gothic; 
+    color:#ededed;
+    font-size: 20px; 
+    font-weight: bold; 
+    margin-top:60px;
+    text-align:left;
+}

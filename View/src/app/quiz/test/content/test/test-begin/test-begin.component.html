@@ -7,10 +7,12 @@
   
  
       <div class="welcomeTest">
-        Witaj w demonstracji testu.
-        <br>
-        Zapraszamy!
-    
+      Przed Tobą test o nazwie: {{subject.name}}.<br>
+      Jest to test {{subject.multipleChoice? "wielokrotnego":"jednokrotnego"}} wyboru. <br>     
+      {{subject.limitedTime? "Czas na rozwiązanie quizu wynosi: " + subject.time + " min." :
+      "Quiz nie posiada limitu czasu." }} <br>
+      {{subject.description!=undefined? "Opis: " + subject.description : " "}} <br>
+      Zapraszamy!
     </div>
  <div class="posit">
       

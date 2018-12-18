@@ -97,6 +97,12 @@
         <button mat-raised-button class="continue"
         (click)="onRegister()">Utwórz nowe konto</button>
       </div>
+      <div class="testDetails">
+        
+      {{regSuccess==true? "Rejestracja udana ":"" }}
+      {{regFail==true? "Rejestracja nie powiodła się ":"" }}
+      
+      </div>
       <br>
       <br>
       </div>
