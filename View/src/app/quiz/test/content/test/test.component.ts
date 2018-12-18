@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {AfterViewChecked, AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { TestService } from 'src/app/quiz/shared/services/test.service';
 import { Question, QuestionStatus } from 'src/app/quiz/shared/models/classes';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -14,10 +14,14 @@ export class TestComponent implements OnInit {
   questionStatuses: QuestionStatus[] = [];
   status = new QuestionStatus;
 
+  actualTime;
+  public timeLeft:string = "00:00:00";
 
   constructor(private testService: TestService, private router:Router, private route:ActivatedRoute) {
 
   }
+
+
 
   ngOnInit() {
     this.testService.getQuestions().subscribe(x => {
@@ -34,7 +38,11 @@ export class TestComponent implements OnInit {
       );
 
     });
+    this.timer(20);
+
   }
+
+
 
   public onChange(questionStatus: QuestionStatus) {
     let exist = false;
@@ -54,18 +62,40 @@ export class TestComponent implements OnInit {
       this.questionStatuses[id] = questionStatus;
     }
 
-    
+
   }
 
   onSubmit(){
-    this.testService.checkAnswers(this.questionStatuses).subscribe(x => 
-      { 
-        
+    this.testService.checkAnswers(this.questionStatuses).subscribe(x =>
+      {
+
         this.testService.setResult(x);
         this.router.navigate(['../end'], { relativeTo: this.route });
       });
-   
+
   }
 
+  public timer (time){
+    this.actualTime = new Date().getTime();
+    let endTime = this.actualTime + time * 60 * 1000;
+    let x = setInterval(()=> {
+      let timeleft = Math.floor( endTime - (new Date().getTime()));
+
+      let hoursN = Math.floor(timeleft/(1000*60*60));
+      let minutesN = Math.floor((timeleft % (1000*60*60))/(1000*60));
+      let secundesN = Math.floor((timeleft % (1000*60))/(1000));
+
+      let hours = String(hoursN);
+      let minutes = String(minutesN);
+      let secundes = String(secundesN);
+
+      if(hoursN<10) hours = "0"+ String(hoursN);
+      if(minutesN<10) minutes = "0"+ String(minutesN);
+      if(secundesN<10) secundes = "0"+ String(minutesN);
+
+      this.timeLeft = hours+":"+minutes+":"+secundes;
+    }, 1000);
+
+  }
 
 }

@@ -1,16 +1,9 @@
+<div class="timer" >{{timeLeft}}</div>
 
 <app-question *ngFor="let question of questions; let i = index;"
 [setQuestion]="question" (questionStatus)="onChange($event)"></app-question>
 
 <div fxLayout="column">
-       <!-- <div class="row btnPosition">
-          <button mat-raised-button class="btn pull-right btnStyle"
-           (click)="onSubmit()">
-            Zakończ
-            <i class="material-icons">
-              keyboard_arrow_right
-            </i></button>
-        </div>-->
         <div fxLayout="row">
             <div>
               <button mat-raised-button class="continue bigButton" (click)="onSubmit()">ZAKOŃCZ</button>
