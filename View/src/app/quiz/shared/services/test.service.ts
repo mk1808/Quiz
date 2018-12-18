@@ -16,8 +16,8 @@ export class TestService {
       return this.http.get<Question[]>('http://localhost/web/web/api/controllers/getQuestionsQndAnswers.php');
   }
 
-  public checkAnswers(questions: QuestionStatus[]): Observable<any> {
-    return  this.http.post<Result>('http://localhost:80/web/web/api/controllers/checkAnswers.php', JSON.stringify({'questions': questions}));
+  public checkAnswers(questions: QuestionStatus[], idUser, idSubject): Observable<any> {
+    return  this.http.post<Result>('http://localhost/web/web/api/controllers/question/checkAnswers.php', JSON.stringify({'questions': questions, 'idUser':idUser, 'idSubject':idSubject}));
   }
 
   public setResult(result: Result) {

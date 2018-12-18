@@ -1,7 +1,8 @@
 import {AfterViewChecked, AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { TestService } from 'src/app/quiz/shared/services/test.service';
-import { Question, QuestionStatus } from 'src/app/quiz/shared/models/classes';
+import { Question, QuestionStatus, Subject } from 'src/app/quiz/shared/models/classes';
 import { Router, ActivatedRoute } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-test',
@@ -13,18 +14,25 @@ export class TestComponent implements OnInit {
   questions1 = Question;
   questionStatuses: QuestionStatus[] = [];
   status = new QuestionStatus;
-
+  idSubject:string;
+  subject:Subject=new Subject();
   actualTime;
+  idUser:string;
   public timeLeft:string = "00:00:00";
 
-  constructor(private testService: TestService, private router:Router, private route:ActivatedRoute) {
+  constructor(private testService: TestService, private router:Router,
+     private route:ActivatedRoute, private cookie:CookieService) {
 
   }
 
 
 
   ngOnInit() {
-    this.testService.getQuestions().subscribe(x => {
+    this.idSubject=this.cookie.get('idSubject');
+    this.idUser = (JSON.parse(this.cookie.get('user')).id);
+
+    console.log("ids",this.idUser," ", this.idSubject)
+    this.testService.getQuestionsByIdSubject(this.idSubject).subscribe(x => {
       console.log(x);
 
       this.questions = x;
@@ -66,7 +74,8 @@ export class TestComponent implements OnInit {
   }
 
   onSubmit(){
-    this.testService.checkAnswers(this.questionStatuses).subscribe(x =>
+    console.log("que: ",this.questionStatuses," iduser: ",this.idUser," idsubj: ",this.idSubject);
+    this.testService.checkAnswers(this.questionStatuses,this.idUser,this.idSubject).subscribe(x =>
       {
 
         this.testService.setResult(x);
