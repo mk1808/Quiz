@@ -52,6 +52,7 @@ export class User{
   email:string;
   password:string;
   role:number;
+  course:string;
 }
 export class UserResult {
   id: number;
