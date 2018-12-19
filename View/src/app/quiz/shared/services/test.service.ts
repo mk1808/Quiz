@@ -31,7 +31,12 @@ export class TestService {
   public getQuestionsByIdSubject(id): Observable<any> {
     return this.http.get<any>('http://localhost/web/web/api/controllers/question/getQuestionsWithAnswersForQuiz.php?id='+ id );
 }
+
+  public getRandQuestionsByIdSubject(id): Observable<any> {
+    return this.http.get<any>('http://localhost/web/web/api/controllers/question/getRandomQuestionsForQuiz.php?id='+ id );
+  }
+
   public getQuizDetails(id): Observable<any> {
   return this.http.get<any>('http://localhost/web/web/api/controllers/quiz/getQuizDetails.php?id='+ id );
-}  
+}
 }

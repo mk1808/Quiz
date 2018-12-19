@@ -32,7 +32,7 @@ export class TestComponent implements OnInit {
     this.idUser = (JSON.parse(this.cookie.get('user')).id);
 
     console.log("ids",this.idUser," ", this.idSubject)
-    this.testService.getQuestionsByIdSubject(this.idSubject).subscribe(x => {
+    this.testService.getRandQuestionsByIdSubject(this.idSubject).subscribe(x => {
       console.log(x);
 
       this.questions = x;
