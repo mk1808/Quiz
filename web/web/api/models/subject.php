@@ -220,6 +220,18 @@ class Subject{
         }
         return $ans;
     }
+
+    public function getRequiredAmountOfQuestion($id){
+        $query = 'SELECT N_O_QUESTIONS as number FROM subject WHERE ID = "'.$id.'"';
+        //$query = "SELECT * FROM QUESTION";
+        $stmt = $this->conn->prepare($query);
+
+        $stmt->execute();
+
+        $value= $stmt->fetch(PDO::FETCH_ASSOC)["number"];
+
+        return $value;
+    }
 }
 
 
