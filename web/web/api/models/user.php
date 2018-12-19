@@ -32,6 +32,7 @@ class user
         $this->email=htmlspecialchars(strip_tags($this->email));
         $this->password=htmlspecialchars(strip_tags($this->password));
         $this->role=htmlspecialchars(strip_tags($this->role));
+        $this->course=htmlspecialchars(strip_tags($this->course));
         $password_hash = password_hash($this->password, PASSWORD_BCRYPT);
 
         if ($this->emailExists()){
@@ -43,6 +44,7 @@ class user
                 SURNAME = "'.$this->surname.'",
                 EMAIL = "'.$this->email.'",
                 PASSWORD = "'.$password_hash.'",
+                COURSE = "'.$this->course.'",
                 ROLE = "'.$this->role.'";';
 
         // prepare the query

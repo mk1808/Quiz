@@ -11,8 +11,9 @@ import { AuthService } from '../../shared/services/auth.service';
 export class RegisterComponent implements OnInit {
   regSuccess:boolean=false;
   regFail:boolean=false;
+  user:User=new User;  
   registerForm: FormGroup = this.fb.group({
-    username: ['', Validators.required],
+    course: ['', Validators.required],
     password: ['', Validators.required],
     passwordRepeat: ['', Validators.required],
     name: ['', Validators.required],
@@ -25,16 +26,29 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {
   }
 
-  onRegister(){
-    this.auth.register(this.registerForm.controls.username.value,
-      this.registerForm.controls.password.value,
-      this.registerForm.controls.email.value, 
-      this.registerForm.controls.name.value,
-      this.registerForm.controls.surname.value
+  onClear(){
+    this.registerForm.controls.email.setValue('');
+    this.registerForm.controls.name.setValue('');
+    this.registerForm.controls.surname.setValue('');
+    this.registerForm.controls.course.setValue('');
+    this.registerForm.controls.password.setValue('');
+    this.registerForm.controls.passwordRepeat.setValue('');
+  }
 
-      ).subscribe
+  onRegister(){
+    this.regSuccess=false;
+    this.regFail=false;
+    this.user.email=  this.registerForm.controls.email.value;
+    this.user.password =   this.registerForm.controls.password.value;
+    this.user.course= this.registerForm.controls.course.value;
+    this.user.name= this.registerForm.controls.name.value;
+    this.user.surname= this.registerForm.controls.surname.value;
+
+    this.auth.register(this.user).subscribe
     (x=>{console.log(x);
-    this.regSuccess=true;}, 
+    this.regSuccess=true;
+    this.onClear();
+  }, 
     e=>{console.log(e);
     this.regFail=true;});
   }
