@@ -20,6 +20,7 @@ export class TestBeginComponent implements OnInit {
   ngOnInit() {
     this.idSubject=this.cookie.get('idSubject');
     this.test.getQuizDetails(this.idSubject).subscribe(x=>{
+      console.log(x);
       this.subject.name=x.NAME;
       this.subject.course=x.COURSE;
       this.subject.nOQuestions=x.N_O_QUESTIONS;

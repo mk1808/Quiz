@@ -22,7 +22,7 @@ export class NewTestComponent implements OnInit {
   idExistingTest: number;
   initialized: boolean = false;
   newTestForm: FormGroup;
-  testName:string="";
+  testName: string = "";
 
 
   constructor(private fb: FormBuilder, private dictionary: DictionaryService,
@@ -45,15 +45,15 @@ export class NewTestComponent implements OnInit {
     this.user = (JSON.parse(this.cookie.get('user')));
 
     if (this.newTest) {
-    this.newTestForm = this.fb.group({
-      name: ['', Validators.required],
-      nOQuestions: ['', Validators.required],
-      limitedTime: [false],
-      multipleChoice: ['Krotność', Validators.required],
-      time: [''],
-      course: ['Kierunek studiów'],
-      description: ['']
-    });
+      this.newTestForm = this.fb.group({
+        name: ['', Validators.required],
+        nOQuestions: ['', Validators.required],
+        limitedTime: [false],
+        multipleChoice: ['Krotność', Validators.required],
+        time: [''],
+        course: ['Kierunek studiów'],
+        description: ['']
+      });
       this.initialized = true;
       this.newTestForm.controls.time.disable();
 
@@ -63,15 +63,15 @@ export class NewTestComponent implements OnInit {
 
       this.test.getQuizDetails(this.idExistingTest).subscribe(x => {
         console.log(x);
-        this.testName= x.NAME;
-        let hoursN = Math.floor(x.TIME/60);
-        let minutesN = x.TIME - hoursN*60;
+        this.testName = x.NAME;
+        let hoursN = Math.floor(x.TIME / 60);
+        let minutesN = x.TIME - hoursN * 60;
 
         let hours = String(hoursN);
         let minutes = String(minutesN);
 
-        if(hoursN<10) hours = "0"+ String(hoursN);
-        if(minutesN<10) minutes = "0"+ String(minutesN);
+        if (hoursN < 10) hours = "0" + String(hoursN);
+        if (minutesN < 10) minutes = "0" + String(minutesN);
 
 
         this.newTestForm = this.fb.group({
@@ -79,7 +79,7 @@ export class NewTestComponent implements OnInit {
           nOQuestions: [x.N_O_QUESTIONS, Validators.required],
           limitedTime: [x.LIMITED_TIME == 0 ? false : true],
           multipleChoice: [x.MULTIPLE_CHOICE == 0 ? 'jednokrotny' : 'wielokrotny', Validators.required],
-          time: [hours+":"+minutes],
+          time: [hours + ":" + minutes],
           course: [x.COURSE],
           description: [x.DESCRIPTION]
         });
@@ -95,7 +95,7 @@ export class NewTestComponent implements OnInit {
     else { this.newTestForm.controls.time.disable(); }
   }
 
-  onBack(){
+  onBack() {
     this.router.navigate(['../teacher_panel'], { relativeTo: this.route });
   }
   onCreate() {
@@ -105,7 +105,6 @@ export class NewTestComponent implements OnInit {
         subject.time = (this.newTestForm.controls.time.value.split(":")[0]) * 60
           + this.newTestForm.controls.time.value.split(":")[1] * 1;
       }
-      subject.id = 2;
       subject.idAuthor = this.user.id;
       subject.description = this.newTestForm.controls.description.value;
       subject.name = this.newTestForm.controls.name.value;
@@ -119,11 +118,25 @@ export class NewTestComponent implements OnInit {
       subject.limitedTime = this.newTestForm.controls.limitedTime.value;
       subject.course = this.newTestForm.controls.course.value;
       subject.nOQuestions = this.newTestForm.controls.nOQuestions.value;
-      this.creating.createSubject(subject).subscribe(x => {
-        console.log(x.id);
-        this.cookie.set("idSubject", x.id.toString());
-        this.router.navigate(['./new_question'], { relativeTo: this.route });
-      }, e => console.log(e));
+      if (this.newTest) {
+        this.creating.createSubject(subject).subscribe(x => {
+          console.log(x.id);
+          this.cookie.set("idSubject", x.id.toString());
+          this.router.navigate(['./new_question'], { relativeTo: this.route });
+        }, e => console.log(e));
+      } else
+      {
+        subject.id=this.idExistingTest;
+        try{
+        this.creating.updateSubject(subject).subscribe(x => {
+          console.log(x);
+          this.cookie.set("idSubject", this.idExistingTest.toString());
+          this.router.navigate(['../new_question'], { relativeTo: this.route });
+        }, e => console.log(e));}
+        catch (e){
+          console.log(e);
+        }
+      }
     }
   }
 }

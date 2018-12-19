@@ -9,7 +9,7 @@
             <span class="detailsNames">Ilość pytań: </span>{{subject.nOQuestions}}<br>
             <span class="detailsNames">Wybór: </span>{{subject.multipleChoice? "wielokrotny"  : "jednokrotny"  }}<br>
             <span class="detailsNames"> Limit czasu: </span>{{subject.limitedTime==1? subject.time  : "brak " }}<br>
-            <span class="detailsNames"> Opis: </span>{{subject.description!=undefined? subject.description  : "brak " }}
+            <span class="detailsNames"> Opis: </span>{{subject.description!=""? subject.description  : "brak " }}
           
       </div>
         <div  class="treePos" >

@@ -26,7 +26,7 @@ export class ResumeTestComponent implements OnInit {
       this.subject.nOQuestions=x.N_O_QUESTIONS;
       this.subject.limitedTime=x.LIMITED_TIME;
       this.subject.multipleChoice=x.MULTIPLE_CHOICE;
-      this.subject.description=x.DESCRIPTON;
+      this.subject.description=x.DESCRIPTION;
       this.subject.time=x.TIME;
       console.log(this.subject.description);
     });
