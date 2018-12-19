@@ -49,7 +49,7 @@ export class NewTestComponent implements OnInit {
       name: ['', Validators.required],
       nOQuestions: ['', Validators.required],
       limitedTime: [false],
-      multipleChoice: ['Krotność wyboru', Validators.required],
+      multipleChoice: ['Krotność', Validators.required],
       time: [''],
       course: ['Kierunek studiów'],
       description: ['']
