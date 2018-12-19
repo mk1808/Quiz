@@ -26,6 +26,15 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {
   }
 
+  onClear(){
+    this.registerForm.controls.email.setValue('');
+    this.registerForm.controls.name.setValue('');
+    this.registerForm.controls.surname.setValue('');
+    this.registerForm.controls.course.setValue('');
+    this.registerForm.controls.password.setValue('');
+    this.registerForm.controls.passwordRepeat.setValue('');
+  }
+
   onRegister(){
     this.regSuccess=false;
     this.regFail=false;
@@ -37,7 +46,9 @@ export class RegisterComponent implements OnInit {
 
     this.auth.register(this.user).subscribe
     (x=>{console.log(x);
-    this.regSuccess=true;}, 
+    this.regSuccess=true;
+    this.onClear();
+  }, 
     e=>{console.log(e);
     this.regFail=true;});
   }
