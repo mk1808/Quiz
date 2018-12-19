@@ -9,7 +9,7 @@
       <div class="welcomeTest">
       Przed Tobą test o nazwie: {{subject.name}}.<br>
       Jest to test {{subject.multipleChoice? "wielokrotnego":"jednokrotnego"}} wyboru. <br>     
-      {{subject.limitedTime? "Czas na rozwiązanie quizu wynosi: " + subject.time + " min." :
+      {{subject.limitedTime==1? "Czas na rozwiązanie quizu wynosi: " + subject.time + " min." :
       "Quiz nie posiada limitu czasu." }} <br>
       {{(subject.description!=undefined)&&(subject.description!="")&&(subject.description!=null)? "Opis: " + subject.description : " "}} <br>
       Zapraszamy!
