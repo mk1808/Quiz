@@ -1,10 +1,26 @@
-<div fxLayout="row" >
+
+<div fxLayout="row" *ngIf="multipleChoice==1">
     <article class="message is-primary" (click)="onClick()" [ngStyle]="{'background-color': color}">
         <div class="message-body answer answerStyle">
+        
             <mat-checkbox color="primary" #checkbox (change)="checkbox.toggle()">
 
               </mat-checkbox>
+        <!--    <mat-radio-button color="primary" #checkbox (change)="checkbox.checked=true" [value]="answer.text"></mat-radio-button>
+          -->  <p>{{answer.text}}</p>
+        </div>
+    </article>
+</div>
+
+<div fxLayout="row" *ngIf="multipleChoice==0">
+    <article class="message is-primary" (click)="onClick()" [ngStyle]="{'background-color': checkbox.checked? '#707070' : '#505050' }">
+        <div class="message-body answer answerStyle">
+        <!--
+            <mat-checkbox color="primary" #checkbox (change)="checkbox.toggle()">
+
+              </mat-checkbox>-->
+        <mat-radio-button color="primary" #checkbox #checkbox2 (change)="checkbox.checked=true" [value]="answer.text"></mat-radio-button>
           <p>{{answer.text}}</p>
-           </div>
-      </article>
+        </div>
+    </article>
 </div>

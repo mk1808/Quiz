@@ -35,12 +35,15 @@ export class NewQuestionComponent implements OnInit {
   answers=[new Answer, new Answer, new Answer, new Answer ];
   quizName:string;
   idSubject:string;
+  multipleChoice:string="0";
   constructor(private fb: FormBuilder, private creating:CreatingService,
     private test:TestService, private router:Router, private route:ActivatedRoute,  
     private cookie:CookieService ) { }
 
   ngOnInit() {
     this.idSubject=this.cookie.get('idSubject');
+    this.multipleChoice = this.cookie.get('multiple');
+console.log('mult ',this.multipleChoice);
     this.test.getQuizDetails(this.idSubject).subscribe(x=>{
       this.quizName=x.NAME;
       console.log(x);

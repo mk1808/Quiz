@@ -118,6 +118,7 @@ export class NewTestComponent implements OnInit {
       subject.limitedTime = this.newTestForm.controls.limitedTime.value;
       subject.course = this.newTestForm.controls.course.value;
       subject.nOQuestions = this.newTestForm.controls.nOQuestions.value;
+      this.cookie.set("multiple", subject.multipleChoice.toString());
       if (this.newTest) {
         this.creating.createSubject(subject).subscribe(x => {
           console.log(x.id);

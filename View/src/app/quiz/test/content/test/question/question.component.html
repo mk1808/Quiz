@@ -29,8 +29,9 @@
         
       </article>
     <br>
-  
+    <mat-radio-group>
       <app-answer *ngFor="let answer of question.answers" [setAnswer]="answer" (onChange)="onChange($event)"></app-answer>
+   </mat-radio-group>
     </div>
   <!--  <div fxLayout="column">
       <div class="row justify-content-between" style="margin-top:20px">

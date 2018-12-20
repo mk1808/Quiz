@@ -100,7 +100,7 @@ export class TestComponent implements OnInit {
 
       if(hoursN<10) hours = "0"+ String(hoursN);
       if(minutesN<10) minutes = "0"+ String(minutesN);
-      if(secundesN<10) secundes = "0"+ String(minutesN);
+      if(secundesN<10) secundes = "0"+ String(secundesN);
 
       this.timeLeft = hours+":"+minutes+":"+secundes;
     }, 1000);

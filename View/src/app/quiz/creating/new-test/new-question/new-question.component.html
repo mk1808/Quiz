@@ -36,14 +36,25 @@
                     formControlName="photo">
                 </div>
               </div>
+
+              <mat-radio-group>
+                
           <div fxLayout="row" *ngFor="let answer of answers, let i=index">
-              
+              <div *ngIf="multipleChoice=='true'">
             <mat-checkbox color="primary" class="checkPos" formControlName="checkAnswer{{i}}" >
             </mat-checkbox>
+          </div>
+          <div *ngIf="multipleChoice=='false'">
+              <mat-radio-button color="primary" class="checkPos" formControlName="checkAnswer{{i}}" [value]="i" >
+            </mat-radio-button>
+            </div>
+
             <div fxLayout="row">
               <textarea class="form-control smallTextAreaSize" rows="2" placeholder="Treść odpowiedzi" formControlName="answer{{i}}"></textarea>
             </div>
           </div>
+        </mat-radio-group>
+          
         </div>
         <div fxLayout="column" fxFlex="40%">
           <app-question-list #questionList></app-question-list>

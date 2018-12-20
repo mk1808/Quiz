@@ -6,7 +6,7 @@ import { TestBeginComponent } from './content/test/test-begin/test-begin.compone
 import { TestEndComponent } from './content/test/test-end/test-end.component';
 import { AnswerComponent } from './content/test/question/answer/answer.component';
 import { TestRoutingModule } from './test-routing.module';
-import { MatButtonModule, MatToolbarModule, MatCheckboxModule, MatMenuModule } from '@angular/material';
+import { MatButtonModule, MatToolbarModule, MatCheckboxModule, MatMenuModule, MatRadioButton, MatRadioModule } from '@angular/material';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HighlightModule } from 'ngx-highlightjs';
@@ -20,6 +20,7 @@ import { StudentMainPanelComponent } from './content/student-main-panel/student-
     TestRoutingModule,
     MatButtonModule,
     MatCheckboxModule,
+    MatRadioModule,
     MatToolbarModule,
     MatMenuModule,
     HttpClientModule,
