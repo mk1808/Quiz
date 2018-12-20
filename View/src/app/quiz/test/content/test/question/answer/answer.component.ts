@@ -39,7 +39,10 @@ export class AnswerComponent implements OnInit, AfterViewInit {
       this.color = '#505050';
     }
     this.onChange.emit(this.answerS);
+	
+	if(this.multipleChoice==0){	
     this.radio.radioGroup.change.emit();
+	}
   }
   ngOnInit() {
     this.multipleChoice=this.cookie.get('multipleChoice');
@@ -48,10 +51,12 @@ export class AnswerComponent implements OnInit, AfterViewInit {
       
   }
   ngAfterViewInit(){
+	  if(this.multipleChoice==0){
     this.radio.radioGroup.change.subscribe(x=>
       {console.log("aaaaaaaaaaaaa");
       this.answerS.value=this.radio.checked?1:0;
       this.onChange.emit(this.answerS);
     console.log("thisans", this.answerS);})
+	  }
   }
 }

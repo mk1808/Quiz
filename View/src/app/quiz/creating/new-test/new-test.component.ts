@@ -78,7 +78,7 @@ export class NewTestComponent implements OnInit {
           name: [x.NAME, Validators.required],
           nOQuestions: [x.N_O_QUESTIONS, Validators.required],
           limitedTime: [x.LIMITED_TIME == 0 ? false : true],
-          multipleChoice: [x.MULTIPLE_CHOICE == 0 ? 'jednokrotny' : 'wielokrotny', Validators.required],
+          multipleChoice: [{value : (x.MULTIPLE_CHOICE == 0 ? 'jednokrotny' : 'wielokrotny'), disabled: true}, Validators.required],
           time: [hours + ":" + minutes],
           course: [x.COURSE],
           description: [x.DESCRIPTION]
