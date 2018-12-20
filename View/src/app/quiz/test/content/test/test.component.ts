@@ -46,8 +46,12 @@ export class TestComponent implements OnInit {
       );
 
     });
-    this.timer(20);
-
+    this.subject.limitedTime=JSON.parse(this.cookie.get("time")).limitedTime;
+    this.subject.time=JSON.parse(this.cookie.get("time")).time;
+    console.log("lt", JSON.parse(this.cookie.get("time")).limitedTime)
+    if (this.subject.limitedTime){
+    this.timer(this.subject.time);
+  }
   }
 
 
@@ -85,11 +89,14 @@ export class TestComponent implements OnInit {
   }
 
   public timer (time){
+    console.log("chuj")
     this.actualTime = new Date().getTime();
     let endTime = this.actualTime + time * 60 * 1000;
     let x = setInterval(()=> {
+      
       let timeleft = Math.floor( endTime - (new Date().getTime()));
-
+      if(timeleft<=0) {this.onSubmit();
+      return;}
       let hoursN = Math.floor(timeleft/(1000*60*60));
       let minutesN = Math.floor((timeleft % (1000*60*60))/(1000*60));
       let secundesN = Math.floor((timeleft % (1000*60))/(1000));
@@ -101,7 +108,8 @@ export class TestComponent implements OnInit {
       if(hoursN<10) hours = "0"+ String(hoursN);
       if(minutesN<10) minutes = "0"+ String(minutesN);
       if(secundesN<10) secundes = "0"+ String(secundesN);
-
+      
+      console.log("t---l", timeleft.toString());
       this.timeLeft = hours+":"+minutes+":"+secundes;
     }, 1000);
 

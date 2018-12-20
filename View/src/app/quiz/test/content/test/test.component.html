@@ -1,4 +1,4 @@
-<div class="timer" >{{timeLeft}}</div>
+<div *ngIf="subject.limitedTime!='0'" class="timer" >{{timeLeft}}</div>
 
 <app-question *ngFor="let question of questions; let i = index;"
 [setQuestion]="question" (questionStatus)="onChange($event)"></app-question>

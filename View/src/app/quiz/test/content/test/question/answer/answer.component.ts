@@ -40,7 +40,7 @@ export class AnswerComponent implements OnInit, AfterViewInit {
     }
     this.onChange.emit(this.answerS);
 	
-	if(this.multipleChoice==0){	
+	if(this.multipleChoice=="0"){	
     this.radio.radioGroup.change.emit();
 	}
   }
@@ -51,7 +51,7 @@ export class AnswerComponent implements OnInit, AfterViewInit {
       
   }
   ngAfterViewInit(){
-	  if(this.multipleChoice==0){
+	  if(this.multipleChoice=="0"){
     this.radio.radioGroup.change.subscribe(x=>
       {console.log("aaaaaaaaaaaaa");
       this.answerS.value=this.radio.checked?1:0;

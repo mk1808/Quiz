@@ -29,8 +29,10 @@ export class TestBeginComponent implements OnInit {
       this.subject.description=x.DESCRIPTION;
       this.subject.time=x.TIME;
       console.log("subj  ",this.subject);
-      console.log("mult" ,this.subject.multipleChoice.toString() )
+      console.log("mult" ,this.subject.multipleChoice )
     this.cookie.set("multipleChoice", this.subject.multipleChoice.toString(), null,"/");
+    
+    this.cookie.set("time", JSON.stringify({limitedTime:this.subject.limitedTime, time:this.subject.time}));
     });
   }
 
