@@ -37,7 +37,7 @@
                 </div>
               </div>
 
-              <mat-radio-group>
+              <mat-radio-group >
                 
           <div fxLayout="row" *ngFor="let answer of answers, let i=index">
               <div *ngIf="multipleChoice=='true'">
@@ -45,7 +45,7 @@
             </mat-checkbox>
           </div>
           <div *ngIf="multipleChoice=='false'">
-              <mat-radio-button color="primary" class="checkPos" formControlName="checkAnswer{{i}}" [value]="i" >
+              <mat-radio-button color="primary" class="checkPos" #radioButton  value="checkAnswer{{i}}"  >
             </mat-radio-button>
             </div>
 

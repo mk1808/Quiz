@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Answer, Question } from 'src/app/quiz/shared/models/classes';
 import { CreatingService } from 'src/app/quiz/shared/services/creating.service';
@@ -6,6 +6,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { QuestionListComponent } from './question-list/question-list.component';
 import { TestService } from 'src/app/quiz/shared/services/test.service';
+import { MatRadioGroup, MatRadioButton } from '@angular/material';
 
 @Component({
   selector: 'app-new-question',
@@ -13,10 +14,12 @@ import { TestService } from 'src/app/quiz/shared/services/test.service';
   styleUrls: ['./new-question.component.css']
 })
 
-export class NewQuestionComponent implements OnInit {
+export class NewQuestionComponent implements OnInit, AfterViewInit {
   @ViewChild('questionList')
   questionList:QuestionListComponent;
 
+  @ViewChild('radioButton')
+  radioButton:MatRadioButton;
 
   newQuestionForm: FormGroup = this.fb.group({
     category: ['', Validators.required],
@@ -43,12 +46,51 @@ export class NewQuestionComponent implements OnInit {
   ngOnInit() {
     this.idSubject=this.cookie.get('idSubject');
     this.multipleChoice = this.cookie.get('multiple');
+    if (this.multipleChoice=='false'){
+      
+        
+      this.newQuestionForm.controls.checkAnswer0.setValue(false);
+      this.newQuestionForm.controls.checkAnswer1.setValue(false);
+      this.newQuestionForm.controls.checkAnswer2.setValue(false);
+      this.newQuestionForm.controls.checkAnswer3.setValue(false);
+    }
 console.log('mult ',this.multipleChoice);
     this.test.getQuizDetails(this.idSubject).subscribe(x=>{
       this.quizName=x.NAME;
-      console.log(x);
+      console.log("1123",x);
     });
 
+  }
+  ngAfterViewInit(){
+    if (this.multipleChoice=='false'){
+      this.radioButton.radioGroup.change.subscribe(x=> {console.log(x);
+        this.newQuestionForm.controls.checkAnswer0.setValue(false);
+        this.newQuestionForm.controls.checkAnswer1.setValue(false);
+        this.newQuestionForm.controls.checkAnswer2.setValue(false);
+        this.newQuestionForm.controls.checkAnswer3.setValue(false);
+        
+        // <3 <3 <3 <3 tak bardzo mocno kochajoooo <3 <3 <3 <3 <3 
+
+        switch(x.value){
+          case ("checkAnswer0"):{
+            this.newQuestionForm.controls.checkAnswer0.setValue(true);
+            break;
+          }
+          case ("checkAnswer1"):{
+            this.newQuestionForm.controls.checkAnswer1.setValue(true);
+            break;
+          }
+          case ("checkAnswer2"):{
+            this.newQuestionForm.controls.checkAnswer2.setValue(true);
+            break;
+          }
+          case ("checkAnswer3"):{
+            this.newQuestionForm.controls.checkAnswer3.setValue(true);
+            break;
+          }
+        }
+      })
+      }
   }
 
   onAdd(){
@@ -83,7 +125,7 @@ console.log('mult ',this.multipleChoice);
           {//console.log(x);
           this.questionList.ngOnInit();
           this.onClear();},e=>console.log(e) );
-    
+            
     }
   }
 
