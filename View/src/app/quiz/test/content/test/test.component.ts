@@ -18,6 +18,7 @@ export class TestComponent implements OnInit {
   subject:Subject=new Subject();
   actualTime;
   idUser:string;
+  isSubmitted:boolean = false;
   public timeLeft:string = "00:00:00";
 
   constructor(private testService: TestService, private router:Router,
@@ -49,7 +50,8 @@ export class TestComponent implements OnInit {
     this.subject.limitedTime=JSON.parse(this.cookie.get("time")).limitedTime;
     this.subject.time=JSON.parse(this.cookie.get("time")).time;
     console.log("lt", JSON.parse(this.cookie.get("time")).limitedTime)
-    if (this.subject.limitedTime){
+	//console.log("aaaa",this.subject.limitedTime)
+    if (this.subject.limitedTime==true){
     this.timer(this.subject.time);
   }
   }
@@ -78,6 +80,7 @@ export class TestComponent implements OnInit {
   }
 
   onSubmit(){
+	  this.isSubmitted = true;
     console.log("que: ",this.questionStatuses," iduser: ",this.idUser," idsubj: ",this.idSubject);
     this.testService.checkAnswers(this.questionStatuses,this.idUser,this.idSubject).subscribe(x =>
       {
@@ -95,8 +98,11 @@ export class TestComponent implements OnInit {
     let x = setInterval(()=> {
       
       let timeleft = Math.floor( endTime - (new Date().getTime()));
-      if(timeleft<=0) {this.onSubmit();
-      return;}
+      if(timeleft<=0) {
+		  if(!this.isSubmitted)  this.onSubmit();
+		  clearInterval(x);
+      return;
+	  }
       let hoursN = Math.floor(timeleft/(1000*60*60));
       let minutesN = Math.floor((timeleft % (1000*60*60))/(1000*60));
       let secundesN = Math.floor((timeleft % (1000*60))/(1000));
