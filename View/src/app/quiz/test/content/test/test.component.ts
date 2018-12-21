@@ -89,7 +89,7 @@ export class TestComponent implements OnInit {
   }
 
   public timer (time){
-    console.log("chuj")
+  
     this.actualTime = new Date().getTime();
     let endTime = this.actualTime + time * 60 * 1000;
     let x = setInterval(()=> {
