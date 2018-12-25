@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { LayoutComponent } from './layout/layout.component';
 import { LoginComponent } from './auth/login/login.component'
 import { RegisterComponent } from './auth/register/register.component'
+import { MainPageComponent } from './main-page/main-page.component';
 const routes: Routes = [
   {
     path: "", component: LayoutComponent,children:[ {
@@ -21,7 +22,11 @@ const routes: Routes = [
       path: "register",
       component: RegisterComponent 
     },
-    { path: '', redirectTo: '/quiz/begin', pathMatch: 'full'}, 
+    {
+      path: "",
+      component: MainPageComponent 
+    }
+  //  { path: '', redirectTo: '/quiz/begin', pathMatch: 'full'}, 
    ]
 }
 
