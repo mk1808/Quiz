@@ -11,7 +11,9 @@ import { CookieService } from 'ngx-cookie-service';
 export class CreatingService {
 
   constructor(private http: HttpClient, private cookie:CookieService) { }
+
   public createSubject(subject:Subject): Observable<any> {
+    subject.jwt = this.cookie.get("jwt");
     return this.http.post<any>('http://localhost/web/web/api/controllers/quiz/createSubject.php',
     JSON.stringify(subject),
     {observe: 'response'});
