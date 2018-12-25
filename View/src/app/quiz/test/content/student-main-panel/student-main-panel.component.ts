@@ -19,9 +19,10 @@ export class StudentMainPanelComponent implements OnInit {
   ngOnInit() {
     this.course=JSON.parse(this.cookie.get('user')).course; 
     this.auth.getTestsByCourse(this.course).subscribe(x =>{
-      this.tests=x;
+      if(x.status==200){ 
+      this.tests=x.body;
       console.log(this.tests); 
-    })
+     } })
   }
   onTest(id:string){
     

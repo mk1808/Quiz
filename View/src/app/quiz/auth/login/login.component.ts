@@ -30,12 +30,15 @@ export class LoginComponent implements OnInit {
 
   onLogIn(){
     this.auth.logIn(this.userForm.controls.username.value, this.userForm.controls.password.value).subscribe
-    (x=>{console.log(x);
-    console.log(jwt_decode(x.jwt).data);
-    this.role=jwt_decode(x.jwt).data.role;
-    this.cookie.set("jwt", x.jwt, 0.5);
-    this.cookie.set("user",JSON.stringify(jwt_decode(x.jwt).data));
-    console.log("log ",JSON.stringify(jwt_decode(x.jwt).data));
+    (x=>{ 
+ if(x.status==200){ 
+  
+      console.log(x);
+    console.log(jwt_decode(x.body.jwt).data);
+    this.role=jwt_decode(x.body.jwt).data.role;
+    this.cookie.set("jwt", x.body.jwt, 0.5);
+    this.cookie.set("user",JSON.stringify(jwt_decode(x.body.jwt).data));
+    console.log("log ",JSON.stringify(jwt_decode(x.body.jwt).data));
 if (this.role==1)
     {
       this.router.navigate(['../creating/teacher_panel'], { relativeTo: this.route });
@@ -43,7 +46,9 @@ if (this.role==1)
   else {
     this.router.navigate(['../quiz/student_panel'], { relativeTo: this.route });
   }
-    }, e=>{console.log(e); this.regFail=true;});
+} 
+else { this.regFail=true;}
+}, e=>{console.log(e);});
     
   }  
 }

@@ -9,9 +9,9 @@ import { AuthService } from '../../shared/services/auth.service';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  regSuccess:boolean=false;
-  regFail:boolean=false;
-  user:User=new User;  
+  regSuccess: boolean = false;
+  regFail: boolean = false;
+  user: User = new User;
   registerForm: FormGroup = this.fb.group({
     course: ['', Validators.required],
     password: ['', Validators.required],
@@ -21,12 +21,12 @@ export class RegisterComponent implements OnInit {
     email: ['', Validators.required]
 
   });
-  constructor(private fb: FormBuilder, private auth:AuthService) { }
+  constructor(private fb: FormBuilder, private auth: AuthService) { }
 
   ngOnInit() {
   }
 
-  onClear(){
+  onClear() {
     this.registerForm.controls.email.setValue('');
     this.registerForm.controls.name.setValue('');
     this.registerForm.controls.surname.setValue('');
@@ -35,22 +35,29 @@ export class RegisterComponent implements OnInit {
     this.registerForm.controls.passwordRepeat.setValue('');
   }
 
-  onRegister(){
-    this.regSuccess=false;
-    this.regFail=false;
-    this.user.email=  this.registerForm.controls.email.value;
-    this.user.password =   this.registerForm.controls.password.value;
-    this.user.course= this.registerForm.controls.course.value;
-    this.user.name= this.registerForm.controls.name.value;
-    this.user.surname= this.registerForm.controls.surname.value;
+  onRegister() {
+    this.regSuccess = false;
+    this.regFail = false;
+    this.user.email = this.registerForm.controls.email.value;
+    this.user.password = this.registerForm.controls.password.value;
+    this.user.course = this.registerForm.controls.course.value;
+    this.user.name = this.registerForm.controls.name.value;
+    this.user.surname = this.registerForm.controls.surname.value;
 
     this.auth.register(this.user).subscribe
-    (x=>{console.log(x);
-    this.regSuccess=true;
-    this.onClear();
-  }, 
-    e=>{console.log(e);
-    this.regFail=true;});
+      (x => {
+        if (x.status == 200) {
+          console.log(x);
+          this.regSuccess = true;
+          this.onClear();
+        }
+        else {
+          this.regFail = true;
+        }
+      },
+        e => {
+          console.log(e);
+        });
   }
 
 }

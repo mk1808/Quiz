@@ -1,6 +1,6 @@
 {
-    "/core": {
-      "target": "http://localhost/web/web/api/controllers/",
+    "/core/*": {
+      "target": "http://localhost/web/web/api/controllers",
       "secure": false
     }
   }

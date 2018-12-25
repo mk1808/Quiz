@@ -20,8 +20,10 @@ export class TeacherMainPanelComponent implements OnInit {
     this.idUser=JSON.parse(this.cookie.get('user')).id;
     console.log(this.idUser);
     this.auth.getTests(this.idUser).subscribe(x =>{
-      this.tests=x;
+      if(x.status==200){ 
+      this.tests=x.body;
       console.log(this.tests); 
+     } 
     })
   }
   
