@@ -10,7 +10,7 @@ export class Subject {
   time: number;
   course: string;
   description: string;
-
+  jwt:string;
 }
 
 export class Question {
