@@ -15,40 +15,49 @@ export class LoginComponent implements OnInit {
     username: ['', Validators.required],
     password: ['', Validators.required]
   });
-  constructor(private router:Router, private route:ActivatedRoute,private fb: FormBuilder,
-    private auth:AuthService, private cookie:CookieService ) {}
-  
-  role:number;
-  regFail:boolean=false;
+  constructor(private router: Router, private route: ActivatedRoute, private fb: FormBuilder,
+    private auth: AuthService, private cookie: CookieService) {
+    }
+  role: number;
+  regFail: boolean = false;
 
   ngOnInit() {
+    if(this.cookie.get('user')=="") {
+
+    }
+    else {
+      if (JSON.parse(this.cookie.get('user')).role==1)
+      {
+        this.router.navigate(['../creating/teacher_panel'], { relativeTo: this.route });}
+      else {
+        this.router.navigate(['../quiz/student_panel'], { relativeTo: this.route });
+      }
+    }
   }
-  
-  onRegister(){
+
+  onRegister() {
     this.router.navigate(['../register'], { relativeTo: this.route });
   }
 
-  onLogIn(){
+  onLogIn() {
     this.auth.logIn(this.userForm.controls.username.value, this.userForm.controls.password.value).subscribe
-    (x=>{ 
- if(x.status==200){ 
-  
-      console.log(x);
-    console.log(jwt_decode(x.body.jwt).data);
-    this.role=jwt_decode(x.body.jwt).data.role;
-    this.cookie.set("jwt", x.body.jwt, 0.5);
-    this.cookie.set("user",JSON.stringify(jwt_decode(x.body.jwt).data));
-    console.log("log ",JSON.stringify(jwt_decode(x.body.jwt).data));
-if (this.role==1)
-    {
-      this.router.navigate(['../creating/teacher_panel'], { relativeTo: this.route });
+      (x => {
+        if (x.status == 200) {
+
+          console.log(x);
+          console.log(jwt_decode(x.body.jwt).data);
+          this.role = jwt_decode(x.body.jwt).data.role;
+          this.cookie.set("jwt", x.body.jwt, 0.5);
+          this.cookie.set("user", JSON.stringify(jwt_decode(x.body.jwt).data));
+          console.log("log ", JSON.stringify(jwt_decode(x.body.jwt).data));
+          if (this.role == 1) {
+            this.router.navigate(['../creating/teacher_panel'], { relativeTo: this.route });
+          }
+          else {
+            this.router.navigate(['../quiz/student_panel'], { relativeTo: this.route });
+          }
+        }
+        else { this.regFail = true; }
+      }, e => { console.log(e); });
   }
-  else {
-    this.router.navigate(['../quiz/student_panel'], { relativeTo: this.route });
-  }
-} 
-else { this.regFail=true;}
-}, e=>{console.log(e);});
-    
-  }  
 }
