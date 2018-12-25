@@ -14,6 +14,9 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 include_once 'database.php';
 include_once 'core.php';
 
+include_once '../../config/authorization.php';
 
 $database = new Database();
 $db = $database->getConnection();
+
+$auth = false;

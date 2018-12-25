@@ -17,6 +17,8 @@ include_once '../../models/subject.php';
 $data = (file_get_contents("php://input"));
 $data = json_decode(file_get_contents("php://input"));
 
+$auth2 = authorizate($data->jwt);
+if (!$auth ||(isset($auth2["decoded"]))){
 
 $questionObj= new Question($db);
 
@@ -59,5 +61,12 @@ else{
     http_response_code(201);
     echo json_encode(
         array("message" => "No questions found.")
+    );
+}}
+else {
+    http_response_code(201);
+
+    echo json_encode(
+        array("message" => "UnAuthorized")
     );
 }

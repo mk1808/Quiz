@@ -10,6 +10,7 @@ include_once '../../config/postConfig.php';
 include_once '../../models/subject.php';
 
 
+
 $subject = new Subject($db);
 
 $data = json_decode(file_get_contents("php://input"));
@@ -25,13 +26,21 @@ $subject->course = $data->course;
 $subject->time = $data->time;
 $subject->description = $data->description;
 
-$stmt = $subject->create();
+$auth2 = authorizate($data->jwt);
+if (!$auth ||(isset($auth2["decoded"]) && ($auth2["decoded"]->role == 1)) ) {
+    $stmt = $subject->create();
 
-if($stmt>0){
-    http_response_code(200);
-    echo json_encode(array("message"=>"Subject was created", "id"=>$stmt));
+    if ($stmt > 0) {
+        http_response_code(200);
+        echo json_encode(array("message" => "Subject was created", "id" => $stmt));
+    } else {
+        http_response_code(201);
+        echo json_encode(array("message" => "Unable to create subject."));
+    }
 }
-else{
+else {
     http_response_code(201);
-    echo json_encode(array("message" => "Unable to create subject."));
+    echo json_encode(
+        array("message" => "UnAuthorized")
+    );
 }
