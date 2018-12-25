@@ -20,7 +20,9 @@ export class ResumeTestComponent implements OnInit {
 
   ngOnInit() {
     this.idSubject=this.cookie.get('idSubject');
-    this.test.getQuizDetails(this.idSubject).subscribe(x=>{
+    this.test.getQuizDetails(this.idSubject).subscribe(x=>{  
+      if(x.status==200){
+      x=x.body;
       this.subject.name=x.NAME;
       this.subject.course=x.COURSE;
       this.subject.nOQuestions=x.N_O_QUESTIONS;
@@ -30,7 +32,7 @@ export class ResumeTestComponent implements OnInit {
       this.subject.time=x.TIME;
       console.log(this.subject.description);
       
-    });
+    }});
   }
   onEdit(){
     this.router.navigate(['../'+this.idSubject], { relativeTo: this.route });
