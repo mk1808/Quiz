@@ -55,26 +55,17 @@ if ($jwt) {
                 )
             );
         } else {
-            http_response_code(210);
+            http_response_code(201);
             echo json_encode(array("message" => "Unable to update user."));
         }
     } catch (Exception $e) {
-        http_response_code(210);
+        http_response_code(201);
         echo json_encode(array(
             "message" => "Access denied.",
             "error" => $e->getMessage()
         ));
     }
 } else {
-    http_response_code(210);
+    http_response_code(201);
     echo json_encode(array("message" => "Access denied."));
 }
-
-
-
-
-
-
-
-
-
