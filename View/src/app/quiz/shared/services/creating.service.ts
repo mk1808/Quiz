@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs/index';
 import { Subject, Question } from '../models/classes';
+import { CookieService } from 'ngx-cookie-service';
 
 
 @Injectable({
@@ -9,7 +10,7 @@ import { Subject, Question } from '../models/classes';
 })
 export class CreatingService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private cookie:CookieService) { }
   public createSubject(subject:Subject): Observable<any> {
     return this.http.post<any>('http://localhost/web/web/api/controllers/quiz/createSubject.php',
     JSON.stringify(subject),
