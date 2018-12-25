@@ -29,6 +29,7 @@ export class ResumeTestComponent implements OnInit {
       this.subject.description=x.DESCRIPTION;
       this.subject.time=x.TIME;
       console.log(this.subject.description);
+      
     });
   }
   onEdit(){
