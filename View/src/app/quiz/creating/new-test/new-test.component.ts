@@ -121,19 +121,23 @@ export class NewTestComponent implements OnInit {
       this.cookie.set("multiple", subject.multipleChoice.toString());
       if (this.newTest) {
         this.creating.createSubject(subject).subscribe(x => {
+          if(x.status==200){
+            x=x.body;
           console.log(x.id);
           this.cookie.set("idSubject", x.id.toString());
           this.router.navigate(['./new_question'], { relativeTo: this.route });
-        }, e => console.log(e));
+       } }, e => console.log(e));
       } else
       {
         subject.id=this.idExistingTest;
         try{
         this.creating.updateSubject(subject).subscribe(x => {
+          if(x.status==200){
+            x=x.body;
           console.log(x);
           this.cookie.set("idSubject", this.idExistingTest.toString());
           this.router.navigate(['../new_question'], { relativeTo: this.route });
-        }, e => console.log(e));}
+        }}, e => console.log(e));}
         catch (e){
           console.log(e);
         }

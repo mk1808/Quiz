@@ -9,9 +9,9 @@ import { Cours, Category } from '../models/classes';
 export class DictionaryService {
   constructor(private http: HttpClient) { }
   public getCourses(): Observable<Cours[]> {
-    return this.http.get<Cours[]>('http://localhost/web/web/api/controllers/dictionary/getCoursesList.php');
+    return this.http.post<Cours[]>('http://localhost/web/web/api/controllers/dictionary/getCoursesList.php', "");
   }
   public getCategories(): Observable<Category[]> {
-    return this.http.get<Category[]>('http://localhost/web/web/api/controllers/dictionary/getCategories.php');
+    return this.http.post<Category[]>('http://localhost/web/web/api/controllers/dictionary/getCategories.php',"");
   }
 }

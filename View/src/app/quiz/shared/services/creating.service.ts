@@ -10,20 +10,21 @@ import { Subject, Question } from '../models/classes';
 export class CreatingService {
 
   constructor(private http: HttpClient) { }
-  public createSubject(subject:Subject): Observable<Subject> {
+  public createSubject(subject:Subject): Observable<any> {
     return this.http.post<any>('http://localhost/web/web/api/controllers/quiz/createSubject.php',
-    JSON.stringify(subject));
+    JSON.stringify(subject),
+    {observe: 'response'});
 }
 
-public updateSubject(subject:Subject): Observable<Subject> {
+public updateSubject(subject:Subject): Observable<any> {
   return this.http.post<any>('http://localhost/web/web/api/controllers/quiz/updateSubject.php',
-  JSON.stringify(subject));
+  JSON.stringify(subject),
+  {observe: 'response'});
 }
 public createQuestion(question:Question): Observable<any> {
 
   return this.http.post('http://localhost/web/web/api/controllers/question/createQuestion.php',
-  JSON.stringify(question));
+  JSON.stringify(question),
+  {observe: 'response'});
 }
-
-
 }

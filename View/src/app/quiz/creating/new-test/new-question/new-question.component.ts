@@ -123,8 +123,11 @@ console.log('mult ',this.multipleChoice);
 
         this.creating.createQuestion(question).subscribe(x=>
           {//console.log(x);
+
+            if(x.status==200){
+              x=x.body;
           this.questionList.ngOnInit();
-          this.onClear();},e=>console.log(e) );
+          this.onClear();}},e=>console.log(e) );
             
     }
   }
