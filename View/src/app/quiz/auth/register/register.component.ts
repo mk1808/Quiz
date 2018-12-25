@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { User } from '../../shared/models/classes';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { AuthService } from '../../shared/services/auth.service';
+import { CookieService } from 'ngx-cookie-service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -21,9 +23,21 @@ export class RegisterComponent implements OnInit {
     email: ['', Validators.required]
 
   });
-  constructor(private fb: FormBuilder, private auth: AuthService) { }
+  constructor(private fb: FormBuilder, private auth: AuthService,private cookie: CookieService,
+    private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
+    if(this.cookie.get('user')=="") {
+
+    }
+    else {
+      if (JSON.parse(this.cookie.get('user')).role==1)
+      {
+        this.router.navigate(['../creating/teacher_panel'], { relativeTo: this.route });}
+      else {
+        this.router.navigate(['../quiz/student_panel'], { relativeTo: this.route });
+      }
+    }
   }
 
   onClear() {
