@@ -19,12 +19,16 @@ export class QuestionListComponent implements OnInit {
  
     this.idSubject=this.cookie.get('idSubject');
     this.testService.getQuestionsByIdSubject(this.idSubject).subscribe(x => {
+      if(x.status==200){
+        x=x.body;
       this.questions = x;
-    });
+    }});
     this.test.getQuizDetails(this.idSubject).subscribe(x=>{
+      if(x.status==200){
+        x=x.body;
       this.quizName=x.NAME;
       console.log(x);
-  })}
+   } })}
 
   collapse(i){
     if(document.getElementById('question'+i).classList.contains("quizShow")){

@@ -34,7 +34,9 @@ export class TestComponent implements OnInit {
 
     console.log("ids",this.idUser," ", this.idSubject)
     this.testService.getRandQuestionsByIdSubject(this.idSubject).subscribe(x => {
-      console.log(x);
+      if(x.status==200){
+      x=x.body;
+        console.log(x);
 
       this.questions = x;
 
@@ -46,7 +48,7 @@ export class TestComponent implements OnInit {
         }
       );
 
-    });
+     } });
     this.subject.limitedTime=JSON.parse(this.cookie.get("time")).limitedTime;
     this.subject.time=JSON.parse(this.cookie.get("time")).time;
     console.log("lt", JSON.parse(this.cookie.get("time")).limitedTime)

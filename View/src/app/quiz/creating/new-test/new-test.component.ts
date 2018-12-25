@@ -62,7 +62,9 @@ export class NewTestComponent implements OnInit {
 
 
       this.test.getQuizDetails(this.idExistingTest).subscribe(x => {
-        console.log(x);
+        if(x.status==200){
+        x=x.body;
+          console.log(x);
         this.testName = x.NAME;
         let hoursN = Math.floor(x.TIME / 60);
         let minutesN = x.TIME - hoursN * 60;
@@ -84,7 +86,7 @@ export class NewTestComponent implements OnInit {
           description: [x.DESCRIPTION]
         });
         this.initialized = true;
-      });
+      }});
     }
   }
 

@@ -56,9 +56,11 @@ export class NewQuestionComponent implements OnInit, AfterViewInit {
     }
 console.log('mult ',this.multipleChoice);
     this.test.getQuizDetails(this.idSubject).subscribe(x=>{
+      if(x.status==200){
+        x=x.body;
       this.quizName=x.NAME;
       console.log("1123",x);
-    });
+    }});
 
   }
   ngAfterViewInit(){

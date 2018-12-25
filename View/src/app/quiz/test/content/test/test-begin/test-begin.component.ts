@@ -20,6 +20,8 @@ export class TestBeginComponent implements OnInit {
   ngOnInit() {
     this.idSubject=this.cookie.get('idSubject');
     this.test.getQuizDetails(this.idSubject).subscribe(x=>{
+      if(x.status==200){
+        x=x.body;
       console.log(x);
       this.subject.name=x.NAME;
       this.subject.course=x.COURSE;
@@ -33,7 +35,7 @@ export class TestBeginComponent implements OnInit {
     this.cookie.set("multipleChoice", this.subject.multipleChoice.toString(), null,"/");
     
     this.cookie.set("time", JSON.stringify({limitedTime:this.subject.limitedTime, time:this.subject.time}));
-    });
+ } });
   }
 
   onSubmit(){

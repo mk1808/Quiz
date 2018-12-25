@@ -13,7 +13,8 @@ export class TestService {
   constructor(private http: HttpClient) { }
 
   public getQuestions(): Observable<Question[]> {
-      return this.http.get<Question[]>('http://localhost/web/web/api/controllers/getQuestionsQndAnswers.php');
+      return this.http.post<Question[]>('http://localhost/web/web/api/controllers/getQuestionsQndAnswers.php',
+       {observe: 'response'});
   }
 
   public checkAnswers(questions: QuestionStatus[], idUser, idSubject): Observable<any> {
@@ -29,14 +30,19 @@ export class TestService {
   }
 
   public getQuestionsByIdSubject(id): Observable<any> {
-    return this.http.get<any>('http://localhost/web/web/api/controllers/question/getQuestionsWithAnswersForQuiz.php?id='+ id );
+    return this.http.post<any>('http://localhost/web/web/api/controllers/question/getQuestionsWithAnswersForQuiz.php',
+     JSON.stringify({id:id}
+    ),{observe: 'response'});
 }
 
   public getRandQuestionsByIdSubject(id): Observable<any> {
-    return this.http.get<any>('http://localhost/web/web/api/controllers/question/getRandomQuestionsForQuiz.php?id='+ id );
+    return this.http.post<any>('http://localhost/web/web/api/controllers/question/getRandomQuestionsForQuiz.php',  
+    JSON.stringify({id:id}),{observe: 'response'});
   }
 
   public getQuizDetails(id): Observable<any> {
-  return this.http.get<any>('http://localhost/web/web/api/controllers/quiz/getQuizDetails.php?id='+ id );
+  return this.http.post<any>('http://localhost/web/web/api/controllers/quiz/getQuizDetails.php?',
+  JSON.stringify({id:id}
+    ),{observe: 'response'});
 }
 }
