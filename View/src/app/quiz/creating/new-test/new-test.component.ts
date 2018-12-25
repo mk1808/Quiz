@@ -38,6 +38,17 @@ export class NewTestComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (this.cookie.get('user') == "") {
+      this.router.navigate(['/']);
+    }
+    else {
+      if (JSON.parse(this.cookie.get('user')).role == 2) {
+        this.router.navigate(['/quiz/student_panel']);
+      }
+
+    else{
+     
+    
     this.dictionary.getCourses().subscribe(x => {
       console.log(x[1].NAME);
       this.coursesTable = x;
@@ -59,8 +70,6 @@ export class NewTestComponent implements OnInit {
 
     }
     else {
-
-
       this.test.getQuizDetails(this.idExistingTest).subscribe(x => {
         if(x.status==200){
         x=x.body;
@@ -75,7 +84,6 @@ export class NewTestComponent implements OnInit {
         if (hoursN < 10) hours = "0" + String(hoursN);
         if (minutesN < 10) minutes = "0" + String(minutesN);
 
-
         this.newTestForm = this.fb.group({
           name: [x.NAME, Validators.required],
           nOQuestions: [x.N_O_QUESTIONS, Validators.required],
@@ -89,6 +97,7 @@ export class NewTestComponent implements OnInit {
       }});
     }
   }
+}}
 
   onClickLimitedTime() {
     if (!this.newTestForm.controls.limitedTime.value) {
