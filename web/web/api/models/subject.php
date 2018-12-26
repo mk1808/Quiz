@@ -18,6 +18,8 @@ class Subject{
     public $time;
     public $course;
     public $description;
+    public $shared;
+    public $categorysed;
 
 
 
@@ -87,7 +89,6 @@ class Subject{
             'true' => $questionsTrue
         );
     }
-
 
     public function create(){
         $this->name=htmlspecialchars(strip_tags($this->name));
@@ -232,6 +233,36 @@ class Subject{
 
         return $value;
     }
+
+    public function updateShared(){
+        $this->id=htmlspecialchars(strip_tags($this->id));
+        $this->shared=htmlspecialchars(strip_tags($this->shared));
+
+
+        $query = 'UPDATE subject SET 
+                SHARED = "'.$this->shared.'"
+                WHERE ID = '.$this->id.';';
+
+        $stmt = $this->conn->prepare($query);
+
+        if($stmt->execute()){
+            return 1;
+        }
+        return -1;
+
+    }
+
+    public function getDemoSubjectId(){
+        $query = 'SELECT ID FROM subject WHERE COURSE = "DEMO" LIMIT 0,1';
+        $stmt = $this->conn->prepare($query);
+
+        $stmt->execute();
+
+        $value= $stmt->fetch(PDO::FETCH_ASSOC)["ID"];
+
+        return $value;
+    }
+
 }
 
 

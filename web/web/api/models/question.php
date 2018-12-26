@@ -62,17 +62,19 @@ class Question{
 
 //        http_response_code(200);
 //        echo json_encode(array($stmt));
+try {
+    if ($stmt->execute()) {
 
-        if($stmt->execute()){
-
-            $answer = new Answer($this->conn);
-            if ($answer->createAnswer($this->answers, $this->conn->lastInsertId()))
-             return 1;
-             else {
-                 return -2;
-             }
+        $answer = new Answer($this->conn);
+        if ($answer->createAnswer($this->answers, $this->conn->lastInsertId()))
+            return 1;
+        else {
+            return -2;
         }
-
+    }
+}catch ( PDOException $e){
+    echo $e;
+        }
         return -1;
     }
 
@@ -125,4 +127,16 @@ class Question{
         return -1;
     }
 
+    public function getCategoriesListOfCategorised(){
+        $query = "SELECT CATEGORY FROM question WHERE ID_SUBJECT = -1 GROUP BY CATEGORY";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+
+        $value = array();
+        for($i = 0; $i < $stmt->rowCount(); $i++){
+            $value[$i]= $stmt->fetch(PDO::FETCH_ASSOC)['CATEGORY'];
+        }
+
+        return $value;
+    }
 }
