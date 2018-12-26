@@ -11,6 +11,10 @@ const routes: Routes = [
   { path: 'end', component: TestEndComponent },
   { path: 'student_panel', component: StudentMainPanelComponent},
   { path: '', redirectTo: '/quiz/begin', pathMatch: 'full'},
+
+  { path: 'demo/begin',component: TestBeginComponent },
+  { path: 'demo/test', component: TestComponent },
+  { path: 'demo/end', component: TestEndComponent },
   { path: '**', redirectTo: '/quiz/begin'}
 ];
 

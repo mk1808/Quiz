@@ -19,7 +19,20 @@ export class TestEndComponent implements OnInit {
 
   ngOnInit() {
     if (this.cookie.get('user') == "") {
-      this.router.navigate(['/']);
+      if(window.location.href.split('/')[4] == 'demo'){
+        let result: Result = this.testService.getResult();
+        this.total = result.total;
+        if (this.total == null)
+          this.router.navigate(['/']);
+        this.trueAns = result.true;
+        this.truePercent = Math.round(this.trueAns / this.total * 100);
+        this.isPassed = this.truePercent >= 50;
+        console.log("total:" + this.total + " true:" + this.trueAns + " procent:" + this.truePercent + " " + this.isPassed);
+        console.log(this.testService.getResult());
+
+      }
+      else{this.router.navigate(['/']);}
+      
     }
     else {
       if (JSON.parse(this.cookie.get('user')).role == 1) {

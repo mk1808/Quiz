@@ -45,8 +45,17 @@ export class TestService {
   }
 
   public getQuizDetails(id): Observable<any> {
-  return this.http.post<any>('http://localhost/web/web/api/controllers/quiz/getQuizDetails.php?',
+  return this.http.post<any>('http://localhost/web/web/api/controllers/quiz/getQuizDetails.php',
   JSON.stringify({id:id, jwt:this.cookie.get("jwt")}
     ),{observe: 'response'});
+}
+  public getDemoId(): Observable<any> {
+    return this.http.post<any>('http://localhost/web/web/api/controllers/demo/getDemoId.php',
+    "",{observe: 'response'});
+}
+public checkAnswersForDemo(questions: QuestionStatus[]): Observable<any> {
+
+  return  this.http.post<Result>('http://localhost/web/web/api/controllers/checkAnswers.php', 
+  JSON.stringify({'questions': questions}));
 }
 }

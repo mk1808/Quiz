@@ -18,8 +18,26 @@ export class TestBeginComponent implements OnInit {
   }
 
   ngOnInit() {
+
     if (this.cookie.get('user') == "") {
-      this.router.navigate(['/']);
+
+      if (window.location.href.split('/')[4] == 'demo') {
+
+        
+        this.test.getDemoId().subscribe(x => {
+          console.log(x.body);
+          if (x.status == 200) {
+            this.cookie.set("idSubject", x.body, null, '/');
+            this.test.getQuizDetails(x.body).subscribe(x =>
+              this.loadQuiz(x));
+          }
+        });
+      }
+      else {
+        this.router.navigate(['/']);
+      }
+     
+
     }
     else {
       if (JSON.parse(this.cookie.get('user')).role == 1) {
@@ -32,29 +50,32 @@ export class TestBeginComponent implements OnInit {
         }
         else {
           this.idSubject = this.cookie.get('idSubject');
-          this.test.getQuizDetails(this.idSubject).subscribe(x => {
-            if (x.status == 200) {
-              x = x.body;
-              console.log(x);
-              this.subject.name = x.NAME;
-              this.subject.course = x.COURSE;
-              this.subject.nOQuestions = x.N_O_QUESTIONS;
-              this.subject.limitedTime = x.LIMITED_TIME;
-              this.subject.multipleChoice = x.MULTIPLE_CHOICE;
-              this.subject.description = x.DESCRIPTION;
-              this.subject.time = x.TIME;
-              console.log("subj  ", this.subject);
-              console.log("mult", this.subject.multipleChoice)
-              this.cookie.set("multipleChoice", this.subject.multipleChoice.toString(), null, "/");
-
-              this.cookie.set("time", JSON.stringify({ limitedTime: this.subject.limitedTime, time: this.subject.time }));
-            }
-          });
+          this.test.getQuizDetails(this.idSubject).subscribe(x =>
+            this.loadQuiz(x));
         }
       }
     }
   }
-  
+
+  private loadQuiz(x) {
+    if (x.status == 200) {
+      x = x.body;
+      console.log(x);
+      this.subject.name = x.NAME;
+      this.subject.course = x.COURSE;
+      this.subject.nOQuestions = x.N_O_QUESTIONS;
+      this.subject.limitedTime = x.LIMITED_TIME;
+      this.subject.multipleChoice = x.MULTIPLE_CHOICE;
+      this.subject.description = x.DESCRIPTION;
+      this.subject.time = x.TIME;
+      console.log("subj  ", this.subject);
+      console.log("mult", this.subject.multipleChoice)
+      this.cookie.set("multipleChoice", this.subject.multipleChoice.toString(), null, "/");
+
+      this.cookie.set("time", JSON.stringify({ limitedTime: this.subject.limitedTime, time: this.subject.time }));
+    }
+  }
+
   onSubmit() {
     this.router.navigate(['../test'], { relativeTo: this.route });
   }

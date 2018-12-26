@@ -30,7 +30,30 @@ export class TestComponent implements OnInit {
 
   ngOnInit() {
     if (this.cookie.get('user') == "") {
-      this.router.navigate(['/']);
+      if (window.location.href.split('/')[4] == 'demo') {
+        this.idSubject = this.cookie.get('idSubject');
+        this.testService.getQuestionsByIdSubject(this.idSubject).subscribe(x => {
+          if (x.status == 200) {
+            x = x.body;
+            console.log(x);
+            this.subject.limitedTime =false;
+            this.questions = x;
+
+            this.questions.forEach(
+              question => {
+                let questionStatus = new QuestionStatus();
+                questionStatus.id = question.id;
+                this.questionStatuses.push(questionStatus);
+              }
+            );
+
+          }
+        });
+      }
+      else {
+        this.router.navigate(['/']);
+      }
+    
     }
     else {
       if (JSON.parse(this.cookie.get('user')).role == 1) {
@@ -39,6 +62,7 @@ export class TestComponent implements OnInit {
 
       else {
         if (this.cookie.get('idSubject') == "") {
+
           this.router.navigate(['/quiz/student_panel']);
         }
         else {
@@ -100,12 +124,19 @@ export class TestComponent implements OnInit {
   onSubmit() {
     this.isSubmitted = true;
     console.log("que: ", this.questionStatuses, " iduser: ", this.idUser, " idsubj: ", this.idSubject);
+    if (window.location.href.split('/')[4] == 'demo'){
+      this.testService.checkAnswersForDemo(this.questionStatuses).subscribe(
+        x=>{this.testService.setResult(x);
+        this.router.navigate(['../end'], { relativeTo: this.route });}
+      )
+    }
+    else {
     this.testService.checkAnswers(this.questionStatuses, this.idUser, this.idSubject).subscribe(x => {
 
       this.testService.setResult(x);
       this.router.navigate(['../end'], { relativeTo: this.route });
     });
-
+  }
   }
 
   public timer(time) {

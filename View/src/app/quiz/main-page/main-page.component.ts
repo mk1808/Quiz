@@ -14,7 +14,7 @@ export class MainPageComponent implements OnInit {
   }
   
   onDemo(){
-    this.router.navigate(['']);
+    this.router.navigate(['/quiz/demo/begin']);
 
   }
 
