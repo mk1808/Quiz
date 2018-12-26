@@ -1,0 +1,38 @@
+.welcome{
+    text-align: center;  
+    FONT-FAMILY:Didact Gothic; 
+    color: #0281D6;
+    text-shadow: 2px 2px #505050;
+    font-size: 70px; 
+    font-weight: bold; 
+    margin-top:15px;
+}
+
+.welcomeTest{
+    text-align: center;  
+    FONT-FAMILY:Didact Gothic; 
+    color:#ededed;
+    font-size: 30px; 
+    font-weight: bold; 
+    margin-top:15px;
+}
+
+.bigButton{
+    height:56px;
+    font-size: 24px;
+}
+
+.posit{
+    margin-bottom:200px;
+}
+
+.bottomRowPos{
+    margin-top:30px;
+    /*width:100%;*/
+ 
+}
+
+.inputPos{
+    margin-bottom: 16px;
+    width:400px;
+  }

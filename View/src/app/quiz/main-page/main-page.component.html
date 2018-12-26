@@ -1,3 +1,26 @@
-<p>
-  main-page works!
-</p>
+<div class="container">
+  <div fxLayout="column">
+    <div class="wTitle">
+      WITAJ
+    </div>
+    <div class="welcomeTest">
+      na stronie WEBPRO Quiz&Test.<br>
+      Czekają tu na Ciebie przykładowe testy egzaminacyjne.<br>
+    </div>
+    <div>
+      <button mat-raised-button class="continue bigButton" 
+      (click)="onDemo()">Rozwiąż test demo</button>
+    </div>
+    <div class="welcomeTest">
+      Aby uzyskać dostęp do pełnej wersji testów zaloguj się lub zarejestruj.<br>
+    </div>
+    <div>
+      <div fxLayout="row" class="inputPos ">
+        <button mat-raised-button class="continue bigButton" style="margin-right:15px !important" 
+        (click)="onLog()">Zaloguj</button>
+        <button mat-raised-button class="continue bigButton" 
+        (click)="onReg()" style="margin-left:15px !important">Zarejestruj</button>
+      </div>
+    </div>
+  </div>
+</div>
