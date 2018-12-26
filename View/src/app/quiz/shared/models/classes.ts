@@ -21,6 +21,7 @@ export class Question {
   code: string;
   image: string;
   answers: Answer[]=[];
+  jwt:string;
 }
 
 export class Answer {

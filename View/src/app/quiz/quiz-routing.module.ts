@@ -25,7 +25,12 @@ const routes: Routes = [
     {
       path: "",
       component: MainPageComponent 
+    },
+    {
+      path:"**", redirectTo: ''
+
     }
+
   //  { path: '', redirectTo: '/quiz/begin', pathMatch: 'full'}, 
    ]
 }
