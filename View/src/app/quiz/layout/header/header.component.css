@@ -111,3 +111,15 @@ margin-right: 90px !important;
 }
 }
 
+.fullTest{
+  top:110px;
+  position: absolute;
+  width: 150px;
+/*  height: 50px; */
+  transition-duration: 500ms;
+  height: 0px;
+  overflow: hidden;
+  background-color: #0281D6;
+  border-radius:7px;
+}
+

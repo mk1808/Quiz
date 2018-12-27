@@ -11,6 +11,7 @@ export class HeaderComponent implements OnInit {
   mainPath="";
   logged:boolean = false;
   name:string ;
+  collapsed:boolean=true;
   constructor(private cookie:CookieService,private router:Router, private route:ActivatedRoute) {
     this.router.events.subscribe(event => {
         //calls this stuff when navigation ends
@@ -46,6 +47,10 @@ export class HeaderComponent implements OnInit {
 	this.cookie.set('user','',-60,'/');
 	console.log(this.cookie.getAll());
     this.router.navigate(['/login']);
+  }
+
+  onFullTest(){
+    this.collapsed=!this.collapsed;
   }
 
 
