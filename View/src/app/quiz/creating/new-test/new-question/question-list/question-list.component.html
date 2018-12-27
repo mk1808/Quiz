@@ -12,7 +12,8 @@
               (click)="collapse(i)"> {{i+1}} &nbsp;&nbsp;&nbsp;{{question.text}}</button>
       <div id="question{{i}}"  class="quizCollapse">
           <ol>
-            <li *ngFor="let answer of question.answers; let i = index"><p>{{answer.text}}</p></li>
+            <li *ngFor="let answer of question.answers; let i = index"
+            [ngStyle]="{'color':answer.status==1?'#6bea6b':'#ededed'}"><p>{{answer.text}}</p></li>
           </ol>
       </div>
       <div></div>

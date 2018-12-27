@@ -58,4 +58,9 @@ public checkAnswersForDemo(questions: QuestionStatus[]): Observable<any> {
   return  this.http.post<Result>('http://localhost/web/web/api/controllers/checkAnswers.php', 
   JSON.stringify({'questions': questions}));
 }
+public getAnswerStatuses(id): Observable<any> {
+
+  return  this.http.post<any>('http://localhost/web/web/api/controllers/question/getAnswerWithStatusForQuiz.php', 
+  JSON.stringify({id:id, jwt:this.cookie.get("jwt")}),{observe: 'response'}) ;
+}
 }

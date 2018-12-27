@@ -18,17 +18,25 @@ export class QuestionListComponent implements OnInit {
   ngOnInit() {
  
     this.idSubject=this.cookie.get('idSubject');
-    this.testService.getQuestionsByIdSubject(this.idSubject).subscribe(x => {
+    this.testService.getAnswerStatuses(this.idSubject).subscribe(x => {
       if(x.status==200){
         x=x.body;
       this.questions = x;
+      console.log(x);
     }});
     this.test.getQuizDetails(this.idSubject).subscribe(x=>{
       if(x.status==200){
         x=x.body;
       this.quizName=x.NAME;
       console.log(x);
-   } })}
+   } });
+ // this.test.getAnswerStatuses(this.idSubject).subscribe(x=>
+   // {
+     // console.log("stat  ",x.body);
+    //})
+  }
+
+   
 
   collapse(i){
     if(document.getElementById('question'+i).classList.contains("quizShow")){
