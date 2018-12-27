@@ -139,4 +139,12 @@ try {
 
         return $value;
     }
+
+    public function getQuestionsForCategoies($id){
+        $query = 'SELECT * FROM question WHERE CATEGORY = "'.$id.'" AND ID_SUBJECT = -1;';
+        $stmt = $this->conn->prepare($query);
+
+        $stmt->execute();
+        return $stmt;
+    }
 }
