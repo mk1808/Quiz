@@ -107,7 +107,7 @@ export class NewTestComponent implements OnInit {
   }
 
   onBack() {
-    this.router.navigate(['../teacher_panel'], { relativeTo: this.route });
+    this.router.navigate(['/creating/teacher_panel']);
   }
   onCreate() {
     if (this.newTestForm.valid) {
