@@ -57,7 +57,11 @@ export class LoginComponent implements OnInit {
             this.router.navigate(['../quiz/student_panel'], { relativeTo: this.route });
           }
         }
-        else { this.regFail = true; }
+        else { this.regFail = true;
+        this.userForm.controls.username.setValue("");
+        this.userForm.controls.password.setValue("");
+
+      }
       }, e => { console.log(e); });
   }
 }

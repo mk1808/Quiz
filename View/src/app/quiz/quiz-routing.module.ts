@@ -23,11 +23,11 @@ const routes: Routes = [
       component: RegisterComponent 
     },
     {
-      path: "",
+      path: "main",
       component: MainPageComponent 
     },
     {
-      path:"**", redirectTo: ''
+      path:"**", redirectTo: 'main'
 
     }
 
