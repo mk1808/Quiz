@@ -42,6 +42,7 @@ export class ResumeTestComponent implements OnInit {
               this.subject.multipleChoice = x.MULTIPLE_CHOICE;
               this.subject.description = x.DESCRIPTION;
               this.subject.time = x.TIME;
+              this.subject.separatePage=x.SEPARATE_PAGE;
               console.log(this.subject.description);
             }
           });

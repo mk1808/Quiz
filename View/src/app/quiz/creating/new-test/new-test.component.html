@@ -78,6 +78,19 @@
                           id="example-number-input" formControlName="nOQuestions" >
                     </div>
               </div></div>
+
+              <div fxLayout="row">
+                    <div class="form-check checkSeparatedPos">
+                        <label class="form-check-label">
+  
+                          <input class="form-check-input" type="checkbox"  value=""
+                          formControlName="separatedPages" (click)="onClickSeparatedPages()">
+  
+                          &nbsp; pytania na osobnych stronach
+                        </label>
+  
+                      </div>
+                </div>
           </div>
 
           <div fxLayout="column" fxFlex="50%" class="colright" fxLayoutAlign="start center">

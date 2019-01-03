@@ -9,6 +9,8 @@
             <span class="detailsNames">Ilość pytań na teście: </span>{{subject.nOQuestions}}<br>
             <span class="detailsNames">Wybór: </span>{{subject.multipleChoice? "wielokrotny"  : "jednokrotny"  }}<br>
             <span class="detailsNames"> Limit czasu: </span>{{subject.limitedTime==1? subject.time  : "brak " }}<br>
+            <span class="detailsNames"> Pytania na osobnych stronach: </span>{{subject.separatePage==1? "tak" : "nie" }}<br>
+
             <span class="detailsNames"> Opis: </span>{{subject.description!=""? subject.description  : "brak " }}
           
       </div>

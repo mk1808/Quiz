@@ -63,7 +63,8 @@ export class NewTestComponent implements OnInit {
         multipleChoice: ['Krotność', Validators.required],
         time: [''],
         course: ['Kierunek studiów'],
-        description: ['']
+        description: [''],
+        separatedPages:[false]
       });
       this.initialized = true;
       this.newTestForm.controls.time.disable();
@@ -91,7 +92,8 @@ export class NewTestComponent implements OnInit {
           multipleChoice: [{value : (x.MULTIPLE_CHOICE == 0 ? 'jednokrotny' : 'wielokrotny'), disabled: true}, Validators.required],
           time: [hours + ":" + minutes],
           course: [x.COURSE],
-          description: [x.DESCRIPTION]
+          description: [x.DESCRIPTION],
+          separatedPages: [x.CAN_BACK == 0 ? false : true],
         });
         this.initialized = true;
       }});
@@ -104,6 +106,10 @@ export class NewTestComponent implements OnInit {
       this.newTestForm.controls.time.enable();
     }
     else { this.newTestForm.controls.time.disable(); }
+  }
+
+  onClickSeparatedPages(){
+
   }
 
   onBack() {
@@ -129,6 +135,7 @@ export class NewTestComponent implements OnInit {
       subject.limitedTime = this.newTestForm.controls.limitedTime.value;
       subject.course = this.newTestForm.controls.course.value;
       subject.nOQuestions = this.newTestForm.controls.nOQuestions.value;
+      subject.separatePage = this.newTestForm.controls.separatedPages.value;
       this.cookie.set("multiple", subject.multipleChoice.toString());
       if (this.newTest) {
         this.creating.createSubject(subject).subscribe(x => {
