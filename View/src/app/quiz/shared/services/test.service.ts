@@ -10,6 +10,7 @@ import { CookieService } from 'ngx-cookie-service';
 export class TestService {
 
   private result = new Result();
+  private questions:QuestionStatus[]= [];
 
   constructor(private http: HttpClient, private cookie:CookieService) { }
 
@@ -31,6 +32,14 @@ export class TestService {
 
   public getResult(): Result {
     return this.result;
+  }
+
+  public setQuestionsInResult(questions: QuestionStatus[]) {
+    this.questions = questions;
+  }
+
+  public getQuestionsInResult():  QuestionStatus[] {
+    return this.questions;
   }
 
   public getQuestionsByIdSubject(id): Observable<any> {
@@ -58,9 +67,17 @@ public checkAnswersForDemo(questions: QuestionStatus[]): Observable<any> {
   return  this.http.post<Result>('http://localhost/web/web/api/controllers/checkAnswers.php', 
   JSON.stringify({'questions': questions}));
 }
+
 public getAnswerStatuses(id): Observable<any> {
 
   return  this.http.post<any>('http://localhost/web/web/api/controllers/question/getAnswerWithStatusForQuiz.php', 
   JSON.stringify({id:id, jwt:this.cookie.get("jwt")}),{observe: 'response'}) ;
 }
+
+public getQuestionDetails(id): Observable<any> {
+
+  return  this.http.post<any>('http://localhost/web/web/api/controllers/question/getQuestionWithAnswers.php', 
+  JSON.stringify({id:id, jwt:this.cookie.get("jwt")}),{observe: 'response'}) ;
 }
+}
+

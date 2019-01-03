@@ -11,7 +11,7 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class TestComponent implements OnInit {
   questions: Question[] = [];
-  questions1 = Question;
+
   questionStatuses: QuestionStatus[] = [];
   status = new QuestionStatus;
   idSubject: string;
@@ -20,7 +20,7 @@ export class TestComponent implements OnInit {
   idUser: string;
   isSubmitted: boolean = false;
   public timeLeft: string = "00:00:00";
-
+  timerHandler;
   constructor(private testService: TestService, private router: Router,
     private route: ActivatedRoute, private cookie: CookieService) {
 
@@ -123,6 +123,7 @@ export class TestComponent implements OnInit {
 
   onSubmit() {
     this.isSubmitted = true;
+    clearInterval()
     console.log("que: ", this.questionStatuses, " iduser: ", this.idUser, " idsubj: ", this.idSubject);
     if (window.location.href.split('/')[4] == 'demo'){
       this.testService.checkAnswersForDemo(this.questionStatuses).subscribe(
@@ -132,7 +133,8 @@ export class TestComponent implements OnInit {
     }
     else {
     this.testService.checkAnswers(this.questionStatuses, this.idUser, this.idSubject).subscribe(x => {
-
+      console.log(this.questionStatuses);
+      this.testService.setQuestionsInResult(this.questionStatuses);
       this.testService.setResult(x);
       this.router.navigate(['../end'], { relativeTo: this.route });
     });

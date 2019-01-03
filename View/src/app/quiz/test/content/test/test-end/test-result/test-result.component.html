@@ -1,0 +1,69 @@
+<div class="container" *ngIf="initialized">
+  <section class="section">
+    <div fxLayout="column" fxLayoutAlign="space-around center" fxFlex="30%">
+      <div class="col-3" style="padding: 0%">
+        <article class="message is-primary questionStyle">
+          <div class="message-body">
+            {{questionWithAnswer.category}}
+          </div>
+        </article>
+      </div>
+      <article class="message is-primary" class="questionStyle">
+        <div class="message-body"> {{questionWithAnswer.text}}
+          <div *ngIf="containsPhoto; else noPhoto">
+            <div class="photoPosition">
+              <img src={{questionWithAnswer.image}} class="photoStyle">
+            </div>
+
+          </div>
+          <ng-template #noPhoto>
+            <div> </div>
+          </ng-template>
+          <pre *ngIf="containsCode; else noCode" class="codeStyle">
+            <code highlight [code]="questionWithAnswer.code"></code></pre>
+          <ng-template #noCode>
+            <div> </div>
+          </ng-template>
+        </div>
+
+      </article>
+      <br>
+      <mat-radio-group>
+
+ <div *ngFor="let answer of  questionWithAnswer.answers ">
+        <div fxLayout="row" *ngIf="multipleChoice==1">
+          <article class="message is-primary" (click)="onClick()" [ngStyle]="{'background-color': color}">
+            <div class="message-body answer answerStyle">
+
+              <mat-checkbox color="primary" #checkbox (change)="checkbox.toggle()">
+
+              </mat-checkbox>
+              <!--    <mat-radio-button color="primary" #checkbox (change)="checkbox.checked=true" [value]="answer.text"></mat-radio-button>
+          -->
+              <p>{{answer.text}}</p>
+            </div>
+          </article>
+        </div>
+
+        <div fxLayout="row" *ngIf="multipleChoice==0">
+          <article class="message is-primary" (click)="onClick()" [ngStyle]="{'background-color': checkbox.checked? '#707070' : '#505050' }">
+            <div class="message-body answer answerStyle">
+              <!--
+            <mat-checkbox color="primary" #checkbox (change)="checkbox.toggle()">
+
+              </mat-checkbox>-->
+              <mat-radio-button color="primary" #checkbox #checkbox2 (change)="checkbox.checked=true" [value]="answer.text"></mat-radio-button>
+              <p>{{answer.text}}</p>
+            </div>
+          </article>
+        </div>
+      </div>
+   
+        <!--
+      <app-answer *ngFor="let answer of question.answers"
+       [setAnswer]="answer" (onChange)="onChange($event)"></app-answer>-->
+      </mat-radio-group>
+    </div>
+
+  </section>
+</div>

@@ -11,6 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HighlightModule } from 'ngx-highlightjs';
 import { StudentMainPanelComponent } from './content/student-main-panel/student-main-panel.component';
+import { TestResultComponent } from './content/test/test-end/test-result/test-result.component';
 
 
 
@@ -33,6 +34,7 @@ import { StudentMainPanelComponent } from './content/student-main-panel/student-
     TestBeginComponent,
     TestEndComponent,
     AnswerComponent,
-    StudentMainPanelComponent]
+    StudentMainPanelComponent,
+    TestResultComponent]
 })
 export class TestModule { }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TestService } from 'src/app/quiz/shared/services/test.service';
-import { Result } from 'src/app/quiz/shared/models/classes';
+import { Result, Question, QuestionStatus } from 'src/app/quiz/shared/models/classes';
 import { CookieService } from 'ngx-cookie-service';
 
 @Component({
@@ -14,6 +14,7 @@ export class TestEndComponent implements OnInit {
   trueAns: number;
   isPassed: boolean;
   truePercent: number;
+  questions:QuestionStatus[];
   constructor(private testService: TestService, private router: Router,
     private route: ActivatedRoute, private cookie: CookieService) { }
 
@@ -44,6 +45,7 @@ export class TestEndComponent implements OnInit {
           this.router.navigate(['/quiz/student_panel']);
         }
         else {
+          this.questions=this.testService.getQuestionsInResult();
           let result: Result = this.testService.getResult();
           this.total = result.total;
           if (this.total == null)

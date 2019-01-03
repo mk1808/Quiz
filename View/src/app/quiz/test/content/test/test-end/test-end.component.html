@@ -37,6 +37,13 @@
         </div>
       </div>
     </ng-template>
+    <div>
+
+<app-test-result *ngFor="let question of questions; let i = index;"  [setQuestion]="question" 
+></app-test-result>
+
+
+    </div>
     <div  class="bottomRowPos" fxLayoutAlign="start center">
            
               <div fxLayout="row" class="inputPos" >

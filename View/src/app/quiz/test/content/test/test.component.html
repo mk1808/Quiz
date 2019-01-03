@@ -1,12 +1,11 @@
-<div *ngIf="subject.limitedTime!='0'" class="timer" >{{timeLeft}}</div>
+<div *ngIf="subject.limitedTime!='0'" class="timer">{{timeLeft}}</div>
 
-<app-question *ngFor="let question of questions; let i = index;"
-[setQuestion]="question" (questionStatus)="onChange($event)"></app-question>
+<app-question *ngFor="let question of questions; let i = index;" [setQuestion]="question" (questionStatus)="onChange($event)"></app-question>
 
 <div fxLayout="column">
-        <div fxLayout="row">
-            <div>
-              <button mat-raised-button class="continue bigButton" (click)="onSubmit()">ZAKOŃCZ</button>
-            </div>
-          </div>
-      </div>
+  <div fxLayout="row">
+    <div>
+      <button mat-raised-button class="continue bigButton" (click)="onSubmit()">ZAKOŃCZ</button>
+    </div>
+  </div>
+</div>
