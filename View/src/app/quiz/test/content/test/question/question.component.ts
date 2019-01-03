@@ -30,6 +30,8 @@ export class QuestionComponent implements OnInit {
         
       }
     );
+    
+    this.questionStatus.emit(this.status);
   }
 
   constructor() {

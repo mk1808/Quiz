@@ -30,38 +30,31 @@
       <br>
       <mat-radio-group>
 
- <div *ngFor="let answer of  questionWithAnswer.answers ">
+ <div *ngFor="let answer of  questionWithAnswer.answers; let i=index ">
         <div fxLayout="row" *ngIf="multipleChoice==1">
-          <article class="message is-primary" (click)="onClick()" [ngStyle]="{'background-color': color}">
+          <article class="message is-primary"  [ngStyle]="{'background-color': color}">
             <div class="message-body answer answerStyle">
 
-              <mat-checkbox color="primary" #checkbox (change)="checkbox.toggle()">
+              <mat-checkbox color="primary"   [checked]="trueTable[i]"  [disabled]="true"  >
 
               </mat-checkbox>
-              <!--    <mat-radio-button color="primary" #checkbox (change)="checkbox.checked=true" [value]="answer.text"></mat-radio-button>
-          -->
+        
               <p>{{answer.text}}</p>
             </div>
           </article>
         </div>
 
         <div fxLayout="row" *ngIf="multipleChoice==0">
-          <article class="message is-primary" (click)="onClick()" [ngStyle]="{'background-color': checkbox.checked? '#707070' : '#505050' }">
+          <article class="message is-primary"  >
             <div class="message-body answer answerStyle">
-              <!--
-            <mat-checkbox color="primary" #checkbox (change)="checkbox.toggle()">
-
-              </mat-checkbox>-->
-              <mat-radio-button color="primary" #checkbox #checkbox2 (change)="checkbox.checked=true" [value]="answer.text"></mat-radio-button>
+     
+              <mat-radio-button color="primary" [value]="i" 
+              [checked]="trueTable[i]" [disabled]="true" ></mat-radio-button>
               <p>{{answer.text}}</p>
             </div>
           </article>
         </div>
       </div>
-   
-        <!--
-      <app-answer *ngFor="let answer of question.answers"
-       [setAnswer]="answer" (onChange)="onChange($event)"></app-answer>-->
       </mat-radio-group>
     </div>
 

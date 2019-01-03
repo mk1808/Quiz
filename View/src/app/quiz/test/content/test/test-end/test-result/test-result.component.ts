@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Question } from 'src/app/quiz/shared/models/classes';
+import { Question, QuestionStatus } from 'src/app/quiz/shared/models/classes';
 import { TestService } from 'src/app/quiz/shared/services/test.service';
 import { CookieService } from 'ngx-cookie-service';
 
@@ -10,18 +10,23 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class TestResultComponent implements OnInit {
   questionWithAnswer: Question;
-  question:Question;
+  question:QuestionStatus;
   containsPhoto: boolean = false;
   containsCode: boolean = false;
   multipleChoice:string;
   initialized:boolean=false;
-  
+  trueTable:boolean[]=[];
 
-  @Input() set setQuestion(question: Question) {
+
+  @Input() set setQuestion(question: QuestionStatus) {
     this.question = question;
     console.log("putanieeeee",question);
     this.testService.getQuestionDetails(this.question.id).subscribe(x => {
     this.questionWithAnswer = x.body;
+    this.questionWithAnswer.answers.forEach(x=>
+      {
+        this.trueTable.push(this.findAnswer(x.id)[0].value==1?true:false)
+      })
     console.log(x.body)
       if ((this.questionWithAnswer.image != null) && (this.questionWithAnswer.image != undefined)
        && (this.questionWithAnswer.image != ""))
@@ -39,6 +44,14 @@ export class TestResultComponent implements OnInit {
   ngOnInit() {
 
 
+
+
+  }
+
+  findAnswer(id){
+    console.log( this.question.answers.filter(x=>x.id==id));
+    return this.question.answers.filter(x=>x.id==id);
+    
   }
 
 }
