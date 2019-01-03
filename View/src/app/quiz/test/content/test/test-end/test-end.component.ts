@@ -70,4 +70,8 @@ export class TestEndComponent implements OnInit {
     this.router.navigate(['../student_panel'], { relativeTo: this.route });
 
   };
+
+  scrollTop(){
+    window.scroll(0,0);
+  }
 }
