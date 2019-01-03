@@ -49,7 +49,8 @@
 
         <div fxLayout="row" *ngIf="multipleChoice==0">
           <article class="message is-primary"  >
-            <div class="message-body answer answerStyle">
+            <div class="message-body answer answerStyle"
+            [ngClass]="answerStatuses[i]">
      
               <mat-radio-button color="primary" [value]="i" 
               [checked]="trueTable[i]" [disabled]="true" ></mat-radio-button>
