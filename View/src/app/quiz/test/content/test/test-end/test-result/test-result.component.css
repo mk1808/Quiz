@@ -34,6 +34,25 @@
     border-left: 6px solid #0281D6;
 }
 
+.incorrect{
+    color:#ededed!important;
+    border-color: rgb(226, 43, 43)!important;
+    border-right: 2px solid  rgb(226, 43, 43);
+   border-top: 2px solid  rgb(226, 43, 43);
+   border-bottom: 2px solid  rgb(226, 43, 43);
+   border-left: 6px solid  rgb(226, 43, 43);
+}
+
+.correct{
+    color:#ededed!important;
+    border-color: rgb(100, 238, 87)!important;
+    border-right: 2px solid  rgb(100, 238, 87);
+   border-top: 2px solid  rgb(100, 238, 87);
+   border-bottom: 2px solid  rgb(100, 238, 87);
+   border-left: 6px solid  rgb(100, 238, 87);
+}
+
+
 .mat-checkbox{
     float:left;
     margin-top: 15px;

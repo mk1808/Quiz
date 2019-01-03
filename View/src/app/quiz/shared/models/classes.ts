@@ -28,7 +28,7 @@ export class Answer {
   id: number;
   text: string;
   idQuestion:number;
-  status:boolean;
+  status:string;
 }
 
 export class AnswerStatus {

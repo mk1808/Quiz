@@ -9,7 +9,8 @@
         </article>
       </div>
       <article class="message is-primary" class="questionStyle">
-        <div class="message-body"> {{questionWithAnswer.text}}
+        <div class="message-body"   [ngClass]="questionStatus">
+           {{questionWithAnswer.text}}
           <div *ngIf="containsPhoto; else noPhoto">
             <div class="photoPosition">
               <img src={{questionWithAnswer.image}} class="photoStyle">
@@ -32,8 +33,10 @@
 
  <div *ngFor="let answer of  questionWithAnswer.answers; let i=index ">
         <div fxLayout="row" *ngIf="multipleChoice==1">
-          <article class="message is-primary"  [ngStyle]="{'background-color': color}">
-            <div class="message-body answer answerStyle">
+          <article class="message is-primary"  
+          >
+            <div class="message-body answer answerStyle"
+            [ngClass]="answerStatuses[i]">
 
               <mat-checkbox color="primary"   [checked]="trueTable[i]"  [disabled]="true"  >
 

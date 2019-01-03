@@ -10,36 +10,58 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class TestResultComponent implements OnInit {
   questionWithAnswer: Question;
-  question:QuestionStatus;
+  question: QuestionStatus;
   containsPhoto: boolean = false;
   containsCode: boolean = false;
-  multipleChoice:string;
-  initialized:boolean=false;
-  trueTable:boolean[]=[];
+  multipleChoice: string;
+  initialized: boolean = false;
+  trueTable: boolean[] = [];
+  answerStatuses: string[] = [];
+  questionStatus:string="";
 
 
   @Input() set setQuestion(question: QuestionStatus) {
     this.question = question;
-    console.log("putanieeeee",question);
+    console.log("putanieeeee", question);
     this.testService.getQuestionDetails(this.question.id).subscribe(x => {
-    this.questionWithAnswer = x.body;
-    this.questionWithAnswer.answers.forEach(x=>
-      {
-        this.trueTable.push(this.findAnswer(x.id)[0].value==1?true:false)
+      this.questionWithAnswer = x.body;
+      let status=1;
+
+      this.questionWithAnswer.answers.forEach(x => {
+        this.trueTable.push(this.findAnswer(x.id)[0].value == 1 ? true : false)
+      
+        if ((x.status=='1' )&& this.trueTable[this.trueTable.length - 1]) {
+           this.answerStatuses.push("correct"); }
+        else if (x.status=='1') {
+          this.answerStatuses.push("correct");
+          status=-1;
+        }else if (!(x.status=='1')&& this.trueTable[this.trueTable.length - 1]){
+          this.answerStatuses.push("incorrect");
+          status=-1;
+        }
+        else {
+          this.answerStatuses.push("");
+        }
       })
-    console.log(x.body)
+      if (status>0){
+        this.questionStatus="correct";
+      }
+      else {
+        this.questionStatus="incorrect";
+      }
+      console.log(x.body)
       if ((this.questionWithAnswer.image != null) && (this.questionWithAnswer.image != undefined)
-       && (this.questionWithAnswer.image != ""))
+        && (this.questionWithAnswer.image != ""))
         this.containsPhoto = true;
       if (this.questionWithAnswer.code != "") this.containsCode = true;
-      this.initialized=true;
+      this.initialized = true;
     }
     )
 
-    this.multipleChoice=this.cookie.get('multipleChoice');
+    this.multipleChoice = this.cookie.get('multipleChoice');
 
   }
-  constructor(private testService: TestService,private cookie: CookieService) { }
+  constructor(private testService: TestService, private cookie: CookieService) { }
 
   ngOnInit() {
 
@@ -48,10 +70,10 @@ export class TestResultComponent implements OnInit {
 
   }
 
-  findAnswer(id){
-    console.log( this.question.answers.filter(x=>x.id==id));
-    return this.question.answers.filter(x=>x.id==id);
-    
+  findAnswer(id) {
+    console.log(this.question.answers.filter(x => x.id == id));
+    return this.question.answers.filter(x => x.id == id);
+
   }
 
 }
