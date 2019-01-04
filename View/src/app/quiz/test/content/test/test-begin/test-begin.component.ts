@@ -69,6 +69,7 @@ export class TestBeginComponent implements OnInit {
       this.subject.description = x.DESCRIPTION;
       this.subject.time = x.TIME;
       this.subject.separatePage = x.SEPARATE_PAGE;
+      this.subject.canBack=x.CAN_BACK;
       console.log("subj  ", this.subject);
       console.log("mult", this.subject.multipleChoice)
       this.cookie.set("multipleChoice", this.subject.multipleChoice.toString(), null, "/");

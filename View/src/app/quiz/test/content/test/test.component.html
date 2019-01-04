@@ -12,9 +12,9 @@
   </div>
   
     <div *ngIf="subjectObj.separatePage==1" >
-      <div class="prevBtn">
+      <div class="prevBtn" >
         <button mat-raised-button class="continue" 
-        (click)="prevQuestion()" *ngIf="questionIndex>0">
+        (click)="prevQuestion()" *ngIf="(questionIndex>0)&&(subjectObj.canBack==1)">
         <i class="material-icons">
             keyboard_arrow_left
             </i>

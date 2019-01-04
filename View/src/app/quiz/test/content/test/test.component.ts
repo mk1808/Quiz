@@ -94,6 +94,7 @@ export class TestComponent implements OnInit {
           });
           this.subject.limitedTime = JSON.parse(this.cookie.get("time")).limitedTime;
           this.subject.time = JSON.parse(this.cookie.get("time")).time;
+          
           console.log("lt", JSON.parse(this.cookie.get("time")).limitedTime)
           //console.log("aaaa",this.subject.limitedTime)
           if (this.subject.limitedTime == true) {
