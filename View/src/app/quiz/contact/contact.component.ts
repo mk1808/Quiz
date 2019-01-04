@@ -10,20 +10,27 @@ import { Component, OnInit, ViewChild } from '@angular/core';
   styleUrls: ['./contact.component.css']
 })
 export class ContactComponent implements OnInit {
+  latitude: number;
+  longitude: number;
 
   @ViewChild('gmap') gmapElement: any;
-map: google.maps.Map;
+  map: google.maps.Map;
+  
 
   constructor() { }
 
   ngOnInit() {
 
     var mapProp = {
-      center: new google.maps.LatLng(18.5793, 73.8143),
-      zoom: 15,
+      center: new google.maps.LatLng(50.026783, 21.984447),
+      zoom: 17,
       mapTypeId: google.maps.MapTypeId.ROADMAP
     };
-this.map = new google.maps.Map(this.gmapElement.nativeElement, mapProp);
+    this.map = new google.maps.Map(this.gmapElement.nativeElement, mapProp);
+    var marker = new google.maps.Marker({
+      position: {lat: 50.026783, lng: 21.984447},
+      map: this.map
+  });
+  }
 
-}
 }

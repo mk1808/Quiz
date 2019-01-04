@@ -1,0 +1,16 @@
+.map{
+    width:90%;
+    height:450px;
+    margin-top:20px;
+    margin-bottom:20px;
+
+}
+
+.welcomeTest{
+    text-align: center;  
+    FONT-FAMILY:Didact Gothic; 
+    color:#ededed;
+    font-size: 20px; 
+   /* font-weight: bold; */ 
+    margin-top:15px;
+}
