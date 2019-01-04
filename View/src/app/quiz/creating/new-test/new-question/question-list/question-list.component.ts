@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {TestService} from "../../../../shared/services/test.service";
 import {Question} from "../../../../shared/models/classes";
 import { CookieService } from 'ngx-cookie-service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-question-list',
@@ -13,7 +14,7 @@ export class QuestionListComponent implements OnInit {
   questions: Question[] = [];
   quizName:string;
   constructor(private testService: TestService,  private cookie:CookieService,
-    private test:TestService) { }
+    private test:TestService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
  
@@ -46,6 +47,14 @@ export class QuestionListComponent implements OnInit {
       document.getElementById('question'+i).classList.add('quizShow');
 
     }
+  }
+
+  onChange(i){
+    this.router.routeReuseStrategy.shouldReuseRoute=function(){return false};
+    this.router.navigateByUrl('/creating/new_test/edit_question/' + i).then(()=>{
+      this.router.navigated = false;
+      this.router.navigate(['/creating/new_test/edit_question/' + i])
+    })
   }
 
 }

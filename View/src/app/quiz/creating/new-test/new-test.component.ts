@@ -21,14 +21,14 @@ export class NewTestComponent implements OnInit {
   newTest: boolean;
   idExistingTest: number;
   initialized: boolean = false;
-  newTestForm: FormGroup;
+  newTestForm: FormGroup; 
   testName: string = "";
 
 
   constructor(private fb: FormBuilder, private dictionary: DictionaryService,
     private creating: CreatingService, private cookie: CookieService,
     private router: Router, private route: ActivatedRoute, private test: TestService) {
-    this.route.params.subscribe(x => {
+    this.route.params.subscribe(x => { 
       console.log(x);
       let id = x['id'];
       if (id != undefined) { this.newTest = false; this.idExistingTest = id; } else { this.newTest = true; }
@@ -55,7 +55,7 @@ export class NewTestComponent implements OnInit {
         });
         this.user = (JSON.parse(this.cookie.get('user')));
 
-        if (this.newTest) {
+        if (this.newTest) { // TUTAJ
           this.newTestForm = this.fb.group({
             name: ['', Validators.required],
             nOQuestions: ['', Validators.required],
@@ -158,6 +158,9 @@ export class NewTestComponent implements OnInit {
         this.creating.createSubject(subject).subscribe(x => {
           if (x.status == 200) {
             x = x.body;
+            subject.id = x.id;
+            
+            this.cookie.set("subject",JSON.stringify(subject),null,'/');
             console.log(x.id);
             this.cookie.set("idSubject", x.id.toString());
             this.router.navigate(['./new_question'], { relativeTo: this.route });

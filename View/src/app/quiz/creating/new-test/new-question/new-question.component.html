@@ -1,12 +1,12 @@
-<form [formGroup]="newQuestionForm">
+<form *ngIf="initialized" [formGroup]="newQuestionForm">
   <div class="container">
     <div fxLayout="column" fxLayoutAlign="space-around center" fxFlex="100%">
-      <div  class="wTitle">
+      <div class="wTitle">
         {{quizName}}
       </div>
       <div fxLayout="row" class="rowPos" fxFlex="100%">
         <div fxLayout="column" fxFlex="60%" fxLayoutAlign="start center">
-          <div  class="inputPos  inputSize">
+          <div class="inputPos  inputSize">
             <div class="input-group mb-3">
               <div class="input-group-prepend">
                 <span class="input-group-text inputStyle">
@@ -18,43 +18,45 @@
                 formControlName="category">
             </div>
           </div>
-          <div >
+          <div>
             <textarea class="form-control textAreaSize" rows="2" placeholder="Treść pytania" formControlName="question"></textarea>
           </div>
-          <div >
-              <textarea class="form-control textAreaSize" rows="2" placeholder="Kod" formControlName="code"></textarea>
+          <div>
+            <textarea class="form-control textAreaSize" rows="2" placeholder="Kod" formControlName="code"></textarea>
+          </div>
+          <div class="inputPos inputSize">
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text inputStyle">
+                  <i class="material-icons">
+                    keyboard_arrow_right
+                  </i></span>
+              </div>
+              <input type="text" class="form-control" placeholder="Zdjęcie" aria-describedby="basic-addon1"
+                formControlName="photo">
             </div>
-            <div  class="inputPos inputSize">
-                <div class="input-group mb-3">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text inputStyle">
-                      <i class="material-icons">
-                        keyboard_arrow_right
-                      </i></span>
-                  </div>
-                  <input type="text" class="form-control" placeholder="Zdjęcie" aria-describedby="basic-addon1"
-                    formControlName="photo">
-                </div>
+          </div>
+
+          <mat-radio-group formControlName="radioGroup">
+
+            <div fxLayout="row" *ngFor="let answer of answers, let i=index">
+              
+              <div *ngIf="subject.multipleChoice">
+                <mat-checkbox color="primary" class="checkPos" formControlName="checkAnswer{{i}}">
+                </mat-checkbox>
+              </div>
+              <div *ngIf="!subject.multipleChoice">
+                <mat-radio-button color="primary" class="checkPos" #radioButton value="{{i}}">
+                </mat-radio-button>
               </div>
 
-              <mat-radio-group >
-                
-          <div fxLayout="row" *ngFor="let answer of answers, let i=index">
-              <div *ngIf="multipleChoice=='true'">
-            <mat-checkbox color="primary" class="checkPos" formControlName="checkAnswer{{i}}" >
-            </mat-checkbox>
-          </div>
-          <div *ngIf="multipleChoice=='false'">
-              <mat-radio-button color="primary" class="checkPos" #radioButton  value="checkAnswer{{i}}"  >
-            </mat-radio-button>
+              <div fxLayout="row">
+                <textarea class="form-control smallTextAreaSize" rows="2" placeholder="Treść odpowiedzi"
+                  formControlName="answer{{i}}"></textarea>
+              </div>
             </div>
+          </mat-radio-group>
 
-            <div fxLayout="row">
-              <textarea class="form-control smallTextAreaSize" rows="2" placeholder="Treść odpowiedzi" formControlName="answer{{i}}"></textarea>
-            </div>
-          </div>
-        </mat-radio-group>
-          
         </div>
         <div fxLayout="column" fxFlex="40%">
           <app-question-list #questionList></app-question-list>
@@ -62,24 +64,26 @@
       </div>
       <div fxLayout="row">
         <div fxLayout="column" fxFlex="33%" fxLayoutAlign="start center">
-          <div  class="inputPos">
+          <div class="inputPos">
             <button mat-raised-button class="continue" (click)="onBack()">Wróć</button>
           </div>
         </div>
         <div fxLayout="column" fxFlex="33%" fxLayoutAlign="start center">
-          <div  class="inputPos">
-            <button mat-raised-button class="continue" (click)="onClear()" >Wyczyść pytanie</button>
+          <div class="inputPos">
+            <button mat-raised-button class="continue" (click)="onClear()">Wyczyść pytanie</button>
           </div>
         </div>
         <div fxLayout="column" fxFlex="33%" fxLayoutAlign="start center">
-          <div  class="inputPos">
-            <button mat-raised-button class="continue" (click)="onAdd()">Dodaj pytanie</button>
+          <div class="inputPos">
+            <button mat-raised-button class="continue" (click)="onAdd()">
+              {{newQuestion?'Dodaj pytanie':'Popraw pytanie'}}
+              </button>
           </div>
         </div>
 
       </div>
       <div fxLayout="row">
-        <div  fxFlex="100%" fxLayoutAlign="start center">
+        <div fxFlex="100%" fxLayoutAlign="start center">
           <div class="inputPos">
             <button mat-raised-button class="continue" (click)="onResume()">Zatwierdź quiz</button>
           </div>

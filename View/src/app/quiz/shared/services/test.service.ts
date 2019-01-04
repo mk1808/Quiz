@@ -74,7 +74,7 @@ public getAnswerStatuses(id): Observable<any> {
   JSON.stringify({id:id, jwt:this.cookie.get("jwt")}),{observe: 'response'}) ;
 }
 
-public getQuestionDetails(id): Observable<any> {
+public getQuestionDetails(id): Observable<any> {// TUTAJ tego będziesz potrzebować
 
   return  this.http.post<any>('http://localhost/web/web/api/controllers/question/getQuestionWithAnswers.php', 
   JSON.stringify({id:id, jwt:this.cookie.get("jwt")}),{observe: 'response'}) ;

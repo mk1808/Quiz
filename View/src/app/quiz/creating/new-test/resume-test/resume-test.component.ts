@@ -38,13 +38,14 @@ export class ResumeTestComponent implements OnInit {
               this.subject.name = x.NAME;
               this.subject.course = x.COURSE;
               this.subject.nOQuestions = x.N_O_QUESTIONS;
-              this.subject.limitedTime = x.LIMITED_TIME;
-              this.subject.multipleChoice = x.MULTIPLE_CHOICE;
+              this.subject.limitedTime = x.LIMITED_TIME=='1';
+              this.subject.multipleChoice = x.MULTIPLE_CHOICE=='1';
               this.subject.description = x.DESCRIPTION;
               this.subject.time = x.TIME;
-              this.subject.separatePage=x.SEPARATE_PAGE;
+              this.subject.separatePage=x.SEPARATE_PAGE=='1';
               this.subject.canBack=x.CAN_BACK;
               console.log(this.subject.description);
+              this.cookie.set("subject",JSON.stringify(this.subject),null,'/');
             }
           });
         }

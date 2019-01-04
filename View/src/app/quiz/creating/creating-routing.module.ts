@@ -9,6 +9,7 @@ import { TeacherMainPanelComponent } from './teacher-main-panel/teacher-main-pan
 const routes: Routes = [
   { path: 'new_test', component: NewTestComponent},
   { path: 'new_test/new_question', component: NewQuestionComponent},
+  { path: 'new_test/edit_question/:id', component: NewQuestionComponent},
   { path: 'new_test/resume', component: ResumeTestComponent},
   { path: 'new_test/:id', component: NewTestComponent},
   { path: 'teacher_panel', component: TeacherMainPanelComponent},

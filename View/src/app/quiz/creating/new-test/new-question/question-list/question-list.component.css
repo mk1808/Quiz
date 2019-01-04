@@ -67,3 +67,9 @@ li p:hover {
   max-height: 700px;
   overflow-y: auto;
 }
+
+.editPos{
+  color:white;
+  font-size:22px;
+  cursor:pointer;
+}

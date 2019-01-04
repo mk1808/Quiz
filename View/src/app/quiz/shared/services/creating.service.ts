@@ -19,12 +19,20 @@ export class CreatingService {
     {observe: 'response'});
 }
 
-public updateSubject(subject:Subject): Observable<any> {
+public updateSubject(subject:Subject): Observable<any> { 
   subject.jwt = this.cookie.get("jwt");
   return this.http.post<any>('http://localhost/web/web/api/controllers/quiz/updateSubject.php',
   JSON.stringify(subject),
   {observe: 'response'});
 }
+
+public updateQuestion(question:Question): Observable<any> { 
+  question.jwt = this.cookie.get("jwt");
+  return this.http.post<any>('http://localhost/web/web/api/controllers/question/updateQuestion.php',
+  JSON.stringify(question),
+  {observe: 'response'});
+}
+
 public createQuestion(question:Question): Observable<any> {
   question.jwt = this.cookie.get("jwt");
   return this.http.post('http://localhost/web/web/api/controllers/question/createQuestion.php',
