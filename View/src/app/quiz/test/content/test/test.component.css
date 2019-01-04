@@ -23,3 +23,29 @@
   border:1px #0281D6 solid;
   padding:5px;
 }
+
+.bottomRowPos{
+    margin:0 auto;
+    width: fit-content;
+}
+
+.prevBtn, .nextBtn{
+    width:50%;
+    height:30px;
+    float:left;
+  
+
+}
+
+.prevBtn button{
+    margin: 0!important;
+    margin-left: 20%!important;
+
+}
+
+.nextBtn button{
+
+    margin: 0!important;
+      margin-right: 20%!important;
+      margin-left: auto!important;
+}

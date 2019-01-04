@@ -1,11 +1,37 @@
-<div *ngIf="subject.limitedTime!='0'" class="timer">{{timeLeft}}</div>
-
-<app-question *ngFor="let question of questions; let i = index;" [setQuestion]="question" (questionStatus)="onChange($event)"></app-question>
-
 <div fxLayout="column">
   <div fxLayout="row">
-    <div>
-      <button mat-raised-button class="continue bigButton" (click)="onSubmit()">ZAKOŃCZ</button>
+    <div fxLayout="column">
+      <div *ngIf="subject.limitedTime!='0'" class="timer">{{timeLeft}}</div>
+
+      <div *ngFor="let question of questions; let i = index;">
+        <app-question *ngIf="(subjectObj.separatePage==0)||(questionIndex==i)" [setQuestion]="question"
+          (questionStatus)="onChange($event)"></app-question>
+      </div>
+      
     </div>
   </div>
-</div>
+  
+    <div *ngIf="subjectObj.separatePage==1" >
+      <div class="prevBtn">
+        <button mat-raised-button class="continue" 
+        (click)="prevQuestion()" *ngIf="questionIndex>0">
+        <i class="material-icons">
+            keyboard_arrow_left
+            </i>
+        Wstecz</button>
+      </div>
+      <div class="nextBtn">
+        <button mat-raised-button class="continue" 
+        (click)="nextQuestion()" *ngIf="questionIndex<questions.length-1">Dalej
+            <i class="material-icons">
+                keyboard_arrow_right
+                </i>
+        </button>
+      </div>
+    </div>
+    <div fxLayout="row">
+      <div >
+        <button mat-raised-button class="continue bigButton" (click)="onSubmit()">ZAKOŃCZ</button>
+      </div>
+    </div>
+  </div>

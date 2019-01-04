@@ -19,8 +19,12 @@ export class TestComponent implements OnInit {
   actualTime;
   idUser: string;
   isSubmitted: boolean = false;
+  subjectObj:Subject;
   public timeLeft: string = "00:00:00";
   timerHandler;
+  questionIndex:number=0;
+  firstQuestion:boolean=true;
+  lastQuestion:boolean=false;
   constructor(private testService: TestService, private router: Router,
     private route: ActivatedRoute, private cookie: CookieService) {
 
@@ -67,6 +71,7 @@ export class TestComponent implements OnInit {
         }
         else {
           this.idSubject = this.cookie.get('idSubject');
+          this.subjectObj=JSON.parse(this.cookie.get("subj"));
           this.idUser = (JSON.parse(this.cookie.get('user')).id);
 
           console.log("ids", this.idUser, " ", this.idSubject)
@@ -99,7 +104,21 @@ export class TestComponent implements OnInit {
     }
   }
 
-
+nextQuestion(){
+  if (this.questionIndex<this.questions.length-1)
+  {this.questionIndex++;}
+  else {
+    this.lastQuestion=true;
+  }
+}
+prevQuestion(){
+  if (this.questionIndex>0)
+  {this.questionIndex--;
+    this.firstQuestion=false;}
+  else {
+    this.firstQuestion=true;
+  }
+}
   public onChange(questionStatus: QuestionStatus) {
     let exist = false;
     let i = 0;
