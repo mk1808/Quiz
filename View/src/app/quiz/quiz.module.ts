@@ -11,6 +11,9 @@ import { RegisterComponent } from './auth/register/register.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MainPageComponent } from './main-page/main-page.component';
+import { ContactComponent } from './contact/contact.component';
+import { NgxGoogleMapModule } from 'ngx-google-map';
+
 
 @NgModule({
   imports: [
@@ -22,11 +25,12 @@ import { MainPageComponent } from './main-page/main-page.component';
     MatFormFieldModule,
     FormsModule,
     ReactiveFormsModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    NgxGoogleMapModule
 
 
 
   ],
-  declarations: [LayoutComponent,HeaderComponent, FooterComponent, LoginComponent, RegisterComponent, MainPageComponent]
+  declarations: [LayoutComponent,HeaderComponent, FooterComponent, LoginComponent, RegisterComponent, MainPageComponent, ContactComponent]
 })
 export class QuizModule { }

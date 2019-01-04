@@ -4,6 +4,7 @@ import { LayoutComponent } from './layout/layout.component';
 import { LoginComponent } from './auth/login/login.component'
 import { RegisterComponent } from './auth/register/register.component'
 import { MainPageComponent } from './main-page/main-page.component';
+import { ContactComponent } from './contact/contact.component';
 const routes: Routes = [
   {
     path: "", component: LayoutComponent,children:[ {
@@ -25,6 +26,10 @@ const routes: Routes = [
     {
       path: "main",
       component: MainPageComponent 
+    },
+    {
+      path: "contact",
+      component: ContactComponent 
     },
     {
       path:"**", redirectTo: 'main'
