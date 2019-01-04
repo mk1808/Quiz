@@ -1,151 +1,157 @@
 <form [formGroup]="newTestForm" *ngIf="initialized">
-  <div class="container">
-    <div fxLayout="column" fxLayoutAlign="space-around center" fxFlex="100%">
-      <div fxLayout="row" class="wTitle" *ngIf="newTest">
-        Nowy quiz
-      </div>
-      <div fxLayout="row" class="wTitle" *ngIf="!newTest">
-        {{testName}}
-      </div>
-      <div fxLayout="row" class="rowPos" fxFlex="100%">
-          <div fxLayout="column" fxFlex="50%" class="colleft" fxLayoutAlign="start center" >
-              <div fxLayout="row" class="inputPos">
-                  <div class="input-group mb-3">
-                    <div class="input-group-prepend" >
-                      <span class="input-group-text inputStyle"  >
-                        <i class="material-icons">
-                            keyboard_arrow_right
-                        </i></span>
-                    </div>
-                    <input type="text" class="form-control" placeholder="Nazwa quizu"
-                    aria-label="quizName" aria-describedby="basic-addon1"
-                    formControlName="name" >
-                  </div>
-                  </div>
-              <div fxLayout="row">
-                  <div class="input-group mb-3">
-                  <div class="input-group-prepend" >
-                      <span class="input-group-text inputStyle"  >
-                        <i class="material-icons">
-                            keyboard_arrow_right
-                        </i></span>
-                    </div>
-                <div class="form-group">
-
-                  <select class="form-control" id="exampleFormControlSelect1"
-                  formControlName="course" >
-                    <option selected>Kierunek studiów</option>
-                    <option *ngFor="let course of coursesTable" [value]="course.NAME">
-                        {{course.NAME}}
-                    </option>
-
-                  </select>
-                </div>
-              </div>
-              </div>
-              <div fxLayout="row">
-                  <div class="input-group mb-3">
-                      <div class="input-group-prepend" >
-                          <span class="input-group-text inputStyle"  >
-                            <i class="material-icons">
-                                keyboard_arrow_right
-                            </i></span>
+    <div class="container">
+        <div fxLayout="column" fxLayoutAlign="space-around center" fxFlex="100%">
+            <div fxLayout="row" class="wTitle" *ngIf="newTest">
+                Nowy quiz
+            </div>
+            <div fxLayout="row" class="wTitle" *ngIf="!newTest">
+                {{testName}}
+            </div>
+            <div fxLayout="row" class="rowPos" fxFlex="100%">
+                <div fxLayout="column" fxFlex="50%" class="colleft" fxLayoutAlign="start center">
+                    <div fxLayout="row" class="inputPos">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text inputStyle">
+                                    <i class="material-icons">
+                                        keyboard_arrow_right
+                                    </i></span>
+                            </div>
+                            <input type="text" class="form-control" placeholder="Nazwa quizu" aria-label="quizName"
+                                aria-describedby="basic-addon1" formControlName="name">
                         </div>
-                    <div class="form-group">
-
-                      <select class="form-control" id="exampleFormControlSelect1"
-                      formControlName="multipleChoice">
-                        <option >Krotność</option>
-                        <option *ngFor="let choice of multipleChoiceTable" [value]="choice">
-                                {{choice}}
-                            </option>
-                      </select>
                     </div>
-                  </div>
-              </div>
-              <div fxLayout="row">
+                    <div fxLayout="row">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text inputStyle">
+                                    <i class="material-icons">
+                                        keyboard_arrow_right
+                                    </i></span>
+                            </div>
+                            <div class="form-group">
 
-                      <div class="input-group mb-3">
-                      <div class="input-group-prepend" >
-                          <span class="input-group-text inputStyle"  >
-                            <i class="material-icons">
-                                keyboard_arrow_right
-                            </i></span>
+                                <select class="form-control" id="exampleFormControlSelect1" formControlName="course">
+                                    <option selected>Kierunek studiów</option>
+                                    <option *ngFor="let course of coursesTable" [value]="course.NAME">
+                                        {{course.NAME}}
+                                    </option>
+
+                                </select>
+                            </div>
                         </div>
-
-                        <div class="form-group ">
-                        <input class="form-control" type="number" placeholder="Ilość pytań"
-                          id="example-number-input" formControlName="nOQuestions" >
                     </div>
-              </div></div>
+                    <div fxLayout="row">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text inputStyle">
+                                    <i class="material-icons">
+                                        keyboard_arrow_right
+                                    </i></span>
+                            </div>
+                            <div class="form-group">
 
-              <div fxLayout="row">
-                    <div class="form-check checkSeparatedPos">
-                        <label class="form-check-label">
-  
-                          <input class="form-check-input" type="checkbox"  value=""
-                          formControlName="separatedPages" (click)="onClickSeparatedPages()">
-  
-                          &nbsp; pytania na osobnych stronach
-                        </label>
-  
-                      </div>
+                                <select class="form-control" id="exampleFormControlSelect1" formControlName="multipleChoice">
+                                    <option>Krotność</option>
+                                    <option *ngFor="let choice of multipleChoiceTable" [value]="choice">
+                                        {{choice}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div fxLayout="row">
+
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text inputStyle">
+                                    <i class="material-icons">
+                                        keyboard_arrow_right
+                                    </i></span>
+                            </div>
+
+                            <div class="form-group ">
+                                <input class="form-control" type="number" placeholder="Ilość pytań" id="example-number-input"
+                                    formControlName="nOQuestions">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div fxLayout="row">
+                        <div class="form-check checkSeparatedPos">
+                            <label class="form-check-label">
+
+                                <input class="form-check-input" type="checkbox" value="" formControlName="separatedPages"
+                                    (click)="onClickSeparatedPages()">
+
+                                &nbsp; pytania na osobnych stronach
+                            </label>
+
+                        </div>
+                    </div>
+                    <div fxLayout="row">
+                        <div class="form-check checkSeparatedPos">
+                            <label class="form-check-label">
+                                <input class="form-check-input" type="checkbox" value="" formControlName="canBack"
+                                    >
+                                &nbsp; możliwość powrotu do poprzedniego pytania
+                            </label>
+                        </div>
+                    </div>
                 </div>
-          </div>
 
-          <div fxLayout="column" fxFlex="50%" class="colright" fxLayoutAlign="start center">
-              <div fxLayout="row">
+                <div fxLayout="column" fxFlex="50%" class="colright" fxLayoutAlign="start center">
+                    <div fxLayout="row">
 
 
-                      <textarea class="form-control textAreaSize" rows="5"
-                      placeholder="Dodatkowy opis" formControlName="description"></textarea>
-
-              </div>
-              <div fxLayout="row">
-                  <div class="form-check checkPos">
-                      <label class="form-check-label">
-
-                        <input class="form-check-input" type="checkbox"  value=""
-                        formControlName="limitedTime" (click)="onClickLimitedTime()">
-
-                        &nbsp; limit czasu
-                      </label>
+                        <textarea class="form-control textAreaSize" rows="5" placeholder="Dodatkowy opis"
+                            formControlName="description"></textarea>
 
                     </div>
-              </div>
-              <div fxLayout="row">
+                    <div fxLayout="row">
+                        <div class="form-check checkPos">
+                            <label class="form-check-label">
 
-                  <div class="input-group mb-3 durationPos ">
-                  <div class="input-group-prepend" >
-                      <span class="input-group-text inputStyle"  >
-                        <i class="material-icons">
-                            keyboard_arrow_right
-                        </i></span>
+                                <input class="form-check-input" type="checkbox" value="" formControlName="limitedTime"
+                                    (click)="onClickLimitedTime()">
+
+                                &nbsp; limit czasu
+                            </label>
+
+                        </div>
+                    </div>
+                    <div fxLayout="row">
+
+                        <div class="input-group mb-3 durationPos ">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text inputStyle">
+                                    <i class="material-icons">
+                                        keyboard_arrow_right
+                                    </i></span>
+                            </div>
+
+                            <div class="form-group ">
+                                <input class="form-control" type="time" placeholder="Długość trwania" id="example-number-input"
+                                    formControlName="time">
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="form-group ">
-                    <input class="form-control" type="time" placeholder="Długość trwania"
-                      id="example-number-input"formControlName="time" >
                 </div>
-          </div></div>
+            </div>
+            <div fxLayout="row" class="bottomRowPos" fxFlex="20%">
 
-          </div>
+                <div fxLayout="column" fxFlex="50%" class="colleft" fxLayoutAlign="start center">
+                    <div fxLayout="row" class="inputPos" (click)=" onBack()">
+                        <button mat-raised-button class="continue">Anuluj</button>
+                    </div>
+                </div>
+                <div fxLayout="column" fxFlex="50%" class="colleft" fxLayoutAlign="start center">
+                    <div fxLayout="row" class="inputPos">
+                        <button mat-raised-button class="continue" (click)="onCreate()">Zatwierdź</button>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div fxLayout="row" class="bottomRowPos" fxFlex="20%">
-
-          <div fxLayout="column" fxFlex="50%" class="colleft" fxLayoutAlign="start center" >
-                <div fxLayout="row" class="inputPos" (click)=" onBack()">
-                    <button mat-raised-button class="continue"
-                    >Anuluj</button>
-                  </div>
-            </div>
-            <div fxLayout="column" fxFlex="50%" class="colleft" fxLayoutAlign="start center" >
-                <div fxLayout="row" class="inputPos">
-                    <button mat-raised-button class="continue"  (click)="onCreate()"
-                    >Zatwierdź</button>
-                  </div>
-            </div>
-          </div>
     </div>
-  </div>
 </form>

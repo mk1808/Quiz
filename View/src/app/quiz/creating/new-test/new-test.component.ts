@@ -46,60 +46,65 @@ export class NewTestComponent implements OnInit {
         this.router.navigate(['/quiz/student_panel']);
       }
 
-    else{
-     
-    
-    this.dictionary.getCourses().subscribe(x => {
-      console.log(x[1].NAME);
-      this.coursesTable = x;
-    });
-    this.user = (JSON.parse(this.cookie.get('user')));
+      else {
 
-    if (this.newTest) {
-      this.newTestForm = this.fb.group({
-        name: ['', Validators.required],
-        nOQuestions: ['', Validators.required],
-        limitedTime: [false],
-        multipleChoice: ['Krotność', Validators.required],
-        time: [''],
-        course: ['Kierunek studiów'],
-        description: [''],
-        separatedPages:[false]
-      });
-      this.initialized = true;
-      this.newTestForm.controls.time.disable();
 
-    }
-    else {
-      this.test.getQuizDetails(this.idExistingTest).subscribe(x => {
-        if(x.status==200){
-        x=x.body;
-          console.log(x);
-        this.testName = x.NAME;
-        let hoursN = Math.floor(x.TIME / 60);
-        let minutesN = x.TIME - hoursN * 60;
-
-        let hours = String(hoursN);
-        let minutes = String(minutesN);
-
-        if (hoursN < 10) hours = "0" + String(hoursN);
-        if (minutesN < 10) minutes = "0" + String(minutesN);
-
-        this.newTestForm = this.fb.group({
-          name: [x.NAME, Validators.required],
-          nOQuestions: [x.N_O_QUESTIONS, Validators.required],
-          limitedTime: [x.LIMITED_TIME == 0 ? false : true],
-          multipleChoice: [{value : (x.MULTIPLE_CHOICE == 0 ? 'jednokrotny' : 'wielokrotny'), disabled: true}, Validators.required],
-          time: [hours + ":" + minutes],
-          course: [x.COURSE],
-          description: [x.DESCRIPTION],
-          separatedPages: [x.CAN_BACK == 0 ? false : true],
+        this.dictionary.getCourses().subscribe(x => {
+          console.log(x[1].NAME);
+          this.coursesTable = x;
         });
-        this.initialized = true;
-      }});
+        this.user = (JSON.parse(this.cookie.get('user')));
+
+        if (this.newTest) {
+          this.newTestForm = this.fb.group({
+            name: ['', Validators.required],
+            nOQuestions: ['', Validators.required],
+            limitedTime: [false],
+            multipleChoice: ['Krotność', Validators.required],
+            time: [''],
+            course: ['Kierunek studiów'],
+            description: [''],
+            separatedPages: [false],
+            canBack: ['']
+          });
+          this.initialized = true;
+          this.newTestForm.controls.time.disable();
+          this.newTestForm.controls.canBack.disable();
+
+        }
+        else {
+          this.test.getQuizDetails(this.idExistingTest).subscribe(x => {
+            if (x.status == 200) {
+              x = x.body;
+              console.log(x);
+              this.testName = x.NAME;
+              let hoursN = Math.floor(x.TIME / 60);
+              let minutesN = x.TIME - hoursN * 60;
+
+              let hours = String(hoursN);
+              let minutes = String(minutesN);
+
+              if (hoursN < 10) hours = "0" + String(hoursN);
+              if (minutesN < 10) minutes = "0" + String(minutesN);
+
+              this.newTestForm = this.fb.group({
+                name: [x.NAME, Validators.required],
+                nOQuestions: [x.N_O_QUESTIONS, Validators.required],
+                limitedTime: [x.LIMITED_TIME == 0 ? false : true],
+                multipleChoice: [{ value: (x.MULTIPLE_CHOICE == 0 ? 'jednokrotny' : 'wielokrotny'), disabled: true }, Validators.required],
+                time: [hours + ":" + minutes],
+                course: [x.COURSE],
+                description: [x.DESCRIPTION],
+                separatedPages: [x.SEPARATE_PAGE == 0 ? false : true],
+                canBack: [x.CAN_BACK == 0 ? false : true]
+              });
+              this.initialized = true;
+            }
+          });
+        }
+      }
     }
   }
-}}
 
   onClickLimitedTime() {
     if (!this.newTestForm.controls.limitedTime.value) {
@@ -108,7 +113,18 @@ export class NewTestComponent implements OnInit {
     else { this.newTestForm.controls.time.disable(); }
   }
 
-  onClickSeparatedPages(){
+  onClickSeparatedPages() {
+
+    if (!this.newTestForm.controls.separatedPages.value) {
+
+      this.newTestForm.controls.canBack.enable();
+
+    }
+    else {
+      this.newTestForm.controls.canBack.disable();
+      this.newTestForm.controls.canBack.setValue(false);
+    }
+
 
   }
 
@@ -136,27 +152,30 @@ export class NewTestComponent implements OnInit {
       subject.course = this.newTestForm.controls.course.value;
       subject.nOQuestions = this.newTestForm.controls.nOQuestions.value;
       subject.separatePage = this.newTestForm.controls.separatedPages.value;
+      subject.canBack = this.newTestForm.controls.canBack.value;
       this.cookie.set("multiple", subject.multipleChoice.toString());
       if (this.newTest) {
         this.creating.createSubject(subject).subscribe(x => {
-          if(x.status==200){
-            x=x.body;
-          console.log(x.id);
-          this.cookie.set("idSubject", x.id.toString());
-          this.router.navigate(['./new_question'], { relativeTo: this.route });
-       } }, e => console.log(e));
-      } else
-      {
-        subject.id=this.idExistingTest;
-        try{
-        this.creating.updateSubject(subject).subscribe(x => {
-          if(x.status==200){
-            x=x.body;
-          console.log(x);
-          this.cookie.set("idSubject", this.idExistingTest.toString());
-          this.router.navigate(['../new_question'], { relativeTo: this.route });
-        }}, e => console.log(e));}
-        catch (e){
+          if (x.status == 200) {
+            x = x.body;
+            console.log(x.id);
+            this.cookie.set("idSubject", x.id.toString());
+            this.router.navigate(['./new_question'], { relativeTo: this.route });
+          }
+        }, e => console.log(e));
+      } else {
+        subject.id = this.idExistingTest;
+        try {
+          this.creating.updateSubject(subject).subscribe(x => {
+            if (x.status == 200) {
+              x = x.body;
+              console.log(x);
+              this.cookie.set("idSubject", this.idExistingTest.toString());
+              this.router.navigate(['../new_question'], { relativeTo: this.route });
+            }
+          }, e => console.log(e));
+        }
+        catch (e) {
           console.log(e);
         }
       }

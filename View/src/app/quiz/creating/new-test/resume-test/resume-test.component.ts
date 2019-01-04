@@ -43,6 +43,7 @@ export class ResumeTestComponent implements OnInit {
               this.subject.description = x.DESCRIPTION;
               this.subject.time = x.TIME;
               this.subject.separatePage=x.SEPARATE_PAGE;
+              this.subject.canBack=x.CAN_BACK;
               console.log(this.subject.description);
             }
           });
