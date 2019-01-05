@@ -65,7 +65,8 @@ export class NewTestComponent implements OnInit {
             course: ['Kierunek studiów'],
             description: [''],
             separatedPages: [false],
-            canBack: ['']
+            canBack: [''],
+            randomize:[false]
           });
           this.initialized = true;
           this.newTestForm.controls.time.disable();
@@ -96,7 +97,8 @@ export class NewTestComponent implements OnInit {
                 course: [x.COURSE],
                 description: [x.DESCRIPTION],
                 separatedPages: [x.SEPARATE_PAGE == 0 ? false : true],
-                canBack: [x.CAN_BACK == 0 ? false : true]
+                canBack: [x.CAN_BACK == 0 ? false : true],
+                randomize: [x.RANDOMIZE == 0 ? false : true]
               });
               this.initialized = true;
             }
@@ -153,6 +155,7 @@ export class NewTestComponent implements OnInit {
       subject.nOQuestions = this.newTestForm.controls.nOQuestions.value;
       subject.separatePage = this.newTestForm.controls.separatedPages.value;
       subject.canBack = this.newTestForm.controls.canBack.value;
+      subject.randomize = this.newTestForm.controls.randomize.value;
       this.cookie.set("multiple", subject.multipleChoice.toString());
       if (this.newTest) {
         this.creating.createSubject(subject).subscribe(x => {

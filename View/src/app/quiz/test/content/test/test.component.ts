@@ -19,12 +19,12 @@ export class TestComponent implements OnInit {
   actualTime;
   idUser: string;
   isSubmitted: boolean = false;
-  subjectObj:Subject;
+  subjectObj: Subject;
   public timeLeft: string = "00:00:00";
   timerHandler;
-  questionIndex:number=0;
-  firstQuestion:boolean=true;
-  lastQuestion:boolean=false;
+  questionIndex: number = 0;
+  firstQuestion: boolean = true;
+  lastQuestion: boolean = false;
   constructor(private testService: TestService, private router: Router,
     private route: ActivatedRoute, private cookie: CookieService) {
 
@@ -36,12 +36,12 @@ export class TestComponent implements OnInit {
     if (this.cookie.get('user') == "") {
       if (window.location.href.split('/')[4] == 'demo') {
         this.idSubject = this.cookie.get('idSubject')
-        this.subjectObj=JSON.parse(this.cookie.get("subj"));
+        this.subjectObj = JSON.parse(this.cookie.get("subj"));
         this.testService.getQuestionsByIdSubject(this.idSubject).subscribe(x => {
           if (x.status == 200) {
             x = x.body;
             console.log(x);
-            this.subject.limitedTime =false;
+            this.subject.limitedTime = false;
             this.questions = x;
 
             this.questions.forEach(
@@ -72,27 +72,52 @@ export class TestComponent implements OnInit {
         }
         else {
           this.idSubject = this.cookie.get('idSubject');
-          this.subjectObj=JSON.parse(this.cookie.get("subj"));
+          this.subjectObj = JSON.parse(this.cookie.get("subj"));
           this.idUser = (JSON.parse(this.cookie.get('user')).id);
 
-          console.log("ids", this.idUser, " ", this.idSubject)
-          this.testService.getRandQuestionsByIdSubject(this.idSubject).subscribe(x => {
-            if (x.status == 200) {
-              x = x.body;
-              console.log(x);
+          console.log("ids", this.idUser, " ", this.idSubject);
+          if (this.subjectObj.randomize) {
+            this.testService.getRandQuestionsByIdSubject(this.idSubject).subscribe(x => {
+              if (x.status == 200) {
+                x = x.body;
+                console.log(x);
 
-              this.questions = x;
+                this.questions = x;
 
-              this.questions.forEach(
-                question => {
-                  let questionStatus = new QuestionStatus();
-                  questionStatus.id = question.id;
-                  this.questionStatuses.push(questionStatus);
-                }
-              );
+                this.questions.forEach(
+                  question => {
+                    let questionStatus = new QuestionStatus();
+                    questionStatus.id = question.id;
+                    this.questionStatuses.push(questionStatus);
+                  }
+                );
 
-            }
-          });
+              }
+            });
+          }
+          else {
+            this.testService.getQuestionsByIdSubject(this.idSubject).subscribe(x => {
+              if (x.status == 200) {
+                x = x.body;
+                console.log(x);
+
+                this.questions = x;
+
+                this.questions.forEach(
+                  question => {
+                    let questionStatus = new QuestionStatus();
+                    questionStatus.id = question.id;
+                    this.questionStatuses.push(questionStatus);
+                  }
+                );
+
+              }
+            });
+
+          }
+
+
+
           this.subject.limitedTime = JSON.parse(this.cookie.get("time")).limitedTime;
           this.subject.time = JSON.parse(this.cookie.get("time")).time;
 
@@ -106,21 +131,21 @@ export class TestComponent implements OnInit {
     }
   }
 
-nextQuestion(){
-  if (this.questionIndex<this.questions.length-1)
-  {this.questionIndex++;}
-  else {
-    this.lastQuestion=true;
+  nextQuestion() {
+    if (this.questionIndex < this.questions.length - 1) { this.questionIndex++; }
+    else {
+      this.lastQuestion = true;
+    }
   }
-}
-prevQuestion(){
-  if (this.questionIndex>0)
-  {this.questionIndex--;
-    this.firstQuestion=false;}
-  else {
-    this.firstQuestion=true;
+  prevQuestion() {
+    if (this.questionIndex > 0) {
+    this.questionIndex--;
+      this.firstQuestion = false;
+    }
+    else {
+      this.firstQuestion = true;
+    }
   }
-}
   public onChange(questionStatus: QuestionStatus) {
     let exist = false;
     let i = 0;
@@ -146,21 +171,23 @@ prevQuestion(){
     this.isSubmitted = true;
     clearInterval()
     console.log("que: ", this.questionStatuses, " iduser: ", this.idUser, " idsubj: ", this.idSubject);
-    if (window.location.href.split('/')[4] == 'demo'){
+    if (window.location.href.split('/')[4] == 'demo') {
       this.testService.checkAnswersForDemo(this.questionStatuses).subscribe(
-        x=>{this.testService.setResult(x);
+        x => {
+          this.testService.setResult(x);
           this.testService.setQuestionsInResult(this.questionStatuses);
-        this.router.navigate(['../end'], { relativeTo: this.route });}
+          this.router.navigate(['../end'], { relativeTo: this.route });
+        }
       )
     }
     else {
-    this.testService.checkAnswers(this.questionStatuses, this.idUser, this.idSubject).subscribe(x => {
-      console.log(this.questionStatuses);
-      this.testService.setQuestionsInResult(this.questionStatuses);
-      this.testService.setResult(x);
-      this.router.navigate(['../end'], { relativeTo: this.route });
-    });
-  }
+      this.testService.checkAnswers(this.questionStatuses, this.idUser, this.idSubject).subscribe(x => {
+        console.log(this.questionStatuses);
+        this.testService.setQuestionsInResult(this.questionStatuses);
+        this.testService.setResult(x);
+        this.router.navigate(['../end'], { relativeTo: this.route });
+      });
+    }
   }
 
   public timer(time) {

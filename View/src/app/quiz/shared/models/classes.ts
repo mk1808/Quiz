@@ -6,6 +6,7 @@ export class Subject {
   multipleChoice: boolean;
   separatePage: boolean=false;
   canBack: boolean=false;
+  randomize: boolean=false;
   limitedTime: boolean;
   time: number;
   course: string;
