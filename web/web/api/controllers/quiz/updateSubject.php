@@ -28,6 +28,7 @@ if (!$auth ||(isset($auth2["decoded"]))) {
     $subject->course = $data->course;
     $subject->time = $data->time;
     $subject->description = $data->description;
+	$subject->randomize = $data->randomize;
 
     $stmt = $subject->update();
 

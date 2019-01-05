@@ -25,6 +25,7 @@ $subject->limitedTime = $data->limitedTime;
 $subject->course = $data->course;
 $subject->time = $data->time;
 $subject->description = $data->description;
+$subject->randomize = $data->randomize;
 
 $auth2 = authorizate($data->jwt);
 if (!$auth ||(isset($auth2["decoded"]) && ($auth2["decoded"]->role == 1)) ) {

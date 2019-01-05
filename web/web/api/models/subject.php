@@ -20,6 +20,7 @@ class Subject{
     public $description;
     public $shared;
     public $categorysed;
+	public $randomize;
 
 
 
@@ -101,6 +102,7 @@ class Subject{
         $this->time=htmlspecialchars(strip_tags($this->time));
         $this->course=htmlspecialchars(strip_tags($this->course));
         $this->description=htmlspecialchars(strip_tags($this->description));
+		$this->randomize=htmlspecialchars(strip_tags($this->randomize));
 
 
         $query = 'INSERT INTO subject SET 
@@ -113,6 +115,7 @@ class Subject{
                 LIMITED_TIME = "'.$this->limitedTime.'",
                 TIME = "'.$this->time.'",
                 COURSE = "'.$this->course.'",
+				RANDOMIZE = "'.$this->randomize.'",
                 DESCRIPTION = "'.$this->description.'";';
 
         $stmt = $this->conn->prepare($query);
@@ -181,6 +184,7 @@ class Subject{
         $this->time=htmlspecialchars(strip_tags($this->time));
         $this->course=htmlspecialchars(strip_tags($this->course));
         $this->description=htmlspecialchars(strip_tags($this->description));
+		$this->randomize=htmlspecialchars(strip_tags($this->randomize));
 
 
         $query = 'UPDATE subject SET 
@@ -192,7 +196,8 @@ class Subject{
                 LIMITED_TIME = "'.$this->limitedTime.'",
                 TIME = "'.$this->time.'",
                 COURSE = "'.$this->course.'",
-                DESCRIPTION = "'.$this->description.'"
+                DESCRIPTION = "'.$this->description.'",
+				RANDOMIZE = "'.$this->randomize.'"
                 WHERE ID = '.$this->id.';';
 
         $stmt = $this->conn->prepare($query);
