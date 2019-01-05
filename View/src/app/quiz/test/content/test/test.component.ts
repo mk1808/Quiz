@@ -76,6 +76,7 @@ export class TestComponent implements OnInit {
           this.idUser = (JSON.parse(this.cookie.get('user')).id);
 
           console.log("ids", this.idUser, " ", this.idSubject);
+          console.log(this.subjectObj.randomize==true)
           if (this.subjectObj.randomize) {
             this.testService.getRandQuestionsByIdSubject(this.idSubject).subscribe(x => {
               if (x.status == 200) {
@@ -139,7 +140,7 @@ export class TestComponent implements OnInit {
   }
   prevQuestion() {
     if (this.questionIndex > 0) {
-    this.questionIndex--;
+      this.questionIndex--;
       this.firstQuestion = false;
     }
     else {
