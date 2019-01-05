@@ -30,10 +30,11 @@ export class TestEndComponent implements OnInit {
         this.isPassed = this.truePercent >= 50;
         console.log("total:" + this.total + " true:" + this.trueAns + " procent:" + this.truePercent + " " + this.isPassed);
         console.log(this.testService.getResult());
+        this.questions=this.testService.getQuestionsInResult();
 
       }
       else{this.router.navigate(['/']);}
-      
+
     }
     else {
       if (JSON.parse(this.cookie.get('user')).role == 1) {

@@ -35,7 +35,8 @@ export class TestComponent implements OnInit {
   ngOnInit() {
     if (this.cookie.get('user') == "") {
       if (window.location.href.split('/')[4] == 'demo') {
-        this.idSubject = this.cookie.get('idSubject');
+        this.idSubject = this.cookie.get('idSubject')
+        this.subjectObj=JSON.parse(this.cookie.get("subj"));
         this.testService.getQuestionsByIdSubject(this.idSubject).subscribe(x => {
           if (x.status == 200) {
             x = x.body;
@@ -57,7 +58,7 @@ export class TestComponent implements OnInit {
       else {
         this.router.navigate(['/']);
       }
-    
+
     }
     else {
       if (JSON.parse(this.cookie.get('user')).role == 1) {
@@ -94,7 +95,7 @@ export class TestComponent implements OnInit {
           });
           this.subject.limitedTime = JSON.parse(this.cookie.get("time")).limitedTime;
           this.subject.time = JSON.parse(this.cookie.get("time")).time;
-          
+
           console.log("lt", JSON.parse(this.cookie.get("time")).limitedTime)
           //console.log("aaaa",this.subject.limitedTime)
           if (this.subject.limitedTime == true) {
@@ -148,6 +149,7 @@ prevQuestion(){
     if (window.location.href.split('/')[4] == 'demo'){
       this.testService.checkAnswersForDemo(this.questionStatuses).subscribe(
         x=>{this.testService.setResult(x);
+          this.testService.setQuestionsInResult(this.questionStatuses);
         this.router.navigate(['../end'], { relativeTo: this.route });}
       )
     }
