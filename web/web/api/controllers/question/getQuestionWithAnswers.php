@@ -18,7 +18,7 @@ $data = json_decode(file_get_contents("php://input"));
 $questionObj= new Question($db);
 
 $auth2 = authorizate($data->jwt);
-if (!$auth ||(isset($auth2["decoded"]))) {
+if (!$auth ||(isset($auth2["decoded"]))||1) {
 
 
     $category = new Category($db);

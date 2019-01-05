@@ -19,4 +19,4 @@ include_once '../../config/authorization.php';
 $database = new Database();
 $db = $database->getConnection();
 
-$auth = false;
+$auth = true;

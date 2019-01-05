@@ -45,4 +45,21 @@ class SubjectQuestions
             return -1;
         }
 
+    public function getQuestions($id){
+        $query = "SELECT * FROM subject_question WHERE ID_SUBJECT = ".$id;
+        $stmt = $this->conn->prepare($query);
+
+        $stmt->execute();
+
+        $num = $stmt->rowCount();
+        if($num>0) {
+            $questions = array();
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+                $query = "SELECT * FROM "
+            }
+        }
+
+        return $stmt;
+    }
+
 }

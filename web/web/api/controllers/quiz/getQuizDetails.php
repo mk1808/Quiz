@@ -13,7 +13,7 @@ $data = json_decode(file_get_contents("php://input"));
 $subject= new Subject($db);
 
 $auth2 = authorizate($data->jwt);
-if (!$auth ||(isset($auth2["decoded"]))) {
+if (!$auth ||(isset($auth2["decoded"]))||($data->id == $subject->getDemoSubjectId())) {
 
     if (!empty($data->id)) {
 

@@ -18,8 +18,7 @@ $data = (file_get_contents("php://input"));
 $data = json_decode(file_get_contents("php://input"));
 
 $auth2 = authorizate($data->jwt);
-$subject = new Subject($db);
-if (!$auth ||(isset($auth2["decoded"]))||($data->id == $subject->getDemoSubjectId())){
+if (!$auth ||(isset($auth2["decoded"]))){
 
 $questionObj= new Question($db);
 
