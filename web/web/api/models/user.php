@@ -51,7 +51,7 @@ class user
         $stmt = $this->conn->prepare($query);
 
         if($stmt->execute()){
-            return true;
+            return $this->conn->lastInsertId();
         }
 
         return false;
@@ -110,6 +110,7 @@ class user
         $this->surname=htmlspecialchars(strip_tags($this->surname));
         $this->email=htmlspecialchars(strip_tags($this->email));
         $this->role=htmlspecialchars(strip_tags($this->role));
+        $this->course=htmlspecialchars(strip_tags($this->course));
         $password_hash = "";
         if(!empty($this->password)){
             $this->password=htmlspecialchars(strip_tags($this->password));
@@ -124,6 +125,7 @@ class user
                 NAME = "'.$this->name.'",
                 SURNAME = "'.$this->surname.'",
                 EMAIL = "'.$this->email.'",
+                COURSE = "'.$this->course.'",
                 ROLE = "'.$this->role.'"'."
                 {$password_set}".'"'."
             WHERE ID = ".$this->id.";";

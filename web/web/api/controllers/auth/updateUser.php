@@ -30,6 +30,7 @@ if ($jwt) {
         $user->email = $data->email;
         $user->password = $data->password;
         $user->role = $data->role;
+        $user->course = $data->course;
         $user->id = $decoded->data->id;
         if ($user->update()) {
             $token = array(
