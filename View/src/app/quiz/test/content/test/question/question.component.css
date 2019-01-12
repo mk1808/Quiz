@@ -1,11 +1,3 @@
-.answer{
-   
-}
-
-.artStyle{
-
-}
-
 .photoStyle{
     max-height: 150pt;
     border: 3px solid black;
@@ -32,4 +24,12 @@
     border-top: 2px solid #0281D6;
     border-bottom: 2px solid #0281D6;
     border-left: 6px solid #0281D6;
+}
+
+.question{
+    max-width: 95% ;
+}
+
+.category{
+    min-width: fit-content;
 }

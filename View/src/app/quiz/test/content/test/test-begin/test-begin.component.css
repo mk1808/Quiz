@@ -25,3 +25,9 @@
 .posit{
     margin-bottom:200px;
 }
+
+@media only screen and (max-width: 960px) {
+    .welcomeTest{
+        font-size: 24px; 
+    }
+}

@@ -15,7 +15,7 @@ const routes: Routes = [
   { path: 'demo/begin',component: TestBeginComponent },
   { path: 'demo/test', component: TestComponent },
   { path: 'demo/end', component: TestEndComponent },
-  { path: '**', redirectTo: '/quiz/begin'}
+  { path: '**', redirectTo: '/quiz/student_panel'}
 ];
 
 @NgModule({

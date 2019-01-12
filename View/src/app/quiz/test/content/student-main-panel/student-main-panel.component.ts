@@ -40,7 +40,7 @@ export class StudentMainPanelComponent implements OnInit {
 
     this.cookie.set("idSubject", id.toString(), null, "/");
 
-    this.router.navigate(['../test_begin'], { relativeTo: this.route });
+    this.router.navigate(['quiz/begin']);
 
   }
 

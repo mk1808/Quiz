@@ -36,3 +36,29 @@
     margin-bottom: 16px;
     width:400px;
   }
+
+.loginBtn{
+    margin-right:15px !important
+}
+
+.registerBtn{
+    margin-left:15px !important
+}
+
+  @media only screen and (max-width: 500px) {
+    .inputPos{
+        width:263px;
+      }
+      .loginBtn{
+        margin-right:5px !important
+    }
+    
+    .registerBtn{
+        margin-left:0px !important
+    }
+  }
+  @media only screen and (max-width: 800px) {
+    .welcomeTest{
+        font-size: 24px; 
+    }
+  }

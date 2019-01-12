@@ -20,3 +20,10 @@
     font-size: 30px;
     color:#c9c9c9;
 }
+
+
+@media only screen and (max-width: 960px) {
+    .map{
+        width:100%;    
+    }
+}

@@ -73,3 +73,10 @@ li p:hover {
   font-size:22px;
   cursor:pointer;
 }
+
+@media only screen and (max-width: 660px) {
+  .questionButton{
+    max-width:80%;
+  
+  }
+}

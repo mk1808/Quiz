@@ -13,10 +13,12 @@
 
 .colleft{
     margin-right:20px;
+    width: 340px;
 } 
 
 .colright{
     margin-left:20px;
+    width: 340px;
 } 
 
 .testDetails{
@@ -27,4 +29,14 @@
     font-weight: bold; 
     margin-top:60px;
     text-align:left;
+}
+
+@media only screen and (max-width: 960px) {
+    .colleft{
+        margin-right:0;
+    } 
+    
+    .colright{
+        margin-left:0;
+    }
 }

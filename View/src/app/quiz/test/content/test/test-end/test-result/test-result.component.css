@@ -84,3 +84,6 @@
       border-left: 6px solid #0281D6;
   }
   */
+  .category{
+      min-width: fit-content;
+  }

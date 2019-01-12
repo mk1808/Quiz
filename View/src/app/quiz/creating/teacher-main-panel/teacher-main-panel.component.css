@@ -88,3 +88,9 @@
   height:56px;
   font-size: 24px;
 }
+
+@media only screen and (max-width: 960px) {
+  .welcomeTest{
+      font-size: 24px; 
+  }
+}

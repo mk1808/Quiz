@@ -35,6 +35,7 @@
 
 .checkSeparatedPos{
     margin-top:30px;
+    margin-bottom:3rem;
 }
 
 .durationPos{
@@ -57,3 +58,8 @@ margin-bottom:2rem;
     border-color: red;
     background-color: #ffc0c0;
 }
+
+.newTest{
+    max-width: 95% ;
+}
+

@@ -40,7 +40,7 @@ html{
 
 .inputPos{
   margin: auto;
-  width:200px;
+  width:340px;
 }
 
 .input-group-text{
@@ -74,3 +74,9 @@ html{
 .form-check-label{
   color:#ededed;
   }
+
+  @media only screen and (max-width: 500px) {
+    .wTitle{
+        font-size: 60px;
+    }
+}

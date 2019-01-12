@@ -4,8 +4,8 @@
       <div class="wTitle">
         {{quizName}}
       </div>
-      <div fxLayout="row" class="rowPos" fxFlex="100%">
-        <div fxLayout="column" fxFlex="60%" fxLayoutAlign="start center">
+      <div fxLayout="row" fxLayout.lt-md="column" class="rowPos" fxFlex="100%">
+        <div fxLayout="column" fxFlex="60%" fxFlex.lt-md="100%" fxLayoutAlign="start center">
           <div class="inputPos  inputSize">
             <div class="input-group mb-3">
               <div class="input-group-prepend">
@@ -58,8 +58,8 @@
           </mat-radio-group>
 
         </div>
-        <div fxLayout="column" fxFlex="40%">
-          <app-question-list #questionList></app-question-list>
+        <div fxLayout="column" fxFlex="40%" fxFlex.lt-md="100%">
+          <app-question-list #questionList class="questionList"></app-question-list>
         </div>
       </div>
       <div fxLayout="row">

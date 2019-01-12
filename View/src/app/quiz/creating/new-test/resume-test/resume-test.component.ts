@@ -60,7 +60,7 @@ export class ResumeTestComponent implements OnInit {
   }
 
   onMain() {
-    this.router.navigate(['../../teacher_panel'], { relativeTo: this.route });
+    this.router.navigate(['creating/teacher_panel']);
 
   }
 
