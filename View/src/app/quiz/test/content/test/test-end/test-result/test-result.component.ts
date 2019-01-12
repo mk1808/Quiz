@@ -22,7 +22,6 @@ export class TestResultComponent implements OnInit {
 
   @Input() set setQuestion(question: QuestionStatus) {
     this.question = question;
-    console.log("putanieeeee", question);
     this.testService.getQuestionDetails(this.question.id).subscribe(x => {
       this.questionWithAnswer = x.body;
       let status=1;
@@ -49,7 +48,6 @@ export class TestResultComponent implements OnInit {
       else {
         this.questionStatus="incorrect";
       }
-      console.log(x.body)
       if ((this.questionWithAnswer.image != null) && (this.questionWithAnswer.image != undefined)
         && (this.questionWithAnswer.image != ""))
         this.containsPhoto = true;
@@ -71,7 +69,6 @@ export class TestResultComponent implements OnInit {
   }
 
   findAnswer(id) {
-    console.log(this.question.answers.filter(x => x.id == id));
     return this.question.answers.filter(x => x.id == id);
 
   }

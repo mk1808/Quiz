@@ -13,10 +13,6 @@ year:number;
   ngOnInit() {
     let date = new Date();
     this.year = date.getFullYear();
-
-   
-
-    console.log(this.year);
   }
 
 }

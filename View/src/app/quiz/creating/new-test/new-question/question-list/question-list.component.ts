@@ -23,13 +23,11 @@ export class QuestionListComponent implements OnInit {
       if(x.status==200){
         x=x.body;
       this.questions = x;
-      console.log(x);
     }});
     this.test.getQuizDetails(this.idSubject).subscribe(x=>{
       if(x.status==200){
         x=x.body;
       this.quizName=x.NAME;
-      console.log(x);
    } });
  // this.test.getAnswerStatuses(this.idSubject).subscribe(x=>
    // {

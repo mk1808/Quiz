@@ -46,17 +46,16 @@ export class AnswerComponent implements OnInit, AfterViewInit {
   }
   ngOnInit() {
     this.multipleChoice=this.cookie.get('multipleChoice');
-    console.log("answe ", this.multipleChoice);
     
       
   }
   ngAfterViewInit(){
 	  if(this.multipleChoice=="0"){
     this.radio.radioGroup.change.subscribe(x=>
-      {console.log("aaaaaaaaaaaaa");
+      {
       this.answerS.value=this.radio.checked?1:0;
       this.onChange.emit(this.answerS);
-    console.log("thisans", this.answerS);})
+    })
 	  }
   }
 }

@@ -45,7 +45,6 @@ export class HeaderComponent implements OnInit {
   wyloguj(){
     this.cookie.deleteAll('*');
 	this.cookie.set('user','',-60,'/');
-	console.log(this.cookie.getAll());
     this.router.navigate(['/login']);
   }
 
@@ -53,6 +52,8 @@ export class HeaderComponent implements OnInit {
     this.collapsed=!this.collapsed;
   }
 
-
+  cancelCollapse(event){
+    event.path[2].classList.remove('show');
+  }
 
 }

@@ -88,3 +88,25 @@
   height:56px;
   font-size: 24px;
 }
+
+
+@media only screen and (max-width: 960px) {
+  .question{
+      max-width: 100% ;
+      padding-left:0;
+      padding-right: 0;
+  }
+  .section{
+      padding-left:0;
+      padding-right: 0;
+
+  }
+}
+@media only screen and (max-width: 800px) {
+  .welcomeTest{
+      font-size: 24px; 
+  }
+  .wTitle{
+    font-size: 50px;
+  }
+}

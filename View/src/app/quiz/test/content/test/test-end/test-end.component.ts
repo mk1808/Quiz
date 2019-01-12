@@ -28,8 +28,6 @@ export class TestEndComponent implements OnInit {
         this.trueAns = result.true;
         this.truePercent = Math.round(this.trueAns / this.total * 100);
         this.isPassed = this.truePercent >= 50;
-        console.log("total:" + this.total + " true:" + this.trueAns + " procent:" + this.truePercent + " " + this.isPassed);
-        console.log(this.testService.getResult());
         this.questions=this.testService.getQuestionsInResult();
 
       }
@@ -50,13 +48,10 @@ export class TestEndComponent implements OnInit {
           let result: Result = this.testService.getResult();
           this.total = result.total;
           if (this.total == null)
-            this.router.navigate(['/begin']);
+            this.router.navigate(['/quiz/begin']);
           this.trueAns = result.true;
           this.truePercent = Math.round(this.trueAns / this.total * 100);
           this.isPassed = this.truePercent >= 50;
-          console.log("total:" + this.total + " true:" + this.trueAns + " procent:" + this.truePercent + " " + this.isPassed);
-          console.log(this.testService.getResult());
-
         }
       }
     }

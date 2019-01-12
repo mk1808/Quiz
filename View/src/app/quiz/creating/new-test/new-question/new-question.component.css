@@ -36,3 +36,20 @@
         margin-top:170px;
     }
 }
+
+@media only screen and (max-width: 500px) {
+    .textAreaSize{
+        width:320px;
+    }
+
+    .inputSize{
+        width:320px;
+    }
+
+    .smallTextAreaSize{
+        
+        width:295px;
+        
+    }
+    
+}

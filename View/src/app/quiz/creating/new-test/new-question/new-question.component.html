@@ -62,18 +62,18 @@
           <app-question-list #questionList class="questionList"></app-question-list>
         </div>
       </div>
-      <div fxLayout="row">
-        <div fxLayout="column" fxFlex="33%" fxLayoutAlign="start center">
+      <div fxLayout="row" fxLayout.lt-sm="column">
+        <div fxLayout="column" fxFlex="33%" fxFlex.lt-sm="100%" fxLayoutAlign="start center">
           <div class="inputPos">
             <button mat-raised-button class="continue" (click)="onBack()">Wróć</button>
           </div>
         </div>
-        <div fxLayout="column" fxFlex="33%" fxLayoutAlign="start center">
+        <div fxLayout="column" fxFlex="33%"  fxFlex.lt-sm="100%" fxLayoutAlign="start center">
           <div class="inputPos">
             <button mat-raised-button class="continue" (click)="onClear()">Wyczyść pytanie</button>
           </div>
         </div>
-        <div fxLayout="column" fxFlex="33%" fxLayoutAlign="start center">
+        <div fxLayout="column" fxFlex="33%" fxFlex.lt-sm="100%" fxLayoutAlign="start center">
           <div class="inputPos">
             <button mat-raised-button class="continue" (click)="onAdd()">
               {{newQuestion?'Dodaj pytanie':'Popraw pytanie'}}

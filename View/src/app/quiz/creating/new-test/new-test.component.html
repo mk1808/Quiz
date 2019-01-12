@@ -1,15 +1,15 @@
 <form [formGroup]="newTestForm" *ngIf="initialized">
   <div class="container-fluid newTest">
     <div fxLayout="column" fxLayoutAlign="space-around center" fxFlex="100%">
-      <div fxLayout="row" class="wTitle" *ngIf="newTest">
+      <div class="wTitle" *ngIf="newTest">
         Nowy quiz
       </div>
-      <div fxLayout="row" class="wTitle" *ngIf="!newTest">
+      <div class="wTitle" *ngIf="!newTest">
         {{testName}}
       </div>
       <div fxLayout="row" fxLayout.lt-md="column" class="rowPos" fxFlex="100%">
-        <div fxLayout="column" fxFlex="50%" fxLayout.ls-md="row" fxFlex.lt-md="100%"  class="colleft" fxLayoutAlign="start center">
-          <div fxLayout="row" class="inputPos">
+        <div fxLayout="column" fxFlex="50%" fxLayout.ls-md="row" fxFlex.lt-md="100%" class="colleft" fxLayoutAlign="start center" >
+          <div class="inputPos">
             <div class="input-group mb-3">
               <div class="input-group-prepend">
                 <span class="input-group-text inputStyle">
@@ -22,7 +22,7 @@
             </div>
           </div>
 
-          <div fxLayout="row" >
+          <div>
             <div class="input-group mb-3">
               <div class="input-group-prepend">
                 <span class="input-group-text inputStyle">
@@ -41,7 +41,7 @@
               </div>
             </div>
           </div>
-          <div fxLayout="row">
+          <div>
 
             <div class="input-group mb-3">
               <div class="input-group-prepend">
@@ -57,7 +57,7 @@
               </div>
             </div>
           </div>
-          <div fxLAyout="row">
+          <div>
             <div class="form-check newUserCheckPos">
               <label class="form-check-label">
 
@@ -69,7 +69,7 @@
             </div>
           </div>
           <div *ngIf="newUser">
-            <div fxLayout="row" class="inputPos">
+            <div class="inputPos">
               <div class="input-group mb-3">
                 <div class="input-group-prepend">
                   <span class="input-group-text inputStyle"><i class="material-icons">
@@ -79,7 +79,7 @@
                 <input type="text" class="form-control" placeholder="E-mail" formControlName="email" [ngClass]="(newTestForm.controls.email.valid || !newTestForm.controls.email.touched)?'':'invalid'">
               </div>
             </div>
-            <div fxLayout="row" class="inputPos">
+            <div class="inputPos">
               <div class="input-group mb-3">
                 <div class="input-group-prepend">
                   <span class="input-group-text inputStyle"><i class="material-icons">
@@ -89,7 +89,7 @@
                 <input type="password" class="form-control" placeholder="Hasło" formControlName="password" [ngClass]="(newTestForm.controls.password.valid || !newTestForm.controls.password.touched)?'':'invalid'">
               </div>
             </div>
-            <div fxLayout="row" class="inputPos">
+            <div class="inputPos">
               <div class="input-group mb-3">
                 <div class="input-group-prepend">
                   <span class="input-group-text inputStyle"><i class="material-icons">
@@ -101,7 +101,7 @@
               </div>
             </div>
           </div>
-          <div fxLayout="row" *ngIf="!newUser">
+          <div *ngIf="!newUser">
             <div class="input-group mb-3">
               <div class="input-group-prepend">
                 <span class="input-group-text inputStyle">
@@ -121,7 +121,7 @@
               </div>
             </div>
           </div>
-          <div fxLayout="row">
+          <div>
             <div class="form-check checkSeparatedPos">
               <label class="form-check-label">
 
@@ -132,8 +132,8 @@
 
             </div>
           </div>
-          <div fxLayout="row">
-            <div class="form-check checkSeparatedPos">
+          <div>
+            <div class="form-check checkSeparatedPos ">
               <label class="form-check-label">
                 <input class="form-check-input" type="checkbox" value="" formControlName="canBack">
                 &nbsp; możliwość powrotu do poprzedniego pytania
@@ -142,14 +142,13 @@
           </div>
         </div>
 
-        <div fxLayout="column" fxFlex="50%" class="colright" fxLayout.ls-md="row" fxFlex.lt-md="100%"  fxLayoutAlign="start center">
-          <div fxLayout="row">
-
+        <div fxLayout="column" fxFlex="50%" class="colright" fxLayout.ls-md="row" fxFlex.lt-md="100%" fxLayoutAlign="start center">
+          <div>
 
             <textarea class="form-control textAreaSize" rows="5" placeholder="Dodatkowy opis" formControlName="description"></textarea>
 
           </div>
-          <div fxLayout="row">
+          <div>
             <div class="form-check checkPos">
               <label class="form-check-label">
 
@@ -160,7 +159,7 @@
 
             </div>
           </div>
-          <div fxLayout="row">
+          <div>
 
             <div class="input-group mb-3 durationPos ">
               <div class="input-group-prepend">
@@ -176,7 +175,7 @@
               </div>
             </div>
           </div>
-          <div fxLayout="row">
+          <div>
             <div class="form-check checkSeparatedPos">
               <label class="form-check-label">
 
@@ -190,17 +189,13 @@
 
         </div>
       </div>
-      <div fxLayout="row" class="bottomRowPos" fxFlex="20%">
+      <div fxLayout="row" fxLayout.lt-sm="column" class="bottomRowPos" fxFlex="20%">
 
-        <div fxLayout="column" fxFlex="50%" class="colleft" fxLayoutAlign="start center">
-          <div fxLayout="row" class="inputPos" (click)=" onBack()">
-            <button mat-raised-button class="continue">Anuluj</button>
-          </div>
+        <div class="inputPos" (click)=" onBack()">
+          <button mat-raised-button class="continue">Anuluj</button>
         </div>
-        <div fxLayout="column" fxFlex="50%" class="colleft" fxLayoutAlign="start center">
-          <div fxLayout="row" class="inputPos">
-            <button mat-raised-button class="continue" (click)="onCreate()">Zatwierdź</button>
-          </div>
+        <div class="inputPos">
+          <button mat-raised-button class="continue" (click)="onCreate()">Zatwierdź</button>
         </div>
       </div>
     </div>

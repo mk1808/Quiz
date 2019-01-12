@@ -30,7 +30,6 @@ export class StudentMainPanelComponent implements OnInit {
         this.auth.getTestsByCourse(this.course).subscribe(x => {
           if (x.status == 200) {
             this.tests = x.body;
-            console.log(this.tests);
           }
         })
       }

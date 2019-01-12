@@ -1,11 +1,3 @@
-.colleft{
-
-}
-
-.colright{
-
-}
-
 .inputPos{
     width:250px;
     margin:0;
@@ -35,7 +27,7 @@
 
 .checkSeparatedPos{
     margin-top:30px;
-    margin-bottom:3rem;
+    margin-bottom:1.5rem;
 }
 
 .durationPos{
@@ -63,3 +55,20 @@ margin-bottom:2rem;
     max-width: 95% ;
 }
 
+
+
+@media only screen and (max-width: 500px) {
+    .textAreaSize{
+        width:320px;
+    }
+    .continue{
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width: 960px) {
+    
+    .colright{
+        margin-top:180px;
+    }
+}

@@ -32,13 +32,10 @@ export class NewTestComponent implements OnInit {
     private router: Router, private route: ActivatedRoute, private test: TestService,
     private auth: AuthService) {
     this.route.params.subscribe(x => {
-      console.log(x);
       let id = x['id'];
       if (id != undefined) { this.newTest = false; this.idExistingTest = id; } else { this.newTest = true; }
-      console.log(this.newTest);
-      console.log(this.idExistingTest);
-    });
-  }
+    });  }
+
 
   ngOnInit() {
     if (this.cookie.get('user') == "") {
@@ -53,7 +50,6 @@ export class NewTestComponent implements OnInit {
 
 
         this.dictionary.getCourses().subscribe(x => {
-          console.log(x[1].NAME);
           this.coursesTable = x;
         });
         this.user = (JSON.parse(this.cookie.get('user')));
@@ -85,7 +81,6 @@ export class NewTestComponent implements OnInit {
           this.test.getQuizDetails(this.idExistingTest).subscribe(x => {
             if (x.status == 200) {
               x = x.body;
-              console.log(x);
               this.testName = x.NAME;
               let hoursN = Math.floor(x.TIME / 60);
               let minutesN = x.TIME - hoursN * 60;
@@ -219,7 +214,7 @@ export class NewTestComponent implements OnInit {
         user.surname = "Tymczasowy";
         user.course ="";  
         this.auth.register(user).subscribe(userID=>{
-          console.log(userID.body);
+      
           subject.course=userID.body.id;
           if (this.newTest) {
             this.creating.createSubject(subject).subscribe(x => {
@@ -227,7 +222,7 @@ export class NewTestComponent implements OnInit {
                 x = x.body;
                 subject.id = x.id;
                 this.cookie.set("subject",JSON.stringify(subject),null,'/');
-                console.log(x.id);
+             
                 this.cookie.set("idSubject", x.id.toString());
 
                 if(this.newTestForm.controls.newUser.value){
@@ -236,7 +231,6 @@ export class NewTestComponent implements OnInit {
                     let data  = jwt_decode(auth.body.jwt).data;
                     user.id=data.id;
                     user.course = data.id.toString()
-                    console.log(data);
                     user.role = data.role.toString();
                     user.jwt = auth.body.jwt;
                     this.auth.updateUser(user).subscribe(t=>{
@@ -253,16 +247,13 @@ export class NewTestComponent implements OnInit {
             subject.id = this.idExistingTest;
             try {
               this.creating.updateSubject(subject).subscribe(x => {
-                console.log("kurwa 2");
                 if (x.status == 200) {
                   x = x.body;
-                  console.log(x);
                   if(this.newTestForm.controls.newUser.value){
                     this.auth.logIn(user.email,user.password).subscribe(auth=>{
                       
                       let data  = jwt_decode(auth.body.jwt).data;
                       user.id=data.id;
-                      console.log(data);
                       user.course = data.id.toString()
                       user.role = data.role.toString();
                       user.jwt = auth.body.jwt;
@@ -293,7 +284,6 @@ export class NewTestComponent implements OnInit {
               x = x.body;
               subject.id = x.id;
               this.cookie.set("subject",JSON.stringify(subject),null,'/');
-              console.log(x.id);
               this.cookie.set("idSubject", x.id.toString());
               this.router.navigate(['./new_question'], { relativeTo: this.route });
             }
@@ -304,7 +294,6 @@ export class NewTestComponent implements OnInit {
             this.creating.updateSubject(subject).subscribe(x => {
               if (x.status == 200) {
                 x = x.body;
-                console.log(x);
                 this.cookie.set("idSubject", this.idExistingTest.toString());
                 this.router.navigate(['../new_question'], { relativeTo: this.route });
               }

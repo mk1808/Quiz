@@ -15,9 +15,10 @@
 }
 
 .timer{
+    background-color: #212529;
   color:#ededed;
   position: fixed;
-  top:200px;
+  top:115px;
   right:2%;
   border-radius: 10px;
   border:1px #0281D6 solid;

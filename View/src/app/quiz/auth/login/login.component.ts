@@ -44,12 +44,9 @@ export class LoginComponent implements OnInit {
       (x => {
         if (x.status == 200) {
 
-          console.log(x);
-          console.log(jwt_decode(x.body.jwt).data);
           this.role = jwt_decode(x.body.jwt).data.role;
           this.cookie.set("jwt", x.body.jwt, 0.5, "/");
           this.cookie.set("user", JSON.stringify(jwt_decode(x.body.jwt).data));
-          console.log("log ", JSON.stringify(jwt_decode(x.body.jwt).data));
           if (this.role == 1) {
             this.router.navigate(['../creating/teacher_panel'], { relativeTo: this.route });
           }

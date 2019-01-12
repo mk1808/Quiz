@@ -61,7 +61,6 @@ export class RegisterComponent implements OnInit {
     this.auth.register(this.user).subscribe
       (x => {
         if (x.status == 200) {
-          console.log(x);
           this.regSuccess = true;
           this.onClear();
         }

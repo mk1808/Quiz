@@ -51,7 +51,6 @@ export class NewQuestionComponent implements OnInit, AfterViewInit {
       }
       else {
         this.subject = JSON.parse(this.cookie.get("subject"));
-        console.log("jebanekurwagówno", this.subject);
         if (this.newQuestion) {
           this.initEmptyForm();
           if (this.cookie.get('idSubject') == "") {
@@ -94,11 +93,8 @@ export class NewQuestionComponent implements OnInit, AfterViewInit {
   }
 
   subscribeRadioButton() {
-    console.log(this.initialized)
     if (!this.subject.multipleChoice) {
-      console.log(this.radioButton);
       this.radioButton.radioGroup.change.subscribe(x => {
-        console.log(x);
         this.newQuestionForm.controls.checkAnswer0.setValue(false);
         this.newQuestionForm.controls.checkAnswer1.setValue(false);
         this.newQuestionForm.controls.checkAnswer2.setValue(false);
@@ -166,7 +162,6 @@ export class NewQuestionComponent implements OnInit, AfterViewInit {
             let i = 0;
             answers.forEach(element => {
               if (element.status == '1') {
-                console.log(element);
                 let change: MatRadioChange = { value: i.toString(), source: this.radioButton }
                 this.radioButton.radioGroup.change.emit( change);
                 this.newQuestionForm.controls.radioGroup.setValue(i.toString());

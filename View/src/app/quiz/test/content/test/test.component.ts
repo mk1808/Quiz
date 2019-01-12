@@ -40,7 +40,6 @@ export class TestComponent implements OnInit {
         this.testService.getQuestionsByIdSubject(this.idSubject).subscribe(x => {
           if (x.status == 200) {
             x = x.body;
-            console.log(x);
             this.subject.limitedTime = false;
             this.questions = x;
 
@@ -75,13 +74,10 @@ export class TestComponent implements OnInit {
           this.subjectObj = JSON.parse(this.cookie.get("subj"));
           this.idUser = (JSON.parse(this.cookie.get('user')).id);
 
-          console.log("ids", this.idUser, " ", this.idSubject);
-          console.log(this.subjectObj.randomize==true)
           if (this.subjectObj.randomize) {
             this.testService.getRandQuestionsByIdSubject(this.idSubject).subscribe(x => {
               if (x.status == 200) {
                 x = x.body;
-                console.log(x);
 
                 this.questions = x;
 
@@ -100,7 +96,6 @@ export class TestComponent implements OnInit {
             this.testService.getQuestionsByIdSubject(this.idSubject).subscribe(x => {
               if (x.status == 200) {
                 x = x.body;
-                console.log(x);
 
                 this.questions = x;
 
@@ -121,9 +116,6 @@ export class TestComponent implements OnInit {
 
           this.subject.limitedTime = JSON.parse(this.cookie.get("time")).limitedTime;
           this.subject.time = JSON.parse(this.cookie.get("time")).time;
-
-          console.log("lt", JSON.parse(this.cookie.get("time")).limitedTime)
-          //console.log("aaaa",this.subject.limitedTime)
           if (this.subject.limitedTime == true) {
             this.timer(this.subject.time);
           }
@@ -171,7 +163,6 @@ export class TestComponent implements OnInit {
   onSubmit() {
     this.isSubmitted = true;
     clearInterval()
-    console.log("que: ", this.questionStatuses, " iduser: ", this.idUser, " idsubj: ", this.idSubject);
     if (window.location.href.split('/')[4] == 'demo') {
       this.testService.checkAnswersForDemo(this.questionStatuses).subscribe(
         x => {
@@ -183,7 +174,6 @@ export class TestComponent implements OnInit {
     }
     else {
       this.testService.checkAnswers(this.questionStatuses, this.idUser, this.idSubject).subscribe(x => {
-        console.log(this.questionStatuses);
         this.testService.setQuestionsInResult(this.questionStatuses);
         this.testService.setResult(x);
         this.router.navigate(['../end'], { relativeTo: this.route });
@@ -215,7 +205,6 @@ export class TestComponent implements OnInit {
       if (minutesN < 10) minutes = "0" + String(minutesN);
       if (secundesN < 10) secundes = "0" + String(secundesN);
 
-      console.log("t---l", timeleft.toString());
       this.timeLeft = hours + ":" + minutes + ":" + secundes;
     }, 1000);
 

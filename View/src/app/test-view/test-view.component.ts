@@ -18,7 +18,6 @@ export class TestViewComponent implements OnInit {
     console.log(this.testService.getResult());
     this.testService.getQuestions().subscribe(x => {
       this.obj = x;
-      console.log(this.obj);
     });
 
     const questionsStatuses: QuestionStatus[] = [];

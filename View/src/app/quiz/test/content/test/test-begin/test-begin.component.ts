@@ -25,7 +25,6 @@ export class TestBeginComponent implements OnInit {
 
         
         this.test.getDemoId().subscribe(x => {
-          console.log(x.body);
           if (x.status == 200) {
             this.cookie.set("idSubject", x.body, null, '/');
             this.test.getQuizDetails(x.body).subscribe(x =>
@@ -60,7 +59,6 @@ export class TestBeginComponent implements OnInit {
   private loadQuiz(x) {
     if (x.status == 200) {
       x = x.body;
-      console.log(x);
       this.subject.name = x.NAME;
       this.subject.course = x.COURSE;
       this.subject.nOQuestions = x.N_O_QUESTIONS;
@@ -71,8 +69,6 @@ export class TestBeginComponent implements OnInit {
       this.subject.separatePage = x.SEPARATE_PAGE;
       this.subject.canBack=x.CAN_BACK;
       this.subject.randomize=x.RANDOMIZE;
-      console.log("subj  ", this.subject);
-      console.log("mult", this.subject.multipleChoice)
       this.cookie.set("multipleChoice", this.subject.multipleChoice.toString(), null, "/");
 
       this.cookie.set("time", JSON.stringify({ limitedTime: this.subject.limitedTime, time: this.subject.time }));
