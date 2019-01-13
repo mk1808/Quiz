@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-main-page',
@@ -8,9 +9,21 @@ import { Router } from '@angular/router';
 })
 export class MainPageComponent implements OnInit {
 
-  constructor( private router: Router) { }
+  constructor( private cookie: CookieService,
+    private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
+    if(this.cookie.get('user')=="") {
+
+    }
+    else {
+      if (JSON.parse(this.cookie.get('user')).role==1)
+      {
+        this.router.navigate(['quiz/creating/teacher_panel']);}
+      else {
+        this.router.navigate(['/quiz/student_panel']);
+      }
+    }
   }
   
   onDemo(){

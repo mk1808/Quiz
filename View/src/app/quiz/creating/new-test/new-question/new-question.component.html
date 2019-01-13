@@ -15,11 +15,12 @@
                   </i></span>
               </div>
               <input type="text" class="form-control" placeholder="Kategoria" aria-label="category" aria-describedby="basic-addon1"
-                formControlName="category">
+                formControlName="category" [ngClass]="(newQuestionForm.controls.category.valid || !newQuestionForm.controls.category.touched)?'':'invalid'">
             </div>
           </div>
           <div>
-            <textarea class="form-control textAreaSize" rows="2" placeholder="Treść pytania" formControlName="question"></textarea>
+            <textarea class="form-control textAreaSize" rows="2" placeholder="Treść pytania"
+             formControlName="question" [ngClass]="(newQuestionForm.controls.question.valid || !newQuestionForm.controls.question.touched)?'':'invalid'"></textarea>
           </div>
           <div>
             <textarea class="form-control textAreaSize" rows="2" placeholder="Kod" formControlName="code"></textarea>
@@ -33,7 +34,7 @@
                   </i></span>
               </div>
               <input type="text" class="form-control" placeholder="Zdjęcie" aria-describedby="basic-addon1"
-                formControlName="photo">
+                formControlName="photo" >
             </div>
           </div>
 
@@ -52,7 +53,7 @@
 
               <div fxLayout="row">
                 <textarea class="form-control smallTextAreaSize" rows="2" placeholder="Treść odpowiedzi"
-                  formControlName="answer{{i}}"></textarea>
+                  formControlName="answer{{i}}" ></textarea>
               </div>
             </div>
           </mat-radio-group>

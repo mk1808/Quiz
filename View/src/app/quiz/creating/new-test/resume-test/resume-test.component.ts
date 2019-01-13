@@ -44,7 +44,7 @@ export class ResumeTestComponent implements OnInit {
               this.subject.time = x.TIME;
               this.subject.separatePage=x.SEPARATE_PAGE=='1';
               this.subject.canBack=x.CAN_BACK;
-              this.subject.randomize=x.RANDOMIZE;
+              this.subject.randomize=(x.RANDOMIZE=='1');
               this.cookie.set("subject",JSON.stringify(this.subject),null,'/');
             }
           });

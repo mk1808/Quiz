@@ -192,6 +192,7 @@ export class NewQuestionComponent implements OnInit, AfterViewInit {
     this.initialized = true;
   }
 
+
   onAdd() {
     
     if (this.newQuestionForm.valid) {
@@ -200,9 +201,28 @@ export class NewQuestionComponent implements OnInit, AfterViewInit {
       //////////////////////////////////////////
       question.idSubject = this.idSubject;
 
+      let code = this.newQuestionForm.controls.code.value;
+      if(code!=null){
+      while(code.indexOf('"')>=0)   {
+        code = code.replace('"',"”");
+      }
+      while(code.indexOf("'")>=0)   {
+        code = code.replace("'","”");
+      }
+    }
+    let text =  this.newQuestionForm.controls.question.value
+    if(text!=null){
+      while(text.indexOf('"')>=0)   {
+        text = text.replace('"',"”");
+      }
+      while(text.indexOf("'")>=0)   {
+        text = text.replace("'","”");
+      }
+    }
+      question.code = code;
       question.category = this.newQuestionForm.controls.category.value;
-      question.text = this.newQuestionForm.controls.question.value;
-      question.code = this.newQuestionForm.controls.code.value;
+      question.text = text;
+     
       question.image = this.newQuestionForm.controls.photo.value;
       question.answers[0] = {
         text: this.newQuestionForm.controls.answer0.value,
@@ -224,6 +244,7 @@ export class NewQuestionComponent implements OnInit, AfterViewInit {
         status: this.newQuestionForm.controls.checkAnswer3.value,
         id: null, idQuestion: null
       }
+
 if (this.newQuestion){
       this.creating.createQuestion(question).subscribe(x => {//console.log(x);
 
@@ -251,6 +272,11 @@ else{
   )
 }
     }
+    else{
+      window.scroll(0,0);
+      this.newQuestionForm.controls.category.markAsTouched();
+      this.newQuestionForm.controls.question.markAsTouched();
+    }
   }
 
   onClear() {
@@ -267,6 +293,10 @@ else{
     this.newQuestionForm.controls.checkAnswer2.setValue(false);
     this.newQuestionForm.controls.checkAnswer3.setValue(false);
     this.newQuestionForm.controls.radioGroup.setValue(null);
+    
+    this.newQuestionForm.controls.category.markAsUntouched();
+    this.newQuestionForm.controls.question.markAsUntouched();
+    window.scroll(0,0);
   }
   onBack() {
     if (this.newQuestion)
