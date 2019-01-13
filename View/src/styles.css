@@ -75,6 +75,10 @@ html{
   color:#ededed;
   }
 
+  .mat-checkbox-inner-container, .mat-radio-outer-circle{
+    background-color: #ededed ;
+  }
+
   @media only screen and (max-width: 500px) {
     .wTitle{
         font-size: 60px;
