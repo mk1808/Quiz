@@ -10,11 +10,11 @@ include_once '../../config/postConfig.php';
 include_once '../../models/user.php';
 
 $data = json_decode(file_get_contents("php://input"));
-$user= new User($db);
+$user = new User($db);
 
 
 $auth2 = authorizate($data->jwt);
-if (!$auth ||(isset($auth2["decoded"]))) {
+if (!$auth || (isset($auth2["decoded"]))) {
     if (!empty($data)) {
 
         $ans = $user->getResultForQuestion($data->id_user, $data->id_subject);
@@ -24,7 +24,7 @@ if (!$auth ||(isset($auth2["decoded"]))) {
         http_response_code(201);
         echo json_encode(array("message" => "Puste dane"));
     }
-}else {
+} else {
     http_response_code(201);
 
     echo json_encode(

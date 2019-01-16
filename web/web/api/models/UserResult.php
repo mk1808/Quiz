@@ -16,50 +16,68 @@ class UserResult
     public $idSubject;
     public $result;
 
-    public function __construct($db){
+    public function __construct($db)
+    {
         $this->conn = $db;
     }
 
-    public function create(){
-        $this->idUser=htmlspecialchars(strip_tags($this->idUser));
-        $this->idSubject=htmlspecialchars(strip_tags($this->idSubject));
-        $this->result=htmlspecialchars(strip_tags($this->result));
+    public function create()
+    {
+        $this->idUser = htmlspecialchars(strip_tags($this->idUser));
+        $this->idSubject = htmlspecialchars(strip_tags($this->idSubject));
+        $this->result = htmlspecialchars(strip_tags($this->result));
 
-        $query = 'INSERT INTO user_result SET 
-                ID_USER = "'.$this->idUser.'",
-                ID_SUBJECT = "'.$this->idSubject.'",
-                RESULT = "'.$this->result.'";';
+        $query = 'INSERT INTO ' . $this->tableName . ' SET 
+                ID_USER = :idUser ,
+                ID_SUBJECT = :idSubject ,
+                RESULT = :result ;';
 
         $stmt = $this->conn->prepare($query);
 
-        if($stmt->execute()){
+        $stmt->bindParam(':idUser', $this->idUser, PDO::PARAM_INT);
+        $stmt->bindParam(':idSubject', $this->idSubject, PDO::PARAM_INT);
+        $stmt->bindParam(':result', strval($this->result), PDO::PARAM_STR);
+
+        if ($stmt->execute()) {
             return $this->conn->lastInsertId();
         }
         return -1;
-
-
     }
 
-    public function checkUserResultForSubject(){
-        $this->idUser=htmlspecialchars(strip_tags($this->idUser));
-        $this->idSubject=htmlspecialchars(strip_tags($this->idSubject));
+    public function checkUserResultForSubject()
+    {
+        $this->idUser = htmlspecialchars(strip_tags($this->idUser));
+        $this->idSubject = htmlspecialchars(strip_tags($this->idSubject));
 
-        $query = "SELECT * FROM user_result WHERE ID_USER = ".$this->idUser."
-        AND ID_SUBJECT = ".$this->idSubject.";";
+        $query = "SELECT * FROM " . $this->tableName . " WHERE 
+        ID_USER = :idUser
+        AND ID_SUBJECT = :idSubject;";
 
         $stmt = $this->conn->prepare($query);
+
+        $stmt->bindParam(':idUser', $this->idUser, PDO::PARAM_INT);
+        $stmt->bindParam(':idSubject', $this->idSubject, PDO::PARAM_INT);
+
         $stmt->execute();
         return $stmt;
     }
 
-    public function update(){
-        $this->idUser=htmlspecialchars(strip_tags($this->idUser));
-        $this->result=htmlspecialchars(strip_tags($this->result));
-        $this->idSubject=htmlspecialchars(strip_tags($this->idSubject));
-        $query = "UPDATE user_result SET RESULT = ".$this->result."
-         WHERE ID_USER = ".$this->idUser."
-        AND ID_SUBJECT = ".$this->idSubject.";";
+    public function update()
+    {
+        $this->idUser = htmlspecialchars(strip_tags($this->idUser));
+        $this->result = htmlspecialchars(strip_tags($this->result));
+        $this->idSubject = htmlspecialchars(strip_tags($this->idSubject));
+
+        $query = "UPDATE " . $this->tableName . " SET 
+        RESULT = :result
+         WHERE ID_USER = :idUser
+        AND ID_SUBJECT = :idSubject ;";
         $stmt = $this->conn->prepare($query);
+
+        $stmt->bindParam(':idUser', $this->idUser, PDO::PARAM_INT);
+        $stmt->bindParam(':idSubject', $this->idSubject, PDO::PARAM_INT);
+        $stmt->bindParam(':result', strval($this->result), PDO::PARAM_STR);
+
         $stmt->execute();
     }
 }

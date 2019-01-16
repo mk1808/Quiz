@@ -91,6 +91,7 @@ export class NewTestComponent implements OnInit {
               if (hoursN < 10) hours = "0" + String(hoursN);
               if (minutesN < 10) minutes = "0" + String(minutesN);
 
+              this.newUser = !isNaN(Number(x.COURSE));
               this.newTestForm = this.fb.group({
                 name: [x.NAME, Validators.required],
                 nOQuestions: [x.N_O_QUESTIONS, Validators.required],
@@ -102,7 +103,7 @@ export class NewTestComponent implements OnInit {
                 separatedPages: [x.SEPARATE_PAGE == 0 ? false : true],
                 canBack: [x.CAN_BACK == 0 ? false : true],
                 randomize: [x.RANDOMIZE == 0 ? false : true],
-                newUser:[false],
+                newUser:[this.newUser],
                 email:[''],
                 password:[''],
                 passwordRepeat:['']

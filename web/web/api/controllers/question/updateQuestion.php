@@ -22,11 +22,10 @@ $question->answers = $data->answers;
 
 $stmt = $question->update();
 
-if($stmt>0){
+if ($stmt > 0) {
     http_response_code(200);
-    echo json_encode(array("message"=>"Question was updated", "id"=>$stmt));
-}
-else{
+    echo json_encode(array("message" => "Question was updated", "id" => $stmt));
+} else {
     http_response_code(201);
     echo json_encode(array("message" => "Unable to update question."));
 }

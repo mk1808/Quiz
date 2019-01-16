@@ -22,12 +22,11 @@ $user->role = "2";
 $user->course = $data->course;
 
 
-$id =$user->create(); 
-if($id){
+$id = $user->create();
+if ($id) {
     http_response_code(200);
-    echo json_encode(array("message" => "User was created.", "id"=>$id));
-}
-else{
+    echo json_encode(array("message" => "User was created.", "id" => $id));
+} else {
     http_response_code(201);
     echo json_encode(array("message" => "Unable to create user."));
 }

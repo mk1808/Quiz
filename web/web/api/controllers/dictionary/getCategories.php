@@ -10,7 +10,7 @@
 include_once '../../config/postConfig.php';
 include_once '../../models/category.php';
 
-$category= new Category($db);
+$category = new Category($db);
 $ans = $category->getCategoriesList();
 http_response_code(200);
 echo json_encode($ans);

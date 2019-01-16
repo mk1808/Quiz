@@ -17,62 +17,61 @@ $data = (file_get_contents("php://input"));
 $data = json_decode(file_get_contents("php://input"));
 
 $auth2 = authorizate($data->jwt);
-if (!$auth ||(isset($auth2["decoded"]))){
+if (!$auth || (isset($auth2["decoded"]))) {
 
 
     $questionObj = new Question($db);
-$category = new Category($db);
-$subject = new Subject($db);
+    $category = new Category($db);
+    $subject = new Subject($db);
 
-$stmtQ = $questionObj->getQuestionsForQuiz($data->id);
-$num = $stmtQ->rowCount();
+    $stmtQ = $questionObj->getQuestionsForQuiz($data->id);
+    $num = $stmtQ->rowCount();
 
-if ($num > 0) {
+    if ($num > 0) {
 
-    $required = $subject->getRequiredAmountOfQuestion($data->id);
+        $required = $subject->getRequiredAmountOfQuestion($data->id);
 
-    $questions = array();
-    while ($row = $stmtQ->fetch(PDO::FETCH_ASSOC)) {
+        $questions = array();
+        while ($row = $stmtQ->fetch(PDO::FETCH_ASSOC)) {
 
-        $stmtA = $questionObj->getAnswers($row['ID']);
+            $stmtA = $questionObj->getAnswers($row['ID']);
 
-        $answers = array();
-        while ($rowA = $stmtA->fetch(PDO::FETCH_ASSOC)) {
-            $answer = array(
-                "id" => $rowA['ID'],
-                "text" => $rowA['TEXT']
+            $answers = array();
+            while ($rowA = $stmtA->fetch(PDO::FETCH_ASSOC)) {
+                $answer = array(
+                    "id" => $rowA['ID'],
+                    "text" => $rowA['TEXT']
+                );
+
+                array_push($answers, $answer);
+            }
+
+            //$stmtC = $category->getCategory($row['ID_CATEGORY']);
+            shuffle($answers);
+            $question = array(
+                "id" => $row['ID'],
+                "category" => $row['CATEGORY'],
+                "text" => $row['TEXT'],
+                "code" => html_entity_decode($row['CODE']),
+                "image" => $row['IMAGE'],
+                "answers" => $answers
             );
-
-            array_push($answers, $answer);
+            array_push($questions, $question);
         }
 
-        //$stmtC = $category->getCategory($row['ID_CATEGORY']);
-        shuffle($answers);
-        $question = array(
-            "id" => $row['ID'],
-            "category" => $row['CATEGORY'],
-            "text" => $row['TEXT'],
-            "code" => html_entity_decode($row['CODE']),
-            "image" => $row['IMAGE'],
-            "answers" => $answers
+        http_response_code(200);
+
+        shuffle($questions);
+        echo json_encode(array_slice($questions, 0, $required));
+    } else {
+
+        http_response_code(201);
+
+        echo json_encode(
+            array("message" => "No questions found.")
         );
-        array_push($questions, $question);
     }
-
-    http_response_code(200);
-
-    shuffle($questions);
-    echo json_encode(array_slice($questions, 0, $required));
 } else {
-
-    http_response_code(201);
-
-    echo json_encode(
-        array("message" => "No questions found.")
-    );
-}
-}
-else {
     http_response_code(201);
 
     echo json_encode(

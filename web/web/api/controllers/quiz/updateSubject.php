@@ -15,7 +15,7 @@ $data = json_decode(file_get_contents("php://input"));
 
 
 $auth2 = authorizate($data->jwt);
-if (!$auth ||(isset($auth2["decoded"]))) {
+if (!$auth || (isset($auth2["decoded"]))) {
 
     $subject->id = $data->id;
     $subject->name = $data->name;
@@ -28,7 +28,7 @@ if (!$auth ||(isset($auth2["decoded"]))) {
     $subject->course = $data->course;
     $subject->time = $data->time;
     $subject->description = $data->description;
-	$subject->randomize = $data->randomize;
+    $subject->randomize = $data->randomize;
 
     $stmt = $subject->update();
 
@@ -39,7 +39,7 @@ if (!$auth ||(isset($auth2["decoded"]))) {
         http_response_code(201);
         echo json_encode(array("message" => "Unable to update subject."));
     }
-}else {
+} else {
     http_response_code(201);
 
     echo json_encode(

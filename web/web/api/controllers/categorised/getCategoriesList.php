@@ -9,8 +9,7 @@ include_once '../../config/postConfig.php';
 include_once '../../models/question.php';
 
 
-
-$question= new Question($db);
+$question = new Question($db);
 
 $ans = $question->getCategoriesListOfCategorised();
 http_response_code(200);

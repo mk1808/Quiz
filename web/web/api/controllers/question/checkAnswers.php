@@ -7,12 +7,12 @@ include_once '../../models/answer.php';
 include_once '../../models/subject.php';
 
 
-    $subject = new Subject($db);
+$subject = new Subject($db);
 
-    $data = json_decode(file_get_contents("php://input"));
+$data = json_decode(file_get_contents("php://input"));
 
-    $auth2 = authorizate($data->jwt);
-    if (!$auth ||(isset($auth2["decoded"]))) {
+$auth2 = authorizate($data->jwt);
+if (!$auth || (isset($auth2["decoded"]))) {
 
     if (!empty($data)) {
 
@@ -23,8 +23,7 @@ include_once '../../models/subject.php';
         http_response_code(201);
         echo json_encode(array("message" => "Data is incomplete."));
     }
-}
-else {
+} else {
     http_response_code(201);
 
     echo json_encode(

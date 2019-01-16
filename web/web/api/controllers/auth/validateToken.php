@@ -15,9 +15,9 @@ include_once '../../libs/php-jwt-master/src/JWT.php';
 use \Firebase\JWT\JWT;
 
 $data = json_decode(file_get_contents("php://input"));
-$jwt=isset($data->jwt) ? $data->jwt : "";
+$jwt = isset($data->jwt) ? $data->jwt : "";
 
-if($jwt){
+if ($jwt) {
     try {
         $decoded = JWT::decode($jwt, $key, array('HS256'));
         http_response_code(200);
@@ -25,16 +25,14 @@ if($jwt){
             "message" => "Access granted.",
             "data" => $decoded->data
         ));
-    }
-    catch (Exception $e){
+    } catch (Exception $e) {
         http_response_code(201);
         echo json_encode(array(
             "message" => "Access denied.",
             "error" => $e->getMessage()
         ));
     }
-}
-else{
+} else {
     http_response_code(201);
     echo json_encode(array("message" => "Access denied."));
 }

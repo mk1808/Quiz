@@ -14,23 +14,23 @@ class Course
     public $ID;
     public $name;
 
-    public function __construct($db){
+    public function __construct($db)
+    {
         $this->conn = $db;
     }
 
-    public function getCoursesList(){
-        $query = "SELECT * FROM ".$this->tableName;
-        //$query = "SELECT * FROM QUESTION";
+    public function getCoursesList()
+    {
+        $query = "SELECT * FROM " . $this->tableName;
         $stmt = $this->conn->prepare($query);
 
         $stmt->execute();
 
         $value = array();
-        for($i = 0; $i < $stmt->rowCount(); $i++){
-            $value[$i]= $stmt->fetch(PDO::FETCH_ASSOC);
+        for ($i = 0; $i < $stmt->rowCount(); $i++) {
+            $value[$i] = $stmt->fetch(PDO::FETCH_ASSOC);
         }
 
-        //$value = array( $stmt->fetch(PDO::FETCH_ASSOC));
         return $value;
     }
 }

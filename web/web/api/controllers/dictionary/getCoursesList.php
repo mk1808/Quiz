@@ -11,10 +11,9 @@ include_once '../../config/postConfig.php';
 include_once '../../models/course.php';
 
 
+$course = new Course($db);
 
-$course= new Course($db);
-
-    $ans = $course->getCoursesList();
-    http_response_code(200);
-    echo json_encode($ans);
+$ans = $course->getCoursesList();
+http_response_code(200);
+echo json_encode($ans);
 

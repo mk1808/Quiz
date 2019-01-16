@@ -21,7 +21,7 @@ $question->image = $data->image;
 $question->answers = $data->answers;
 
 $auth2 = authorizate($data->jwt);
-if (!$auth ||(isset($auth2["decoded"]) && ($auth2["decoded"]->role == 1)) ) {
+if (!$auth || (isset($auth2["decoded"]) && ($auth2["decoded"]->role == 1))) {
 
     $stmt = $question->create();
 

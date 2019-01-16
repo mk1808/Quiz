@@ -13,12 +13,11 @@ include_once '../../models/answer.php';
 include_once '../../models/category.php';
 
 
-
 $data = json_decode(file_get_contents("php://input"));
-$questionObj= new Question($db);
+$questionObj = new Question($db);
 
 $auth2 = authorizate($data->jwt);
-if (!$auth ||(isset($auth2["decoded"]))||1) {
+if (!$auth || (isset($auth2["decoded"])) || 1) {
 
 
     $category = new Category($db);
@@ -66,9 +65,7 @@ if (!$auth ||(isset($auth2["decoded"]))||1) {
             array("message" => "No questions found.")
         );
     }
-}
-
-else {
+} else {
     http_response_code(201);
 
     echo json_encode(

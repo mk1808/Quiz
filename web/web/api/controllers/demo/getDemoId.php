@@ -1,4 +1,3 @@
-
 <?php
 /**
  * Created by IntelliJ IDEA.
@@ -9,7 +8,7 @@
 
 include_once '../../config/postConfig.php';
 include_once '../../models/subject.php';
-$subject= new Subject($db);
+$subject = new Subject($db);
 $ans = $subject->getDemoSubjectId();
 http_response_code(200);
 echo json_encode($ans);

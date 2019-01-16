@@ -10,7 +10,6 @@ include_once '../../config/postConfig.php';
 include_once '../../models/subject.php';
 
 
-
 $subject = new Subject($db);
 
 $data = json_decode(file_get_contents("php://input"));
@@ -28,7 +27,7 @@ $subject->description = $data->description;
 $subject->randomize = $data->randomize;
 
 $auth2 = authorizate($data->jwt);
-if (!$auth ||(isset($auth2["decoded"]) && ($auth2["decoded"]->role == 1)) ) {
+if (!$auth || (isset($auth2["decoded"]) && ($auth2["decoded"]->role == 1))) {
     $stmt = $subject->create();
 
     if ($stmt > 0) {
@@ -38,8 +37,7 @@ if (!$auth ||(isset($auth2["decoded"]) && ($auth2["decoded"]->role == 1)) ) {
         http_response_code(201);
         echo json_encode(array("message" => "Unable to create subject."));
     }
-}
-else {
+} else {
     http_response_code(201);
     echo json_encode(
         array("message" => "UnAuthorized")

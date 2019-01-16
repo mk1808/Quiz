@@ -4,7 +4,7 @@
       <div *ngIf="subject.limitedTime!='0'" class="timer">{{timeLeft}}</div>
 
       <div *ngFor="let question of questions; let i = index;">
-        <app-question *ngIf="(subjectObj.separatePage==0)||(questionIndex==i)" [setQuestion]="question"
+        <app-question [ngStyle]="{'display': (((subjectObj.separatePage==0)||(questionIndex==i) )? '': 'none')}" [setQuestion]="question"
           (questionStatus)="onChange($event)"></app-question>
       </div>
       

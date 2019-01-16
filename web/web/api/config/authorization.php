@@ -13,22 +13,21 @@ include_once '../../libs/php-jwt-master/src/SignatureInvalidException.php';
 include_once '../../libs/php-jwt-master/src/JWT.php';
 use \Firebase\JWT\JWT;
 
-function authorizate($jwt) {
-    $jwt=isset($jwt) ? $jwt : "";
+function authorizate($jwt)
+{
+    $jwt = isset($jwt) ? $jwt : "";
 
     $key = "Axb65K4y";
-    if($jwt){
+    if ($jwt) {
         try {
             $decoded = JWT::decode($jwt, $key, array('HS256'));
-            $arr = array("status"=> 1, "decoded" => $decoded->data);
+            $arr = array("status" => 1, "decoded" => $decoded->data);
 
             return $arr;
+        } catch (Exception $e) {
+            return array("status" => -1);
         }
-        catch (Exception $e){
-            return array("status"=>-1);
-        }
-    }
-    else{
-        return array("status"=>-2);
+    } else {
+        return array("status" => -2);
     }
 }
