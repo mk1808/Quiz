@@ -18,6 +18,49 @@ export class QuestionComponent implements OnInit {
     this.question = question;
     this.status.id = question.id;
 
+    
+      let text = this.question .text;
+      if(text!=null){
+      while(text.indexOf('”')>=0)   {
+        text = text.replace("”",'"');
+      }
+      while(text.indexOf("字")>=0)   {
+        text = text.replace("字","<");
+      }
+      while(text.indexOf("汉")>=0)   {
+        text = text.replace("汉",">");
+      }
+      this.question .text = text;
+    }
+
+    let code = this.question .code;
+      if(code!=null){
+      while(code.indexOf('”')>=0)   {
+        code = code.replace("”",'"');
+      }
+      while(code.indexOf("字")>=0)   {
+        code = code.replace("字","<");
+      }
+      while(code.indexOf("汉")>=0)   {
+        code = code.replace("汉",">");
+      }
+      this.question .code = code;
+    }
+
+    this.question.answers.forEach(answer=>{
+      if(answer!=null){
+        while(answer.text.indexOf('”')>=0)   {
+          answer.text = answer.text.replace("”",'"');
+        }
+        while(answer.text.indexOf("字")>=0)   {
+          answer.text =answer.text.replace("字","<");
+        }
+        while(answer.text.indexOf("汉")>=0)   {
+          answer.text = answer.text.replace("汉",">");
+        }
+      }
+    })
+
    if ((question.image!=null) && (question.image!=undefined) && (question.image!=""))
     this.containsPhoto=true;
    if (question.code!="") this.containsCode=true;

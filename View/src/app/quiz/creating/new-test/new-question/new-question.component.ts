@@ -126,13 +126,41 @@ export class NewQuestionComponent implements OnInit, AfterViewInit {
 
   initForm(x) {
     x = x.body;
+
+
+    let code = x.code;
+    if(code!=null){
+    while(code.indexOf('”')>=0)   {
+      code = code.replace("”",'"');
+    }
+    while(code.indexOf("字")>=0)   {
+      code = code.replace("字","<");
+    }
+    while(code.indexOf("汉")>=0)   {
+      code = code.replace("汉",">");
+    }
+  }
+
+  let text = x.text;
+    if(text!=null){
+    while(text.indexOf('”')>=0)   {
+      text = text.replace("”",'"');
+    }
+    while(text.indexOf("字")>=0)   {
+      text = text.replace("字","<");
+    }
+    while(text.indexOf("汉")>=0)   {
+      text = text.replace("汉",">");
+    }
+  }
+
     this.question=x;
     let answers = x.answers;
     this.newQuestionForm = this.fb.group({
       category: [x.category, Validators.required],
-      question: [x.text, Validators.required],
+      question: [text, Validators.required],
       photo: [x.image],
-      code: [x.code],
+      code: [code],
       answer0: [x.answers[0].text, Validators.required],
       answer1: [x.answers[1].text, Validators.required],
       answer2: [x.answers[2].text, Validators.required],
@@ -209,6 +237,12 @@ export class NewQuestionComponent implements OnInit, AfterViewInit {
       while(code.indexOf("'")>=0)   {
         code = code.replace("'","”");
       }
+      while(code.indexOf('<')>=0)   {
+        code = code.replace('<',"字");
+      }
+      while(code.indexOf(">")>=0)   {
+        code = code.replace(">","汉");
+      }
     }
     let text =  this.newQuestionForm.controls.question.value
     if(text!=null){
@@ -217,6 +251,12 @@ export class NewQuestionComponent implements OnInit, AfterViewInit {
       }
       while(text.indexOf("'")>=0)   {
         text = text.replace("'","”");
+      }
+      while(text.indexOf('<')>=0)   {
+        text = text.replace('<',"字");
+      }
+      while(text.indexOf(">")>=0)   {
+        text = text.replace(">","汉");
       }
     }
       question.code = code;
@@ -244,6 +284,24 @@ export class NewQuestionComponent implements OnInit, AfterViewInit {
         status: this.newQuestionForm.controls.checkAnswer3.value,
         id: null, idQuestion: null
       }
+
+      question.answers.forEach(answer=>{
+        if(answer!=null){
+          while(answer.text.indexOf('"')>=0)   {
+            answer.text = answer.text.replace('"',"”");
+          }
+          while(answer.text.indexOf("'")>=0)   {
+            answer.text = answer.text.replace("'","”");
+          }
+          while(answer.text.indexOf('<')>=0)   {
+            answer.text =answer.text.replace('<',"字");
+          }
+          while(answer.text.indexOf(">")>=0)   {
+            answer.text = answer.text.replace(">","汉");
+          }
+        }
+      })
+
 
 if (this.newQuestion){
       this.creating.createQuestion(question).subscribe(x => {//console.log(x);

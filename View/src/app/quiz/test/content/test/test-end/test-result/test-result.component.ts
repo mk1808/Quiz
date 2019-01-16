@@ -23,6 +23,7 @@ export class TestResultComponent implements OnInit {
   @Input() set setQuestion(question: QuestionStatus) {
     this.question = question;
     this.testService.getQuestionDetails(this.question.id).subscribe(x => {
+
       this.questionWithAnswer = x.body;
       let status=1;
 
@@ -53,12 +54,59 @@ export class TestResultComponent implements OnInit {
         this.containsPhoto = true;
       if (this.questionWithAnswer.code != "") this.containsCode = true;
       this.initialized = true;
+    
+      let text = this.questionWithAnswer.text;
+      if(text!=null){
+      while(text.indexOf('”')>=0)   {
+        text = text.replace("”",'"');
+      }
+      while(text.indexOf("字")>=0)   {
+        text = text.replace("字","<");
+      }
+      while(text.indexOf("汉")>=0)   {
+        text = text.replace("汉",">");
+      }
+      this.questionWithAnswer.text = text;
+    }
+
+    let code = this.questionWithAnswer.code;
+      if(code!=null){
+      while(code.indexOf('”')>=0)   {
+        code = code.replace("”",'"');
+      }
+      while(code.indexOf("字")>=0)   {
+        code = code.replace("字","<");
+      }
+      while(code.indexOf("汉")>=0)   {
+        code = code.replace("汉",">");
+      }
+      this.questionWithAnswer.code = code;
+    }
+
+    this.questionWithAnswer.answers.forEach(answer=>{
+      if(answer!=null){
+        while(answer.text.indexOf('”')>=0)   {
+          answer.text = answer.text.replace("”",'"');
+        }
+        while(answer.text.indexOf("字")>=0)   {
+          answer.text =answer.text.replace("字","<");
+        }
+        while(answer.text.indexOf("汉")>=0)   {
+          answer.text = answer.text.replace("汉",">");
+        }
+      }
+    })
+
+    
     }
     )
 
     this.multipleChoice = this.cookie.get('multipleChoice');
-
+    
   }
+
+
+
   constructor(private testService: TestService, private cookie: CookieService) { }
 
   ngOnInit() {

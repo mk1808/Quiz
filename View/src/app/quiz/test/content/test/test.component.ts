@@ -40,9 +40,9 @@ export class TestComponent implements OnInit {
         this.testService.getQuestionsByIdSubject(this.idSubject).subscribe(x => {
           if (x.status == 200) {
             x = x.body;
+           
             this.subject.limitedTime = false;
             this.questions = x;
-
             this.questions.forEach(
               question => {
                 let questionStatus = new QuestionStatus();

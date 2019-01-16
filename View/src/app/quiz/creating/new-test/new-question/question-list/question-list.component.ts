@@ -22,6 +22,36 @@ export class QuestionListComponent implements OnInit {
     this.testService.getAnswerStatuses(this.idSubject).subscribe(x => {
       if(x.status==200){
         x=x.body;
+        x.forEach(element => {
+          let text = element.text;
+          if(text!=null){
+          while(text.indexOf('”')>=0)   {
+            text = text.replace("”",'"');
+          }
+          while(text.indexOf("字")>=0)   {
+            text = text.replace("字","<");
+          }
+          while(text.indexOf("汉")>=0)   {
+            text = text.replace("汉",">");
+          }
+          element.text = text;
+        }
+
+        element.answers.forEach(answer=>{
+          if(answer!=null){
+            while(answer.text.indexOf('”')>=0)   {
+              answer.text = answer.text.replace("”",'"');
+            }
+            while(answer.text.indexOf("字")>=0)   {
+              answer.text =answer.text.replace("字","<");
+            }
+            while(answer.text.indexOf("汉")>=0)   {
+              answer.text = answer.text.replace("汉",">");
+            }
+          }
+        })
+        });
+       
       this.questions = x;
     }});
     this.test.getQuizDetails(this.idSubject).subscribe(x=>{
