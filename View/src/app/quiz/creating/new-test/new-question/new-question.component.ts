@@ -153,7 +153,19 @@ export class NewQuestionComponent implements OnInit, AfterViewInit {
       text = text.replace("汉",">");
     }
   }
-
+  x.answers.forEach(answer=>{
+    if(answer!=null){
+      while(answer.text.indexOf('”')>=0)   {
+        answer.text = answer.text.replace("”",'"');
+      }
+      while(answer.text.indexOf("字")>=0)   {
+        answer.text =answer.text.replace("字","<");
+      }
+      while(answer.text.indexOf("汉")>=0)   {
+        answer.text = answer.text.replace("汉",">");
+      }
+    }
+  })
     this.question=x;
     let answers = x.answers;
     this.newQuestionForm = this.fb.group({
