@@ -71,7 +71,7 @@ export class TestBeginComponent implements OnInit {
       this.subject.randomize=(x.RANDOMIZE=='1');
       this.cookie.set("multipleChoice", this.subject.multipleChoice.toString(), null, "/");
 
-      this.cookie.set("time", JSON.stringify({ limitedTime: this.subject.limitedTime, time: this.subject.time }));
+      this.cookie.set("time", JSON.stringify({ limitedTime: this.subject.limitedTime, time: this.subject.time }),null, "/");
       this.cookie.set("subj", JSON.stringify(this.subject),null, "/");
     }
   }

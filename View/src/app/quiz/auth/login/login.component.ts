@@ -46,12 +46,12 @@ export class LoginComponent implements OnInit {
 
           this.role = jwt_decode(x.body.jwt).data.role;
           this.cookie.set("jwt", x.body.jwt, 0.5, "/");
-          this.cookie.set("user", JSON.stringify(jwt_decode(x.body.jwt).data));
+          this.cookie.set("user", JSON.stringify(jwt_decode(x.body.jwt).data),null, "/");
           if (this.role == 1) {
-            this.router.navigate(['../creating/teacher_panel'], { relativeTo: this.route });
+            this.router.navigate(['creating/teacher_panel']);
           }
           else {
-            this.router.navigate(['../quiz/student_panel'], { relativeTo: this.route });
+            this.router.navigate(['quiz/student_panel']);
           }
         }
         else { this.regFail = true;

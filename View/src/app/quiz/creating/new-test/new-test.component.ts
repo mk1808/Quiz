@@ -204,7 +204,7 @@ export class NewTestComponent implements OnInit {
       else {
         subject.multipleChoice = true;
       }
-      this.cookie.set("multiple", subject.multipleChoice.toString());
+      this.cookie.set("multiple", subject.multipleChoice.toString(),null, "/");
 
       if(this.newTestForm.controls.newUser.value){
         let user:User = new User();
@@ -223,7 +223,7 @@ export class NewTestComponent implements OnInit {
                 subject.id = x.id;
                 this.cookie.set("subject",JSON.stringify(subject),null,'/');
              
-                this.cookie.set("idSubject", x.id.toString());
+                this.cookie.set("idSubject", x.id.toString(),null, "/");
 
                 if(this.newTestForm.controls.newUser.value){
                   this.auth.logIn(user.email,user.password).subscribe(auth=>{
@@ -284,7 +284,7 @@ export class NewTestComponent implements OnInit {
               x = x.body;
               subject.id = x.id;
               this.cookie.set("subject",JSON.stringify(subject),null,'/');
-              this.cookie.set("idSubject", x.id.toString());
+              this.cookie.set("idSubject", x.id.toString(),null, "/");
               this.router.navigate(['./new_question'], { relativeTo: this.route });
             }
           }, e => console.log(e));
@@ -294,7 +294,7 @@ export class NewTestComponent implements OnInit {
             this.creating.updateSubject(subject).subscribe(x => {
               if (x.status == 200) {
                 x = x.body;
-                this.cookie.set("idSubject", this.idExistingTest.toString());
+                this.cookie.set("idSubject", this.idExistingTest.toString(),null, "/");
                 this.router.navigate(['../new_question'], { relativeTo: this.route });
               }
             }, e => console.log(e));

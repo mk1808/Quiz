@@ -40,7 +40,7 @@ export class TeacherMainPanelComponent implements OnInit {
     this.router.navigate(['../new_test'], { relativeTo: this.route });
   }
   onView(id: string) {
-    this.cookie.set("idSubject", id.toString());
+    this.cookie.set("idSubject", id.toString(),null, "/");
     this.router.navigate(['../new_test/resume'], { relativeTo: this.route });
 
   }
