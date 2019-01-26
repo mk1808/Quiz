@@ -1,6 +1,7 @@
 {
-    "/core/*": {
-      "target": "http://localhost/web/web/api/controllers",
-      "secure": false
-    }
+  "/api": {
+    "target": "http://localhost/corkaKupagi/public/",
+    "secure": false,
+    "changeOrigin": true
   }
+}

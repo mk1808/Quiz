@@ -54,19 +54,16 @@ export class RegisterComponent implements OnInit {
     this.regFail = false;
     this.user.email = this.registerForm.controls.email.value;
     this.user.password = this.registerForm.controls.password.value;
+    this.user.c_password = this.registerForm.controls.passwordRepeat.value;
     this.user.course = this.registerForm.controls.course.value;
     this.user.name = this.registerForm.controls.name.value;
     this.user.surname = this.registerForm.controls.surname.value;
 
     this.auth.register(this.user).subscribe
       (x => {
-        if (x.status == 200) {
           this.regSuccess = true;
           this.onClear();
-        }
-        else {
-          this.regFail = true;
-        }
+        
       },
         e => {
           console.log(e);

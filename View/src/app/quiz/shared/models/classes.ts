@@ -56,6 +56,7 @@ export class User{
   role:number;
   course:string;
   jwt:string;
+  c_password:string;
 }
 export class UserResult {
   id: number;

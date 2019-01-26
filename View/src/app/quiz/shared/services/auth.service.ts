@@ -16,8 +16,13 @@ export class AuthService {
       JSON.stringify({email:email, password:password}), {observe: 'response'});
 }
 public register(user:User ): Observable<any> {
-  return this.http.post<any>(this.path +'auth/createUser.php', JSON.stringify(user),
-   {observe: 'response'});
+ // return this.http.post<any>(this.path +'auth/createUser.php', JSON.stringify(user),   {observe: 'response'});
+ const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type':  'application/json'
+  })
+};
+ return this.http.post<any>('/api/register',user, httpOptions);
 }
 public getTests(id): Observable<any> {
   return this.http.post<Subject[]> (this.path +'quiz/getQuizListForAuthor.php',
