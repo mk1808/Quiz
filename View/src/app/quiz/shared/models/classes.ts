@@ -12,6 +12,7 @@ export class Subject {
   course: string;
   description: string;
   jwt:string;
+  subject:string;
 }
 
 export class Question {

@@ -12,6 +12,8 @@ import { TestService } from 'src/app/quiz/shared/services/test.service';
 export class TestBeginComponent implements OnInit {
   idSubject: string;
   subject: Subject = new Subject();
+  mark: number[] = [0, 59, 60, 64, 65, 74, 75, 84, 85, 94, 95, 100];
+  markNumber: number[] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
   constructor(private router: Router, private route: ActivatedRoute,
     private cookie: CookieService, private test: TestService) {
 
@@ -23,7 +25,7 @@ export class TestBeginComponent implements OnInit {
 
       if (window.location.href.split('/')[4] == 'demo') {
 
-        
+
         this.test.getDemoId().subscribe(x => {
           if (x.status == 200) {
             this.cookie.set("idSubject", x.body, null, '/');
@@ -35,7 +37,7 @@ export class TestBeginComponent implements OnInit {
       else {
         this.router.navigate(['/']);
       }
-     
+
 
     }
     else {
@@ -67,12 +69,37 @@ export class TestBeginComponent implements OnInit {
       this.subject.description = x.DESCRIPTION;
       this.subject.time = x.TIME;
       this.subject.separatePage = x.SEPARATE_PAGE;
-      this.subject.canBack=x.CAN_BACK;
-      this.subject.randomize=(x.RANDOMIZE=='1');
+      this.subject.canBack = x.CAN_BACK;
+      this.subject.randomize = (x.RANDOMIZE == '1');
+      // zmiana!
+      this.subject.subject = "Technologie sieci WEB";
+      let i = 0;
+      let last: number;
+      for (i = 0; i < this.mark.length; i = i + 2) {
+       
+        last = Math.ceil(this.subject.nOQuestions * 0.01 * this.mark[i]);
+        this.markNumber[i] = last;
+      }
+      for (i = 1; i < this.mark.length-1; i = i + 2) {
+
+        this.markNumber[i] = this.markNumber[i+1]-1;
+      }
+      this.markNumber[11]=this.subject.nOQuestions;
+
+
+
+
+
+
+
+
+      console.log(this.markNumber);
+
+
       this.cookie.set("multipleChoice", this.subject.multipleChoice.toString(), null, "/");
 
-      this.cookie.set("time", JSON.stringify({ limitedTime: this.subject.limitedTime, time: this.subject.time }),null, "/");
-      this.cookie.set("subj", JSON.stringify(this.subject),null, "/");
+      this.cookie.set("time", JSON.stringify({ limitedTime: this.subject.limitedTime, time: this.subject.time }), null, "/");
+      this.cookie.set("subj", JSON.stringify(this.subject), null, "/");
     }
   }
 

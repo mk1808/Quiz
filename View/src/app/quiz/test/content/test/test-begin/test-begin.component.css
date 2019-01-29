@@ -23,11 +23,15 @@
 }
 
 .posit{
-    margin-bottom:200px;
+    margin-bottom:20px;
 }
 
 @media only screen and (max-width: 960px) {
     .welcomeTest{
         font-size: 24px; 
     }
+}
+
+.pointStyle{
+    font-size: 24px; 
 }

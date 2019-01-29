@@ -1,23 +1,53 @@
 <div class="container">
   <div fxLayout="column">
-    
-      <div class="wTitle"> 
-        WITAJ!
-      </div>
-  
- 
-      <div class="welcomeTest">
-      Przed Tobą test o nazwie: {{subject.name}}.<br>
-      Jest to test {{subject.multipleChoice==1? "wielokrotnego":"jednokrotnego"}} wyboru. <br>     
+
+    <div class="wTitle">
+      WITAJ!
+    </div>
+
+
+    <div class="welcomeTest">
+      <!-- zmiana! -->
+      Przed Tobą test o nazwie: {{subject.name}} <br>
+      z przedmiotu {{subject.subject}}. <br>
+      {{(subject.description!=undefined)&&(subject.description!="")&&(subject.description!=null)?
+      "Opis: " + subject.description : " "}} <br><br>
+      ZASADY: <br>
+      Jest to test {{subject.multipleChoice==1? "wielokrotnego":"jednokrotnego"}} wyboru. <br>
       {{subject.limitedTime==1? "Czas na rozwiązanie quizu wynosi: " + subject.time + " min." :
       "Quiz nie posiada limitu czasu." }} <br>
-      {{(subject.description!=undefined)&&(subject.description!="")&&(subject.description!=null)? "Opis: " + subject.description : " "}} <br>
+      Należy zaznaczać tylko poprawne odpowiedzi. <br>
+      Test zawiera {{subject.nOQuestions}} pytań, każde za 1 punkt. <br>
+      Ilość punktów możliwa do zdobycia to {{subject.nOQuestions}}.<br>
+      <div fxLayout="row" *ngIf="subject.nOQuestions<10; else noPercent" class="pointStyle">
+        Punktacja: <br>
+        <div fxLayout="column" fxFlex="50%">
+          {{mark[0]}}% - {{mark[1]}}% &nbsp; 2.0 <br>
+          {{mark[2]}}% - {{mark[3]}}% &nbsp; 3.0 <br>
+          {{mark[4]}}% - {{mark[5]}}% &nbsp; 3.5 <br></div>
+        <div  fxLayout="column" fxFlex="50%">
+          {{mark[6]}}% - {{mark[7]}}% &nbsp; 4.0 <br>
+          {{mark[8]}}% - {{mark[9]}}% &nbsp; 4.5 <br>
+          {{mark[10]}}% - {{mark[11]}}% &nbsp; 5.0 <br></div>
+      </div>
+      <ng-template #noPercent class="pointStyle">
+          Punktacja: <br>
+          <div fxLayout="column" fxFlex="50%">
+              {{markNumber[0]}} - {{markNumber[1]}} &nbsp; 2.0 <br>
+              {{markNumber[2]}} - {{markNumber[3]}} &nbsp; 3.0 <br>
+              {{markNumber[4]}} - {{markNumber[5]}} &nbsp; 3.5 <br></div>
+            <div  fxLayout="column" fxFlex="50%">
+              {{markNumber[6]}} - {{markNumber[7]}} &nbsp; 4.0 <br>
+              {{markNumber[8]}} - {{markNumber[9]}} &nbsp; 4.5 <br>
+              {{markNumber[10]}} - {{markNumber[11]}} &nbsp; 5.0 <br></div>
+         
+      </ng-template>
+      <br>
       Zapraszamy!
     </div>
- <div class="posit">
-      
-        <button mat-raised-button class="continue bigButton"
-          (click)="onSubmit()">PRZEJDŹ DO TESTU</button>
-   </div>
+    <div class="posit">
+
+      <button mat-raised-button class="continue bigButton" (click)="onSubmit()">PRZEJDŹ DO TESTU</button>
+    </div>
   </div>
 </div>
