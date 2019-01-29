@@ -84,7 +84,7 @@ export class TestBeginComponent implements OnInit {
 
         this.markNumber[i] = this.markNumber[i+1]-1;
       }
-      this.markNumber[11]=this.subject.nOQuestions;
+      this.markNumber[11]=+this.subject.nOQuestions;
 
 
 
@@ -94,7 +94,7 @@ export class TestBeginComponent implements OnInit {
 
 
       console.log(this.markNumber);
-
+      this.test.setMarkTable(this.markNumber);
 
       this.cookie.set("multipleChoice", this.subject.multipleChoice.toString(), null, "/");
 

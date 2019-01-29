@@ -14,6 +14,7 @@ export class TestEndComponent implements OnInit {
   trueAns: number;
   isPassed: boolean;
   truePercent: number;
+  marks:number[]=[2,3,3.5,4,4.5,5];
   questions:QuestionStatus[];
   constructor(private testService: TestService, private router: Router,
     private route: ActivatedRoute, private cookie: CookieService) { }
@@ -22,6 +23,7 @@ export class TestEndComponent implements OnInit {
     if (this.cookie.get('user') == "") {
       if(window.location.href.split('/')[4] == 'demo'){
         let result: Result = this.testService.getResult();
+        //////dodac
         this.total = result.total;
         if (this.total == null)
           this.router.navigate(['/']);
@@ -46,12 +48,25 @@ export class TestEndComponent implements OnInit {
         else {
           this.questions=this.testService.getQuestionsInResult();
           let result: Result = this.testService.getResult();
+          let markTable:number[]=this.testService.getMarkTable();
           this.total = result.total;
           if (this.total == null)
             this.router.navigate(['/quiz/begin']);
           this.trueAns = result.true;
           this.truePercent = Math.round(this.trueAns / this.total * 100);
-          this.isPassed = this.truePercent >= 50;
+          this.isPassed = this.truePercent >= 60;
+          
+          let i:number;
+          for (i = markTable.length; i >-1; i--) {
+           if(this.trueAns>=markTable[i]){
+            
+            break;
+
+             console.log();
+           }
+           
+          }
+
         }
       }
     }

@@ -10,12 +10,13 @@ import { CookieService } from 'ngx-cookie-service';
 export class TestService {
 
   private result = new Result();
+  private markTable:number[]=[];
   private questions:QuestionStatus[]= [];
 
   constructor(private http: HttpClient, private cookie:CookieService) { }
 
   public getQuestions(): Observable<Question[]> {
-      //depreciated
+   
       return this.http.post<Question[]>('http://localhost/web/web/api/controllers/getQuestionsQndAnswers.php',
        {observe: 'response'});
   }
@@ -32,6 +33,13 @@ export class TestService {
 
   public getResult(): Result {
     return this.result;
+  }
+  public setMarkTable(table:number[]) {
+    this.markTable = table;
+  }
+
+  public getMarkTable(): number[] {
+    return this.markTable;
   }
 
   public setQuestionsInResult(questions: QuestionStatus[]) {
