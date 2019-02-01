@@ -18,6 +18,9 @@
           <span class="testPass">
             ZALICZONO</span>
         </p>
+  
+          Ocena: {{mark}}
+      
       </div>
     </div>
     <ng-template #notPassed>
@@ -37,7 +40,7 @@
         </div>
       </div>
     </ng-template>
-
+    
     <div>
       <button mat-raised-button class="continue showAnswers" data-toggle="collapse" aria-expanded="false" type="button"
         aria-controls="answers" data-target="#answers" (click)="scrollTop()">Zobacz odpowiedzi</button>
