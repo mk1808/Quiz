@@ -1,4 +1,4 @@
-<a  
+<!--<a  
 routerLink="/quiz/demo/java/begin" 
 >
   java
@@ -7,4 +7,31 @@ routerLink="/quiz/demo/java/begin"
 routerLink="/quiz/demo/web/begin" 
 >
   web
-</a>
+</a>-->
+<div class="container">
+    <div fxLayout="column">
+      <div fxLayout="row" fxLayoutAlign="space-around center">
+        <div class="wTitle">
+          Testy demo
+        </div>
+      </div>
+      <div fxLayout="row" fxLayoutAlign="space-around center">
+        <div class="welcomeTest">
+          Poniżej znajdują się wersje demonstracyjne quizów 
+        </div>
+      </div>
+      <div fxLayout="row" fxFlex="80%">
+  
+        <div class="treeContainer">
+          <div class="collapse multi-collapse show" id="questionList">
+  
+            <div *ngFor="let test of tests; let i = index">
+              <button class="quizButton questionButton" (click)="onTest(i)">
+                {{i+1}} &nbsp;&nbsp;&nbsp;{{test}}</button>
+              <div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
