@@ -17,7 +17,8 @@ import { HighlightModule } from 'ngx-highlightjs';
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { NgxMaskModule } from 'ngx-mask';
 import { CookieService } from 'ngx-cookie-service';
-import { NgxGoogleMapModule } from 'ngx-google-map'
+import { NgxGoogleMapModule } from 'ngx-google-map';
+import { NgHttpLoaderModule } from 'ng-http-loader';
 
 
 @NgModule({
@@ -38,7 +39,8 @@ import { NgxGoogleMapModule } from 'ngx-google-map'
     BrowserAnimationsModule,
     HttpClientModule,
     FlexLayoutModule,
-    NgxGoogleMapModule
+    NgxGoogleMapModule,
+    NgHttpLoaderModule.forRoot()
   
     
     
