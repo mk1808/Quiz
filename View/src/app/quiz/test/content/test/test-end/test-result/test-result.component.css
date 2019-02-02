@@ -88,7 +88,30 @@
       min-width: fit-content;
   }
 
-  
+.iconStyle{
+
+    color: #21c721;
+    position: absolute;
+    top: -3px;
+    font-size: 46px;
+}
+.iconStyleFalse{
+
+    color: red;
+    position: absolute;
+    top: -3px;
+    font-size: 46px;
+}
+
+.answerBox{
+    position: relative;
+}
+
+.answerText{
+    max-width: calc(100% - 50px);
+    display: inline-block;
+}
+
 @media only screen and (max-width: 960px) {
     .question{
         max-width: 100% ;
@@ -101,3 +124,4 @@
 
     }
 }
+

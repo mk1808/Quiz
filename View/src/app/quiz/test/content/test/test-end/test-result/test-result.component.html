@@ -9,7 +9,7 @@
         </article>
       </div>
       <article class="message is-primary" class="questionStyle">
-        <div class="message-body"   [ngClass]="questionStatus">
+        <div class="message-body"  >
            {{questionWithAnswer.text}}
           <div *ngIf="containsPhoto; else noPhoto">
             <div class="photoPosition">
@@ -35,8 +35,7 @@
         <div fxLayout="row" *ngIf="multipleChoice==1">
           <article class="message is-primary"  
           >
-            <div class="message-body answer answerStyle"
-            [ngClass]="answerStatuses[i]">
+            <div class="message-body answer answerStyle">
 
               <mat-checkbox color="primary"   [checked]="trueTable[i]"  [disabled]="true"  >
 
@@ -50,11 +49,19 @@
         <div fxLayout="row" *ngIf="multipleChoice==0">
           <article class="message is-primary"  >
             <div class="message-body answer answerStyle"
-            [ngClass]="answerStatuses[i]">
+           >
      
               <mat-radio-button color="primary" [value]="i" 
               [checked]="trueTable[i]" [disabled]="true" ></mat-radio-button>
-              <p>{{answer.text}}</p>
+              <p class="answerBox">
+                <span class="answerText">{{answer.text}}</span>
+              <i *ngIf="answerStatuses[i]=='correct'" class="material-icons iconStyle">
+                check_box
+                </i>
+                  <i *ngIf="answerStatuses[i]=='incorrect'" class="material-icons iconStyleFalse">
+                      cancel
+                      </i>
+              </p> 
             </div>
           </article>
         </div>
