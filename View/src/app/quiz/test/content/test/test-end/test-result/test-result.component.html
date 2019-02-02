@@ -3,8 +3,15 @@
     <div fxLayout="column" fxLayoutAlign="space-around center" fxFlex="30%">
       <div class="col-3 category" style="padding: 0%">
         <article class="message is-primary questionStyle">
-          <div class="message-body">
+          <div class="message-body numberBox">
             {{questionWithAnswer.category}}
+            <i *ngIf="questionStatus=='correct'" class="material-icons iconQuestionStyle">
+                check_box
+                </i>
+                <i *ngIf="questionStatus=='incorrect'" class="material-icons iconQuestionStyleFalse">
+                    cancel
+                    </i>
+
           </div>
         </article>
       </div>
