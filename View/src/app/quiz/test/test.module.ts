@@ -12,6 +12,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HighlightModule } from 'ngx-highlightjs';
 import { StudentMainPanelComponent } from './content/student-main-panel/student-main-panel.component';
 import { TestResultComponent } from './content/test/test-end/test-result/test-result.component';
+import { ChooseDemoComponent } from './content/test/choose-demo/choose-demo.component';
 
 
 
@@ -35,6 +36,7 @@ import { TestResultComponent } from './content/test/test-end/test-result/test-re
     TestEndComponent,
     AnswerComponent,
     StudentMainPanelComponent,
-    TestResultComponent]
+    TestResultComponent,
+    ChooseDemoComponent]
 })
 export class TestModule { }

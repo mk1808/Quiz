@@ -24,15 +24,19 @@ export class TestBeginComponent implements OnInit {
     if (this.cookie.get('user') == "") {
 
       if (window.location.href.split('/')[4] == 'demo') {
+        this.route.params.subscribe(x => {
+          console.log(x['name']);
 
-
-        this.test.getDemoId().subscribe(x => {
-          if (x.status == 200) {
-            this.cookie.set("idSubject", x.body, null, '/');
-            this.test.getQuizDetails(x.body).subscribe(x =>
-              this.loadQuiz(x));
-          }
+          this.test.getDemoId(x['name']).subscribe(x => {
+            console.log(x);
+            if (x.status == 200) {
+              this.cookie.set("idSubject", x.body, null, '/');
+              this.test.getQuizDetails(x.body).subscribe(x =>
+                this.loadQuiz(x));
+            }
+          });
         });
+
       }
       else {
         this.router.navigate(['/']);

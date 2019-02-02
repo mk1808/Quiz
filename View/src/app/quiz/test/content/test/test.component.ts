@@ -41,7 +41,8 @@ export class TestComponent implements OnInit {
           if (x.status == 200) {
             x = x.body;
            
-            this.subject.limitedTime = false;
+            this.subject.limitedTime = true;
+            //this.subject.time=12;
             this.questions = x;
             this.questions.forEach(
               question => {
@@ -51,6 +52,8 @@ export class TestComponent implements OnInit {
               }
             );
 
+            this.subject.time = JSON.parse(this.cookie.get("time")).time;
+            this.timer(this.subject.time);
           }
         });
       }
@@ -182,7 +185,6 @@ export class TestComponent implements OnInit {
   }
 
   public timer(time) {
-
     this.actualTime = new Date().getTime();
     let endTime = this.actualTime + time * 60 * 1000;
     let x = setInterval(() => {

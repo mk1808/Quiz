@@ -66,9 +66,9 @@ export class TestService {
   JSON.stringify({id:id, jwt:this.cookie.get("jwt")}
     ),{observe: 'response'});
 }
-  public getDemoId(): Observable<any> {
+  public getDemoId(name): Observable<any> {
     return this.http.post<any>('http://localhost/web/web/api/controllers/demo/getDemoId.php',
-    "",{observe: 'response'});
+    JSON.stringify(name),{observe: 'response'});
 }
 public checkAnswersForDemo(questions: QuestionStatus[]): Observable<any> {
 
@@ -82,7 +82,7 @@ public getAnswerStatuses(id): Observable<any> {
   JSON.stringify({id:id, jwt:this.cookie.get("jwt")}),{observe: 'response'}) ;
 }
 
-public getQuestionDetails(id): Observable<any> {// TUTAJ tego będziesz potrzebować
+public getQuestionDetails(id): Observable<any> {
 
   return  this.http.post<any>('http://localhost/web/web/api/controllers/question/getQuestionWithAnswers.php', 
   JSON.stringify({id:id, jwt:this.cookie.get("jwt")}),{observe: 'response'}) ;
