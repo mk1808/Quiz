@@ -46,7 +46,8 @@
         aria-controls="answers" data-target="#answers" (click)="scrollTop()">Zobacz odpowiedzi</button>
 
       <div class="collapse" id="answers">
-        <app-test-result *ngFor="let question of questions; let i = index;" [setQuestion]="question">
+        <app-test-result *ngFor="let question of questions; let i = index;" 
+        [setQuestion]="question"  [number]='(i+1)+"/"+questions.length'>
         </app-test-result>
       </div>
 

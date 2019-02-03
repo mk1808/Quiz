@@ -19,7 +19,7 @@ export class TestResultComponent implements OnInit {
   answerStatuses: string[] = [];
   questionStatus:string="";
 
-
+  @Input() number;
   @Input() set setQuestion(question: QuestionStatus) {
     this.question = question;
     this.testService.getQuestionDetails(this.question.id).subscribe(x => {
