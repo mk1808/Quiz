@@ -26,6 +26,7 @@
   border-radius: 10px;
   border:1px #0281D6 solid;
   padding:5px;
+  z-index: 999;
 }
 
 .bottomRowPos{
@@ -52,4 +53,56 @@
     margin: 0!important;
       margin-right: 20%!important;
       margin-left: auto!important;
+}
+
+.prevBtn, .nextBtn{
+    width:40%;
+    height:30px;
+    display:inline-block;
+    position:relative;
+    top:-15px;
+}
+
+.prevBtn button{
+    left: 10vw;
+    position: relative;
+
+}
+
+.nextBtn{
+    left: 70vw;
+    position: relative;
+}
+
+.questions{
+    position: relative;
+}
+
+.nextBtn button{
+
+    margin: 0!important;
+      margin-right: 20%!important;
+      margin-left: auto!important;
+}
+
+.question{
+    transition-duration: 500ms;
+    position: relative;
+    overflow: hidden;
+   top:0;
+
+   
+    width: 100%;
+}
+
+.buttonPoses{
+    position:absolute;
+    text-align: center;
+}
+
+
+@media only screen and (max-width: 660px) {
+    .nextBtn{
+        left: 30vw;
+    }
 }

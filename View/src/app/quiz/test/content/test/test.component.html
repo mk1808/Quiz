@@ -5,38 +5,43 @@
           z przedmiotu {{subjectObj.subject}}</div>
       </div>
   <div fxLayout="row">
-    <div fxLayout="column">
+    <div fxLayout="column" class="questions">
       <div *ngIf="subject.limitedTime!='0'" class="timer">{{timeLeft}}</div>
 
-      <div *ngFor="let question of questions; let i = index;">
-        <app-question [ngStyle]="{'display': (((subjectObj.separatePage==0)||(questionIndex==i) )? '': 'none')}" [setQuestion]="question"
+      <div *ngFor="let question of questions; let i = index;" class="question" 
+              [ngStyle]="{'left': (((subjectObj.separatePage==1)&&(questionIndex < i) )? '120vw': (((subjectObj.separatePage==1)&&(questionIndex > i) )? '-120vw': '0')),
+              'position': (((subjectObj.separatePage==1)&&((questionIndex == (i-1))||(questionIndex == (i+1))) )? 'absolute': ''),
+              'top': (((subjectObj.separatePage==1)&&((questionIndex == (i+1))) 
+              )? '0': ''),
+               'max-height': (((subjectObj.separatePage==1)&&((questionIndex == (i-1))||(questionIndex == (i+1))) )? '0': ''),
+               'overflow': (((subjectObj.separatePage==1)&&((questionIndex == (i-1))||(questionIndex == (i+1))) )? 'inherit': '')}">
+        <app-question [ngStyle]="{'display': (((subjectObj.separatePage==0)||((questionIndex == (i-1))||(questionIndex == i)||(questionIndex == (i+1))) )? '': 'none')}"
+        [setQuestion]="question"
           (questionStatus)="onChange($event)" [number]='(i+1)+"/"+questions.length'></app-question>
       </div>
       
     </div>
   </div>
   
-    <div *ngIf="subjectObj.separatePage==1" >
-      <div class="prevBtn" >
-        <button mat-raised-button class="continue" 
-        (click)="prevQuestion()" *ngIf="(questionIndex>0)&&(subjectObj.canBack==1)">
-        <i class="material-icons">
+  <div *ngIf="subjectObj.separatePage==1">
+      <div class = buttonPoses>
+      <div class="prevBtn">
+        <button mat-raised-button class="continue" (click)="prevQuestion()" *ngIf="(questionIndex>0)&&(subjectObj.canBack==1)">
+          <i class="material-icons">
             keyboard_arrow_left
-            </i>
-        Wstecz</button>
+          </i>
+          Wstecz</button>
       </div>
       <div class="nextBtn">
-        <button mat-raised-button class="continue" 
-        (click)="nextQuestion()" *ngIf="questionIndex<questions.length-1">Dalej
-            <i class="material-icons">
-                keyboard_arrow_right
-                </i>
+        <button mat-raised-button class="continue" (click)="nextQuestion()" *ngIf="questionIndex<questions.length-1">Dalej
+          <i class="material-icons">
+            keyboard_arrow_right
+          </i>
         </button>
       </div>
-    </div>
-    <div fxLayout="row">
-      <div >
-        <button mat-raised-button class="continue bigButton" (click)="onSubmit()">ZAKOŃCZ</button>
-      </div>
+    </div></div>
+    <div>
+      <button mat-raised-button class="continue bigButton" (click)="onSubmit()">ZAKOŃCZ</button>
+  
     </div>
   </div>
