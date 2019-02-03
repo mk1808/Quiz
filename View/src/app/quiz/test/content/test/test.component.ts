@@ -38,8 +38,8 @@ export class TestComponent implements OnInit {
         this.idSubject = this.cookie.get('idSubject')
         this.subjectObj = JSON.parse(this.cookie.get("subj"));
         this.testService.getQuestionsByIdSubject(this.idSubject).subscribe(x => {
-          if (x.status == 200) {
-            x = x.body;
+        
+      
            
             this.subject.limitedTime = true;
             //this.subject.time=12;
@@ -54,7 +54,7 @@ export class TestComponent implements OnInit {
 
             this.subject.time = JSON.parse(this.cookie.get("time")).time;
             this.timer(this.subject.time);
-          }
+          
         });
       }
       else {
@@ -79,8 +79,7 @@ export class TestComponent implements OnInit {
 
           if (this.subjectObj.randomize) {
             this.testService.getRandQuestionsByIdSubject(this.idSubject).subscribe(x => {
-              if (x.status == 200) {
-                x = x.body;
+              
 
                 this.questions = x;
 
@@ -92,14 +91,12 @@ export class TestComponent implements OnInit {
                   }
                 );
 
-              }
+              
             });
           }
           else {
             this.testService.getQuestionsByIdSubject(this.idSubject).subscribe(x => {
-              if (x.status == 200) {
-                x = x.body;
-
+          
                 this.questions = x;
 
                 this.questions.forEach(
@@ -110,7 +107,7 @@ export class TestComponent implements OnInit {
                   }
                 );
 
-              }
+              
             });
 
           }

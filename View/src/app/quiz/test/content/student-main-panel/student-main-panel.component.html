@@ -16,8 +16,8 @@
         <div class="collapse multi-collapse show" id="questionList">
 
           <div *ngFor="let test of tests; let i = index">
-            <button class="quizButton questionButton" (click)="onTest(test.ID)">
-              {{i+1}} &nbsp;&nbsp;&nbsp;{{test.NAME}}</button>
+            <button class="quizButton questionButton" (click)="onTest(test.id)">
+              {{i+1}} &nbsp;&nbsp;&nbsp;{{test.name}}</button>
             <div></div>
           </div>
         </div>

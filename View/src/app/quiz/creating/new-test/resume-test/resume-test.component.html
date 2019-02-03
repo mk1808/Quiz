@@ -18,7 +18,7 @@
             Możliwość powrotu do poprzedniego pytania: </span>
             {{subject.canBack==1? "tak" : "nie" }}<br>
           </div> 
-            <span class="detailsNames"> Opis: </span>{{subject.description!=""? subject.description  : "brak " }}
+            <span class="detailsNames"> Opis: </span>{{subject.description!=null? subject.description  : "brak " }}
           
       </div>
         <div  class="treePos" >

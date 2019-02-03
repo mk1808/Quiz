@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Question, QuestionStatus, Result} from '../models/classes';
+import {Question, QuestionStatus, Result, Subject} from '../models/classes';
 import {Observable} from 'rxjs/index';
 import { CookieService } from 'ngx-cookie-service';
+import { RestService } from './rest.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class TestService {
   private markTable:number[]=[];
   private questions:QuestionStatus[]= [];
 
-  constructor(private http: HttpClient, private cookie:CookieService) { }
+  constructor(private http: HttpClient, private cookie:CookieService,private rest:RestService) { }
 
   public getQuestions(): Observable<Question[]> {
    
@@ -51,20 +52,15 @@ export class TestService {
   }
 
   public getQuestionsByIdSubject(id): Observable<any> {
-    return this.http.post<any>('http://localhost/web/web/api/controllers/question/getQuestionsWithAnswersForQuiz.php',
-     JSON.stringify({id:id,  jwt:this.cookie.get("jwt")}
-    ),{observe: 'response'});
+    return this.rest.get<any>('/api/question/answerWS/'+id);
 }
 
   public getRandQuestionsByIdSubject(id): Observable<any> {
-    return this.http.post<any>('http://localhost/web/web/api/controllers/question/getRandomQuestionsForQuiz.php',  
-    JSON.stringify({id:id, jwt:this.cookie.get("jwt")}),{observe: 'response'});
+    return this.rest.get<any>('/api/question/random/'+id);
   }
 
   public getQuizDetails(id): Observable<any> {
-  return this.http.post<any>('http://localhost/web/web/api/controllers/quiz/getQuizDetails.php',
-  JSON.stringify({id:id, jwt:this.cookie.get("jwt")}
-    ),{observe: 'response'});
+  return this.rest.get<any>('/api/subject/details/'+id);
 }
   public getDemoId(name): Observable<any> {
     return this.http.post<any>('http://localhost/web/web/api/controllers/demo/getDemoId.php',
@@ -78,14 +74,16 @@ public checkAnswersForDemo(questions: QuestionStatus[]): Observable<any> {
 
 public getAnswerStatuses(id): Observable<any> {
 
-  return  this.http.post<any>('http://localhost/web/web/api/controllers/question/getAnswerWithStatusForQuiz.php', 
-  JSON.stringify({id:id, jwt:this.cookie.get("jwt")}),{observe: 'response'}) ;
+  return  this.rest.get<any>('/api/question/answerWS/'+id ) ;
 }
 
 public getQuestionDetails(id): Observable<any> {
 
-  return  this.http.post<any>('http://localhost/web/web/api/controllers/question/getQuestionWithAnswers.php', 
-  JSON.stringify({id:id, jwt:this.cookie.get("jwt")}),{observe: 'response'}) ;
+  return  this.rest.get<any>('/api/question/WA/'+id) ;
+}
+
+public getTestsByCourse(course): Observable<any> {
+  return this.rest.get<Subject[]>( '/api/subject/list/course/'+course);
 }
 }
 

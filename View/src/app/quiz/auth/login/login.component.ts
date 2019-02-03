@@ -4,6 +4,7 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { AuthService } from '../../shared/services/auth.service';
 import * as jwt_decode from "jwt-decode";
 import { CookieService } from 'ngx-cookie-service';
+import { User } from '../../shared/models/classes';
 
 @Component({
   selector: 'app-login',
@@ -17,18 +18,18 @@ export class LoginComponent implements OnInit {
   });
   constructor(private router: Router, private route: ActivatedRoute, private fb: FormBuilder,
     private auth: AuthService, private cookie: CookieService) {
-    }
+  }
   role: number;
   regFail: boolean = false;
 
   ngOnInit() {
-    if(this.cookie.get('user')=="") {
+    if (this.cookie.get('user') == "") {
 
     }
     else {
-      if (JSON.parse(this.cookie.get('user')).role==1)
-      {
-        this.router.navigate(['../creating/teacher_panel'], { relativeTo: this.route });}
+      if (JSON.parse(this.cookie.get('user')).role == 1) {
+        this.router.navigate(['../creating/teacher_panel'], { relativeTo: this.route });
+      }
       else {
         this.router.navigate(['../quiz/student_panel'], { relativeTo: this.route });
       }
@@ -40,25 +41,33 @@ export class LoginComponent implements OnInit {
   }
 
   onLogIn() {
-    this.auth.logIn(this.userForm.controls.username.value, this.userForm.controls.password.value).subscribe
-      (x => {
-        if (x.status == 200) {
+    if (this.userForm.valid) {
+      let user: User = new User;
+      user.email = this.userForm.controls.username.value;
 
-          this.role = jwt_decode(x.body.jwt).data.role;
-          this.cookie.set("jwt", x.body.jwt, 0.5, "/");
-          this.cookie.set("user", JSON.stringify(jwt_decode(x.body.jwt).data),null, "/");
+      user.password = this.userForm.controls.password.value;
+      this.auth.logIn(user).subscribe
+        (x => {
+          this.role = (x.user.role=='s'?2:1);
+          this.cookie.set("token", x.token, 0.5, "/");
+          x.user.role=this.role;
+          this.cookie.set("user", JSON.stringify(x.user), null, "/");
+          console.log(x);
           if (this.role == 1) {
             this.router.navigate(['creating/teacher_panel']);
           }
           else {
             this.router.navigate(['quiz/student_panel']);
           }
-        }
-        else { this.regFail = true;
-        this.userForm.controls.username.setValue("");
-        this.userForm.controls.password.setValue("");
+        }, e => {
+          console.log(e); this.regFail = true;
+          this.userForm.controls.username.setValue("");
+          this.userForm.controls.password.setValue("");
+        });
+    } else {
+      this.userForm.controls.username.markAsTouched();
 
-      }
-      }, e => { console.log(e); });
+      this.userForm.controls.password.markAsTouched();
+    }
   }
 }

@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs/index';
 import { Subject, Question } from '../models/classes';
 import { CookieService } from 'ngx-cookie-service';
+import { RestService } from './rest.service';
 
 
 @Injectable({
@@ -10,33 +11,33 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class CreatingService {
 
-  constructor(private http: HttpClient, private cookie:CookieService) { }
+  constructor(private http: HttpClient, private cookie:CookieService, private rest:RestService) { }
 
   public createSubject(subject:Subject): Observable<any> {
-    subject.jwt = this.cookie.get("jwt");
-    return this.http.post<any>('http://localhost/web/web/api/controllers/quiz/createSubject.php',
-    JSON.stringify(subject),
-    {observe: 'response'});
+
+    return this.rest.post<any>('/api/subject',    subject);
 }
 
 public updateSubject(subject:Subject): Observable<any> { 
-  subject.jwt = this.cookie.get("jwt");
-  return this.http.post<any>('http://localhost/web/web/api/controllers/quiz/updateSubject.php',
-  JSON.stringify(subject),
-  {observe: 'response'});
+
+  return this.rest.put<any>('/api/subject', subject
+ 
+);
 }
 
 public updateQuestion(question:Question): Observable<any> { 
-  question.jwt = this.cookie.get("jwt");
-  return this.http.post<any>('http://localhost/web/web/api/controllers/question/updateQuestion.php',
-  JSON.stringify(question),
-  {observe: 'response'});
+  
+  return this.rest.put<any>('/api/question',question );
 }
 
 public createQuestion(question:Question): Observable<any> {
-  question.jwt = this.cookie.get("jwt");
-  return this.http.post('http://localhost/web/web/api/controllers/question/createQuestion.php',
-  JSON.stringify(question),
-  {observe: 'response'});
+  
+  return this.rest.post('/api/question', question);
 }
+
+
+public getTests(id): Observable<any> {
+  return this.rest.get<Subject[]>('/api/subject/list/author/'+ id.toString());
+}
+
 }

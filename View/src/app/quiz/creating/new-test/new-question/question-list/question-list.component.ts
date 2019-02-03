@@ -20,8 +20,6 @@ export class QuestionListComponent implements OnInit {
  
     this.idSubject=this.cookie.get('idSubject');
     this.testService.getAnswerStatuses(this.idSubject).subscribe(x => {
-      if(x.status==200){
-        x=x.body;
         x.forEach(element => {
           let text = element.text;
           if(text!=null){
@@ -53,12 +51,12 @@ export class QuestionListComponent implements OnInit {
         });
        
       this.questions = x;
-    }});
+    });
     this.test.getQuizDetails(this.idSubject).subscribe(x=>{
-      if(x.status==200){
-        x=x.body;
-      this.quizName=x.NAME;
-   } });
+      
+        
+      this.quizName=x.name;
+   });
  // this.test.getAnswerStatuses(this.idSubject).subscribe(x=>
    // {
      // console.log("stat  ",x.body);

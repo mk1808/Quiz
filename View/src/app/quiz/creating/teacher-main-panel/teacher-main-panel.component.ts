@@ -3,6 +3,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { AuthService } from '../../shared/services/auth.service';
 import { Subject } from '../../shared/models/classes';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CreatingService } from '../../shared/services/creating.service';
 
 @Component({
   selector: 'app-teacher-main-panel',
@@ -14,6 +15,7 @@ export class TeacherMainPanelComponent implements OnInit {
   tests: Subject[] = [];
   idUser: string;
   constructor(private cookie: CookieService, private auth: AuthService,
+    private creating: CreatingService,
     private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
@@ -27,10 +29,10 @@ export class TeacherMainPanelComponent implements OnInit {
 
       else {
         this.idUser = JSON.parse(this.cookie.get('user')).id;
-        this.auth.getTests(this.idUser).subscribe(x => {
-          if (x.status == 200) {
-            this.tests = x.body;
-          }
+        this.creating.getTests(this.idUser).subscribe(x => {
+         console.log(x);
+            this.tests = x;
+          
         })
       }
     }

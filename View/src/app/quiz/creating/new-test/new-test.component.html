@@ -113,8 +113,8 @@
 
                 <select class="form-control" id="exampleFormControlSelect2" formControlName="course" [ngClass]="(newTestForm.controls.course.valid || !newTestForm.controls.course.touched)?'':'invalid'">
                   <option selected>Kierunek studiów</option>
-                  <option *ngFor="let course of coursesTable" [value]="course.NAME">
-                    {{course.NAME}}
+                  <option *ngFor="let course of coursesTable" [value]="course">
+                    {{course}}
                   </option>
 
                 </select>

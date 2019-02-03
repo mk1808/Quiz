@@ -45,7 +45,7 @@ export class QuestionComponent implements OnInit {
       while(code.indexOf("汉")>=0)   {
         code = code.replace("汉",">");
       }
-      this.question .code = code;
+      this.question.code = code;
     }
 
     this.question.answers.forEach(answer=>{

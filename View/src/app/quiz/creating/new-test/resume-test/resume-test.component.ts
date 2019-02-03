@@ -33,20 +33,11 @@ export class ResumeTestComponent implements OnInit {
         else {
           this.idSubject = this.cookie.get('idSubject');
           this.test.getQuizDetails(this.idSubject).subscribe(x => {
-            if (x.status == 200) {
-              x = x.body;
-              this.subject.name = x.NAME;
-              this.subject.course = x.COURSE;
-              this.subject.nOQuestions = x.N_O_QUESTIONS;
-              this.subject.limitedTime = x.LIMITED_TIME=='1';
-              this.subject.multipleChoice = x.MULTIPLE_CHOICE=='1';
-              this.subject.description = x.DESCRIPTION;
-              this.subject.time = x.TIME;
-              this.subject.separatePage=x.SEPARATE_PAGE=='1';
-              this.subject.canBack=x.CAN_BACK;
-              this.subject.randomize=(x.RANDOMIZE=='1');
+        
+           
+              this.subject = x;
               this.cookie.set("subject",JSON.stringify(this.subject),null,'/');
-            }
+            
           });
         }
       }

@@ -66,10 +66,10 @@ export class NewQuestionComponent implements OnInit, AfterViewInit {
             }
 
             this.test.getQuizDetails(this.idSubject).subscribe(x => {
-              if (x.status == 200) {
-                x = x.body;
-                this.quizName = x.NAME;
-              }
+          
+               
+                this.quizName = x.name;
+              
             });
           }
         }
@@ -100,7 +100,6 @@ export class NewQuestionComponent implements OnInit, AfterViewInit {
         this.newQuestionForm.controls.checkAnswer2.setValue(false);
         this.newQuestionForm.controls.checkAnswer3.setValue(false);
 
-        // <3 <3 <3 <3 tak bardzo mocno kochajoooo <3 <3 <3 <3 <3 
 
         switch (x.value) {
           case ("0"): {
@@ -125,7 +124,7 @@ export class NewQuestionComponent implements OnInit, AfterViewInit {
   }
 
   initForm(x) {
-    x = x.body;
+    
 
 
     let code = x.code;
@@ -194,9 +193,9 @@ export class NewQuestionComponent implements OnInit, AfterViewInit {
     }
 
     this.test.getQuizDetails(this.idSubject).subscribe(x => {
-      if (x.status == 200) {
-        x = x.body;
-        this.quizName = x.NAME;
+      
+       
+        this.quizName = x.name;
         this.subscribeRadioButton();
           if (!this.subject.multipleChoice) {
             let i = 0;
@@ -209,7 +208,7 @@ export class NewQuestionComponent implements OnInit, AfterViewInit {
               i++;
             });
           }
-      }
+      
     });
   }
 
@@ -318,11 +317,11 @@ export class NewQuestionComponent implements OnInit, AfterViewInit {
 if (this.newQuestion){
       this.creating.createQuestion(question).subscribe(x => {//console.log(x);
 
-        if (x.status == 200) {
-          x = x.body;
+        
+      
           this.questionList.ngOnInit();
           this.onClear();
-        }
+        
       }, e => console.log(e));
 
 }
@@ -330,13 +329,14 @@ else{
   question.id=this.question.id;
   for(let i =0; i<4; i++){
     question.answers[i].id=this.question.answers[i].id;
+    question.answers[i].idQuestion=this.question.answers[i].idQuestion;
 
   }
   this.creating.updateQuestion(question).subscribe(
     x=>{
-      if (x.status == 200) {
+  
         this.router.navigate(["/creating/new_test/resume"]);
-      }
+      
     }
 
   )
@@ -371,13 +371,13 @@ else{
   onBack() {
     if (this.newQuestion)
     {
-    this.router.navigate(['/creating/new-test']);}
+    this.router.navigate(['/creating/new_test']);}
     else
     {
       this.router.navigate(['/creating/teacher_panel']);
     }
   }
   onResume() {
-    this.router.navigate(["/creating/new-test/resume"]);
+    this.router.navigate(["/creating/new_test/resume"]);
   }
 }

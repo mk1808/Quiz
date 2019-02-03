@@ -29,11 +29,11 @@ export class TestBeginComponent implements OnInit {
 
           this.test.getDemoId(x['name']).subscribe(x => {
             console.log(x);
-            if (x.status == 200) {
-              this.cookie.set("idSubject", x.body, null, '/');
-              this.test.getQuizDetails(x.body).subscribe(x =>
+            
+              this.cookie.set("idSubject", x, null, '/');
+              this.test.getQuizDetails(x).subscribe(x =>
                 this.loadQuiz(x));
-            }
+            
           });
         });
 
@@ -63,20 +63,18 @@ export class TestBeginComponent implements OnInit {
   }
 
   private loadQuiz(x) {
-    if (x.status == 200) {
-      x = x.body;
-      this.subject.name = x.NAME;
-      this.subject.course = x.COURSE;
-      this.subject.nOQuestions = x.N_O_QUESTIONS;
-      this.subject.limitedTime = x.LIMITED_TIME;
-      this.subject.multipleChoice = x.MULTIPLE_CHOICE;
-      this.subject.description = x.DESCRIPTION;
-      this.subject.time = x.TIME;
-      this.subject.separatePage = x.SEPARATE_PAGE;
-      this.subject.canBack = x.CAN_BACK;
-      this.subject.randomize = (x.RANDOMIZE == '1');
-      // zmiana!
-      this.subject.subject = "Technologie sieci WEB";
+   
+      this.subject.name = x.name;
+      this.subject.course = x.course;
+      this.subject.nOQuestions = x.noQuestions;
+      this.subject.limitedTime = x.limitedTime;
+      this.subject.multipleChoice = x.multipleChoice;
+      this.subject.description = x.description;
+      this.subject.time = x.time;
+      this.subject.separatePage = x.separatePage;
+      this.subject.canBack = x.canBack;
+      this.subject.randomize = (x.randomize == '1');
+      this.subject.subject = (x.subject=="java"?"Programowanie w języku Java":"Technologie sieci WEB");
       let i = 0;
       let last: number;
       for (i = 0; i < this.mark.length; i = i + 2) {
@@ -90,13 +88,6 @@ export class TestBeginComponent implements OnInit {
       }
       this.markNumber[11]=+this.subject.nOQuestions;
 
-
-
-
-
-
-
-
       console.log(this.markNumber);
       this.test.setMarkTable(this.markNumber);
 
@@ -104,7 +95,7 @@ export class TestBeginComponent implements OnInit {
 
       this.cookie.set("time", JSON.stringify({ limitedTime: this.subject.limitedTime, time: this.subject.time }), null, "/");
       this.cookie.set("subj", JSON.stringify(this.subject), null, "/");
-    }
+    
   }
 
   onSubmit() {

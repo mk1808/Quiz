@@ -51,6 +51,7 @@ export class NewTestComponent implements OnInit {
 
         this.dictionary.getCourses().subscribe(x => {
           this.coursesTable = x;
+          console.log(x);
         });
         this.user = (JSON.parse(this.cookie.get('user')));
 
@@ -79,11 +80,11 @@ export class NewTestComponent implements OnInit {
         }
         else {
           this.test.getQuizDetails(this.idExistingTest).subscribe(x => {
-            if (x.status == 200) {
-              x = x.body;
-              this.testName = x.NAME;
-              let hoursN = Math.floor(x.TIME / 60);
-              let minutesN = x.TIME - hoursN * 60;
+          
+            
+              this.testName = x.name;
+              let hoursN = Math.floor(x.time / 60);
+              let minutesN = x.time - hoursN * 60;
 
               let hours = String(hoursN);
               let minutes = String(minutesN);
@@ -91,25 +92,28 @@ export class NewTestComponent implements OnInit {
               if (hoursN < 10) hours = "0" + String(hoursN);
               if (minutesN < 10) minutes = "0" + String(minutesN);
 
-              this.newUser = !isNaN(Number(x.COURSE));
+              this.newUser = !isNaN(Number(x.course));
               this.newTestForm = this.fb.group({
-                name: [x.NAME, Validators.required],
-                nOQuestions: [x.N_O_QUESTIONS, Validators.required],
-                limitedTime: [x.LIMITED_TIME == 0 ? false : true],
-                multipleChoice: [{ value: (x.MULTIPLE_CHOICE == 0 ? 'jednokrotny' : 'wielokrotny'), disabled: true }, Validators.required],
+                name: [x.name, Validators.required],
+                nOQuestions: [x.noQuestions, Validators.required],
+                limitedTime: [x.limitedTime],
+                multipleChoice: [{ value: (x.multipleChoice == 0 ? 'jednokrotny' : 'wielokrotny'), 
+                disabled: true }, Validators.required],
                 time: [hours + ":" + minutes],
-                course: [x.COURSE],
-                description: [x.DESCRIPTION],
-                separatedPages: [x.SEPARATE_PAGE == 0 ? false : true],
-                canBack: [x.CAN_BACK == 0 ? false : true],
-                randomize: [x.RANDOMIZE == 0 ? false : true],
+                course: [x.course],
+                description: [x.description],
+                separatedPages: [x.separatePage ],
+                canBack: [x.canBack],
+                randomize: [x.randomize ],
                 newUser:[this.newUser],
                 email:[''],
                 password:[''],
                 passwordRepeat:['']
               });
               this.initialized = true;
-            }
+              if(!x.separatePage)
+              this.newTestForm.controls.canBack.disable(); 
+            
           });
         }
       }
@@ -120,6 +124,18 @@ export class NewTestComponent implements OnInit {
     let correct = true;
     //group.clearValidators();
 
+
+
+    //
+    //
+    //
+    //
+    //
+    // Tutaj coś neie działa przzy edycji czasem
+    //
+    //
+    //
+    //
 
     if(group.controls.multipleChoice.value=="Krotność"){
       group.controls.multipleChoice.setErrors({'invalid':true});
@@ -211,25 +227,26 @@ export class NewTestComponent implements OnInit {
         let user:User = new User();
         user.email = this.newTestForm.controls.email.value;
         user.password = this.newTestForm.controls.password.value;
+        user.c_password = this.newTestForm.controls.passwordRepeat.value;
         user.name="Użytkownik";
         user.surname = "Tymczasowy";
-        user.course ="";  
+        user.course ="d";  
         this.auth.register(user).subscribe(userID=>{
       
-          subject.course=userID.body.id;
+          subject.course=userID.user.id;
           if (this.newTest) {
             this.creating.createSubject(subject).subscribe(x => {
-              if (x.status == 200) {
-                x = x.body;
+              
                 subject.id = x.id;
                 this.cookie.set("subject",JSON.stringify(subject),null,'/');
              
                 this.cookie.set("idSubject", x.id.toString(),null, "/");
 
                 if(this.newTestForm.controls.newUser.value){
-                  this.auth.logIn(user.email,user.password).subscribe(auth=>{
+                  
+                  this.auth.logIn(user).subscribe(auth=>{
                     
-                    let data  = jwt_decode(auth.body.jwt).data;
+                    let data  = auth.user
                     user.id=data.id;
                     user.course = data.id.toString()
                     user.role = data.role.toString();
@@ -242,18 +259,18 @@ export class NewTestComponent implements OnInit {
                 else {
                   this.router.navigate(['./new_question'], { relativeTo: this.route });
                 }
-              }
+              //}
             }, e => console.log(e));
           } else {
             subject.id = this.idExistingTest;
             try {
               this.creating.updateSubject(subject).subscribe(x => {
-                if (x.status == 200) {
-                  x = x.body;
+              
+                
                   if(this.newTestForm.controls.newUser.value){
-                    this.auth.logIn(user.email,user.password).subscribe(auth=>{
+                    this.auth.logIn(user).subscribe(auth=>{
                       
-                      let data  = jwt_decode(auth.body.jwt).data;
+                      let data  = auth.user
                       user.id=data.id;
                       user.course = data.id.toString()
                       user.role = data.role.toString();
@@ -266,7 +283,7 @@ export class NewTestComponent implements OnInit {
                   else {
                     this.router.navigate(['./new_question'], { relativeTo: this.route });
                   }
-              }
+              
               }, e => console.log(e));
             }
             catch (e) {
@@ -281,23 +298,22 @@ export class NewTestComponent implements OnInit {
 
         if (this.newTest) {
           this.creating.createSubject(subject).subscribe(x => {
-            if (x.status == 200) {
-              x = x.body;
+            
               subject.id = x.id;
               this.cookie.set("subject",JSON.stringify(subject),null,'/');
               this.cookie.set("idSubject", x.id.toString(),null, "/");
               this.router.navigate(['./new_question'], { relativeTo: this.route });
-            }
+            
           }, e => console.log(e));
         } else {
           subject.id = this.idExistingTest;
           try {
             this.creating.updateSubject(subject).subscribe(x => {
-              if (x.status == 200) {
-                x = x.body;
+            
+              
                 this.cookie.set("idSubject", this.idExistingTest.toString(),null, "/");
                 this.router.navigate(['../new_question'], { relativeTo: this.route });
-              }
+              
             }, e => console.log(e));
           }
           catch (e) {
@@ -305,12 +321,6 @@ export class NewTestComponent implements OnInit {
           }
         }
       }
-
-
-
-
-
-
 
     }
     else {
