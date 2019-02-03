@@ -1,11 +1,16 @@
 <div fxLayout="column">
+    <div class="wTitle">
+        {{subjectObj.name}}
+        <div class="sTitle">
+          z przedmiotu {{subjectObj.subject}}</div>
+      </div>
   <div fxLayout="row">
     <div fxLayout="column">
       <div *ngIf="subject.limitedTime!='0'" class="timer">{{timeLeft}}</div>
 
       <div *ngFor="let question of questions; let i = index;">
         <app-question [ngStyle]="{'display': (((subjectObj.separatePage==0)||(questionIndex==i) )? '': 'none')}" [setQuestion]="question"
-          (questionStatus)="onChange($event)"></app-question>
+          (questionStatus)="onChange($event)" [number]='(i+1)+"/"+questions.length'></app-question>
       </div>
       
     </div>

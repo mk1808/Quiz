@@ -10,10 +10,11 @@ export class QuestionComponent implements OnInit {
   question: Question;
   status = new QuestionStatus;
   containsPhoto:boolean;
+  questionNumber:number=0;
  
   containsCode:boolean;
   @Output() questionStatus = new EventEmitter<QuestionStatus>();
-
+  @Input() number;
   @Input() set setQuestion(question: Question) {
     this.question = question;
     this.status.id = question.id;
@@ -103,7 +104,7 @@ export class QuestionComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    
   }
 
   public getStatus(id: number) {

@@ -1,4 +1,4 @@
-import { AfterViewChecked, AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, ElementRef, OnInit, ViewChild, Input } from '@angular/core';
 import { TestService } from 'src/app/quiz/shared/services/test.service';
 import { Question, QuestionStatus, Subject } from 'src/app/quiz/shared/models/classes';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -30,7 +30,7 @@ export class TestComponent implements OnInit {
 
   }
 
-
+  
 
   ngOnInit() {
     if (this.cookie.get('user') == "") {
