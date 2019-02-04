@@ -52,7 +52,15 @@ export class TestService {
 
   public getQuestionsByIdSubject(id): Observable<any> {
     return this.rest.get<any>('/api/question/answerWS/'+id);
-}
+  }
+
+  public getQuestionsByIdSubjectWOStatus(id): Observable<any> {
+    return this.rest.get<any>('/api/question/WAFQ/'+id);
+  }
+
+  public getQuestionsByIdSubjectDemoWOStatus(id): Observable<any> {
+    return this.rest.get<any>('/api/question/demo/WAFQ/'+id);
+  }
 
   public getRandQuestionsByIdSubject(id): Observable<any> {
     return this.rest.get<any>('/api/question/random/'+id);
@@ -77,6 +85,11 @@ public getAnswerStatuses(id): Observable<any> {
 public getQuestionDetails(id): Observable<any> {
 
   return  this.rest.get<any>('/api/question/WA/'+id) ;
+}
+
+public getQuestionDetailsDemo(id): Observable<any> {
+
+  return  this.rest.get<any>('/api/question/demo/WA/'+id) ;
 }
 
 public getTestsByCourse(course): Observable<any> {
