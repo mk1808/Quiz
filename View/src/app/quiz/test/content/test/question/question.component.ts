@@ -64,7 +64,7 @@ export class QuestionComponent implements OnInit {
 
    if ((question.image!=null) && (question.image!=undefined) && (question.image!=""))
     this.containsPhoto=true;
-   if (question.code!="") this.containsCode=true;
+   if (question.code!=null) this.containsCode=true;
     question.answers.forEach(
       answer => {
       const  answerStatus = new AnswerStatus();

@@ -22,10 +22,9 @@ export class TestService {
        {observe: 'response'});
   }
 
-  public checkAnswers(questions: QuestionStatus[], idUser, idSubject): Observable<any> {
+  public checkAnswers(questions: QuestionStatus[]): Observable<any> {
 
-    return  this.http.post<Result>('http://localhost/web/web/api/controllers/question/checkAnswers.php', 
-    JSON.stringify({'questions': questions, 'idUser':idUser, 'idSubject':idSubject,  jwt:this.cookie.get("jwt")}));
+    return  this.rest.post<Result>('/api/question/checkWR', questions );
   }
 
   public setResult(result: Result) {
@@ -63,13 +62,11 @@ export class TestService {
   return this.rest.get<any>('/api/subject/details/'+id);
 }
   public getDemoId(name): Observable<any> {
-    return this.http.post<any>('http://localhost/web/web/api/controllers/demo/getDemoId.php',
-    JSON.stringify(name),{observe: 'response'});
+    return this.rest.get<any>('/api/demo/details/'+ name);
 }
 public checkAnswersForDemo(questions: QuestionStatus[]): Observable<any> {
 
-  return  this.http.post<Result>('http://localhost/web/web/api/controllers/checkAnswers.php', 
-  JSON.stringify({'questions': questions}));
+  return  this.rest.post<Result>('/api/question/checkWOR',questions   );
 }
 
 public getAnswerStatuses(id): Observable<any> {

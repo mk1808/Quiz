@@ -23,8 +23,7 @@ export class TestResultComponent implements OnInit {
   @Input() set setQuestion(question: QuestionStatus) {
     this.question = question;
     this.testService.getQuestionDetails(this.question.id).subscribe(x => {
-
-      this.questionWithAnswer = x.body;
+      this.questionWithAnswer = x
       let status=1;
 
       this.questionWithAnswer.answers.forEach(x => {
@@ -43,6 +42,7 @@ export class TestResultComponent implements OnInit {
           this.answerStatuses.push("");
         }
       })
+      console.log(this.answerStatuses);
       if (status>0){
         this.questionStatus="correct";
       }
@@ -52,7 +52,7 @@ export class TestResultComponent implements OnInit {
       if ((this.questionWithAnswer.image != null) && (this.questionWithAnswer.image != undefined)
         && (this.questionWithAnswer.image != ""))
         this.containsPhoto = true;
-      if (this.questionWithAnswer.code != "") this.containsCode = true;
+      if (this.questionWithAnswer.code != null) this.containsCode = true;
       this.initialized = true;
     
       let text = this.questionWithAnswer.text;

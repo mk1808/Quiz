@@ -173,11 +173,12 @@ export class TestComponent implements OnInit {
       )
     }
     else {
-      this.testService.checkAnswers(this.questionStatuses, this.idUser, this.idSubject).subscribe(x => {
+      this.testService.checkAnswers(this.questionStatuses).subscribe(x => {
         this.testService.setQuestionsInResult(this.questionStatuses);
         this.testService.setResult(x);
         this.router.navigate(['../end'], { relativeTo: this.route });
-      });
+      },
+      e=>console.log(e));
     }
   }
 
