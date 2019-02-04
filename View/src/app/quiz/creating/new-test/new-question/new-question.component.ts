@@ -168,7 +168,7 @@ export class NewQuestionComponent implements OnInit, AfterViewInit {
     this.question=x;
     let answers = x.answers;
     this.newQuestionForm = this.fb.group({
-      category: [x.category, Validators.required],
+   
       question: [text, Validators.required],
       photo: [x.image],
       code: [code],
@@ -214,7 +214,7 @@ export class NewQuestionComponent implements OnInit, AfterViewInit {
 
   initEmptyForm() {
     this.newQuestionForm = this.fb.group({
-      category: ['', Validators.required],
+    
       question: ['', Validators.required],
       photo: [null],
       code: [null],
@@ -271,7 +271,7 @@ export class NewQuestionComponent implements OnInit, AfterViewInit {
       }
     }
       question.code = code;
-      question.category = this.newQuestionForm.controls.category.value;
+ 
       question.text = text;
      
       question.image = this.newQuestionForm.controls.photo.value;
@@ -344,13 +344,13 @@ else{
     }
     else{
       window.scroll(0,0);
-      this.newQuestionForm.controls.category.markAsTouched();
+    
       this.newQuestionForm.controls.question.markAsTouched();
     }
   }
 
   onClear() {
-    this.newQuestionForm.controls.category.setValue('');
+ 
     this.newQuestionForm.controls.question.setValue('');
     this.newQuestionForm.controls.code.setValue('');
     this.newQuestionForm.controls.photo.setValue('');
@@ -364,7 +364,7 @@ else{
     this.newQuestionForm.controls.checkAnswer3.setValue(false);
     this.newQuestionForm.controls.radioGroup.setValue(null);
     
-    this.newQuestionForm.controls.category.markAsUntouched();
+    
     this.newQuestionForm.controls.question.markAsUntouched();
     window.scroll(0,0);
   }
