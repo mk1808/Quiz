@@ -41,5 +41,9 @@ export class AuthService {
     };
     return this.http.put('/api/updateUser', user, httpOptions);
   }
+
+  public deleteUser(id):Observable<any>{
+    return this.rest.delete('/api/user/'+id);
+  }
   
 }

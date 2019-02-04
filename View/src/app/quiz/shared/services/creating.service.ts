@@ -40,4 +40,11 @@ public getTests(id): Observable<any> {
   return this.rest.get<Subject[]>('/api/subject/list/author/'+ id.toString());
 }
 
+public deleteQuestion(id):Observable<any>{
+  return this.rest.delete('/api/question/'+id);
+}
+
+public deleteSubject(id):Observable<any>{
+  return this.rest.delete('/api/subject/'+id);
+}
 }

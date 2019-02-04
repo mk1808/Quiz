@@ -232,7 +232,7 @@ export class NewTestComponent implements OnInit {
         user.surname = "Tymczasowy";
         user.course ="d";  
         this.auth.register(user).subscribe(userID=>{
-      
+          user.id = userID.user.id
           subject.course=userID.user.id;
           if (this.newTest) {
             this.creating.createSubject(subject).subscribe(x => {
@@ -253,15 +253,21 @@ export class NewTestComponent implements OnInit {
                     user.email = this.newTestForm.controls.email.value;
                    
                     this.auth.updateUser(user, auth.token).subscribe(t=>{
-                      this.router.navigate(['./new_question'], { relativeTo: this.route });})
+                      this.router.navigate(['./new_question'], { relativeTo: this.route });}, e =>{ console.log(e);
+                        this.auth.deleteUser(user.id)        
+                      });
 
-                    })
+                    }, e =>{ console.log(e);
+                      this.auth.deleteUser(user.id)        
+                    });
                   }
                 else {
                   this.router.navigate(['./new_question'], { relativeTo: this.route });
                 }
               //}
-            }, e => console.log(e));
+            }, e =>{ console.log(e);
+              this.auth.deleteUser(user.id)        
+            });
           } else {
             subject.id = this.idExistingTest;
             try {
@@ -278,15 +284,21 @@ export class NewTestComponent implements OnInit {
                       user.email = this.newTestForm.controls.email.value;
                    
                       this.auth.updateUser(user, auth.token).subscribe(t=>{
-                        this.router.navigate(['./new_question'], { relativeTo: this.route });})
+                        this.router.navigate(['./new_question'], { relativeTo: this.route });}, e =>{ console.log(e);
+                          this.auth.deleteUser(user.id)        
+                        });
   
-                      })
+                      }, e =>{ console.log(e);
+                        this.auth.deleteUser(user.id)        
+                      });
                     }
                   else {
                     this.router.navigate(['./new_question'], { relativeTo: this.route });
                   }
               
-              }, e => console.log(e));
+              }, e =>{ console.log(e);
+                this.auth.deleteUser(user.id)        
+              });
             }
             catch (e) {
               console.log(e);
