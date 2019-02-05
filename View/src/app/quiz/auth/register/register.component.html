@@ -18,7 +18,8 @@
                     mail
                   </i></span>
               </div>
-              <input type="text" class="form-control" placeholder="E-mail" formControlName="email">
+              <input type="text" class="form-control" placeholder="E-mail" formControlName="email"
+              [ngClass]="(registerForm.controls.email.valid || !registerForm.controls.email.touched)?'':'invalid'">
             </div>
           </div>
           <div fxLayout="row" class="inputPos">
@@ -28,7 +29,8 @@
                     vpn_key
                   </i></span>
               </div>
-              <input type="password" class="form-control" placeholder="Hasło" formControlName="password">
+              <input type="password" class="form-control" placeholder="Hasło" formControlName="password"
+              [ngClass]="(registerForm.controls.password.valid || !registerForm.controls.password.touched)?'':'invalid'">
             </div>
           </div>
           <div fxLayout="row" class="inputPos">
@@ -38,7 +40,8 @@
                     vpn_key
                   </i></span>
               </div>
-              <input type="password" class="form-control" placeholder="Powtórz hasło" formControlName="passwordRepeat">
+              <input type="password" class="form-control" placeholder="Powtórz hasło" formControlName="passwordRepeat"
+              [ngClass]="(registerForm.controls.passwordRepeat.valid || !registerForm.controls.passwordRepeat.touched)?'':'invalid'">
             </div>
           </div>
         </div>
@@ -50,7 +53,8 @@
                     person
                   </i></span>
               </div>
-              <input type="text" class="form-control" placeholder="Kierunek" formControlName="course">
+              <input type="text" class="form-control" placeholder="Kierunek" formControlName="course"
+              [ngClass]="(registerForm.controls.course.valid || !registerForm.controls.course.touched)?'':'invalid'">
             </div>
           </div>
 
@@ -61,7 +65,8 @@
                     person
                   </i></span>
               </div>
-              <input type="text" class="form-control" placeholder="Imię" formControlName="name">
+              <input type="text" class="form-control" placeholder="Imię" formControlName="name"
+              [ngClass]="(registerForm.controls.name.valid || !registerForm.controls.name.touched)?'':'invalid'">
             </div>
           </div>
 
@@ -72,7 +77,8 @@
                     person
                   </i></span>
               </div>
-              <input type="text" class="form-control" placeholder="Nazwisko" formControlName="surname">
+              <input type="text" class="form-control" placeholder="Nazwisko" formControlName="surname"
+              [ngClass]="(registerForm.controls.surname.valid || !registerForm.controls.surname.touched)?'':'invalid'">
             </div>
           </div>
         </div>
