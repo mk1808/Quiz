@@ -6,7 +6,7 @@ import { CreatingService } from '../../shared/services/creating.service';
 import { CookieService } from 'ngx-cookie-service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TestService } from '../../shared/services/test.service';
-import {AuthService} from "../../shared/services/auth.service";
+import { AuthService } from "../../shared/services/auth.service";
 import * as jwt_decode from "jwt-decode";
 
 
@@ -19,14 +19,14 @@ export class NewTestComponent implements OnInit {
   limitedTime: boolean = false;
   coursesTable: Cours[] = [];
   multipleChoiceTable: string[] = ['jednokrotny', 'wielokrotny']
-  subjects:string[]=['Programowanie w języku Java','Technologie Sieci WEB']
+  subjects: string[] = ['Programowanie w języku Java', 'Technologie Sieci WEB']
   user: User;
   newTest: boolean;
   idExistingTest: number;
   initialized: boolean = false;
   newTestForm: FormGroup;
   testName: string = "";
-  newUser:boolean = false;
+  newUser: boolean = false;
 
   constructor(private fb: FormBuilder, private dictionary: DictionaryService,
     private creating: CreatingService, private cookie: CookieService,
@@ -35,7 +35,8 @@ export class NewTestComponent implements OnInit {
     this.route.params.subscribe(x => {
       let id = x['id'];
       if (id != undefined) { this.newTest = false; this.idExistingTest = id; } else { this.newTest = true; }
-    });  }
+    });
+  }
 
 
   ngOnInit() {
@@ -67,13 +68,13 @@ export class NewTestComponent implements OnInit {
             description: [''],
             separatedPages: [false],
             canBack: [''],
-            randomize:[false],
-            newUser:[false],
-              email:[''],
-              password:[''],
-              passwordRepeat:['']
+            randomize: [false],
+            newUser: [false],
+            email: [''],
+            password: [''],
+            passwordRepeat: ['']
 
-          },{validator: this.formValidator});
+          }, { validator: this.formValidator });
           this.initialized = true;
           this.newTestForm.controls.time.disable();
           this.newTestForm.controls.canBack.disable();
@@ -81,47 +82,49 @@ export class NewTestComponent implements OnInit {
         }
         else {
           this.test.getQuizDetails(this.idExistingTest).subscribe(x => {
-          
-            
-              this.testName = x.name;
-              let hoursN = Math.floor(x.time / 60);
-              let minutesN = x.time - hoursN * 60;
 
-              let hours = String(hoursN);
-              let minutes = String(minutesN);
 
-              if (hoursN < 10) hours = "0" + String(hoursN);
-              if (minutesN < 10) minutes = "0" + String(minutesN);
+            this.testName = x.name;
+            let hoursN = Math.floor(x.time / 60);
+            let minutesN = x.time - hoursN * 60;
 
-              this.newUser = !isNaN(Number(x.course));
-              this.newTestForm = this.fb.group({
-                name: [x.name, Validators.required],
-                subject:[x.subject=='java'?'Programowanie w języku Java':'Technologie Sieci WEB', Validators.required],
-                limitedTime: [x.limitedTime],
-                multipleChoice: [{ value: (x.multipleChoice == 0 ? 'jednokrotny' : 'wielokrotny'), 
-                disabled: true }, Validators.required],
-                time: [hours + ":" + minutes],
-                course: [x.course],
-                description: [x.description],
-                separatedPages: [x.separatePage ],
-                canBack: [x.canBack],
-                randomize: [x.randomize ],
-                newUser:[this.newUser],
-                email:[''],
-                password:[''],
-                passwordRepeat:['']
-              });
-              this.initialized = true;
-              if(!x.separatePage)
-              this.newTestForm.controls.canBack.disable(); 
-            
+            let hours = String(hoursN);
+            let minutes = String(minutesN);
+
+            if (hoursN < 10) hours = "0" + String(hoursN);
+            if (minutesN < 10) minutes = "0" + String(minutesN);
+
+            this.newUser = !isNaN(Number(x.course));
+            this.newTestForm = this.fb.group({
+              name: [x.name, Validators.required],
+              subject: [x.subject == 'java' ? 'Programowanie w języku Java' : 'Technologie Sieci WEB', Validators.required],
+              limitedTime: [x.limitedTime],
+              multipleChoice: [{
+                value: (x.multipleChoice == 0 ? 'jednokrotny' : 'wielokrotny'),
+                disabled: true
+              }, Validators.required],
+              time: [hours + ":" + minutes],
+              course: [x.course],
+              description: [x.description],
+              separatedPages: [x.separatePage],
+              canBack: [x.canBack],
+              randomize: [x.randomize],
+              newUser: [this.newUser],
+              email: [''],
+              password: [''],
+              passwordRepeat: ['']
+            });
+            this.initialized = true;
+            if (!x.separatePage)
+              this.newTestForm.controls.canBack.disable();
+
           });
         }
       }
     }
   }
 
-  formValidator(group: FormGroup){
+  formValidator(group: FormGroup) {
     let correct = true;
     //group.clearValidators();
 
@@ -138,32 +141,32 @@ export class NewTestComponent implements OnInit {
     //
     //
 
-    if(group.controls.multipleChoice.value=="Krotność"){
-      group.controls.multipleChoice.setErrors({'invalid':true});
+    if (group.controls.multipleChoice.value == "Krotność") {
+      group.controls.multipleChoice.setErrors({ 'invalid': true });
     }
-    
-    if(group.controls.subject.value=="Przedmiot"){
-      group.controls.subject.setErrors({'invalid':true});
+
+    if (group.controls.subject.value == "Przedmiot") {
+      group.controls.subject.setErrors({ 'invalid': true });
     }
-    if ( group.controls.newUser.value){
-      if(group.controls.email.value==""){
-        correct=false;
-        group.controls.email.setErrors({'invalid':true});
+    if (group.controls.newUser.value) {
+      if (group.controls.email.value == "") {
+        correct = false;
+        group.controls.email.setErrors({ 'invalid': true });
       }
-      if(group.controls.password.value==""){
-        correct=false;
-        group.controls.password.setErrors({'invalid':true});
+      if (group.controls.password.value == "") {
+        correct = false;
+        group.controls.password.setErrors({ 'invalid': true });
       }
-      if(group.controls.password.value!=group.controls.passwordRepeat.value){
-        correct=false;
-        group.controls.passwordRepeat.setErrors({'invalid':true});
+      if (group.controls.password.value != group.controls.passwordRepeat.value) {
+        correct = false;
+        group.controls.passwordRepeat.setErrors({ 'invalid': true });
       }
       group.controls.course.setErrors(null);
     }
     else {
-      if(group.controls.course.value=="Kierunek studiów"){
-        correct=false;
-        group.controls.course.setErrors({'invalid':true});
+      if (group.controls.course.value == "Kierunek studiów") {
+        correct = false;
+        group.controls.course.setErrors({ 'invalid': true });
       }
       group.controls.email.setErrors(null);
       group.controls.password.setErrors(null);
@@ -171,7 +174,7 @@ export class NewTestComponent implements OnInit {
     }
 
 
-    return correct? null:true;
+    return correct ? null : true;
   }
 
   onClickLimitedTime() {
@@ -181,7 +184,7 @@ export class NewTestComponent implements OnInit {
     else { this.newTestForm.controls.time.disable(); }
   }
 
-  onClickNewUser(){
+  onClickNewUser() {
     this.newUser = !this.newUser;
   }
 
@@ -196,7 +199,7 @@ export class NewTestComponent implements OnInit {
     }
   }
 
-  
+
 
   onBack() {
     if(this.newTest)
@@ -227,90 +230,98 @@ export class NewTestComponent implements OnInit {
       else {
         subject.multipleChoice = true;
       }
-      
+
       if (this.newTestForm.controls.subject.value == 'Programowanie w języku Java') {
         subject.subject = "java";
       }
       else {
         subject.subject = "web";
       }
-      this.cookie.set("multiple", subject.multipleChoice.toString(),null, "/");
+      this.cookie.set("multiple", subject.multipleChoice.toString(), null, "/");
 
-      if(this.newTestForm.controls.newUser.value){
-        let user:User = new User();
-        user.email = this.newTestForm.controls.email.value+'@prz.pl';
+      if (this.newTestForm.controls.newUser.value) {
+        let user: User = new User();
+        user.email = this.newTestForm.controls.email.value + '@prz.pl';
         user.password = this.newTestForm.controls.password.value;
         user.c_password = this.newTestForm.controls.passwordRepeat.value;
-        user.name="Użytkownik";
+        user.name = "Użytkownik";
         user.surname = "Tymczasowy";
-        user.course ="d";  
-        this.auth.register(user).subscribe(userID=>{
+        user.course = "d";
+        this.auth.register(user).subscribe(userID => {
           user.id = userID.user.id
-          subject.course=userID.user.id;
+          subject.course = userID.user.id;
           if (this.newTest) {
             this.creating.createSubject(subject).subscribe(x => {
-              
-                subject.id = x.id;
-                this.cookie.set("subject",JSON.stringify(subject),null,'/');
-             
-                this.cookie.set("idSubject", x.id.toString(),null, "/");
 
-                if(this.newTestForm.controls.newUser.value){
-                  
-                  this.auth.logIn(user).subscribe(auth=>{
-                    
-                    let data  = auth.user
-                    user.id=data.id;
-                    user.course = data.id.toString()
-                    user.role = data.role.toString(); 
-                    user.email = this.newTestForm.controls.email.value;
-                   
-                    this.auth.updateUser(user, auth.token).subscribe(t=>{
-                      this.router.navigate(['./new_question'], { relativeTo: this.route });}, e =>{ console.log(e);
-                        this.auth.deleteUser(user.id)        
-                      });
+              subject.id = x.id;
+              this.cookie.set("subject", JSON.stringify(subject), null, '/');
 
-                    }, e =>{ console.log(e);
-                      this.auth.deleteUser(user.id)        
-                    });
-                  }
-                else {
-                  this.router.navigate(['./new_question'], { relativeTo: this.route });
-                }
+              this.cookie.set("idSubject", x.id.toString(), null, "/");
+
+              if (this.newTestForm.controls.newUser.value) {
+
+                this.auth.logIn(user).subscribe(auth => {
+
+                  let data = auth.user
+                  user.id = data.id;
+                  user.course = data.id.toString()
+                  user.role = data.role.toString();
+                  user.email = this.newTestForm.controls.email.value;
+
+                  this.auth.updateUser(user, auth.token).subscribe(t => {
+                    this.router.navigate(['./new_question'], { relativeTo: this.route });
+                  }, e => {
+                    console.log(e);
+                    this.auth.deleteUser(user.id)
+                  });
+
+                }, e => {
+                  console.log(e);
+                  this.auth.deleteUser(user.id)
+                });
+              }
+              else {
+                this.router.navigate(['./new_question'], { relativeTo: this.route });
+              }
               //}
-            }, e =>{ console.log(e);
-              this.auth.deleteUser(user.id)        
+            }, e => {
+              console.log(e);
+              this.auth.deleteUser(user.id)
             });
           } else {
             subject.id = this.idExistingTest;
             try {
               this.creating.updateSubject(subject).subscribe(x => {
-              
-                
-                  if(this.newTestForm.controls.newUser.value){
-                    this.auth.logIn(user).subscribe(auth=>{
-                      
-                      let data  = auth.user
-                      user.id=data.id;
-                      user.course = data.id.toString()
-                      user.role = data.role.toString();
-                      user.email = this.newTestForm.controls.email.value;
-                   
-                      this.auth.updateUser(user, auth.token).subscribe(t=>{
-                        this.router.navigate(['./new_question'], { relativeTo: this.route });}, e =>{ console.log(e);
-                          this.auth.deleteUser(user.id)        
-                        });
-  
-                      }, e =>{ console.log(e);
-                        this.auth.deleteUser(user.id)        
-                      });
-                    }
-                  else {
-                    this.router.navigate(['./new_question'], { relativeTo: this.route });
-                  }
-              
-              }, e =>{ console.log(e);
-                this.auth.deleteUser(user.id)        
+
+
+                if (this.newTestForm.controls.newUser.value) {
+                  this.auth.logIn(user).subscribe(auth => {
+
+                    let data = auth.user
+                    user.id = data.id;
+                    user.course = data.id.toString()
+                    user.role = data.role.toString();
+                    user.email = this.newTestForm.controls.email.value;
+
+                    this.auth.updateUser(user, auth.token).subscribe(t => {
+                      this.router.navigate(['./new_question'], { relativeTo: this.route });
+                    }, e => {
+                      console.log(e);
+                      this.auth.deleteUser(user.id)
+                    });
+
+                  }, e => {
+                    console.log(e);
+                    this.auth.deleteUser(user.id)
+                  });
+                }
+                else {
+                  this.router.navigate(['./new_question'], { relativeTo: this.route });
+                }
+
+              }, e => {
+                console.log(e);
+                this.auth.deleteUser(user.id)
               });
             }
             catch (e) {
@@ -325,22 +336,22 @@ export class NewTestComponent implements OnInit {
 
         if (this.newTest) {
           this.creating.createSubject(subject).subscribe(x => {
-            
-              subject.id = x.id;
-              this.cookie.set("subject",JSON.stringify(subject),null,'/');
-              this.cookie.set("idSubject", x.id.toString(),null, "/");
-              this.router.navigate(['./new_question'], { relativeTo: this.route });
-            
+
+            subject.id = x.id;
+            this.cookie.set("subject", JSON.stringify(subject), null, '/');
+            this.cookie.set("idSubject", x.id.toString(), null, "/");
+            this.router.navigate(['./new_question'], { relativeTo: this.route });
+
           }, e => console.log(e));
         } else {
           subject.id = this.idExistingTest;
           try {
             this.creating.updateSubject(subject).subscribe(x => {
-            
-              
-                this.cookie.set("idSubject", this.idExistingTest.toString(),null, "/");
-                this.router.navigate(['../new_question'], { relativeTo: this.route });
-              
+
+
+              this.cookie.set("idSubject", this.idExistingTest.toString(), null, "/");
+              this.router.navigate(['../new_question'], { relativeTo: this.route });
+
             }, e => console.log(e));
           }
           catch (e) {
@@ -364,8 +375,8 @@ export class NewTestComponent implements OnInit {
       this.newTestForm.controls["newUser"].markAsTouched();
       this.newTestForm.controls["email"].markAsTouched();
       this.newTestForm.controls["password"].markAsTouched();
-      this.newTestForm.controls["passwordRepeat"].markAsTouched();   
-    
+      this.newTestForm.controls["passwordRepeat"].markAsTouched();
+
     }
   }
 
