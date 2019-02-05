@@ -271,9 +271,11 @@ export class NewQuestionComponent implements OnInit, AfterViewInit {
         group.controls.checkAnswer3.setErrors({'invalid':true});
          
        }
-    
-
-    return correct? null:true;
+       else 
+       group.controls.checkAnswer3.setErrors(null);
+       if(correct)
+       group.setErrors(null);
+      return correct? null:true;
   }
 
   checkAnswerValid(){
@@ -296,7 +298,6 @@ export class NewQuestionComponent implements OnInit, AfterViewInit {
   }
 
   onAdd() {
-
     if (this.newQuestionForm.valid) {
 
       let question = new Question;
