@@ -85,7 +85,8 @@
   }
   */
   .category{
-      min-width: fit-content;
+      min-width: 100px;
+     
   }
 
 .iconStyle{
@@ -123,6 +124,7 @@
 
 .numberBox{
     position: relative;
+
 }
 
 .answerBox{

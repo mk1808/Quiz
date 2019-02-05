@@ -125,12 +125,14 @@ export class TestComponent implements OnInit {
   }
 
   nextQuestion() {
+    window.scroll(0,window.innerHeight/2);
     if (this.questionIndex < this.questions.length - 1) { this.questionIndex++; }
     else {
       this.lastQuestion = true;
     }
   }
   prevQuestion() {
+    window.scroll(0,window.innerHeight/2);
     if (this.questionIndex > 0) {
       this.questionIndex--;
       this.firstQuestion = false;
