@@ -371,7 +371,8 @@ else{
   onBack() {
     if (this.newQuestion)
     {
-    this.router.navigate(['/creating/new_test']);}
+      let id=this.subject.id;
+    this.router.navigate(['/creating/new_test',id]);}
     else
     {
       this.router.navigate(['/creating/teacher_panel']);
