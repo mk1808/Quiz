@@ -186,8 +186,11 @@ export class NewQuestionComponent implements OnInit, AfterViewInit {
       checkAnswer2: [x.answers[2].status == 1],
       checkAnswer3: [x.answers[3].status == 1],
       radioGroup:[null]
-    });
+    },{validator: this.formValidator});
     this.initialized = true;
+    this.newQuestionForm.statusChanges.subscribe(x=>{
+      this.checkAnswerValid();
+    });
     this.idSubject = this.cookie.get('idSubject');
     if (this.subject.multipleChoice) {
       this.newQuestionForm.controls.checkAnswer0.setValue(x.answers[0].status == 1);
@@ -293,7 +296,7 @@ export class NewQuestionComponent implements OnInit, AfterViewInit {
   }
 
   onAdd() {
-    
+
     if (this.newQuestionForm.valid) {
 
       let question = new Question;
