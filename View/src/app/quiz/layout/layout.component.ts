@@ -17,7 +17,7 @@ export class LayoutComponent implements OnInit,AfterContentChecked {
   }
 
   ngAfterContentChecked(){
-    this.height=(window.innerHeight-this.header.nativeElement.scrollHeight-this.footer.nativeElement.scrollHeight);
+    this.height=(window.innerHeight-this.header.nativeElement.scrollHeight-this.footer.nativeElement.scrollHeight-50);
   }
 
 }
