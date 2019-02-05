@@ -3,6 +3,7 @@
     background-color:#2a2a2a;
   padding-top: 0;
   padding-bottom: 0;
+  cursor:pointer;
 }
 
 .logoHeader{
@@ -97,7 +98,8 @@ margin-right: 90px !important;
  
  .appNavbar{
 	margin-right: 0px !important;
-	text-align:center;
+  text-align:center;
+ 
   
 }
 .appNavItem{

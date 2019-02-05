@@ -19,6 +19,7 @@ export class TeacherMainPanelComponent implements OnInit {
     private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
+    window.scroll(0,0);
     if (this.cookie.get('user') == "") {
       this.router.navigate(['/']);
     }
