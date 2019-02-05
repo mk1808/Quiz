@@ -19,6 +19,7 @@ export class NewTestComponent implements OnInit {
   limitedTime: boolean = false;
   coursesTable: Cours[] = [];
   multipleChoiceTable: string[] = ['jednokrotny', 'wielokrotny']
+  subjects:string[]=['Programowanie w języku Java','Technologie Sieci WEB']
   user: User;
   newTest: boolean;
   idExistingTest: number;
@@ -58,6 +59,7 @@ export class NewTestComponent implements OnInit {
         if (this.newTest) { // TUTAJ
           this.newTestForm = this.fb.group({
             name: ['', Validators.required],
+            subject: ['Przedmiot', Validators.required],
             limitedTime: [false],
             multipleChoice: ['Krotność', Validators.required],
             time: [''],
@@ -94,7 +96,7 @@ export class NewTestComponent implements OnInit {
               this.newUser = !isNaN(Number(x.course));
               this.newTestForm = this.fb.group({
                 name: [x.name, Validators.required],
-            
+                subject:[x.subject=='java'?'Programowanie w języku Java':'Technologie Sieci WEB', Validators.required],
                 limitedTime: [x.limitedTime],
                 multipleChoice: [{ value: (x.multipleChoice == 0 ? 'jednokrotny' : 'wielokrotny'), 
                 disabled: true }, Validators.required],
@@ -140,6 +142,9 @@ export class NewTestComponent implements OnInit {
       group.controls.multipleChoice.setErrors({'invalid':true});
     }
     
+    if(group.controls.subject.value=="Przedmiot"){
+      group.controls.subject.setErrors({'invalid':true});
+    }
     if ( group.controls.newUser.value){
       if(group.controls.email.value==""){
         correct=false;
@@ -218,6 +223,13 @@ export class NewTestComponent implements OnInit {
       }
       else {
         subject.multipleChoice = true;
+      }
+      
+      if (this.newTestForm.controls.subject.value == 'Programowanie w języku Java') {
+        subject.subject = "java";
+      }
+      else {
+        subject.subject = "web";
       }
       this.cookie.set("multiple", subject.multipleChoice.toString(),null, "/");
 
@@ -340,6 +352,7 @@ export class NewTestComponent implements OnInit {
       this.newTestForm.controls["name"].markAsTouched();
       this.newTestForm.controls["limitedTime"].markAsTouched();
       this.newTestForm.controls["multipleChoice"].markAsTouched();
+      this.newTestForm.controls["subject"].markAsTouched();
       this.newTestForm.controls["course"].markAsTouched();
       this.newTestForm.controls["description"].markAsTouched();
       this.newTestForm.controls["separatedPages"].markAsTouched();
