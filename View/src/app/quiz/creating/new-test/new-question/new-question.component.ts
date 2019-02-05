@@ -459,7 +459,7 @@ else{
     this.router.navigate(['/creating/new_test',id]);}
     else
     {
-      this.router.navigate(['/creating/teacher_panel']);
+      this.router.navigate(['/creating/new_test/resume']);
     }
   }
   onResume() {

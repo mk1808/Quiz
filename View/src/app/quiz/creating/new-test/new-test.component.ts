@@ -199,7 +199,10 @@ export class NewTestComponent implements OnInit {
   
 
   onBack() {
+    if(this.newTest)
     this.router.navigate(['/creating/teacher_panel']);
+    else
+    this.router.navigate(['/creating/new_test/resume']);
   }
   onCreate() {
     if (this.newTestForm.valid) {
