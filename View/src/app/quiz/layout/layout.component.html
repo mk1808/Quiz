@@ -1,6 +1,7 @@
-<app-header></app-header>
-
-<div class="container-fluid">
+<div #header>
+<app-header ></app-header>
+</div>
+<div class="container-fluid" #content  [ngStyle]="{'min-height':height+'px'}"> 
   <div class="row">
     <div class="col-md-12">
     
@@ -9,5 +10,6 @@
     </div>
   </div>
 </div>
-
+<div #footer>
 <app-footer></app-footer>
+</div>

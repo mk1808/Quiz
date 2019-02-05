@@ -84,7 +84,13 @@ html{
         font-size: 60px;
     }
 }
+@media only screen and (max-width: 400px) {
+  .wTitle{
+      font-size: 40px;
+  }
+}
 @media only screen and (max-width: 380px) {
+  
   .inputPos{
     width:280px;
   }
