@@ -56,4 +56,18 @@ export class HeaderComponent implements OnInit {
     event.path[2].classList.remove('show');
   }
 
+  onLogo(){
+    if (this.cookie.get('user') == "") {
+      this.router.navigate(['/main'], );
+    }
+    else {
+      if (JSON.parse(this.cookie.get('user')).role == 1) {
+        this.router.navigate(['../creating/teacher_panel'], { relativeTo: this.route });
+      }
+      else {
+        this.router.navigate(['../quiz/student_panel'], { relativeTo: this.route });
+      }
+    }
+  }
+
 }
