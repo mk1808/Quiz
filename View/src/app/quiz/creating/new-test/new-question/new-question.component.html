@@ -32,22 +32,22 @@
             <div fxLayout="row" *ngFor="let answer of answers, let i=index">
               
               <div *ngIf="subject.multipleChoice">
-                <mat-checkbox color="primary" class="checkPos" formControlName="checkAnswer{{i}}">
+                <mat-checkbox color="primary" class="checkPos" formControlName="checkAnswer{{i}}" >
                 </mat-checkbox>
               </div>
-              <div *ngIf="!subject.multipleChoice">
+              <div *ngIf="!subject.multipleChoice" >
                 <mat-radio-button color="primary" class="checkPos" #radioButton value="{{i}}">
-                </mat-radio-button>
+                </mat-radio-button> 
               </div>
 
               <div fxLayout="row">
                 <textarea class="form-control smallTextAreaSize" rows="2" placeholder="Treść odpowiedzi"
-                  formControlName="answer{{i}}" ></textarea>
+                  formControlName="answer{{i}}" [ngClass]="answerStyles[i]"></textarea>
               </div>
             </div>
+          <div *ngIf="pleaseCheckAnswer" class="checkAnwer"><p>Proszę wskazać poprawną odpowiedź!</p></div>
           </mat-radio-group>
-
-        </div>
+        </div> 
         <div fxLayout="column" fxFlex="40%" fxFlex.lt-md="100%">
           <app-question-list #questionList class="questionList"></app-question-list>
         </div>

@@ -30,6 +30,12 @@ export class NewQuestionComponent implements OnInit, AfterViewInit {
   answers = [new Answer, new Answer, new Answer, new Answer];
   quizName: string;
   idSubject: string;
+  checkBoxStyles=[];
+  answerStyles=[];
+  pleaseCheckAnswer=false;
+
+
+
   constructor(private fb: FormBuilder, private creating: CreatingService,
     private test: TestService, private router: Router, private route: ActivatedRoute,
     private cookie: CookieService) {
@@ -125,8 +131,6 @@ export class NewQuestionComponent implements OnInit, AfterViewInit {
   }
 
   initForm(x) {
-    
-
 
     let code = x.code;
     if(code!=null){
@@ -182,8 +186,11 @@ export class NewQuestionComponent implements OnInit, AfterViewInit {
       checkAnswer2: [x.answers[2].status == 1],
       checkAnswer3: [x.answers[3].status == 1],
       radioGroup:[null]
-    });
+    },{validator: this.formValidator});
     this.initialized = true;
+    this.newQuestionForm.statusChanges.subscribe(x=>{
+      this.checkAnswerValid();
+    });
     this.idSubject = this.cookie.get('idSubject');
     if (this.subject.multipleChoice) {
       this.newQuestionForm.controls.checkAnswer0.setValue(x.answers[0].status == 1);
@@ -228,13 +235,69 @@ export class NewQuestionComponent implements OnInit, AfterViewInit {
       checkAnswer2: [false],
       checkAnswer3: [false],
       radioGroup:[null]
-    });
+    },{validator: this.formValidator});
     this.initialized = true;
+    this.newQuestionForm.statusChanges.subscribe(x=>{
+      this.checkAnswerValid();
+    });
+  }
+  
+  formValidator(group: FormGroup){
+    let correct = true;
+    if(group.controls.answer0.value==""){
+      correct=false;
+      group.controls.answer0.setErrors({'invalid':true});
+      
+    } 
+    if(group.controls.answer1.value==""){
+      correct=false;
+      group.controls.answer1.setErrors({'invalid':true});
+      
+    } 
+    if(group.controls.answer2.value==""){
+      correct=false;
+      group.controls.answer2.setErrors({'invalid':true});
+    }
+    if(group.controls.answer3.value==""){
+      correct=false;
+      group.controls.answer3.setErrors({'invalid':true});
+     }
+
+    if (!group.controls.checkAnswer0.value &&
+       !group.controls.checkAnswer1.value &&
+       !group.controls.checkAnswer2.value &&
+       !group.controls.checkAnswer3.value)
+       {
+        group.controls.checkAnswer3.setErrors({'invalid':true});
+         
+       }
+       else 
+       group.controls.checkAnswer3.setErrors(null);
+       if(correct)
+       group.setErrors(null);
+      return correct? null:true;
   }
 
+  checkAnswerValid(){
+    if(this.newQuestionForm.controls.answer0.invalid && this.newQuestionForm.controls.answer0.touched )
+    this.answerStyles[0]='invalid';
+    else 
+    this.answerStyles[0]='';
+    if(this.newQuestionForm.controls.answer1.invalid && this.newQuestionForm.controls.answer1.touched )
+    this.answerStyles[1]='invalid';
+    else 
+    this.answerStyles[1]='';
+    if(this.newQuestionForm.controls.answer2.invalid && this.newQuestionForm.controls.answer2.touched )
+    this.answerStyles[2]='invalid';
+    else 
+    this.answerStyles[2]='';
+    if(this.newQuestionForm.controls.answer3.invalid && this.newQuestionForm.controls.answer3.touched )
+    this.answerStyles[3]='invalid';
+    else 
+    this.answerStyles[3]='';
+  }
 
   onAdd() {
-    
     if (this.newQuestionForm.valid) {
 
       let question = new Question;
@@ -344,9 +407,23 @@ else{
 }
     }
     else{
-      window.scroll(0,0);
-    
+      
       this.newQuestionForm.controls.question.markAsTouched();
+      this.newQuestionForm.controls.answer0.markAsTouched();
+      this.newQuestionForm.controls.answer1.markAsTouched();
+      this.newQuestionForm.controls.answer2.markAsTouched();
+      this.newQuestionForm.controls.answer3.markAsTouched();
+      if (!this.newQuestionForm.controls.checkAnswer0.value &&
+        !this.newQuestionForm.controls.checkAnswer1.value &&
+        !this.newQuestionForm.controls.checkAnswer2.value &&
+        !this.newQuestionForm.controls.checkAnswer3.value)
+        this.pleaseCheckAnswer=true;
+        else this.pleaseCheckAnswer=false;
+      this.checkAnswerValid();
+      if( this.pleaseCheckAnswer)
+      window.scroll(0,window.innerHeight/3);
+      else 
+      window.scroll(0,window.innerHeight/3);
     }
   }
 
@@ -364,10 +441,17 @@ else{
     this.newQuestionForm.controls.checkAnswer2.setValue(false);
     this.newQuestionForm.controls.checkAnswer3.setValue(false);
     this.newQuestionForm.controls.radioGroup.setValue(null);
-    
+
+    this.pleaseCheckAnswer=false;
+    for(let i = 0; i < 4; i++)
+    this.answerStyles[i]='';
     
     this.newQuestionForm.controls.question.markAsUntouched();
-    window.scroll(0,0);
+    this.newQuestionForm.controls.answer0.markAsUntouched();
+    this.newQuestionForm.controls.answer1.markAsUntouched();
+    this.newQuestionForm.controls.answer2.markAsUntouched();
+    this.newQuestionForm.controls.answer3.markAsUntouched();
+    window.scroll(0,window.innerHeight/3);
   }
   onBack() {
     if (this.newQuestion)
@@ -376,7 +460,7 @@ else{
     this.router.navigate(['/creating/new_test',id]);}
     else
     {
-      this.router.navigate(['/creating/teacher_panel']);
+      this.router.navigate(['/creating/new_test/resume']);
     }
   }
   onResume() {
