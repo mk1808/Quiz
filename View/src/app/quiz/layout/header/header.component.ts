@@ -29,6 +29,9 @@ export class HeaderComponent implements OnInit {
     if(this.cookie.get('user')=="") {
       this.logged = false;
     }
+    else if(this.cookie.get('token')==""){
+      this.logged = false;
+    }
     else {
       this.logged = true;
       this.name = JSON.parse(this.cookie.get('user')).name+" "+JSON.parse(this.cookie.get('user')).surname;
@@ -45,6 +48,7 @@ export class HeaderComponent implements OnInit {
   wyloguj(){
     this.cookie.deleteAll('*');
 	this.cookie.set('user','',-60,'/');
+	this.cookie.set('token','',-60,'/');
     this.router.navigate(['/login']);
   }
 
