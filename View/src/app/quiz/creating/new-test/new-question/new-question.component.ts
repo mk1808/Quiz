@@ -42,6 +42,7 @@ export class NewQuestionComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    window.scroll(0,0);
     if (this.cookie.get('user') == "") {
       this.router.navigate(['/']);
     }

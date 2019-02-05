@@ -33,6 +33,7 @@ export class TestComponent implements OnInit {
   
 
   ngOnInit() {
+    window.scroll(0,0);
     if (this.cookie.get('user') == "") {
       if (window.location.href.split('/')[4] == 'demo') {
         this.idSubject = this.cookie.get('idSubject')

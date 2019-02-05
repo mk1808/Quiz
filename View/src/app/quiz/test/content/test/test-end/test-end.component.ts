@@ -17,10 +17,12 @@ export class TestEndComponent implements OnInit {
   marks: number[] = [2,2,3,3,3.5,3.5,4,4,4.5,4.5,5,5];
   questions: QuestionStatus[];
   mark:number;
+  scrollOpen:boolean=false;
   constructor(private testService: TestService, private router: Router,
     private route: ActivatedRoute, private cookie: CookieService) { }
 
   ngOnInit() {
+    window.scroll(0,0);
     if (this.cookie.get('user') == "") {
       if (window.location.href.split('/')[4] == 'demo') {
         let result: Result = this.testService.getResult();
@@ -89,6 +91,14 @@ export class TestEndComponent implements OnInit {
   };
 
   scrollTop() {
-    window.scroll(0, 0);
+    if (this.scrollOpen){
+      window.scroll(0, 0);
+      this.scrollOpen=false;
+    }
+    else{ 
+      window.scroll(0, window.innerHeight*3/4);
+    this.scrollOpen=true;
+  }
+   
   }
 }
