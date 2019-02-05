@@ -37,6 +37,7 @@ export class ResumeTestComponent implements OnInit {
            
               this.subject = x;
               this.cookie.set("subject",JSON.stringify(this.subject),null,'/');
+              console.log(this.subject);
             
           });
         }

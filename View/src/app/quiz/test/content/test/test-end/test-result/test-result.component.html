@@ -40,24 +40,30 @@
 
  <div *ngFor="let answer of  questionWithAnswer.answers; let i=index ">
         <div fxLayout="row" *ngIf="multipleChoice==1">
-          <article class="message is-primary"  
-          >
+          <article class="message is-primary" >
             <div class="message-body answer answerStyle">
 
               <mat-checkbox color="primary"   [checked]="trueTable[i]"  [disabled]="true"  >
 
               </mat-checkbox>
         
-              <p>{{answer.text}}</p>
+              <p class="answerBox">
+                  <span class="answerText">  {{answer.text}} </span> 
+                  
+                  <i *ngIf="answerStatuses[i]=='correct'" class="material-icons iconStyle">
+                      check_box
+                      </i>
+                        <i *ngIf="answerStatuses[i]=='incorrect'" class="material-icons iconStyleFalse">
+                            cancel
+                            </i>
+                </p>
             </div>
           </article>
         </div>
 
         <div fxLayout="row" *ngIf="multipleChoice==0">
           <article class="message is-primary"  >
-            <div class="message-body answer answerStyle"
-           >
-     
+            <div class="message-body answer answerStyle">
               <mat-radio-button color="primary" [value]="i" 
               [checked]="trueTable[i]" [disabled]="true" ></mat-radio-button>
               <p class="answerBox">

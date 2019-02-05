@@ -90,31 +90,35 @@
 
 .iconStyle{
 
-    color: #21c721;
+    color: #55c155;
     position: absolute;
     top: -3px;
     font-size: 46px;
+    margin-left: 3px;
 }
 .iconStyleFalse{
 
-    color: red;
+    color: #e12d2d;
     position: absolute;
-    top: 2px;
+    top: -3px;
     font-size: 46px;
+    margin-left: 3px;
 }
 .iconQuestionStyle{
 
-    color: #21c721;
+    color: #55c155;
     position: absolute;
     top: 2px;
     font-size: 30px;
+    margin-left:4px;
 }
 .iconQuestionStyleFalse{
 
-    color: red;
+    color: #e12d2d;
     position: absolute;
     top: 2px;
     font-size: 30px;
+    margin-left:4px;
 }
 
 .numberBox{

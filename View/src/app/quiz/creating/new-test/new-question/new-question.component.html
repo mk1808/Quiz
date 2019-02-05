@@ -6,18 +6,7 @@
       </div>
       <div fxLayout="row" fxLayout.lt-md="column" class="rowPos" fxFlex="100%">
         <div fxLayout="column" fxFlex="60%" fxFlex.lt-md="100%" fxLayoutAlign="start center">
-          <div class="inputPos  inputSize">
-            <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <span class="input-group-text inputStyle">
-                  <i class="material-icons">
-                    keyboard_arrow_right
-                  </i></span>
-              </div>
-              <input type="text" class="form-control" placeholder="Kategoria" aria-label="category" aria-describedby="basic-addon1"
-                formControlName="category" [ngClass]="(newQuestionForm.controls.category.valid || !newQuestionForm.controls.category.touched)?'':'invalid'">
-            </div>
-          </div>
+
           <div>
             <textarea class="form-control textAreaSize" rows="2" placeholder="Treść pytania"
              formControlName="question" [ngClass]="(newQuestionForm.controls.question.valid || !newQuestionForm.controls.question.touched)?'':'invalid'"></textarea>

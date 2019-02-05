@@ -58,7 +58,6 @@ export class NewTestComponent implements OnInit {
         if (this.newTest) { // TUTAJ
           this.newTestForm = this.fb.group({
             name: ['', Validators.required],
-            nOQuestions: ['', Validators.required],
             limitedTime: [false],
             multipleChoice: ['Krotność', Validators.required],
             time: [''],
@@ -95,7 +94,7 @@ export class NewTestComponent implements OnInit {
               this.newUser = !isNaN(Number(x.course));
               this.newTestForm = this.fb.group({
                 name: [x.name, Validators.required],
-                nOQuestions: [x.noQuestions, Validators.required],
+            
                 limitedTime: [x.limitedTime],
                 multipleChoice: [{ value: (x.multipleChoice == 0 ? 'jednokrotny' : 'wielokrotny'), 
                 disabled: true }, Validators.required],
@@ -204,7 +203,6 @@ export class NewTestComponent implements OnInit {
       subject.description = this.newTestForm.controls.description.value;
       subject.name = this.newTestForm.controls.name.value;
       subject.limitedTime = this.newTestForm.controls.limitedTime.value;
-      subject.nOQuestions = this.newTestForm.controls.nOQuestions.value;
       subject.separatePage = this.newTestForm.controls.separatedPages.value;
       subject.canBack = this.newTestForm.controls.canBack.value;
       subject.randomize = this.newTestForm.controls.randomize.value;
@@ -326,7 +324,6 @@ export class NewTestComponent implements OnInit {
     else {
 
       this.newTestForm.controls["name"].markAsTouched();
-      this.newTestForm.controls["nOQuestions"].markAsTouched();
       this.newTestForm.controls["limitedTime"].markAsTouched();
       this.newTestForm.controls["multipleChoice"].markAsTouched();
       this.newTestForm.controls["course"].markAsTouched();
