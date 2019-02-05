@@ -3,6 +3,7 @@ export class Subject {
   name: string;
   idAuthor: number;
   nOQuestions: number;
+  noQuestions: number;
   multipleChoice: boolean;
   separatePage: boolean=false;
   canBack: boolean=false;

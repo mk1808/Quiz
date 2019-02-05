@@ -37,7 +37,7 @@ export class TestComponent implements OnInit {
       if (window.location.href.split('/')[4] == 'demo') {
         this.idSubject = this.cookie.get('idSubject')
         this.subjectObj = JSON.parse(this.cookie.get("subj"));
-        this.testService.getQuestionsByIdSubject(this.idSubject).subscribe(x => {
+        this.testService.getQuestionsByIdSubjectDemoWOStatus(this.idSubject).subscribe(x => {
         
       
            
@@ -95,7 +95,7 @@ export class TestComponent implements OnInit {
             });
           }
           else {
-            this.testService.getQuestionsByIdSubject(this.idSubject).subscribe(x => {
+            this.testService.getQuestionsByIdSubjectWOStatus(this.idSubject).subscribe(x => {
           
                 this.questions = x;
 

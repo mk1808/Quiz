@@ -30,7 +30,7 @@ export class StudentMainPanelComponent implements OnInit {
       else {
         this.course = JSON.parse(this.cookie.get('user')).course;
         this.test.getTestsByCourse(this.course).subscribe(x => {
-          
+          console.log(x);
             this.tests = x;
           
         })
