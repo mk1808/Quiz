@@ -89,6 +89,44 @@
   font-size: 24px;
 }
 
+.cardStyle{
+  height: 160px;
+ /* border:3px solid #0281D6!important;*/
+  
+  border-radius: 10px;
+}
+
+.buttonClass{
+  margin:0 auto;
+}
+
+.cardText{
+  text-align: center;
+  font-size: 30px;
+  color:white;
+  
+}
+
+.continue{
+  margin-top: 10px!important;
+}
+
+.col-md-5{
+  margin-top:20px;
+}
+
+.card:hover{
+  background-color: #3c3d3e;
+}
+
+.card{
+  background-color: #2a2a2a;
+  border:3px solid #0281D6!important;
+  border-radius: 10px;
+  margin-bottom: 40px!important;
+  cursor: pointer;
+  transition-duration:300ms; 
+}
 
 @media only screen and (max-width: 960px) {
   .question{
