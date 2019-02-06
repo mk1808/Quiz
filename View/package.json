@@ -36,6 +36,7 @@
     "ngx-google-map": "^1.0.0",
     "ngx-highlightjs": "^2.1.4",
     "ngx-mask": "^7.0.1",
+    "ngx-parallax": "^4.0.0",
     "rxjs": "~6.3.3",
     "zone.js": "~0.8.26"
   },

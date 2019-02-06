@@ -45,6 +45,20 @@
     margin-left:15px !important
 }
 
+.about{
+    background-image: url('src/assets/img/trapes.png');
+    background-size: 100% auto;
+    position: relative;
+    top:-200px;
+}
+
+.parallaxStyle{
+    background-image: url('src/assets/img/artystycznemultidev.png');
+    background-size: 100%;
+    height: 400px;
+
+}
+
   @media only screen and (max-width: 500px) {
     .inputPos{
         width:263px;

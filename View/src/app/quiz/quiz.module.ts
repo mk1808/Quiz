@@ -13,6 +13,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MainPageComponent } from './main-page/main-page.component';
 import { ContactComponent } from './contact/contact.component';
 import { NgxGoogleMapModule } from 'ngx-google-map';
+import { ParallaxModule, ParallaxConfig } from 'ngx-parallax';
 
 
 @NgModule({
@@ -26,11 +27,13 @@ import { NgxGoogleMapModule } from 'ngx-google-map';
     FormsModule,
     ReactiveFormsModule,
     FlexLayoutModule,
-    NgxGoogleMapModule
+    NgxGoogleMapModule,
+    ParallaxModule
 
 
 
   ],
-  declarations: [LayoutComponent,HeaderComponent, FooterComponent, LoginComponent, RegisterComponent, MainPageComponent, ContactComponent]
+  declarations: [LayoutComponent,HeaderComponent, FooterComponent, 
+    LoginComponent, RegisterComponent, MainPageComponent, ContactComponent]
 })
 export class QuizModule { }

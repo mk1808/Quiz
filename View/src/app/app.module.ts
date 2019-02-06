@@ -41,6 +41,7 @@ import { NgHttpLoaderModule } from 'ng-http-loader';
     FlexLayoutModule,
     NgxGoogleMapModule,
     NgHttpLoaderModule.forRoot()
+    
   
     
     
