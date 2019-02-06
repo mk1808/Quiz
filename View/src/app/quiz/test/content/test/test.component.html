@@ -4,22 +4,56 @@
         <div class="sTitle">
           z przedmiotu {{subjectObj.subject}}</div>
       </div>
+      <div class="descTest">
+        <!-- zmiana! -->
+
+        ZASADY: <br>
+        Jest to test {{subjectObj.multipleChoice==1? "wielokrotnego":"jednokrotnego"}} wyboru. <br>
+        {{subjectObj.limitedTime==1? "Czas na rozwiązanie quizu wynosi: " + subjectObj.time + " min." :
+        "Quiz nie posiada limitu czasu." }} <br>
+        Należy zaznaczać tylko poprawne odpowiedzi. <br>
+        Test zawiera {{subjectObj.nOQuestions}} pytań, każde za 1 punkt. <br>
+        Ilość punktów możliwa do zdobycia to {{subjectObj.nOQuestions}}.<br>
+        <div fxLayout="row" *ngIf="subjectObj.nOQuestions>9" class="pointStyle">
+          Punktacja: <br>
+         
+                {{markNumber[0]}} - {{markNumber[1]}}&nbsp;2.0;&nbsp;
+                {{markNumber[2]}} - {{markNumber[3]}}&nbsp;3.0;&nbsp;
+                {{markNumber[4]}} - {{markNumber[5]}}&nbsp;3.5;&nbsp; 
+             
+                {{markNumber[6]}} - {{markNumber[7]}}&nbsp;4.0;&nbsp; 
+                {{markNumber[8]}} - {{markNumber[9]}}&nbsp;4.5;&nbsp; 
+                {{markNumber[10]}} - {{markNumber[11]}}&nbsp;5.0
+        
+          
+            
+           
+         
+      </div>
+    </div>
   <div fxLayout="row">
     <div fxLayout="column" class="questions">
       <div *ngIf="subject.limitedTime!='0'" class="timer">{{timeLeft}}</div>
-
-      <div *ngFor="let question of questions; let i = index;" class="question" 
-              [ngStyle]="{'left': (((subjectObj.separatePage==1)&&(questionIndex < i) )? '120vw': (((subjectObj.separatePage==1)&&(questionIndex > i) )? '-120vw': '0')),
-              'position': (((subjectObj.separatePage==1)&&((questionIndex == (i-1))||(questionIndex == (i+1))) )? 'absolute': ''),
-              'top': (((subjectObj.separatePage==1)&&((questionIndex == (i+1))) 
-              )? '0': ''),
-               'max-height': (((subjectObj.separatePage==1)&&((questionIndex == (i-1))||(questionIndex == (i+1))) )? '0': ''),
-               'overflow': (((subjectObj.separatePage==1)&&((questionIndex == (i-1))||(questionIndex == (i+1))) )? 'inherit': '')}">
-        <app-question [ngStyle]="{'display': (((subjectObj.separatePage==0)||((questionIndex == (i-1))||(questionIndex == i)||(questionIndex == (i+1))) )? '': 'none')}"
+      <div *ngIf="subjectObj.separatePage==1">
+      <div  *ngFor="let question of questions; let i = index;" class="question" 
+              [ngStyle]="{'left': (((questionIndex < i) )? '120vw': (((questionIndex > i) )? '-120vw': '0')),
+              'position': ((((questionIndex == (i-1))||(questionIndex == (i+1))) )? 'absolute': ''),
+              'top': ((((questionIndex == (i+1))) )? '0': ''),
+               'max-height': ((((questionIndex == (i-1))||(questionIndex == (i+1))) )? '0': ''),
+               'overflow': ((((questionIndex == (i-1))||(questionIndex == (i+1))) )? 'inherit': '')}">
+        <app-question  [ngStyle]="{'display': (((subjectObj.separatePage==0)||((questionIndex == (i-1))||(questionIndex == i)||(questionIndex == (i+1))) )? '': 'none')}"
         [setQuestion]="question"
           (questionStatus)="onChange($event)" [number]='(i+1)+"/"+questions.length'></app-question>
       </div>
-      
+      </div>
+      <div *ngIf="subjectObj.separatePage==0">
+        <div data-aos="zoom-in-up" *ngFor="let question of questions; let i = index;" class="question" 
+                >
+          <app-question  [ngStyle]="{'display': (((subjectObj.separatePage==0)||((questionIndex == (i-1))||(questionIndex == i)||(questionIndex == (i+1))) )? '': 'none')}"
+          [setQuestion]="question"
+            (questionStatus)="onChange($event)" [number]='(i+1)+"/"+questions.length'></app-question>
+        </div>
+        </div>
     </div>
   </div>
   
