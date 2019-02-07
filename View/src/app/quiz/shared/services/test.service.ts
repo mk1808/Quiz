@@ -34,14 +34,14 @@ export class TestService {
   public getResult(): Result {
     return this.result;
   }
-  public setMarkTable(table:number[]) {
+ /* public setMarkTable(table:number[]) {
     this.markTable = table;
   }
 
   public getMarkTable(): number[] {
     return this.markTable;
   }
-
+*/
   public setQuestionsInResult(questions: QuestionStatus[]) {
     this.questions = questions;
   }

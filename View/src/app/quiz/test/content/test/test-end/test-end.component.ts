@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { TestService } from 'src/app/quiz/shared/services/test.service';
 import { Result, Question, QuestionStatus } from 'src/app/quiz/shared/models/classes';
 import { CookieService } from 'ngx-cookie-service';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-test-end',
@@ -17,6 +18,8 @@ export class TestEndComponent implements OnInit {
   marks: number[] = [2,2,3,3,3.5,3.5,4,4,4.5,4.5,5,5];
   questions: QuestionStatus[];
   mark:number;
+  subjectObj=new Subject();
+  
   scrollOpen:boolean=false;
   constructor(private testService: TestService, private router: Router,
     private route: ActivatedRoute, private cookie: CookieService) { }
@@ -25,6 +28,7 @@ export class TestEndComponent implements OnInit {
     window.scroll(0,0);
     if (this.cookie.get('user') == "") {
       if (window.location.href.split('/')[4] == 'demo') {
+        this.subjectObj = JSON.parse(this.cookie.get("subj"));
         let result: Result = this.testService.getResult();
         //////dodac
         this.total = result.total;
@@ -49,9 +53,15 @@ export class TestEndComponent implements OnInit {
           this.router.navigate(['/quiz/student_panel']);
         }
         else {
+          this.subjectObj = JSON.parse(this.cookie.get("subj"));
+          console.log(this.subjectObj);
           this.questions = this.testService.getQuestionsInResult();
           let result: Result = this.testService.getResult();
-          let markTable: number[] = this.testService.getMarkTable();
+        //  let markTable: number[] = this.testService.getMarkTable();
+        let markNumber:string=JSON.parse(this.cookie.get("markTable"))+'';
+          let markTable=markNumber.split(",").map(Number);
+       
+          console.log("marktbl");
           this.total = result.total;
           if (this.total == null)
             this.router.navigate(['/quiz/begin']);

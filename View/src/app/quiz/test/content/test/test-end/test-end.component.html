@@ -18,8 +18,10 @@
           <span class="testPass">
             ZALICZONO</span>
         </p>
-  
-          Ocena: {{mark}}
+        <div *ngIf="subjectObj.nOQuestions>10">
+             Ocena: {{mark}}
+        </div>
+        
       
       </div>
     </div>

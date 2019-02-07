@@ -106,9 +106,10 @@ export class TestBeginComponent implements OnInit {
     this.markNumber[11] = +this.subject.nOQuestions;
 
     console.log(this.markNumber);
-    this.test.setMarkTable(this.markNumber);
-
-    this.cookie.set("multipleChoice", this.subject.multipleChoice.toString(), null, "/");
+  //  this.test.setMarkTable(this.markNumber);
+    this.cookie.set("markTable", JSON.stringify(this.markNumber), null, "/");
+    
+  this.cookie.set("multipleChoice", this.subject.multipleChoice.toString(), null, "/");
 
     this.cookie.set("time", JSON.stringify({ limitedTime: this.subject.limitedTime, time: this.subject.time }), null, "/");
     this.cookie.set("subj", JSON.stringify(this.subject), null, "/");

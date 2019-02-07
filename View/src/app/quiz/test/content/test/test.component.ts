@@ -21,7 +21,7 @@ export class TestComponent implements OnInit {
   isSubmitted: boolean = false;
   subjectObj: Subject;
   public timeLeft: string = "00:00:00";
-  markNumber: number[] 
+  markNumber: number[] ;
   timerHandler;
   questionIndex: number = 0;
   firstQuestion: boolean = true;
@@ -36,7 +36,8 @@ export class TestComponent implements OnInit {
   ngOnInit() {
     window.scroll(0,0);
     if (this.cookie.get('user') == "") {
-      this.markNumber = this.testService.getMarkTable();
+      let markNumber:string=JSON.parse(this.cookie.get("markTable"))+'';
+      this.markNumber=markNumber.split(",").map(Number);
       if (window.location.href.split('/')[4] == 'demo') {
         this.idSubject = this.cookie.get('idSubject')
         this.subjectObj = JSON.parse(this.cookie.get("subj"));
@@ -76,7 +77,13 @@ export class TestComponent implements OnInit {
           this.router.navigate(['/quiz/student_panel']);
         }
         else {
-          this.markNumber = this.testService.getMarkTable();
+          
+          let markNumber:string=JSON.parse(this.cookie.get("markTable"))+'';
+          this.markNumber=markNumber.split(",").map(Number);
+          
+          console.log("aaa");
+      //    this.markNumber = this.testService.getMarkTable();
+          console.log(markNumber);
           console.log(this.markNumber);
           this.idSubject = this.cookie.get('idSubject');
           this.subjectObj = JSON.parse(this.cookie.get("subj"));
