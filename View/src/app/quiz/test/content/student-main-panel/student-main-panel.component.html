@@ -18,6 +18,7 @@
           <div *ngFor="let test of tests; let i = index">
             <button class="quizButton questionButton" (click)="onTest(test.id)">
               {{i+1}} &nbsp;&nbsp;&nbsp;{{test.name}}</button>
+              <i class="result">10/12</i> 
             <div></div>
           </div>
         </div>

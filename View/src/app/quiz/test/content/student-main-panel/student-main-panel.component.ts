@@ -14,6 +14,10 @@ export class StudentMainPanelComponent implements OnInit {
 
   tests: Subject[] = [];
   course: string;
+  idNumber: number[] = [];
+  results: string[] = [];
+  idUser;
+
   constructor(private cookie: CookieService, private auth: AuthService,
     private test: TestService,
     private router: Router, private route: ActivatedRoute) { }
@@ -28,12 +32,38 @@ export class StudentMainPanelComponent implements OnInit {
       }
 
       else {
+
         this.course = JSON.parse(this.cookie.get('user')).course;
+        this.idUser = JSON.parse(this.cookie.get('user')).id;
         this.test.getTestsByCourse(this.course).subscribe(x => {
-          console.log(x);
-            this.tests = x;
+
+          this.tests = x;
+          for (let i = 0; i < this.tests.length; i++) {
+            this.idNumber.push(this.tests[i].id);
+            this.results.push("");
+          }
+          console.log(this.idNumber);
+          let i=0;
+          let z=0;
+          for (let j = 0; j < this.tests.length; j++) {
+            this.test.getUserResultForQuiz(this.idNumber[j], this.idUser).subscribe(y => {
+              console.log(y);
+              i++;
+              this.results[i]=y.result;
+              if(i==this.tests.length){
+                console.log("a");
+                console.log(this.results);
           
-        })
+              }
+              //    console.log(y);
+        
+            });
+          } 
+         
+
+        });
+
+
       }
     }
   }
@@ -43,6 +73,9 @@ export class StudentMainPanelComponent implements OnInit {
 
     this.router.navigate(['quiz/begin']);
 
+  }
+  getResult(id) {
+    console.log(id);
   }
 
 }
