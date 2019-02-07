@@ -7,7 +7,7 @@
             <span class="detailsNames">Nazwa: </span>{{subject.name}}<br>
             <span class="detailsNames">Przedmiot: </span>
             {{subject.subject=="web"?"Technologie sieci WEB":"Programowanie w języku Java" }}<br>
-            <span class="detailsNames">Kierunek studiów: </span> {{subject.course}}<br>
+            <span class="detailsNames">Identyfikator grupy: </span> {{subject.course}}<br>
             <span class="detailsNames">Ilość pytań na teście: </span>{{subject.noQuestions}}<br>
             <span class="detailsNames">Wybór: </span>{{subject.multipleChoice? "wielokrotny"  : "jednokrotny"  }}<br>
             <span class="detailsNames"> Limit czasu: </span>{{subject.limitedTime? subject.time +" min"  : "brak " }}<br>

@@ -164,8 +164,8 @@ export class NewTestComponent implements OnInit {
       group.controls.course.setErrors(null);
     }
     else {
-      if (group.controls.course.value == "Kierunek studiów") {
-        correct = false;
+      if ( group.controls.course.value==""){
+        correct=false;
         group.controls.course.setErrors({ 'invalid': true });
       }
       group.controls.email.setErrors(null);
