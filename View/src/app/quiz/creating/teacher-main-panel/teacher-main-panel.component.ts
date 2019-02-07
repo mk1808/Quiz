@@ -47,4 +47,7 @@ export class TeacherMainPanelComponent implements OnInit {
     this.router.navigate(['../new_test/resume'], { relativeTo: this.route });
 
   }
+  onChange(id: string){
+    this.router.navigate(['../new_test/' + id], { relativeTo: this.route });
+  }
 }

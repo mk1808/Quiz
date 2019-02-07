@@ -29,6 +29,9 @@
                   <div *ngFor="let test of tests; let i = index">
                     <button class="quizButton questionButton" (click)="onView(test.id)">
                       {{i+1}} &nbsp;&nbsp;&nbsp;{{test.name}}</button>
+                      <i class="material-icons editPos" (click)="onChange(test.id)">
+                        edit
+                        </i>
                     <div></div>
                   </div>
                 </div>
