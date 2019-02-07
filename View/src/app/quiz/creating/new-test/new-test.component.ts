@@ -64,7 +64,7 @@ export class NewTestComponent implements OnInit {
             limitedTime: [false],
             multipleChoice: ['Krotność', Validators.required],
             time: [''],
-            course: ['Kierunek studiów'],
+            course: [''],
             description: [''],
             separatedPages: [false],
             canBack: [''],

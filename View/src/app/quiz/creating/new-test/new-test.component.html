@@ -106,26 +106,32 @@
               </div>
             </div>
           </div>
-          <div *ngIf="!newUser">
-            <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <span class="input-group-text inputStyle">
-                  <i class="material-icons">
-                    keyboard_arrow_right
-                  </i></span>
-              </div>
-              <div class="form-group">
-
-                <select class="form-control" id="exampleFormControlSelect2" formControlName="course" [ngClass]="(newTestForm.controls.course.valid || !newTestForm.controls.course.touched)?'':'invalid'">
+          <div *ngIf="!newUser" class="inputPos">
+            
+              
+<!--
+                <select class="form-control" id="exampleFormControlSelect2" formControlName="course" 
+                [ngClass]="(newTestForm.controls.course.valid || !newTestForm.controls.course.touched)?'':'invalid'">
                   <option selected>Kierunek studiów</option>
                   <option *ngFor="let course of coursesTable" [value]="course">
                     {{course}}
                   </option>
 
-                </select>
-              </div>
+                </select>-->
+
+                <div class="input-group mb-3 ">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text inputStyle">
+                      <i class="material-icons">
+                        keyboard_arrow_right
+                      </i></span>
+                  </div>
+                  <input type="text" class="form-control" placeholder="Identyfikator grupy" aria-label="groupName" aria-describedby="basic-addon1"
+                    formControlName="course" >
+                </div>
+            
             </div>
-          </div>
+          
           <div>
             <div class="form-check checkSeparatedPos">
               <label class="form-check-label">
