@@ -46,4 +46,8 @@ export class AuthService {
     return this.rest.delete('/api/user/'+id);
   }
   
+  public getUserList(email,course,name,surname){
+    return this.rest.get('/api/usersList/?email='+email+'&course='+course+'&name='+name+'&surmane='+surname);
+  }
+
 }
