@@ -49,7 +49,7 @@ export class StudentMainPanelComponent implements OnInit {
             this.test.getUserResultForQuiz(this.idNumber[j], this.idUser).subscribe(y => {
               console.log(y);
               i++;
-              this.results[i]=y.result;
+              this.results[i]=y[0].result;
               if(i==this.tests.length){
                 console.log("a");
                 console.log(this.results);
