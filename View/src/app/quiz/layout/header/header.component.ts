@@ -28,6 +28,7 @@ export class HeaderComponent implements OnInit {
   checkLogged(){
     if(this.cookie.get('user')=="") {
       this.logged = false;
+      this.cookie.set('token','',-60,'/');
     }
     else if(this.cookie.get('token')==""){
       this.logged = false;
