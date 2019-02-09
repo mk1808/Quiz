@@ -17,8 +17,13 @@
 
           <div *ngFor="let test of tests; let i = index">
             <button class="quizButton questionButton" (click)="onTest(test.id)">
-              {{i+1}} &nbsp;&nbsp;&nbsp;{{test.name}}</button>
-              <i class="result">Wynik: {{results[i]?results[i].result+'%':'brak'}}</i> 
+              {{i+1}} &nbsp;&nbsp;&nbsp;{{test.name}}
+              
+            </button>
+             <i class="result">
+                  {{results[i]?+results[i].result*100+'%':''}}
+      
+              </i>
             <div></div>
           </div>
         </div>

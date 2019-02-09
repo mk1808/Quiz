@@ -41,6 +41,9 @@ export class StudentMainPanelComponent implements OnInit {
         this.test.getTestsByCourse(this.course).subscribe(x => {
           this.tests = x;
           if(this.allResults.length>0)this.createResultTable();
+        
+          
+          
 
           /*for (let i = 0; i < this.tests.length; i++) {
             this.idNumber.push(this.tests[i].id);
@@ -88,6 +91,7 @@ export class StudentMainPanelComponent implements OnInit {
 
   createResultTable(){
     this.tests.forEach(x => {
+      
       this.results.push(this.findResult(x.id));
     });
     console.log(this.results);
