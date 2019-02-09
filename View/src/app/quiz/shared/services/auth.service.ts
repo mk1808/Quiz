@@ -46,4 +46,17 @@ export class AuthService {
     return this.rest.delete('/api/user/'+id);
   }
   
+  public getUserList(email,course,name,surname): Observable<User[]>{
+    return this.rest.get('/api/usersList/?email='+email+'&course='+course+'&name='+name+'&surmane='+surname);
+  }
+
+  public updateUserByTeacher(user:User): Observable<User>{
+    return this.rest.put('/api/user',user);
+  }
+
+  public updateUserBySelf(user:User): Observable<User>{
+    return this.rest.put('/api/userOwn',user);
+  }
+
+
 }
