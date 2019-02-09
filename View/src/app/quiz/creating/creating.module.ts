@@ -13,6 +13,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { NgxMaskModule } from 'ngx-mask';
 import { QuestionListComponent } from './new-test/new-question/question-list/question-list.component';
 import { TeacherMainPanelComponent } from './teacher-main-panel/teacher-main-panel.component';
+import { ModalModule } from 'ngx-bootstrap';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { TeacherMainPanelComponent } from './teacher-main-panel/teacher-main-pan
     MatCheckboxModule,
     FormsModule,
     MatRadioModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    ModalModule
   ],
   declarations: [NewTestComponent,
     NewQuestionComponent,

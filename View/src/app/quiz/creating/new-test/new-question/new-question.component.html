@@ -8,8 +8,8 @@
         <div fxLayout="column" fxFlex="60%" fxFlex.lt-md="100%" fxLayoutAlign="start center">
 
           <div>
-            <textarea class="form-control textAreaSize" rows="2" placeholder="Treść pytania"
-             formControlName="question" [ngClass]="(newQuestionForm.controls.question.valid || !newQuestionForm.controls.question.touched)?'':'invalid'"></textarea>
+            <textarea class="form-control textAreaSize" rows="2" placeholder="Treść pytania" formControlName="question"
+              [ngClass]="(newQuestionForm.controls.question.valid || !newQuestionForm.controls.question.touched)?'':'invalid'"></textarea>
           </div>
           <div>
             <textarea class="form-control textAreaSize" rows="2" placeholder="Kod" formControlName="code"></textarea>
@@ -23,21 +23,21 @@
                   </i></span>
               </div>
               <input type="text" class="form-control" placeholder="Zdjęcie" aria-describedby="basic-addon1"
-                formControlName="photo" >
+                formControlName="photo">
             </div>
           </div>
 
           <mat-radio-group formControlName="radioGroup">
 
             <div fxLayout="row" *ngFor="let answer of answers, let i=index">
-              
+
               <div *ngIf="subject.multipleChoice">
-                <mat-checkbox color="primary" class="checkPos" formControlName="checkAnswer{{i}}" >
+                <mat-checkbox color="primary" class="checkPos" formControlName="checkAnswer{{i}}">
                 </mat-checkbox>
               </div>
-              <div *ngIf="!subject.multipleChoice" >
+              <div *ngIf="!subject.multipleChoice">
                 <mat-radio-button color="primary" class="checkPos" #radioButton value="{{i}}">
-                </mat-radio-button> 
+                </mat-radio-button>
               </div>
 
               <div fxLayout="row">
@@ -45,9 +45,11 @@
                   formControlName="answer{{i}}" [ngClass]="answerStyles[i]"></textarea>
               </div>
             </div>
-          <div *ngIf="pleaseCheckAnswer" class="checkAnwer"><p>Proszę wskazać poprawną odpowiedź!</p></div>
+            <div *ngIf="pleaseCheckAnswer" class="checkAnwer">
+              <p>Proszę wskazać poprawną odpowiedź!</p>
+            </div>
           </mat-radio-group>
-        </div> 
+        </div>
         <div fxLayout="column" fxFlex="40%" fxFlex.lt-md="100%">
           <app-question-list #questionList class="questionList"></app-question-list>
         </div>
@@ -58,7 +60,7 @@
             <button mat-raised-button class="continue" (click)="onBack()">Wróć</button>
           </div>
         </div>
-        <div fxLayout="column" fxFlex="33%"  fxFlex.lt-sm="100%" fxLayoutAlign="start center">
+        <div fxLayout="column" fxFlex="33%" fxFlex.lt-sm="100%" fxLayoutAlign="start center">
           <div class="inputPos">
             <button mat-raised-button class="continue" (click)="onClear()">Wyczyść pytanie</button>
           </div>
@@ -67,27 +69,57 @@
           <div class="inputPos">
             <button mat-raised-button class="continue" (click)="onAdd()">
               {{newQuestion?'Dodaj pytanie':'Popraw pytanie'}}
-              </button>
+            </button>
           </div>
         </div>
 
       </div>
 
       <div *ngIf="!newQuestion">
-          <div fxFlex="100%" fxLayoutAlign="start center" class="submitBtnPos deleteBtn">
-            <div class="inputPos">
-              <button mat-raised-button class="continue " (click)="onDelet()">Usuń pytanie</button>
-            </div>
+        <div fxFlex="100%" fxLayoutAlign="start center" class="submitBtnPos deleteBtn">
+          <div class="inputPos">
+            <button mat-raised-button class="continue " (click)="openModal(template)">Usuń pytanie</button>
+
+            <ng-template #template>
+              <div class="modal-header">
+                <h4 class="modal-title pull-left">Prośba o potwierdzenie</h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              
+              <div class="modal-body text-center" >
+                
+                    Czy na pewno chcesz usunąć pytanie "{{questionText}}"?
+              </div>
+   
+                 
+                <div class="modal-body text-center"  fxLayout="row" fxFlex="100%">
+                  <div fxFlex="50%">
+                    <button mat-raised-button class="continue noBtn" (click)="onCancel()">Nie</button></div>
+                  
+                    <div fxFlex="50%">
+                       <button mat-raised-button class="continue" (click)="onDelet()">Tak, usuń</button>
+               </div> 
+                
+                </div>
+            
+            </ng-template>
+
+
           </div>
         </div>
-      <div >
+      </div>
+
+
+      <div>
         <div fxFlex="100%" fxLayoutAlign="start center" class="submitBtnPos">
           <div class="inputPos">
             <button mat-raised-button class="continue" (click)="onResume()">ZATWIERDŹ QUIZ</button>
           </div>
         </div>
       </div>
-      
+
     </div>
   </div>
 </form>

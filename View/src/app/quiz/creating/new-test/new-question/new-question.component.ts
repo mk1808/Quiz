@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, TemplateRef } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Answer, Question, Subject } from 'src/app/quiz/shared/models/classes';
 import { CreatingService } from 'src/app/quiz/shared/services/creating.service';
@@ -7,6 +7,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { QuestionListComponent } from './question-list/question-list.component';
 import { TestService } from 'src/app/quiz/shared/services/test.service';
 import { MatRadioGroup, MatRadioButton, MatRadioChange } from '@angular/material';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 
 @Component({
   selector: 'app-new-question',
@@ -26,19 +27,20 @@ export class NewQuestionComponent implements OnInit, AfterViewInit {
   newQuestion: boolean;
   idExistingQuestion: string;
   subject: Subject;
-  question:Question;
+  question: Question;
   answers = [new Answer, new Answer, new Answer, new Answer];
   quizName: string;
   idSubject: string;
-  checkBoxStyles=[];
-  answerStyles=[];
-  pleaseCheckAnswer=false;
-
+  checkBoxStyles = [];
+  answerStyles = [];
+  pleaseCheckAnswer = false;
+  modalRef: BsModalRef;
+  questionText: string;
 
 
   constructor(private fb: FormBuilder, private creating: CreatingService,
     private test: TestService, private router: Router, private route: ActivatedRoute,
-    private cookie: CookieService) {
+    private cookie: CookieService, private modalService: BsModalService) {
     this.route.params.subscribe(x => {
       let id = x['id'];
       if (id != undefined) { this.newQuestion = false; this.idExistingQuestion = id; }
@@ -48,7 +50,7 @@ export class NewQuestionComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    window.scroll(0,0);
+    window.scroll(0, 0);
     if (this.cookie.get('user') == "") {
       this.router.navigate(['/']);
     }
@@ -73,10 +75,10 @@ export class NewQuestionComponent implements OnInit, AfterViewInit {
             }
 
             this.test.getQuizDetails(this.idSubject).subscribe(x => {
-          
-               
-                this.quizName = x.name;
-              
+
+
+              this.quizName = x.name;
+
             });
           }
         }
@@ -133,47 +135,48 @@ export class NewQuestionComponent implements OnInit, AfterViewInit {
   initForm(x) {
 
     let code = x.code;
-    if(code!=null){
-    while(code.indexOf('”')>=0)   {
-      code = code.replace("”",'"');
+    if (code != null) {
+      while (code.indexOf('”') >= 0) {
+        code = code.replace("”", '"');
+      }
+      while (code.indexOf("字") >= 0) {
+        code = code.replace("字", "<");
+      }
+      while (code.indexOf("汉") >= 0) {
+        code = code.replace("汉", ">");
+      }
     }
-    while(code.indexOf("字")>=0)   {
-      code = code.replace("字","<");
-    }
-    while(code.indexOf("汉")>=0)   {
-      code = code.replace("汉",">");
-    }
-  }
 
-  let text = x.text;
-    if(text!=null){
-    while(text.indexOf('”')>=0)   {
-      text = text.replace("”",'"');
-    }
-    while(text.indexOf("字")>=0)   {
-      text = text.replace("字","<");
-    }
-    while(text.indexOf("汉")>=0)   {
-      text = text.replace("汉",">");
-    }
-  }
-  x.answers.forEach(answer=>{
-    if(answer!=null){
-      while(answer.text.indexOf('”')>=0)   {
-        answer.text = answer.text.replace("”",'"');
+    let text = x.text;
+    if (text != null) {
+      while (text.indexOf('”') >= 0) {
+        text = text.replace("”", '"');
       }
-      while(answer.text.indexOf("字")>=0)   {
-        answer.text =answer.text.replace("字","<");
+      while (text.indexOf("字") >= 0) {
+        text = text.replace("字", "<");
       }
-      while(answer.text.indexOf("汉")>=0)   {
-        answer.text = answer.text.replace("汉",">");
+      while (text.indexOf("汉") >= 0) {
+        text = text.replace("汉", ">");
       }
     }
-  })
-    this.question=x;
+    x.answers.forEach(answer => {
+      if (answer != null) {
+        while (answer.text.indexOf('”') >= 0) {
+          answer.text = answer.text.replace("”", '"');
+        }
+        while (answer.text.indexOf("字") >= 0) {
+          answer.text = answer.text.replace("字", "<");
+        }
+        while (answer.text.indexOf("汉") >= 0) {
+          answer.text = answer.text.replace("汉", ">");
+        }
+      }
+    })
+    this.question = x;
     let answers = x.answers;
+    this.questionText = text;
     this.newQuestionForm = this.fb.group({
-   
+
       question: [text, Validators.required],
       photo: [x.image],
       code: [code],
@@ -185,10 +188,10 @@ export class NewQuestionComponent implements OnInit, AfterViewInit {
       checkAnswer1: [x.answers[1].status == 1],
       checkAnswer2: [x.answers[2].status == 1],
       checkAnswer3: [x.answers[3].status == 1],
-      radioGroup:[null]
-    },{validator: this.formValidator});
+      radioGroup: [null]
+    }, { validator: this.formValidator });
     this.initialized = true;
-    this.newQuestionForm.statusChanges.subscribe(x=>{
+    this.newQuestionForm.statusChanges.subscribe(x => {
       this.checkAnswerValid();
     });
     this.idSubject = this.cookie.get('idSubject');
@@ -201,28 +204,28 @@ export class NewQuestionComponent implements OnInit, AfterViewInit {
     }
 
     this.test.getQuizDetails(this.idSubject).subscribe(x => {
-      
-       
-        this.quizName = x.name;
-        this.subscribeRadioButton();
-          if (!this.subject.multipleChoice) {
-            let i = 0;
-            answers.forEach(element => {
-              if (element.status == '1') {
-                let change: MatRadioChange = { value: i.toString(), source: this.radioButton }
-                this.radioButton.radioGroup.change.emit( change);
-                this.newQuestionForm.controls.radioGroup.setValue(i.toString());
-              }
-              i++;
-            });
+
+
+      this.quizName = x.name;
+      this.subscribeRadioButton();
+      if (!this.subject.multipleChoice) {
+        let i = 0;
+        answers.forEach(element => {
+          if (element.status == '1') {
+            let change: MatRadioChange = { value: i.toString(), source: this.radioButton }
+            this.radioButton.radioGroup.change.emit(change);
+            this.newQuestionForm.controls.radioGroup.setValue(i.toString());
           }
-      
+          i++;
+        });
+      }
+
     });
   }
 
   initEmptyForm() {
     this.newQuestionForm = this.fb.group({
-    
+
       question: ['', Validators.required],
       photo: [null],
       code: [null],
@@ -234,79 +237,87 @@ export class NewQuestionComponent implements OnInit, AfterViewInit {
       checkAnswer1: [false],
       checkAnswer2: [false],
       checkAnswer3: [false],
-      radioGroup:[null]
-    },{validator: this.formValidator});
+      radioGroup: [null]
+    }, { validator: this.formValidator });
     this.initialized = true;
-    this.newQuestionForm.statusChanges.subscribe(x=>{
+    this.newQuestionForm.statusChanges.subscribe(x => {
       this.checkAnswerValid();
     });
   }
-  
-  formValidator(group: FormGroup){
+
+  formValidator(group: FormGroup) {
     let correct = true;
-    if(group.controls.answer0.value==""){
-      correct=false;
-      group.controls.answer0.setErrors({'invalid':true});
-      
-    } 
-    if(group.controls.answer1.value==""){
-      correct=false;
-      group.controls.answer1.setErrors({'invalid':true});
-      
-    } 
-    if(group.controls.answer2.value==""){
-      correct=false;
-      group.controls.answer2.setErrors({'invalid':true});
+    if (group.controls.answer0.value == "") {
+      correct = false;
+      group.controls.answer0.setErrors({ 'invalid': true });
+
     }
-    if(group.controls.answer3.value==""){
-      correct=false;
-      group.controls.answer3.setErrors({'invalid':true});
-     }
+    if (group.controls.answer1.value == "") {
+      correct = false;
+      group.controls.answer1.setErrors({ 'invalid': true });
+
+    }
+    if (group.controls.answer2.value == "") {
+      correct = false;
+      group.controls.answer2.setErrors({ 'invalid': true });
+    }
+    if (group.controls.answer3.value == "") {
+      correct = false;
+      group.controls.answer3.setErrors({ 'invalid': true });
+    }
 
     if (!group.controls.checkAnswer0.value &&
-       !group.controls.checkAnswer1.value &&
-       !group.controls.checkAnswer2.value &&
-       !group.controls.checkAnswer3.value)
-       {
-        group.controls.checkAnswer3.setErrors({'invalid':true});
-         
-       }
-       else 
-       group.controls.checkAnswer3.setErrors(null);
-       if(correct)
-       group.setErrors(null);
-      return correct? null:true;
+      !group.controls.checkAnswer1.value &&
+      !group.controls.checkAnswer2.value &&
+      !group.controls.checkAnswer3.value) {
+      group.controls.checkAnswer3.setErrors({ 'invalid': true });
+
+    }
+    else
+      group.controls.checkAnswer3.setErrors(null);
+    if (correct)
+      group.setErrors(null);
+    return correct ? null : true;
   }
 
-  checkAnswerValid(){
-    if(this.newQuestionForm.controls.answer0.invalid && this.newQuestionForm.controls.answer0.touched )
-    this.answerStyles[0]='invalid';
-    else 
-    this.answerStyles[0]='';
-    if(this.newQuestionForm.controls.answer1.invalid && this.newQuestionForm.controls.answer1.touched )
-    this.answerStyles[1]='invalid';
-    else 
-    this.answerStyles[1]='';
-    if(this.newQuestionForm.controls.answer2.invalid && this.newQuestionForm.controls.answer2.touched )
-    this.answerStyles[2]='invalid';
-    else 
-    this.answerStyles[2]='';
-    if(this.newQuestionForm.controls.answer3.invalid && this.newQuestionForm.controls.answer3.touched )
-    this.answerStyles[3]='invalid';
-    else 
-    this.answerStyles[3]='';
+  checkAnswerValid() {
+    if (this.newQuestionForm.controls.answer0.invalid && this.newQuestionForm.controls.answer0.touched)
+      this.answerStyles[0] = 'invalid';
+    else
+      this.answerStyles[0] = '';
+    if (this.newQuestionForm.controls.answer1.invalid && this.newQuestionForm.controls.answer1.touched)
+      this.answerStyles[1] = 'invalid';
+    else
+      this.answerStyles[1] = '';
+    if (this.newQuestionForm.controls.answer2.invalid && this.newQuestionForm.controls.answer2.touched)
+      this.answerStyles[2] = 'invalid';
+    else
+      this.answerStyles[2] = '';
+    if (this.newQuestionForm.controls.answer3.invalid && this.newQuestionForm.controls.answer3.touched)
+      this.answerStyles[3] = 'invalid';
+    else
+      this.answerStyles[3] = '';
   }
-  onDelet(){
-    this.creating.deleteQuestion(this.idExistingQuestion).subscribe(x=>
-      {
-        console.log(x);
-        if(x){
-          this.router.navigate(["/creating/new_test/resume"]);
-        }
+
+  openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template);
+  }
+
+  onCancel(){
+    this.modalRef.hide();
+  }
+
+  onDelet() {
+    this.creating.deleteQuestion(this.idExistingQuestion).subscribe(x => {
+      console.log(x);
+      if (x) {
+        this.router.navigate(["/creating/new_test/resume"]);
       }
-
-    )
+    }
+    );
+    this.modalRef.hide();
   }
+
   onAdd() {
     if (this.newQuestionForm.valid) {
 
@@ -315,39 +326,39 @@ export class NewQuestionComponent implements OnInit, AfterViewInit {
       question.idSubject = this.idSubject;
 
       let code = this.newQuestionForm.controls.code.value;
-      if(code!=null){
-      while(code.indexOf('"')>=0)   {
-        code = code.replace('"',"”");
+      if (code != null) {
+        while (code.indexOf('"') >= 0) {
+          code = code.replace('"', "”");
+        }
+        while (code.indexOf("'") >= 0) {
+          code = code.replace("'", "”");
+        }
+        while (code.indexOf('<') >= 0) {
+          code = code.replace('<', "字");
+        }
+        while (code.indexOf(">") >= 0) {
+          code = code.replace(">", "汉");
+        }
       }
-      while(code.indexOf("'")>=0)   {
-        code = code.replace("'","”");
+      let text = this.newQuestionForm.controls.question.value
+      if (text != null) {
+        while (text.indexOf('"') >= 0) {
+          text = text.replace('"', "”");
+        }
+        while (text.indexOf("'") >= 0) {
+          text = text.replace("'", "”");
+        }
+        while (text.indexOf('<') >= 0) {
+          text = text.replace('<', "字");
+        }
+        while (text.indexOf(">") >= 0) {
+          text = text.replace(">", "汉");
+        }
       }
-      while(code.indexOf('<')>=0)   {
-        code = code.replace('<',"字");
-      }
-      while(code.indexOf(">")>=0)   {
-        code = code.replace(">","汉");
-      }
-    }
-    let text =  this.newQuestionForm.controls.question.value
-    if(text!=null){
-      while(text.indexOf('"')>=0)   {
-        text = text.replace('"',"”");
-      }
-      while(text.indexOf("'")>=0)   {
-        text = text.replace("'","”");
-      }
-      while(text.indexOf('<')>=0)   {
-        text = text.replace('<',"字");
-      }
-      while(text.indexOf(">")>=0)   {
-        text = text.replace(">","汉");
-      }
-    }
       question.code = code;
- 
+
       question.text = text;
-     
+
       question.image = this.newQuestionForm.controls.photo.value;
       question.answers[0] = {
         text: this.newQuestionForm.controls.answer0.value,
@@ -370,53 +381,53 @@ export class NewQuestionComponent implements OnInit, AfterViewInit {
         id: null, idQuestion: null
       }
 
-      question.answers.forEach(answer=>{
-        if(answer!=null){
-          while(answer.text.indexOf('"')>=0)   {
-            answer.text = answer.text.replace('"',"”");
+      question.answers.forEach(answer => {
+        if (answer != null) {
+          while (answer.text.indexOf('"') >= 0) {
+            answer.text = answer.text.replace('"', "”");
           }
-          while(answer.text.indexOf("'")>=0)   {
-            answer.text = answer.text.replace("'","”");
+          while (answer.text.indexOf("'") >= 0) {
+            answer.text = answer.text.replace("'", "”");
           }
-          while(answer.text.indexOf('<')>=0)   {
-            answer.text =answer.text.replace('<',"字");
+          while (answer.text.indexOf('<') >= 0) {
+            answer.text = answer.text.replace('<', "字");
           }
-          while(answer.text.indexOf(">")>=0)   {
-            answer.text = answer.text.replace(">","汉");
+          while (answer.text.indexOf(">") >= 0) {
+            answer.text = answer.text.replace(">", "汉");
           }
         }
       })
 
 
-if (this.newQuestion){
-      this.creating.createQuestion(question).subscribe(x => {//console.log(x);
+      if (this.newQuestion) {
+        this.creating.createQuestion(question).subscribe(x => {//console.log(x);
 
-        
-      
+
+
           this.questionList.ngOnInit();
           this.onClear();
-        
-      }, e => console.log(e));
 
-}
-else{
-  question.id=this.question.id;
-  for(let i =0; i<4; i++){
-    question.answers[i].id=this.question.answers[i].id;
-    question.answers[i].idQuestion=this.question.answers[i].idQuestion;
+        }, e => console.log(e));
 
-  }
-  this.creating.updateQuestion(question).subscribe(
-    x=>{
-      console.log(x);
-      this.router.navigate(["/creating/new_test/resume"]);
+      }
+      else {
+        question.id = this.question.id;
+        for (let i = 0; i < 4; i++) {
+          question.answers[i].id = this.question.answers[i].id;
+          question.answers[i].idQuestion = this.question.answers[i].idQuestion;
+
+        }
+        this.creating.updateQuestion(question).subscribe(
+          x => {
+            console.log(x);
+            this.router.navigate(["/creating/new_test/resume"]);
+          }
+
+        )
+      }
     }
+    else {
 
-  )
-}
-    }
-    else{
-      
       this.newQuestionForm.controls.question.markAsTouched();
       this.newQuestionForm.controls.answer0.markAsTouched();
       this.newQuestionForm.controls.answer1.markAsTouched();
@@ -426,18 +437,18 @@ else{
         !this.newQuestionForm.controls.checkAnswer1.value &&
         !this.newQuestionForm.controls.checkAnswer2.value &&
         !this.newQuestionForm.controls.checkAnswer3.value)
-        this.pleaseCheckAnswer=true;
-        else this.pleaseCheckAnswer=false;
+        this.pleaseCheckAnswer = true;
+      else this.pleaseCheckAnswer = false;
       this.checkAnswerValid();
-      if( this.pleaseCheckAnswer)
-      window.scroll(0,window.innerHeight/3);
-      else 
-      window.scroll(0,window.innerHeight/3);
+      if (this.pleaseCheckAnswer)
+        window.scroll(0, window.innerHeight / 3);
+      else
+        window.scroll(0, window.innerHeight / 3);
     }
   }
 
   onClear() {
- 
+
     this.newQuestionForm.controls.question.setValue('');
     this.newQuestionForm.controls.code.setValue('');
     this.newQuestionForm.controls.photo.setValue('');
@@ -451,24 +462,23 @@ else{
     this.newQuestionForm.controls.checkAnswer3.setValue(false);
     this.newQuestionForm.controls.radioGroup.setValue(null);
 
-    this.pleaseCheckAnswer=false;
-    for(let i = 0; i < 4; i++)
-    this.answerStyles[i]='';
-    
+    this.pleaseCheckAnswer = false;
+    for (let i = 0; i < 4; i++)
+      this.answerStyles[i] = '';
+
     this.newQuestionForm.controls.question.markAsUntouched();
     this.newQuestionForm.controls.answer0.markAsUntouched();
     this.newQuestionForm.controls.answer1.markAsUntouched();
     this.newQuestionForm.controls.answer2.markAsUntouched();
     this.newQuestionForm.controls.answer3.markAsUntouched();
-    window.scroll(0,window.innerHeight/3);
+    window.scroll(0, window.innerHeight / 3);
   }
   onBack() {
-    if (this.newQuestion)
-    {
-      let id=this.subject.id;
-    this.router.navigate(['/creating/new_test',id]);}
-    else
-    {
+    if (this.newQuestion) {
+      let id = this.subject.id;
+      this.router.navigate(['/creating/new_test', id]);
+    }
+    else {
       this.router.navigate(['/creating/new_test/resume']);
     }
   }
