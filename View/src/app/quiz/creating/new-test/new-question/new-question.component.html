@@ -72,13 +72,22 @@
         </div>
 
       </div>
-      <div fxLayout="row">
+
+      <div >
+          <div fxFlex="100%" fxLayoutAlign="start center" class="submitBtnPos deleteBtn">
+            <div class="inputPos">
+              <button mat-raised-button class="continue " (click)="onDelet()">Usuń pytanie</button>
+            </div>
+          </div>
+        </div>
+      <div >
         <div fxFlex="100%" fxLayoutAlign="start center" class="submitBtnPos">
           <div class="inputPos">
-            <button mat-raised-button class="continue" (click)="onResume()">Zatwierdź quiz</button>
+            <button mat-raised-button class="continue" (click)="onResume()">ZATWIERDŹ QUIZ</button>
           </div>
         </div>
       </div>
+      
     </div>
   </div>
 </form>

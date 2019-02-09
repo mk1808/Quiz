@@ -296,7 +296,18 @@ export class NewQuestionComponent implements OnInit, AfterViewInit {
     else 
     this.answerStyles[3]='';
   }
+  onDelet(){
+    this.creating.deleteQuestion(this.idExistingQuestion).subscribe(x=>
+      {
+        console.log(x);
+        if(x){
+          this.router.navigate(['../../new_question']);
+        
+        }
+      }
 
+    )
+  }
   onAdd() {
     if (this.newQuestionForm.valid) {
 
@@ -398,9 +409,10 @@ else{
   }
   this.creating.updateQuestion(question).subscribe(
     x=>{
-  
-        this.router.navigate(["/creating/new_test/resume"]);
-      
+      console.log(x);
+      if (x){
+      this.router.navigate(["/creating/new_test/resume"]);
+    }
     }
 
   )

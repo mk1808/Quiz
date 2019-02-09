@@ -45,6 +45,10 @@
     color:#ededed;
 }
 
+.deleteBtn{
+    margin-top: 25px!important;
+}
+
 @media only screen and (max-width: 960px) {
     .questionList{
         margin-top:170px;
