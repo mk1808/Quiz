@@ -73,7 +73,7 @@
 
       </div>
 
-      <div >
+      <div *ngIf="!newQuestion">
           <div fxFlex="100%" fxLayoutAlign="start center" class="submitBtnPos deleteBtn">
             <div class="inputPos">
               <button mat-raised-button class="continue " (click)="onDelet()">Usuń pytanie</button>

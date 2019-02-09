@@ -301,8 +301,7 @@ export class NewQuestionComponent implements OnInit, AfterViewInit {
       {
         console.log(x);
         if(x){
-          this.router.navigate(['../../new_question']);
-        
+          this.router.navigate(["/creating/new_test/resume"]);
         }
       }
 
@@ -410,9 +409,7 @@ else{
   this.creating.updateQuestion(question).subscribe(
     x=>{
       console.log(x);
-      if (x){
       this.router.navigate(["/creating/new_test/resume"]);
-    }
     }
 
   )
