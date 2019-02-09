@@ -67,6 +67,10 @@ width:425px;
     color: #b9bcbe !important;
 }
 
+.deleteButton{
+    margin-top:0px;
+}
+
 @media only screen and (max-width: 500px) {
     .textAreaSize{
         width:320px;

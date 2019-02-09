@@ -210,6 +210,10 @@
           <button mat-raised-button class="continue" (click)="onCreate()">Zatwierdź</button>
         </div>
       </div>
+      <div *ngIf="!newTest" class="inputPos" >
+
+          <button mat-raised-button class="continue " (click)="onDelet()">Usuń quiz</button>
+        </div>
     </div>
   </div>
 </form>

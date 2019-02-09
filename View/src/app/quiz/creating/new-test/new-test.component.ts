@@ -27,6 +27,7 @@ export class NewTestComponent implements OnInit {
   newTestForm: FormGroup;
   testName: string = "";
   newUser: boolean = false;
+  idSubject:number;
 
   constructor(private fb: FormBuilder, private dictionary: DictionaryService,
     private creating: CreatingService, private cookie: CookieService,
@@ -83,7 +84,7 @@ export class NewTestComponent implements OnInit {
         else {
           this.test.getQuizDetails(this.idExistingTest).subscribe(x => {
 
-
+            
             this.testName = x.name;
             let hoursN = Math.floor(x.time / 60);
             let minutesN = x.time - hoursN * 60;
@@ -207,6 +208,20 @@ export class NewTestComponent implements OnInit {
     else
     this.router.navigate(['/creating/new_test/resume']);
   }
+
+  onDelet(){
+
+    this.creating.deleteSubject(this.idExistingTest).subscribe(x=>{
+      console.log(x);
+      if (x){
+        this.router.navigate(['/creating/teacher_panel']);
+      }
+    })
+
+    
+
+  }
+
   onCreate() {
     if (this.newTestForm.valid) {
       let subject = new Subject();
