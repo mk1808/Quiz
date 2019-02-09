@@ -212,7 +212,33 @@
       </div>
       <div *ngIf="!newTest" class="inputPos" >
 
-          <button mat-raised-button class="continue " (click)="onDelet()">Usuń quiz</button>
+          <button mat-raised-button class="continue " (click)="openModal(template)">Usuń quiz</button>
+          <ng-template #template>
+              <div class="modal-header">
+                <h4 class="modal-title pull-left">Prośba o potwierdzenie</h4>
+                <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              
+              <div class="modal-body text-center" >
+                
+                    Czy na pewno chcesz usunąć quiz "{{testName}}"?
+              </div>
+   
+                 
+                <div class="modal-body text-center"  fxLayout="row" fxFlex="100%">
+                  <div fxFlex="50%">
+                    <button mat-raised-button class="continue noBtn" (click)="onCancel()">Nie</button></div>
+                  
+                    <div fxFlex="50%">
+                       <button mat-raised-button class="continue" (click)="onDelet()">Tak, usuń</button>
+               </div> 
+                
+                </div>
+            
+            </ng-template>
+       
         </div>
     </div>
   </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Subject, Cours, User } from '../../shared/models/classes';
 import { DictionaryService } from '../../shared/services/dictionary.service';
@@ -8,6 +8,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { TestService } from '../../shared/services/test.service';
 import { AuthService } from "../../shared/services/auth.service";
 import * as jwt_decode from "jwt-decode";
+import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 
 
 @Component({
@@ -28,11 +29,12 @@ export class NewTestComponent implements OnInit {
   testName: string = "";
   newUser: boolean = false;
   idSubject:number;
+  modalRef: BsModalRef;
 
   constructor(private fb: FormBuilder, private dictionary: DictionaryService,
     private creating: CreatingService, private cookie: CookieService,
     private router: Router, private route: ActivatedRoute, private test: TestService,
-    private auth: AuthService) {
+    private auth: AuthService, private modalService: BsModalService) {
     this.route.params.subscribe(x => {
       let id = x['id'];
       if (id != undefined) { this.newTest = false; this.idExistingTest = id; } else { this.newTest = true; }
@@ -216,10 +218,15 @@ export class NewTestComponent implements OnInit {
       if (x){
         this.router.navigate(['/creating/teacher_panel']);
       }
-    })
-
-    
-
+    });
+    this.modalRef.hide();
+  }
+  onCancel(){
+    this.modalRef.hide();
+  }
+  
+  openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template);
   }
 
   onCreate() {
