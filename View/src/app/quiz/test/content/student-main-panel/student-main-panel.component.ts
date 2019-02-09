@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Subject } from 'src/app/quiz/shared/models/classes';
+import { Subject, Result, UserResult } from 'src/app/quiz/shared/models/classes';
 import { AuthService } from 'src/app/quiz/shared/services/auth.service';
 import { CookieService } from 'ngx-cookie-service';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -15,7 +15,8 @@ export class StudentMainPanelComponent implements OnInit {
   tests: Subject[] = [];
   course: string;
   idNumber: number[] = [];
-  results: string[] = [];
+  allResults: UserResult[] = [];
+  results:UserResult[] = [];
   idUser;
 
   constructor(private cookie: CookieService, private auth: AuthService,
@@ -30,35 +31,38 @@ export class StudentMainPanelComponent implements OnInit {
       if (JSON.parse(this.cookie.get('user')).role == 1) {
         this.router.navigate(['/creating/teacher_panel']);
       }
-
       else {
-
         this.course = JSON.parse(this.cookie.get('user')).course;
         this.idUser = JSON.parse(this.cookie.get('user')).id;
+        this.test.getUserResultForQuiz(this.idUser).subscribe(y => {
+          this.allResults=y;
+          if(this.tests.length>0)this.createResultTable();
+        })
         this.test.getTestsByCourse(this.course).subscribe(x => {
-
           this.tests = x;
-          for (let i = 0; i < this.tests.length; i++) {
+          if(this.allResults.length>0)this.createResultTable();
+
+          /*for (let i = 0; i < this.tests.length; i++) {
             this.idNumber.push(this.tests[i].id);
-            this.results.push("");
+            this.allResults.push("");
           }
           console.log(this.idNumber);
           let i=0;
           let z=0;
           for (let j = 0; j < this.tests.length; j++) {
-            this.test.getUserResultForQuiz(this.idNumber[j], this.idUser).subscribe(y => {
+            this.test.getUserResultForQuiz(this.idUser).subscribe(y => {
               console.log(y);
               i++;
-              this.results[i]=y[0].result;
+              this.allResults[i]=y[0].result;
               if(i==this.tests.length){
                 console.log("a");
-                console.log(this.results);
+                console.log(this.allResults);
           
               }
               //    console.log(y);
         
             });
-          } 
+          } */
          
 
         });
@@ -76,6 +80,17 @@ export class StudentMainPanelComponent implements OnInit {
   }
   getResult(id) {
     console.log(id);
+  }
+
+  findResult(idSubject) {
+    return this.allResults.filter(x => x.idSubject == idSubject)[0];
+  }
+
+  createResultTable(){
+    this.tests.forEach(x => {
+      this.results.push(this.findResult(x.id));
+    });
+    console.log(this.results);
   }
 
 }

@@ -96,8 +96,8 @@ public getTestsByCourse(course): Observable<any> {
   return this.rest.get<Subject[]>( '/api/subject/list/course/'+course);
 }
 
-public getUserResultForQuiz(idSubject,idUser):Observable<any>{
-  return this.rest.get('/api/subject/result/'+idSubject+'/'+idUser);
+public getUserResultForQuiz(idUser):Observable<any>{
+  return this.rest.get('/api/subject/result/'+idUser);
 }
 }
 
