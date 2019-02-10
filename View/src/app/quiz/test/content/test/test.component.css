@@ -116,8 +116,18 @@
 }
 
 
-@media only screen and (max-width: 660px) {
+@media  (max-width: 660px) {
     .nextBtn{
-        left: 30vw;
+        left: 55vw;
     }
+    .prevBtn{
+        width: 0px !important;
+    }
+    .bigButton{
+        bottom:0;
+        top:25px;
+        margin-bottom: 50px !important;
+    }
+
+
 }
