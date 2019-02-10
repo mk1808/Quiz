@@ -57,6 +57,10 @@
 .showAnswers{
     display: block !important;
 }
+
+.bottomRowPos .continue{
+    margin-right:15px !important;
+}
 @media only screen and (max-width: 600px) {
     .wTitle{
         font-size: 50px;
@@ -65,5 +69,13 @@
 @media only screen and (max-width: 450px) {
     .wTitle{
         font-size: 40px;
+    }
+    
+    .bottomRowPos{
+        text-align: center;
+    }
+    .bottomRowPos .continue{
+        display: block !important;
+        margin-right:0 !important;
     }
 }
