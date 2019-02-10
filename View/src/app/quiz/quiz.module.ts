@@ -14,6 +14,7 @@ import { MainPageComponent } from './main-page/main-page.component';
 import { ContactComponent } from './contact/contact.component';
 import { NgxGoogleMapModule } from 'ngx-google-map';
 import { ParallaxModule, ParallaxConfig } from 'ngx-parallax';
+import { EditUserAccountComponent } from './auth/edit-user-account/edit-user-account.component';
 
 
 @NgModule({
@@ -34,6 +35,7 @@ import { ParallaxModule, ParallaxConfig } from 'ngx-parallax';
 
   ],
   declarations: [LayoutComponent,HeaderComponent, FooterComponent, 
-    LoginComponent, RegisterComponent, MainPageComponent, ContactComponent]
+    LoginComponent, RegisterComponent, MainPageComponent, ContactComponent,
+     EditUserAccountComponent]
 })
 export class QuizModule { }

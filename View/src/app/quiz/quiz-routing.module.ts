@@ -5,6 +5,7 @@ import { LoginComponent } from './auth/login/login.component'
 import { RegisterComponent } from './auth/register/register.component'
 import { MainPageComponent } from './main-page/main-page.component';
 import { ContactComponent } from './contact/contact.component';
+import { EditUserAccountComponent } from './auth/edit-user-account/edit-user-account.component';
 const routes: Routes = [
   {
     path: "", component: LayoutComponent,children:[ {
@@ -30,6 +31,10 @@ const routes: Routes = [
     {
       path: "contact",
       component: ContactComponent 
+    },
+    {
+      path: "profile",
+      component: EditUserAccountComponent 
     },
     {
       path:"**", redirectTo: 'main'

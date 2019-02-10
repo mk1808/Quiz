@@ -1,0 +1,29 @@
+<form [formGroup]="editUserForm">
+  <div class="container">
+    <div fxLayout="column">
+      <div fxLayout="row" fxLayoutAlign="space-around center">
+        <div class="wTitle">
+          Profil użytkownika
+        </div>
+      </div>
+    </div>
+    <div fxLayout="column" fxLayoutAlign="space-around center">
+      <div fxLayout="row" fxLayout.lt-md="column">
+        <div fxLayout="column" class="colleft">
+          <div fxLayout="row" class="inputPos">
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text inputStyle"><i class="material-icons">
+                    mail
+                  </i></span>
+              </div>
+              <input type="text" class="form-control" placeholder="E-mail" formControlName="email"
+                [ngClass]="(editUserForm.controls.email.valid || !editUserForm.controls.email.touched)?'':'invalid'">
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
