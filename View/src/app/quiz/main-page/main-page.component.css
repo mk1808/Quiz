@@ -70,6 +70,10 @@
     .registerBtn{
         margin-left:0px !important
     }
+
+    .parallaxStyle{
+        background-image: url('src/assets/img/artystycznemultidev3.png');
+    }
   }
   @media only screen and (max-width: 800px) {
     .welcomeTest{
