@@ -20,7 +20,7 @@ export class AnswerComponent implements OnInit, AfterViewInit {
   @Output() onChange = new EventEmitter<AnswerStatus>();
   @ViewChild('checkbox')
   checkbox: MatCheckbox;
-  multipleChoice:string;
+  multipleChoice:boolean;
   @ViewChild('checkbox2')
   radio: MatRadioButton;
   constructor( private cookie:CookieService) { }
@@ -40,17 +40,17 @@ export class AnswerComponent implements OnInit, AfterViewInit {
     }
     this.onChange.emit(this.answerS);
 	
-	if(this.multipleChoice=="0"){	
+	if(!this.multipleChoice){	
     this.radio.radioGroup.change.emit();
 	}
   }
   ngOnInit() {
-    this.multipleChoice=this.cookie.get('multipleChoice');
+    this.multipleChoice=this.cookie.get('multipleChoice')=='1';
     
       
   }
   ngAfterViewInit(){
-	  if(this.multipleChoice=="0"){
+	  if(!this.multipleChoice){
     this.radio.radioGroup.change.subscribe(x=>
       {
       this.answerS.value=this.radio.checked?1:0;
