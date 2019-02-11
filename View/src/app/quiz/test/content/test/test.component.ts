@@ -177,7 +177,7 @@ export class TestComponent implements OnInit {
   onSubmit() {
     this.isSubmitted = true;
     clearInterval()
-    if (window.location.href.split('/')[4] == 'demo') {
+    if (window.location.href.split('/')[4] == 'demo' || window.location.href.split('/')[5] == 'demo') {
       this.testService.checkAnswersForDemo(this.questionStatuses).subscribe(
         x => {
           this.testService.setResult(x);
