@@ -30,7 +30,7 @@ export class TestBeginComponent implements OnInit {
           //console.log(x['name']);
          
           this.test.getDemoId(x['name']).subscribe(x => {
-            //console.log(x);
+            console.log(x);
             this.cookie.set("idSubject", x.id, null, '/');
             this.loadQuiz(x);
           });
