@@ -11,17 +11,29 @@ import { CookieService } from 'ngx-cookie-service';
 export class MainPageComponent implements OnInit {
 
   initialParalax=900;
-
+  parallax:boolean=true;
+  size:number;
   constructor( private cookie: CookieService,
     private router: Router, private route: ActivatedRoute) { }
 
 
     @HostListener('window:resize', ['$event'])
     onResize(event) {
+      this.size=window.innerWidth;
       this.initialParalax=0.5*window.innerWidth;
+      if(window.innerWidth>800){
+        console.log(this.parallax)
+        this.parallax=true;
+      }
+      else {this.parallax=false;}
     }
 
   ngOnInit() {
+    this.size=window.innerWidth;
+    if(window.innerWidth>800){
+      this.parallax=true;
+    }
+    else {this.parallax=false;}
     if(this.cookie.get('user')=="") {
 
     }
