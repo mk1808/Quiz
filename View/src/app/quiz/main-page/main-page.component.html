@@ -4,7 +4,8 @@
   <div *ngIf="(size<=700)&&(size>=550)" parallax [config]="{initialValue: 200, ratio: .01}" class="parallaxStyle"></div>
   <div *ngIf="(size>700)&&(size<850)" parallax [config]="{initialValue: 300, ratio: .7}" class="parallaxStyle"></div>
   <div *ngIf="(size>=850)&&(size<=1100)" parallax [config]="{initialValue: 400, ratio: .7}" class="parallaxStyle"></div>
-  <div *ngIf="size>1100" parallax [config]="{initialValue: 490, ratio: .7}" class=" parallaxStyle"></div>
+  <div *ngIf="(size>1100)&&(size<=1600)" parallax [config]="{initialValue: 490, ratio: .7}" class=" parallaxStyle"></div>
+  <div *ngIf="size>1600" parallax [config]="{initialValue: 760, ratio: .7}" class=" parallaxStyle"></div>
   <div class="container about">
     <div class="wTitle">
       O WITRYNIE
