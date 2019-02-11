@@ -24,7 +24,7 @@ export class TestBeginComponent implements OnInit {
 
     if (this.cookie.get('user') == "") {
 
-      if (window.location.href.split('/')[4] == 'demo') {
+      if (window.location.href.split('/')[4] == 'demo' || window.location.href.split('/')[5] == 'demo') {
         this.demoTest = true;
         this.route.params.subscribe(x => {
           //console.log(x['name']);
