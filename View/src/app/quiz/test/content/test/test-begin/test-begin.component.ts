@@ -28,9 +28,8 @@ export class TestBeginComponent implements OnInit {
         this.demoTest = true;
         this.route.params.subscribe(x => {
           //console.log(x['name']);
-         
           this.test.getDemoId(x['name']).subscribe(x => {
-            console.log(x);
+            //console.log(x);
             this.cookie.set("idSubject", x.id, null, '/');
             this.loadQuiz(x);
           });
@@ -112,6 +111,10 @@ export class TestBeginComponent implements OnInit {
   this.cookie.set("multipleChoice", this.subject.multipleChoice.toString(), null, "/");
 
     this.cookie.set("time", JSON.stringify({ limitedTime: this.subject.limitedTime, time: this.subject.time }), null, "/");
+    x = this.subject;
+    this.subject.multipleChoice = x.multipleChoice=='1';
+    this.subject.canBack = x.canBack=='1';
+    this.subject.limitedTime = x.limitedTime=='1';
     this.cookie.set("subj", JSON.stringify(this.subject), null, "/");
 
   }
