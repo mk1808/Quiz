@@ -309,7 +309,7 @@ export class NewQuestionComponent implements OnInit, AfterViewInit {
 
   onDelet() {
     this.creating.deleteQuestion(this.idExistingQuestion).subscribe(x => {
-      console.log(x);
+      //console.log(x);
       if (x) {
         this.router.navigate(["/creating/new_test/resume"]);
       }
@@ -419,7 +419,7 @@ export class NewQuestionComponent implements OnInit, AfterViewInit {
         }
         this.creating.updateQuestion(question).subscribe(
           x => {
-            console.log(x);
+            //console.log(x);
             this.router.navigate(["/creating/new_test/resume"]);
           }
 

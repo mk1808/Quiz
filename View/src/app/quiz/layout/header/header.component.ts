@@ -59,6 +59,10 @@ export class HeaderComponent implements OnInit {
   }
 
   cancelCollapse(event){
+    
+    let isChrome;
+    eval('isChrome = !!window.chrome && !!window.chrome.webstore')
+    if(isChrome)
     event.path[2].classList.remove('show');
   }
 

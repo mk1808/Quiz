@@ -27,10 +27,10 @@ export class TestBeginComponent implements OnInit {
       if (window.location.href.split('/')[4] == 'demo') {
         this.demoTest = true;
         this.route.params.subscribe(x => {
-          console.log(x['name']);
+          //console.log(x['name']);
          
           this.test.getDemoId(x['name']).subscribe(x => {
-            console.log(x);
+            //console.log(x);
             this.cookie.set("idSubject", x.id, null, '/');
             this.loadQuiz(x);
           });
@@ -73,7 +73,7 @@ export class TestBeginComponent implements OnInit {
     //this.subject.time = x.time;
     if (this.demoTest) {
       this.subject.limitedTime = true;
-      console.log(x);
+      //console.log(x);
       if ((x.time == null)||(x.time <1)) {
         this.subject.time = 60;
       }else {
@@ -105,7 +105,7 @@ export class TestBeginComponent implements OnInit {
     }
     this.markNumber[11] = +this.subject.nOQuestions;
 
-    console.log(this.markNumber);
+    //console.log(this.markNumber);
   //  this.test.setMarkTable(this.markNumber);
     this.cookie.set("markTable", JSON.stringify(this.markNumber), null, "/");
     

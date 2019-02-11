@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 
@@ -10,8 +10,16 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class MainPageComponent implements OnInit {
 
+  initialParalax=900;
+
   constructor( private cookie: CookieService,
     private router: Router, private route: ActivatedRoute) { }
+
+
+    @HostListener('window:resize', ['$event'])
+    onResize(event) {
+      this.initialParalax=0.5*window.innerWidth;
+    }
 
   ngOnInit() {
     if(this.cookie.get('user')=="") {

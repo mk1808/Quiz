@@ -63,7 +63,7 @@ export class TestResultComponent implements OnInit {
         this.answerStatuses.push("");
       }
     })
-    console.log(this.answerStatuses);
+    //console.log(this.answerStatuses);
     if (status>0){
       this.questionStatus="correct";
     }

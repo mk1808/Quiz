@@ -82,7 +82,7 @@ export class StudentMainPanelComponent implements OnInit {
 
   }
   getResult(id) {
-    console.log(id);
+    //console.log(id);
   }
 
   findResult(idSubject) {
@@ -94,7 +94,7 @@ export class StudentMainPanelComponent implements OnInit {
       
       this.results.push(this.findResult(x.id));
     });
-    console.log(this.results);
+    //console.log(this.results);
   }
 
 }

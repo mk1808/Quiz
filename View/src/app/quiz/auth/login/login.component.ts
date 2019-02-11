@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit {
           this.cookie.set("token", x.token, 0.5, "/");
           x.user.role=this.role;
           this.cookie.set("user", JSON.stringify(x.user), null, "/");
-          console.log(x);
+         // console.log(x);
           if (this.role == 1) {
             this.router.navigate(['creating/teacher_panel']);
           }
@@ -60,7 +60,7 @@ export class LoginComponent implements OnInit {
             this.router.navigate(['quiz/student_panel']);
           }
         }, e => {
-          console.log(e); this.regFail = true;
+          //console.log(e); this.regFail = true;
           this.userForm.controls.username.setValue("");
           this.userForm.controls.password.setValue("");
         });

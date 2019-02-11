@@ -21,9 +21,9 @@ SET time_zone = "+00:00";
 --
 -- Baza danych: `web_project`
 --
-DROP DATABASE IF EXISTS `web_project`;
-CREATE DATABASE IF NOT EXISTS `web_project` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `web_project`;
+DROP DATABASE IF EXISTS `web_project_gowno`;
+CREATE DATABASE IF NOT EXISTS `web_project_gowno` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `web_project_gowno`;
 
 -- --------------------------------------------------------
 
