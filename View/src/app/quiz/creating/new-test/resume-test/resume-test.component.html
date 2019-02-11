@@ -14,7 +14,7 @@
             <span class="detailsNames"> Losowanie pytań: </span>{{subject.randomize? "tak" : "nie" }}<br>
             <span class="detailsNames"> Pytania na osobnych stronach: </span>{{subject.separatePage? "tak" : "nie" }}<br>
            
-         <div *ngIf ="subject.separatePage==1">
+         <div *ngIf ="subject.separatePage">
 
            <span  class="detailsNames"> 
             Możliwość powrotu do poprzedniego pytania: </span>

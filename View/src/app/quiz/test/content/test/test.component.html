@@ -8,8 +8,8 @@
         <!-- zmiana! -->
 
         ZASADY: <br>
-        Jest to test {{subjectObj.multipleChoice==1? "wielokrotnego":"jednokrotnego"}} wyboru. <br>
-        {{subjectObj.limitedTime==1? "Czas na rozwiązanie quizu wynosi: " + subjectObj.time + " min." :
+        Jest to test {{subjectObj.multipleChoice? "wielokrotnego":"jednokrotnego"}} wyboru. <br>
+        {{subjectObj.limitedTime? "Czas na rozwiązanie quizu wynosi: " + subjectObj.time + " min." :
         "Quiz nie posiada limitu czasu." }} <br>
         Należy zaznaczać tylko poprawne odpowiedzi. <br>
         Test zawiera {{subjectObj.nOQuestions}} pytań, każde za 1 punkt. <br>
@@ -33,8 +33,8 @@
     </div>
   <div fxLayout="row">
     <div fxLayout="column" class="questions">
-      <div *ngIf="subject.limitedTime!='0'" class="timer">{{timeLeft}}</div>
-      <div *ngIf="subjectObj.separatePage==1">
+      <div *ngIf="subject.limitedTime" class="timer">{{timeLeft}}</div>
+      <div *ngIf="subjectObj.separatePage">
       <div  *ngFor="let question of questions; let i = index;" class="question" 
               [ngStyle]="{'left': (((questionIndex < i) )? '120vw': (((questionIndex > i) )? '-120vw': '0')),
               'position': ((((questionIndex == (i-1))||(questionIndex == (i+1))) )? 'absolute': ''),
@@ -46,7 +46,7 @@
           (questionStatus)="onChange($event)" [number]='(i+1)+"/"+questions.length'></app-question>
       </div>
       </div>
-      <div *ngIf="subjectObj.separatePage==0">
+      <div *ngIf="!subjectObj.separatePage">
         <div data-aos="zoom-in-up" *ngFor="let question of questions; let i = index;" class="question" 
                 >
           <app-question  [ngStyle]="{'display': (((subjectObj.separatePage==0)||((questionIndex == (i-1))||(questionIndex == i)||(questionIndex == (i+1))) )? '': 'none')}"
@@ -57,7 +57,7 @@
     </div>
   </div>
   
-  <div *ngIf="subjectObj.separatePage==1">
+  <div *ngIf="subjectObj.separatePage">
       <div class = buttonPoses>
       <div class="prevBtn">
         <button mat-raised-button class="continue" (click)="prevQuestion()" *ngIf="(questionIndex>0)&&(subjectObj.canBack==1)">

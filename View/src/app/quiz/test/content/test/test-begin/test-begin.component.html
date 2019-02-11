@@ -13,8 +13,8 @@
       {{(subject.description!=undefined)&&(subject.description!="")&&(subject.description!=null)?
       "Opis: " + subject.description : " "}} <br><br>
       ZASADY: <br>
-      Jest to test {{subject.multipleChoice==1? "wielokrotnego":"jednokrotnego"}} wyboru. <br>
-      {{subject.limitedTime==1? "Czas na rozwiązanie quizu wynosi: " + subject.time + " min." :
+      Jest to test {{subject.multipleChoice? "wielokrotnego":"jednokrotnego"}} wyboru. <br>
+      {{subject.limitedTime? "Czas na rozwiązanie quizu wynosi: " + subject.time + " min." :
       "Quiz nie posiada limitu czasu." }} <br>
       Należy zaznaczać tylko poprawne odpowiedzi. <br>
       Test zawiera {{subject.nOQuestions}} pytań, każde za 1 punkt. <br>

@@ -1,5 +1,5 @@
 
-<div fxLayout="row" *ngIf="multipleChoice==1">
+<div fxLayout="row" *ngIf="multipleChoice">
     <article class="message is-primary" (click)="onClick()" [ngStyle]="{'background-color': color}">
         <div class="message-body answer answerStyle">
         
@@ -12,7 +12,7 @@
     </article>
 </div>
 
-<div fxLayout="row" *ngIf="multipleChoice==0">
+<div fxLayout="row" *ngIf="!multipleChoice">
     <article class="message is-primary" (click)="onClick()" [ngStyle]="{'background-color': checkbox.checked? '#707070' : '#505050' }">
         <div class="message-body answer answerStyle">
         <!--
