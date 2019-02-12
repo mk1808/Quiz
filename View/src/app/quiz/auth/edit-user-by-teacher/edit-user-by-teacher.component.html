@@ -3,7 +3,7 @@
     <div fxLayout="column" fxLayoutAlign="space-around center">
       <div fxLayout="row">
         <div class="wTitle register">
-          Profil użytkownika
+          Edycja profilu
         </div>
       </div>
       <br>
@@ -60,7 +60,29 @@
             </div>
           </div>
         </div>
-      </div>
+      </div>      
+      <div fxLayout="row" fxLayout.lt-md="column" >
+
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text inputStyle">
+              <i class="material-icons">
+                keyboard_arrow_right
+              </i></span>
+          </div>
+          <div class="form-group">
+
+            <select class="form-control" formControlName="role" 
+            [ngClass]="(editUserForm.controls.role.valid || !editUserForm.controls.role.touched)?'':'invalid'">
+              <option>Rodzaj konta</option>
+              <option *ngFor="let role of roles " [value]="role">
+                {{role}}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        </div>
     </div>
 
     <div fxLayout="column" fxLayoutAlign="space-around center">

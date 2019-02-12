@@ -55,7 +55,7 @@ export class User{
   surname:string;
   email:string;
   password:string;
-  role:number;
+  role:number|string;
   course:string;
   jwt:string;
   c_password:string;
