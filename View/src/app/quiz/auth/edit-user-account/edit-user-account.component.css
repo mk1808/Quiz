@@ -1,0 +1,47 @@
+.register{
+    margin-bottom: 10px;
+}
+
+.registerText{
+    color:#ededed;
+    text-align: center;
+}
+
+.newAccount{
+    margin-top:10px; 
+}
+
+.colleft{
+    margin-right:20px;
+    width: 340px;
+} 
+
+.colright{
+    margin-left:20px;
+    width: 340px;
+} 
+
+.testDetails{
+    text-align: center;  
+    FONT-FAMILY:Didact Gothic; 
+    color:#ededed;
+    font-size: 20px; 
+    font-weight: bold; 
+    margin-top:60px;
+    text-align:left;
+}
+
+.invalid{
+    border-color: red;
+    background-color: #ffc0c0;
+}
+
+@media only screen and (max-width: 960px) {
+    .colleft{
+        margin-right:0;
+    } 
+    
+    .colright{
+        margin-left:0;
+    }
+}

@@ -54,7 +54,7 @@ export class AuthService {
     return this.rest.put('/api/user',user);
   }
 
-  public updateUserBySelf(user:User): Observable<User>{
+  public updateUserBySelf(user:User): Observable<any>{
     return this.rest.put('/api/userOwn',user);
   }
 
