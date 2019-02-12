@@ -110,11 +110,13 @@ export class TestBeginComponent implements OnInit {
     
   this.cookie.set("multipleChoice", this.subject.multipleChoice.toString(), null, "/");
 
-    this.cookie.set("time", JSON.stringify({ limitedTime: this.subject.limitedTime, time: this.subject.time }), null, "/");
     x = this.subject;
     this.subject.multipleChoice = x.multipleChoice=='1';
     this.subject.canBack = x.canBack=='1';
     this.subject.limitedTime = x.limitedTime=='1';
+    this.subject.separatePage = x.separatePage=='1';
+    this.cookie.set("time", JSON.stringify({ limitedTime: this.subject.limitedTime, time: this.subject.time }), null, "/");
+    //console.log(this.subject)
     this.cookie.set("subj", JSON.stringify(this.subject), null, "/");
 
   }

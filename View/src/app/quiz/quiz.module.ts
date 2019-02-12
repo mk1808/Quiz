@@ -13,8 +13,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MainPageComponent } from './main-page/main-page.component';
 import { ContactComponent } from './contact/contact.component';
 import { NgxGoogleMapModule } from 'ngx-google-map';
-import { ParallaxModule, ParallaxConfig } from 'ngx-parallax';
+import { ParallaxModule } from 'ngx-parallax';
 import { EditUserAccountComponent } from './auth/edit-user-account/edit-user-account.component';
+import { UsersListComponent } from './auth/users-list/users-list.component';
 
 
 @NgModule({
@@ -36,6 +37,7 @@ import { EditUserAccountComponent } from './auth/edit-user-account/edit-user-acc
   ],
   declarations: [LayoutComponent,HeaderComponent, FooterComponent, 
     LoginComponent, RegisterComponent, MainPageComponent, ContactComponent,
-     EditUserAccountComponent]
+     EditUserAccountComponent,
+     UsersListComponent]
 })
 export class QuizModule { }
