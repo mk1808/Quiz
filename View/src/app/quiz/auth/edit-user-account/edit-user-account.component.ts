@@ -12,15 +12,15 @@ import { User } from '../../shared/models/classes';
   styleUrls: ['./edit-user-account.component.css']
 })
 export class EditUserAccountComponent implements OnInit {
-idUser:string;
-currentUser:User = new User();
-user:User = new User();
-editUserForm: FormGroup;
-editSuccess:boolean= false;
-editFail:boolean= false;
-editSuccessS:string;
+  idUser: string;
+  currentUser: User = new User();
+  user: User = new User();
+  editUserForm: FormGroup;
+  editSuccess: boolean = false;
+  editFail: boolean = false;
+  editSuccessS: string;
 
-  constructor(private fb: FormBuilder,private cookie: CookieService, private auth: AuthService,
+  constructor(private fb: FormBuilder, private cookie: CookieService, private auth: AuthService,
     private test: TestService,
     private router: Router, private route: ActivatedRoute) { }
 
@@ -29,36 +29,33 @@ editSuccessS:string;
       this.router.navigate(['/']);
     }
     else {
-      if (JSON.parse(this.cookie.get('user')).role == 1) {
-        this.router.navigate(['/creating/teacher_panel']);
-      }
-      else {
-        this.idUser = JSON.parse(this.cookie.get('user')).id;
-        this.currentUser=JSON.parse(this.cookie.get('user'));
-        this.editSuccessS=this.cookie.get('edit');
-        this.editSuccess=this.editSuccessS=="true";
-        this.cookie.set("edit", "", -0.5, "/");
 
-        console.log(this.idUser);
-        this.editUserForm = this.fb.group({
-          course: [this.currentUser.course, Validators.required],
-          password: [''],
-          passwordRepeat: [''],
-          name: [this.currentUser.name, Validators.required],
-          surname: [this.currentUser.surname, Validators.required],
-          email: [{value:this.currentUser.email, disabled:true}]
-        
-        }, { 
+      this.idUser = JSON.parse(this.cookie.get('user')).id;
+      this.currentUser = JSON.parse(this.cookie.get('user'));
+      this.editSuccessS = this.cookie.get('edit');
+      this.editSuccess = this.editSuccessS == "true";
+      this.cookie.set("edit", "", -0.5, "/");
+
+      console.log(this.idUser);
+      this.editUserForm = this.fb.group({
+        course: [this.currentUser.course, Validators.required],
+        password: [''],
+        passwordRepeat: [''],
+        name: [this.currentUser.name, Validators.required],
+        surname: [this.currentUser.surname, Validators.required],
+        email: [{ value: this.currentUser.email, disabled: true }]
+
+      }, {
           validator: this.formValidator
-         }
-        );
-  }
+        }
+      );
     }
+
   }
 
   formValidator(group: FormGroup) {
     let correct = true;
-    
+
     if (group.controls.password.value != group.controls.passwordRepeat.value) {
       correct = false;
       group.controls.passwordRepeat.setErrors({ 'invalid': true });
@@ -71,7 +68,7 @@ editSuccessS:string;
       correct = false;
       group.controls.surname.setErrors({ 'invalid': true });
     }
-    
+
     if (group.controls.course.value == "") {
       correct = false;
       group.controls.course.setErrors({ 'invalid': true });
@@ -83,9 +80,9 @@ editSuccessS:string;
 
   onEdit() {
     if (this.editUserForm.valid) {
-    this.editSuccess = false;
+      this.editSuccess = false;
       this.editFail = false;
-      this.user.id=Number(this.idUser);
+      this.user.id = Number(this.idUser);
       this.user.email = this.editUserForm.controls.email.value;
       this.user.password = this.editUserForm.controls.password.value;
       this.user.c_password = this.editUserForm.controls.passwordRepeat.value;
@@ -94,22 +91,22 @@ editSuccessS:string;
       this.user.surname = this.editUserForm.controls.surname.value;
 
       this.auth.updateUserBySelf(this.user).subscribe(x => {
-          
-      
-         this.cookie.set("token", x.token, 0.5, "/");
-         this.cookie.set("user", JSON.stringify(x.user), null, "/");
-          console.log(x);
-          this.editSuccess = true;
-          this.cookie.set("edit", this.editSuccess.toString(), 0.001, "/");
-          window.location.reload();  
-           
-        },
-          e => {
-          this.editFail=true;
-            //console.log(e);
-          });
-   
-        } else {
+
+
+        this.cookie.set("token", x.token, 0.5, "/");
+        this.cookie.set("user", JSON.stringify(x.user), null, "/");
+        console.log(x);
+        this.editSuccess = true;
+        this.cookie.set("edit", this.editSuccess.toString(), 0.001, "/");
+        window.location.reload();
+
+      },
+        e => {
+          this.editFail = true;
+          //console.log(e);
+        });
+
+    } else {
       this.editUserForm.controls['email'].markAsTouched();
       this.editUserForm.controls['name'].markAsTouched();
       this.editUserForm.controls['surname'].markAsTouched();
