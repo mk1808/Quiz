@@ -25,7 +25,6 @@ import { NgHttpLoaderModule } from 'ng-http-loader';
   declarations: [
     AppComponent,
     SideMenuComponent,
-    TestViewComponent,
     
   
   ],

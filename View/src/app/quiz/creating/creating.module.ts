@@ -14,6 +14,8 @@ import { NgxMaskModule } from 'ngx-mask';
 import { QuestionListComponent } from './new-test/new-question/question-list/question-list.component';
 import { TeacherMainPanelComponent } from './teacher-main-panel/teacher-main-panel.component';
 import { ModalModule } from 'ngx-bootstrap';
+import { FileDropModule } from 'ngx-file-drop';
+import { TestViewComponent } from 'src/app/test-view/test-view.component';
 
 
 @NgModule({
@@ -31,12 +33,14 @@ import { ModalModule } from 'ngx-bootstrap';
     FormsModule,
     MatRadioModule,
     MatSlideToggleModule,
-    ModalModule
+    ModalModule,
+    FileDropModule
   ],
   declarations: [NewTestComponent,
     NewQuestionComponent,
     ResumeTestComponent,
     QuestionListComponent,
-    TeacherMainPanelComponent]
+    TeacherMainPanelComponent,
+    TestViewComponent]
 })
 export class CreatingModule { }

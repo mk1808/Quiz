@@ -4,6 +4,7 @@ import { NewTestComponent } from './new-test/new-test.component';
 import { NewQuestionComponent } from './new-test/new-question/new-question.component';
 import { ResumeTestComponent } from './new-test/resume-test/resume-test.component';
 import { TeacherMainPanelComponent } from './teacher-main-panel/teacher-main-panel.component';
+import { TestViewComponent } from 'src/app/test-view/test-view.component';
 
 
 const routes: Routes = [
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path: 'new_test/resume', component: ResumeTestComponent},
   { path: 'new_test/:id', component: NewTestComponent},
   { path: 'teacher_panel', component: TeacherMainPanelComponent},
+  { path: 'testView', component: TestViewComponent},//nie trzeba
   { path: '', redirectTo: '/creating/new_test', pathMatch: 'full'},
   { path:"**", redirectTo: '/creating/teacher_panel' }
 ];

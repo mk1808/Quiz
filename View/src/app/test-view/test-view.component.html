@@ -1,3 +1,31 @@
-<div class="background">
-    
-</div>
+<div class="field has-text-left">
+        <label class="label">Zdjęcie</label>
+        <div class="columns">
+          <div class="file column is-3 has-text-centered">
+            <label class="file-label">
+              <input class="file-input" type="file" accept="image/*" (change)="changeListener($event)" name="resume">
+              <span class="file-cta">
+                <span class="file-icon">
+                  <i class="fas fa-upload"></i>
+                </span>
+                <span class="file-label">
+                  Wybierz plik…
+                </span>
+              </span>
+            </label>
+            lub
+            <input class="input" type="text" placeholder="Podaj URL zdjęcia" (change)="image=''" [(ngModel)]="imageControl">
+          </div>
+          <div class="column is-9">
+            <file-drop headertext="Upuść plik tutaj" (paste)="pastePicture($event)" (onFileDrop)="dropped($event)" (onFileOver)="fileOver($event)"
+              (onFileLeave)="fileLeave($event)"> </file-drop>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="image" class="recipeImage">
+      
+        <img [src]="domSanitizer.bypassSecurityTrustUrl(image)" />
+      </div>
+      <div *ngIf="imageControl && !image" class="recipeImage">
+        <img [src]="imageControl" alt="Błędy adres obrazka"/>
+      </div>
