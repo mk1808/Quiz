@@ -33,6 +33,12 @@
         Twoje testy
       </li>
       <li class="nav-item appNavItem" 
+      routerLink="/usersList" 
+      routerLinkActive="appNavItemActive" 
+       *ngIf="logged && isTeacher">
+        Użytkownicy
+      </li>
+      <li class="nav-item appNavItem" 
       (click)="wyloguj()"
        *ngIf="logged">
         Wyloguj

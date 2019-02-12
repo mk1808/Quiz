@@ -10,6 +10,7 @@ import {ActivatedRoute, NavigationEnd, NavigationStart, Router, RoutesRecognized
 export class HeaderComponent implements OnInit {
   mainPath="";
   logged:boolean = false;
+  isTeacher=false;
   name:string ;
   collapsed:boolean=true;
   constructor(private cookie:CookieService,private router:Router, private route:ActivatedRoute) {
@@ -37,9 +38,11 @@ export class HeaderComponent implements OnInit {
     else {
       this.logged = true;
       this.name = JSON.parse(this.cookie.get('user')).name+" "+JSON.parse(this.cookie.get('user')).surname;
+      
       if (JSON.parse(this.cookie.get('user')).role==1)
       {
         this.mainPath='/creating/teacher_panel';
+        this.isTeacher=true;
       }
       else {
         this.mainPath='/quiz/student_panel';

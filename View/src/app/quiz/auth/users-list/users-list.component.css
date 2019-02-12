@@ -1,0 +1,30 @@
+.usersTab{
+    width: 80vw;
+    margin:30px auto;
+}
+table{
+    width:100%;
+    min-width:700px;
+    background-color: #2a2a2a;
+    border: solid 2px #ededed;
+}
+.mat-row{
+    transition-duration: 300ms;
+    cursor: pointer;
+}
+.mat-row:hover{
+    background-color: #505050
+
+}
+.searchRow{
+    width: 80vw;
+    margin:30px auto;    
+}
+
+@media only screen and (max-width: 760px) {
+    .usersTab{
+        width:100%;
+        margin: 0 auto;
+        overflow-x: overlay; 
+    }
+}

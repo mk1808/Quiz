@@ -1,3 +1,77 @@
-<p>
-  users-list works!
-</p>
+<div class="wTitle">Lista zarejestrowanych użytkowników</div>
+
+
+<form [formGroup]="searchForm">
+  <div fxLayout="row" fxLayout.lt-lg="column" fxLayoutGap='20px' class="searchRow">
+    <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxLayoutGap='20px'>
+    <div class="input-group " >
+      <div class="input-group-prepend">
+        <span class="input-group-text inputStyle"><i class="material-icons">
+            mail
+          </i></span>
+      </div>
+      <input type="text" class="form-control" placeholder="E-mail" formControlName="email">
+    </div>
+    <div class="input-group ">
+      <div class="input-group-prepend">
+        <span class="input-group-text inputStyle"><i class="material-icons">
+            person
+          </i></span>
+      </div>
+      <input type="text" class="form-control" placeholder="Imię" formControlName="name">
+    </div>
+  </div>
+  <div fxLayout="row" fxLayout.xs="column" fxFlex="100%" fxLayoutGap='20px'>
+    <div class="input-group ">
+      <div class="input-group-prepend">
+        <span class="input-group-text inputStyle"><i class="material-icons">
+            person
+          </i></span>
+      </div>
+      <input type="text" class="form-control" placeholder="Nazwisko" formControlName="surname">
+    </div>
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text inputStyle"><i class="material-icons">
+            person
+          </i></span>
+      </div>
+      <input type="text" class="form-control" placeholder="Identyfikator grupy" formControlName="course">
+    </div>
+    </div>
+  </div>
+</form>
+
+<div class="usersTab">
+  <table mat-table [dataSource]="users" class="mat-elevation-z8">
+
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef> Login </th>
+      <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Imie </th>
+      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="surname">
+      <th mat-header-cell *matHeaderCellDef> Nazwisko </th>
+      <td mat-cell *matCellDef="let element"> {{element.surname}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="group">
+      <th mat-header-cell *matHeaderCellDef> Id grupy </th>
+      <td mat-cell *matCellDef="let element"> {{element.course}} </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="role">
+      <th mat-header-cell *matHeaderCellDef> Rola </th>
+      <td mat-cell *matCellDef="let element"> {{element.role=='s'?'student':'nauczyciel'}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="['email','name','surname','group','role']"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['email','name','surname','group','role'];" (click)='onClick(row)'></tr>
+  </table>
+</div>

@@ -81,6 +81,13 @@ html{
     background-color: #ededed ;
   }
 
+.usersTab .mat-cell,.usersTab .mat-header-cell{
+  color:#ededed;
+  padding-top: 11px;
+  font-size: 18px; 
+  border-color: #ededed;
+}
+
   @media only screen and (max-width: 500px) {
     .wTitle{
         font-size: 60px;

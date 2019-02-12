@@ -6,6 +6,7 @@ import { RegisterComponent } from './auth/register/register.component'
 import { MainPageComponent } from './main-page/main-page.component';
 import { ContactComponent } from './contact/contact.component';
 import { EditUserAccountComponent } from './auth/edit-user-account/edit-user-account.component';
+import { UsersListComponent } from './auth/users-list/users-list.component';
 const routes: Routes = [
   {
     path: "", component: LayoutComponent,children:[ {
@@ -35,6 +36,10 @@ const routes: Routes = [
     {
       path: "profile",
       component: EditUserAccountComponent 
+    },
+    {
+      path: "usersList",
+      component: UsersListComponent 
     },
     {
       path:"**", redirectTo: 'main'

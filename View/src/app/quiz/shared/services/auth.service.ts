@@ -47,7 +47,7 @@ export class AuthService {
   }
   
   public getUserList(email,course,name,surname): Observable<User[]>{
-    return this.rest.get('/api/usersList/?email='+email+'&course='+course+'&name='+name+'&surmane='+surname);
+    return this.rest.get('/api/usersList/'+email+'=/'+name+'=/'+surname+'=/'+course+'=');
   }
 
   public updateUserByTeacher(user:User): Observable<User>{
