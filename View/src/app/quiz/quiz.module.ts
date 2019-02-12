@@ -16,6 +16,7 @@ import { NgxGoogleMapModule } from 'ngx-google-map';
 import { ParallaxModule } from 'ngx-parallax';
 import { EditUserAccountComponent } from './auth/edit-user-account/edit-user-account.component';
 import { UsersListComponent } from './auth/users-list/users-list.component';
+import { EditUserByTeacherComponent } from './auth/edit-user-by-teacher/edit-user-by-teacher.component';
 
 
 @NgModule({
@@ -39,6 +40,7 @@ import { UsersListComponent } from './auth/users-list/users-list.component';
   declarations: [LayoutComponent,HeaderComponent, FooterComponent, 
     LoginComponent, RegisterComponent, MainPageComponent, ContactComponent,
      EditUserAccountComponent,
-     UsersListComponent]
+     UsersListComponent,
+     EditUserByTeacherComponent]
 })
 export class QuizModule { }

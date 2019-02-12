@@ -21,6 +21,10 @@ table{
     margin:30px auto;    
 }
 
+.mat-header-row{
+    background-color: #696969;
+}
+
 @media only screen and (max-width: 760px) {
     .usersTab{
         width:100%;

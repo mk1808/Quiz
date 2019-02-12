@@ -94,6 +94,8 @@ export class EditUserAccountComponent implements OnInit {
 
 
         this.cookie.set("token", x.token, 0.5, "/");
+        let role = (x.user.role=='s'?2:1);
+        x.user.role=role;
         this.cookie.set("user", JSON.stringify(x.user), null, "/");
         console.log(x);
         this.editSuccess = true;
