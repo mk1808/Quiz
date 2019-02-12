@@ -7,6 +7,7 @@ import { MainPageComponent } from './main-page/main-page.component';
 import { ContactComponent } from './contact/contact.component';
 import { EditUserAccountComponent } from './auth/edit-user-account/edit-user-account.component';
 import { UsersListComponent } from './auth/users-list/users-list.component';
+import { EditUserByTeacherComponent } from './auth/edit-user-by-teacher/edit-user-by-teacher.component';
 const routes: Routes = [
   {
     path: "", component: LayoutComponent,children:[ {
@@ -40,6 +41,10 @@ const routes: Routes = [
     {
       path: "usersList",
       component: UsersListComponent 
+    },
+    {
+      path: "usersList/:id",
+      component: EditUserByTeacherComponent 
     },
     {
       path:"**", redirectTo: 'main'

@@ -59,6 +59,7 @@ export class AuthService {
   }
 
   public getUserDetails(id): Observable<User>{
+    console.log(id)
     return this.rest.get('/api/user/'+id);
   }
 

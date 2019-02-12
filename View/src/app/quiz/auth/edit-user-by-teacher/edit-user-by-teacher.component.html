@@ -1,0 +1,86 @@
+<form *ngIf="initialized" [formGroup]="editUserForm">
+  <div class="container">
+    <div fxLayout="column" fxLayoutAlign="space-around center">
+      <div fxLayout="row">
+        <div class="wTitle register">
+          Profil użytkownika
+        </div>
+      </div>
+      <br>
+    </div>
+    <div fxLayout="column" fxLayoutAlign="space-around center">
+      <div fxLayout="row" fxLayout.lt-md="column" >
+        <div fxLayout="column" class="colleft" >
+          <div fxLayout="row" class="inputPos">
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text inputStyle"><i class="material-icons">
+                    mail
+                  </i></span>
+              </div>
+              <input type="text" class="form-control" placeholder="E-mail" formControlName="email">
+            </div>
+          </div>
+          <div fxLayout="row" class="inputPos">
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text inputStyle"><i class="material-icons">
+                    person
+                  </i></span>
+              </div>
+              <input type="text" class="form-control" placeholder="Identyfikator grupy" formControlName="course"
+              [ngClass]="(editUserForm.controls.course.valid || !editUserForm.controls.course.touched)?'':'invalid'">
+            </div>
+          </div>
+        </div>
+        <div fxLayout="column" class="colright">
+         
+
+          <div fxLayout="row" class="inputPos">
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text inputStyle"><i class="material-icons">
+                    person
+                  </i></span>
+              </div>
+              <input type="text" class="form-control" placeholder="Imię" formControlName="name"
+              [ngClass]="(editUserForm.controls.name.valid || !editUserForm.controls.name.touched)?'':'invalid'">
+            </div>
+          </div>
+
+          <div fxLayout="row" class="inputPos">
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text inputStyle"><i class="material-icons">
+                    person
+                  </i></span>
+              </div>
+              <input type="text" class="form-control" placeholder="Nazwisko" formControlName="surname"
+              [ngClass]="(editUserForm.controls.surname.valid || !editUserForm.controls.surname.touched)?'':'invalid'">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div fxLayout="column" fxLayoutAlign="space-around center">
+
+      <div fxLAyout="row">
+        <button mat-raised-button class="continue" (click)="onEdit()">Zatwierdź</button>
+      </div>
+      <div class="testDetails">
+
+        {{editSuccess==true? "Edycja użytkownika przebiegła poprawnie":"" }}
+        {{editFail==true? "Edycja użytkownika nie powiodła się ":"" }}
+
+        
+      </div>
+      <br>
+      <br>
+    </div>
+
+
+    <br>
+  </div>
+
+</form>
