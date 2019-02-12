@@ -58,5 +58,9 @@ export class AuthService {
     return this.rest.put('/api/userOwn',user);
   }
 
+  public getUserDetails(id): Observable<User>{
+    return this.rest.get('/api/user/'+id);
+  }
+
 
 }
