@@ -126,7 +126,8 @@ export class RegisterComponent implements OnInit {
 
         },
           e => {
-            //console.log(e);
+          
+          this.regFail=true;  //console.log(e);
           });
    
         } else {

@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-md appHeader">
   <img src="assets/img/logo5-600.png" alt="logo" class="logoHeader" (click)="onLogo()">
 
-  <div *ngIf="logged" class="name">{{name}}</div>
+
 
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#appMenu" aria-controls="appMenu"
     aria-expanded="false" aria-label="Toggle navigation">
@@ -12,6 +12,14 @@
   <div class="collapse navbar-collapse" id="appMenu" (click)="cancelCollapse($event)">
 
     <ul class="navbar-nav mr-auto appNavbar">
+      <li class="nav-item appNavItem" 
+      routerLink="/profile" 
+      routerLinkActive="appNavItemActive" 
+      *ngIf="logged"
+     >
+     {{name}}
+      </li>
+      
       <li class="nav-item appNavItem" 
       routerLink="/main" 
       routerLinkActive="appNavItemActive" 
