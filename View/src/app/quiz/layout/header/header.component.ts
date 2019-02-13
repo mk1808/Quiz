@@ -38,13 +38,14 @@ export class HeaderComponent implements OnInit {
     else {
       this.logged = true;
       this.name = JSON.parse(this.cookie.get('user')).name+" "+JSON.parse(this.cookie.get('user')).surname;
-      
+
       if (JSON.parse(this.cookie.get('user')).role==1)
       {
         this.mainPath='/creating/teacher_panel';
         this.isTeacher=true;
       }
       else {
+        this.isTeacher=false;
         this.mainPath='/quiz/student_panel';
       }
     }
