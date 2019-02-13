@@ -8,6 +8,8 @@ import { QuestionListComponent } from './question-list/question-list.component';
 import { TestService } from 'src/app/quiz/shared/services/test.service';
 import { MatRadioGroup, MatRadioButton, MatRadioChange } from '@angular/material';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
+import { UploadFile } from 'ngx-file-drop';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-new-question',
@@ -37,10 +39,15 @@ export class NewQuestionComponent implements OnInit, AfterViewInit {
   modalRef: BsModalRef;
   questionText: string;
 
+  public files: UploadFile[] = []; //tablica przechowująca przeciągnięte plliki
+public image: any; //obraz w postaci stringa
+imageControl:string; //url do obrazka
+
 
   constructor(private fb: FormBuilder, private creating: CreatingService,
     private test: TestService, private router: Router, private route: ActivatedRoute,
-    private cookie: CookieService, private modalService: BsModalService) {
+    private cookie: CookieService, private modalService: BsModalService,
+    public domSanitizer: DomSanitizer) {
     this.route.params.subscribe(x => {
       let id = x['id'];
       if (id != undefined) { this.newQuestion = false; this.idExistingQuestion = id; }
@@ -483,4 +490,21 @@ export class NewQuestionComponent implements OnInit, AfterViewInit {
   onResume() {
     this.router.navigate(["/creating/new_test/resume"]);
   }
+
+  //ta metoda używana jest przy przycisku uploadu zdjęcia
+changeListener($event): void {
+  this.readThis($event.target);
+}
+
+//metoda przekształacnia zdjęcia z przycisku
+readThis(inputValue: any): void {
+  var file: File = inputValue.files[0];
+  var myReader: FileReader = new FileReader();
+
+  myReader.onloadend = (e) => {
+    this.image = myReader.result;
+    this.imageControl=''; // kasowanie zawartości pola z url obrazka bo korzystamy z tego przeciągniętego
+  }
+  myReader.readAsDataURL(file);
+}
 }

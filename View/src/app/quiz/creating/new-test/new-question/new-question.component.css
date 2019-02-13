@@ -57,6 +57,49 @@
      border-bottom: none; 
 }
 
+.file-cta{
+    background-color: #707070;
+    color: #000000;
+
+}
+
+
+.file-cta:hover{
+    background-color: #999999;
+
+}
+
+.file-label:hover{
+   
+
+}
+
+
+.file_input_div {
+    margin: auto;
+    width: 250px;
+    height: 40px;
+  }
+  
+  .file_input {
+    float: left;
+  }
+  
+  #file_input_text_div {
+    width: 200px;
+    margin-top: -8px;
+    margin-left: 5px;
+  }
+  
+  .none {
+    display: none;
+  }
+
+.file-cta, .file-name {
+    border-color: #707070;
+    border-radius: 4px;
+    font-weight: 500;
+}
 
 @media only screen and (max-width: 960px) {
     .questionList{

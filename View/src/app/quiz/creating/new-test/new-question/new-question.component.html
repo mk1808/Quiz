@@ -22,9 +22,36 @@
                     keyboard_arrow_right
                   </i></span>
               </div>
-              <input type="text" class="form-control" placeholder="Zdjęcie" aria-describedby="basic-addon1"
+              <input type="text" class="form-control" placeholder="Zdjęcie" 
                 formControlName="photo">
             </div>
+<!--
+            <label class="file-label">
+              <input class="file-input continue" mat-raised-button type="file" accept="image/*" (change)="changeListener($event)" name="resume">
+              <span class="file-cta">
+                <span class="file-icon">
+                  <i class="fas fa-upload"></i>
+                </span>
+                <span class="file-label">
+                  Wybierz zdjęcie…
+                </span>
+              </span>
+            </label>
+-->
+<div class="btn btn-primary btn-sm float-left">
+  <span> Wybierz zdjęcie…</span>
+  <input type="file"accept="image/*" (change)="changeListener($event)" >
+</div>
+
+
+            <div *ngIf="image" class="recipeImage">
+      
+              <img [src]="domSanitizer.bypassSecurityTrustUrl(image)" />
+            </div>
+            <div *ngIf="imageControl && !image" class="recipeImage">
+              <img [src]="imageControl" alt="Błędy adres obrazka"/>
+            </div>
+
           </div>
 
           <mat-radio-group formControlName="radioGroup">

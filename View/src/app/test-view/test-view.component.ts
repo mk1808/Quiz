@@ -11,13 +11,13 @@ import { FormControl } from '@angular/forms';
 })
 export class TestViewComponent implements OnInit {
 
-  constructor(private domSanitizer: DomSanitizer) { } //DomSanitizer używam przy wyświetlaniu obrazka 
+  constructor(public domSanitizer: DomSanitizer) { } //DomSanitizer używam przy wyświetlaniu obrazka 
 
   ngOnInit() {
   }
   
 public files: UploadFile[] = []; //tablica przechowująca przeciągnięte plliki
-private image: any; //obraz w postaci stringa
+public image: any; //obraz w postaci stringa
 imageControl:string; //url do obrazka
 
 
@@ -38,6 +38,8 @@ public dropped(event: UploadEvent) {
   }
 }
 
+pastePicture(event:ClipboardEvent){
+}
 
 ///takie metody są ale ich nie używam
 public fileOver(event){
