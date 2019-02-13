@@ -38,10 +38,8 @@
               </span>
             </label>
 -->
-<div class="btn btn-primary btn-sm float-left">
-  <span> Wybierz zdjęcie…</span>
-  <input type="file"accept="image/*" (change)="changeListener($event)" >
-</div>
+  <input type="file"accept="image/*" #fileInput (change)="changeListener($event)" class="none">
+<button mat-raised-button class="continue " (click)="fileInput.click()">Wybierz se plik</button>
 
 
             <div *ngIf="image" class="recipeImage">
