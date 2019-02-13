@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
 import { AuthService } from '../../shared/services/auth.service';
 import { TestService } from '../../shared/services/test.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { User } from '../../shared/models/classes';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap';
+import { CreatingService } from '../../shared/services/creating.service';
 
 @Component({
   selector: 'app-edit-user-by-teacher',
@@ -19,9 +21,10 @@ export class EditUserByTeacherComponent implements OnInit {
   roles:string[]=["Nauczyciel","Student"];
   editSuccess: boolean = false;
   editFail: boolean = false;
+  modalRef: BsModalRef;
   constructor(private fb: FormBuilder, private cookie: CookieService, private auth: AuthService,
-    private test: TestService,
-    private router: Router, private route: ActivatedRoute) { }
+    private test: TestService, private creating:CreatingService,
+    private router: Router, private route: ActivatedRoute, private modalService: BsModalService) { }
 
   ngOnInit() {
     if (this.cookie.get('user') == "") {
@@ -108,4 +111,30 @@ export class EditUserByTeacherComponent implements OnInit {
 
   }
 }
+openModal(template: TemplateRef<any>) {
+  this.modalRef = this.modalService.show(template);
+}
+onDelet(){
+
+  this.auth.deleteUser(Number(this.currentUser.id)).subscribe(x=>{
+
+    if (x){
+      this.router.navigate(['/usersList']);
+    }
+  });
+  this.modalRef.hide();
+}
+
+onCancel(){
+  this.modalRef.hide();
+}
+
+/*
+onDelete(){
+
+  this.auth.deleteUser(Number(this.currentUser.id)).subscribe(x=>
+    {
+      console.log(x);
+    })
+}*/
 }
