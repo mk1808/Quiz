@@ -57,10 +57,6 @@ export class QuestionListComponent implements OnInit {
         
       this.quizName=x.name;
    });
- // this.test.getAnswerStatuses(this.idSubject).subscribe(x=>
-   // {
-     // console.log("stat  ",x.body);
-    //})
   }
 
    

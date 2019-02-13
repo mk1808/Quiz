@@ -22,7 +22,6 @@ export class MainPageComponent implements OnInit {
       this.size=window.innerWidth;
       this.initialParalax=0.5*window.innerWidth;
       if(window.innerWidth>800){
-        console.log(this.parallax)
         this.parallax=true;
       }
       else {this.parallax=false;}

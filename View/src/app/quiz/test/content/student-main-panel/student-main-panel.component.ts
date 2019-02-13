@@ -42,31 +42,6 @@ export class StudentMainPanelComponent implements OnInit {
           this.tests = x;
           if(this.allResults.length>0)this.createResultTable();
         
-          
-          
-
-          /*for (let i = 0; i < this.tests.length; i++) {
-            this.idNumber.push(this.tests[i].id);
-            this.allResults.push("");
-          }
-          console.log(this.idNumber);
-          let i=0;
-          let z=0;
-          for (let j = 0; j < this.tests.length; j++) {
-            this.test.getUserResultForQuiz(this.idUser).subscribe(y => {
-              console.log(y);
-              i++;
-              this.allResults[i]=y[0].result;
-              if(i==this.tests.length){
-                console.log("a");
-                console.log(this.allResults);
-          
-              }
-              //    console.log(y);
-        
-            });
-          } */
-         
 
         });
 
@@ -82,7 +57,6 @@ export class StudentMainPanelComponent implements OnInit {
 
   }
   getResult(id) {
-    //console.log(id);
   }
 
   findResult(idSubject) {
@@ -94,7 +68,6 @@ export class StudentMainPanelComponent implements OnInit {
       
       this.results.push(this.findResult(x.id));
     });
-    //console.log(this.results);
   }
 
 }

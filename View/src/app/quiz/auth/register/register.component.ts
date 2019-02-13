@@ -66,12 +66,9 @@ export class RegisterComponent implements OnInit {
 
       if (group.controls.email.value.split('@').length == 2) {
 
-        // console.log( group.controls.email.value.split('@')[0]);
         if (group.controls.email.value.split('@')[1].includes('.')) {
           let length = group.controls.email.value.split('@')[1].split('.').length;
-        //console.log( group.controls.email.value.split('@')[1].split('.'));
         for (let i = 0; i < length; i++) {
-        //console.log(group.controls.email.value.split('@')[1].split('.')[i].length );
             if (group.controls.email.value.split('@')[1].split('.')[i].length >=1) {
             } else {
               correct = false; group.controls.email.setErrors({ 'invalid': true });
@@ -127,7 +124,7 @@ export class RegisterComponent implements OnInit {
         },
           e => {
           
-          this.regFail=true;  //console.log(e);
+          this.regFail=true;  
           });
    
         } else {

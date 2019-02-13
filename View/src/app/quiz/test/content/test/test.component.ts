@@ -81,10 +81,6 @@ export class TestComponent implements OnInit {
           let markNumber:string=JSON.parse(this.cookie.get("markTable"))+'';
           this.markNumber=markNumber.split(",").map(Number);
           
-          //console.log("aaa");
-      //    this.markNumber = this.testService.getMarkTable();
-          //console.log(markNumber);
-          //console.log(this.markNumber);
           this.idSubject = this.cookie.get('idSubject');
           this.subjectObj = JSON.parse(this.cookie.get("subj"));
           this.idUser = (JSON.parse(this.cookie.get('user')).id);

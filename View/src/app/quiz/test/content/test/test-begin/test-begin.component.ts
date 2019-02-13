@@ -27,9 +27,8 @@ export class TestBeginComponent implements OnInit {
       if (window.location.href.split('/')[4] == 'demo' || window.location.href.split('/')[5] == 'demo') {
         this.demoTest = true;
         this.route.params.subscribe(x => {
-          //console.log(x['name']);
           this.test.getDemoId(x['name']).subscribe(x => {
-            //console.log(x);
+  
             this.cookie.set("idSubject", x.id, null, '/');
             this.loadQuiz(x);
           });
@@ -72,7 +71,7 @@ export class TestBeginComponent implements OnInit {
     //this.subject.time = x.time;
     if (this.demoTest) {
       this.subject.limitedTime = true;
-      //console.log(x);
+    
       if ((x.time == null)||(x.time <1)) {
         this.subject.time = 60;
       }else {
@@ -104,8 +103,6 @@ export class TestBeginComponent implements OnInit {
     }
     this.markNumber[11] = +this.subject.nOQuestions;
 
-    //console.log(this.markNumber);
-  //  this.test.setMarkTable(this.markNumber);
     this.cookie.set("markTable", JSON.stringify(this.markNumber), null, "/");
     
   this.cookie.set("multipleChoice", this.subject.multipleChoice.toString(), null, "/");
@@ -116,7 +113,7 @@ export class TestBeginComponent implements OnInit {
     this.subject.limitedTime = x.limitedTime=='1';
     this.subject.separatePage = x.separatePage=='1';
     this.cookie.set("time", JSON.stringify({ limitedTime: this.subject.limitedTime, time: this.subject.time }), null, "/");
-    //console.log(this.subject)
+   
     this.cookie.set("subj", JSON.stringify(this.subject), null, "/");
 
   }

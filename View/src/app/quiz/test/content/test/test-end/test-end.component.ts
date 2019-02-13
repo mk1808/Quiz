@@ -54,14 +54,12 @@ export class TestEndComponent implements OnInit {
         }
         else {
           this.subjectObj = JSON.parse(this.cookie.get("subj"));
-         // console.log(this.subjectObj);
+      
           this.questions = this.testService.getQuestionsInResult();
           let result: Result = this.testService.getResult();
-        //  let markTable: number[] = this.testService.getMarkTable();
         let markNumber:string=JSON.parse(this.cookie.get("markTable"))+'';
           let markTable=markNumber.split(",").map(Number);
        
-         // console.log("marktbl");
           this.total = result.total;
           if (this.total == null)
             this.router.navigate(['/quiz/begin']);
@@ -70,7 +68,6 @@ export class TestEndComponent implements OnInit {
           this.isPassed = this.truePercent >= 60;
 
           let j: number;
-          //console.log(markTable); 
              
           for (let i = markTable.length-1; i > -1; i--) {
        
@@ -84,7 +81,6 @@ export class TestEndComponent implements OnInit {
           }
           this.mark=this.marks[j];
           
-          //console.log(this.mark);
         }
       }
     }

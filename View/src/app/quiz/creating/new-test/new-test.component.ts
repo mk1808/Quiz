@@ -56,7 +56,6 @@ export class NewTestComponent implements OnInit {
 
         this.dictionary.getCourses().subscribe(x => {
           this.coursesTable = x;
-          //console.log(x);
         });
         this.user = (JSON.parse(this.cookie.get('user')));
 
@@ -214,7 +213,7 @@ export class NewTestComponent implements OnInit {
   onDelet(){
 
     this.creating.deleteSubject(this.idExistingTest).subscribe(x=>{
-      //console.log(x);
+
       if (x){
         this.router.navigate(['/creating/teacher_panel']);
       }
@@ -293,12 +292,10 @@ export class NewTestComponent implements OnInit {
                   this.auth.updateUser(user, auth.token).subscribe(t => {
                     this.router.navigate(['./new_question'], { relativeTo: this.route });
                   }, e => {
-                    //console.log(e);
                     this.auth.deleteUser(user.id)
                   });
 
                 }, e => {
-                  //console.log(e);
                   this.auth.deleteUser(user.id)
                 });
               }
@@ -307,7 +304,6 @@ export class NewTestComponent implements OnInit {
               }
               //}
             }, e => {
-              //console.log(e);
               this.auth.deleteUser(user.id)
             });
           } else {
@@ -328,12 +324,10 @@ export class NewTestComponent implements OnInit {
                     this.auth.updateUser(user, auth.token).subscribe(t => {
                       this.router.navigate(['./new_question'], { relativeTo: this.route });
                     }, e => {
-                      //console.log(e);
                       this.auth.deleteUser(user.id)
                     });
 
                   }, e => {
-                    //console.log(e);
                     this.auth.deleteUser(user.id)
                   });
                 }
@@ -342,12 +336,10 @@ export class NewTestComponent implements OnInit {
                 }
 
               }, e => {
-                console.log(e);
                 this.auth.deleteUser(user.id)
               });
             }
             catch (e) {
-              console.log(e);
             }
           }
 
@@ -377,7 +369,6 @@ export class NewTestComponent implements OnInit {
             }, e => console.log(e));
           }
           catch (e) {
-            //console.log(e);
           }
         }
       }

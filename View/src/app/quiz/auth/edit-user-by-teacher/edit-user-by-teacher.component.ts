@@ -37,7 +37,7 @@ export class EditUserByTeacherComponent implements OnInit {
           let id = x['id'];
         
           this.auth.getUserDetails(id).subscribe(y => {
-            console.log(y);
+         
             this.currentUser = y;
           
             this.editUserForm = this.fb.group({

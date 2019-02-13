@@ -36,7 +36,6 @@ export class EditUserAccountComponent implements OnInit {
       this.editSuccess = this.editSuccessS == "true";
       this.cookie.set("edit", "", -0.5, "/");
 
-      console.log(this.idUser);
       this.editUserForm = this.fb.group({
         course: [this.currentUser.course, Validators.required],
         password: [''],
@@ -56,9 +55,12 @@ export class EditUserAccountComponent implements OnInit {
   formValidator(group: FormGroup) {
     let correct = true;
 
-    if (group.controls.password.value != group.controls.passwordRepeat.value) {
+    if ((group.controls.password.value !='')&&(group.controls.password.value != group.controls.passwordRepeat.value)) {
       correct = false;
       group.controls.passwordRepeat.setErrors({ 'invalid': true });
+    }
+    else {
+      group.controls.passwordRepeat.setErrors(null);
     }
     if (group.controls.name.value == "") {
       correct = false;
@@ -97,7 +99,6 @@ export class EditUserAccountComponent implements OnInit {
         let role = (x.user.role=='s'?2:1);
         x.user.role=role;
         this.cookie.set("user", JSON.stringify(x.user), null, "/");
-        console.log(x);
         this.editSuccess = true;
         this.cookie.set("edit", this.editSuccess.toString(), 0.001, "/");
         window.location.reload();
@@ -105,7 +106,6 @@ export class EditUserAccountComponent implements OnInit {
       },
         e => {
           this.editFail = true;
-          //console.log(e);
         });
 
     } else {

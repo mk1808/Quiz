@@ -46,7 +46,6 @@ export class UsersListComponent implements OnInit {
   }
 
   onClick(user){
-    console.log(user);
     this.router.navigate(['/usersList/'+user.id]);
   }
 

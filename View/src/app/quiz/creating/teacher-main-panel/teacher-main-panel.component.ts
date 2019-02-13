@@ -31,7 +31,7 @@ export class TeacherMainPanelComponent implements OnInit {
       else {
         this.idUser = JSON.parse(this.cookie.get('user')).id;
         this.creating.getTests(this.idUser).subscribe(x => {
-         //console.log(x);
+       
             this.tests = x;
           
         })
