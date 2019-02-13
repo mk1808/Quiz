@@ -14,6 +14,18 @@
     width:100%;
     min-height: 270px;
 }
+.qImage{
+    text-align: center;
+    max-width: 300px;
+    max-height: 300px;
+    margin:0 auto;
+}
+
+img{
+    text-align: center;
+    max-width: 300px;
+    max-height: 300px;
+}
 
 .textAreaSize{
     height:5em;
@@ -69,9 +81,9 @@
 
 }
 
-.file-label:hover{
+.continue{
    
-
+    margin-bottom: 15px!important;
 }
 
 

@@ -22,32 +22,20 @@
                     keyboard_arrow_right
                   </i></span>
               </div>
-              <input type="text" class="form-control" placeholder="Zdjęcie" 
-                formControlName="photo">
+              <input type="text" class="form-control" placeholder="Podaj URL do zdjęcia" 
+                formControlName="photo" (change)="onPhoto()" >
             </div>
-<!--
-            <label class="file-label">
-              <input class="file-input continue" mat-raised-button type="file" accept="image/*" (change)="changeListener($event)" name="resume">
-              <span class="file-cta">
-                <span class="file-icon">
-                  <i class="fas fa-upload"></i>
-                </span>
-                <span class="file-label">
-                  Wybierz zdjęcie…
-                </span>
-              </span>
-            </label>
--->
+
   <input type="file"accept="image/*" #fileInput (change)="changeListener($event)" class="none">
-<button mat-raised-button class="continue " (click)="fileInput.click()">Wybierz se plik</button>
+<button mat-raised-button class="continue " (click)="fileInput.click()">Wybierz zdjęcie z dysku…</button>
 
 
-            <div *ngIf="image" class="recipeImage">
+            <div *ngIf="image" class="qImage">
       
               <img [src]="domSanitizer.bypassSecurityTrustUrl(image)" />
             </div>
-            <div *ngIf="imageControl && !image" class="recipeImage">
-              <img [src]="imageControl" alt="Błędy adres obrazka"/>
+            <div *ngIf="imageControl && !image" class="qImage">
+              <img [src]="imageControl"class="qImage"    alt="Błędy adres obrazka"/>
             </div>
 
           </div>

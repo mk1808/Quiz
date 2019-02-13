@@ -38,6 +38,8 @@ export class NewQuestionComponent implements OnInit, AfterViewInit {
   pleaseCheckAnswer = false;
   modalRef: BsModalRef;
   questionText: string;
+  file: File;
+  //fileName:string="Zdjęcie";
 
   public files: UploadFile[] = []; //tablica przechowująca przeciągnięte plliki
 public image: any; //obraz w postaci stringa
@@ -247,6 +249,7 @@ imageControl:string; //url do obrazka
       radioGroup: [null]
     }, { validator: this.formValidator });
     this.initialized = true;
+    
     this.newQuestionForm.statusChanges.subscribe(x => {
       this.checkAnswerValid();
     });
@@ -365,7 +368,10 @@ imageControl:string; //url do obrazka
 
       question.text = text;
 
-      question.image = this.newQuestionForm.controls.photo.value;
+      this.file==null?question.image=this.newQuestionForm.controls.photo.value:
+      question.image=this.image;
+      //question.image = this.image;
+
       question.answers[0] = {
         text: this.newQuestionForm.controls.answer0.value,
         status: this.newQuestionForm.controls.checkAnswer0.value,
@@ -494,17 +500,27 @@ imageControl:string; //url do obrazka
   //ta metoda używana jest przy przycisku uploadu zdjęcia
 changeListener($event): void {
   this.readThis($event.target);
+  
 }
+
+onPhoto(){
+  this.file=null;
+  console.log(this.file);
+  this.image=false;
+}
+
 
 //metoda przekształacnia zdjęcia z przycisku
 readThis(inputValue: any): void {
-  var file: File = inputValue.files[0];
+  this.file = inputValue.files[0];
+  this.newQuestionForm.controls.photo.setValue("");
+  console.log(this.file);
   var myReader: FileReader = new FileReader();
 
   myReader.onloadend = (e) => {
     this.image = myReader.result;
     this.imageControl=''; // kasowanie zawartości pola z url obrazka bo korzystamy z tego przeciągniętego
   }
-  myReader.readAsDataURL(file);
+  myReader.readAsDataURL(this.file);
 }
 }
