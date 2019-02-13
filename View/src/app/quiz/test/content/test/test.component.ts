@@ -38,7 +38,9 @@ export class TestComponent implements OnInit {
     if (this.cookie.get('user') == "") {
       let markNumber:string=JSON.parse(this.cookie.get("markTable"))+'';
       this.markNumber=markNumber.split(",").map(Number);
-      if (window.location.href.split('/')[4] == 'demo' || window.location.href.split('/')[5] == 'demo') {
+    //  if (window.location.href.split('/')[4] == 'demo' || window.location.href.split('/')[5] == 'demo')
+      if (window.location.href.split('/').includes('demo'))
+      {
         this.idSubject = this.cookie.get('idSubject')
         this.subjectObj = JSON.parse(this.cookie.get("subj"));
         this.testService.getQuestionsByIdSubjectDemoWOStatus(this.idSubject).subscribe(x => {
@@ -173,7 +175,8 @@ export class TestComponent implements OnInit {
   onSubmit() {
     this.isSubmitted = true;
     clearInterval()
-    if (window.location.href.split('/')[4] == 'demo' || window.location.href.split('/')[5] == 'demo') {
+  //  if (window.location.href.split('/')[4] == 'demo' || window.location.href.split('/')[5] == 'demo') {
+      if (window.location.href.split('/').includes('demo')){
       this.testService.checkAnswersForDemo(this.questionStatuses).subscribe(
         x => {
           this.testService.setResult(x);

@@ -27,7 +27,9 @@ export class TestEndComponent implements OnInit {
   ngOnInit() {
     window.scroll(0,0);
     if (this.cookie.get('user') == "") {
-      if (window.location.href.split('/')[4] == 'demo' || window.location.href.split('/')[5] == 'demo') {
+      //if (window.location.href.split('/')[4] == 'demo' || window.location.href.split('/')[5] == 'demo') 
+      if (window.location.href.split('/').includes('demo'))
+      {
         this.subjectObj = JSON.parse(this.cookie.get("subj"));
         let result: Result = this.testService.getResult();
         //////dodac

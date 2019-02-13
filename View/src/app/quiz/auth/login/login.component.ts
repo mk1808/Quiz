@@ -62,6 +62,7 @@ export class LoginComponent implements OnInit {
         }, e => {
           this.userForm.controls.username.setValue("");
           this.userForm.controls.password.setValue("");
+          this.regFail=true;
         });
     } else {
       this.userForm.controls.username.markAsTouched();
