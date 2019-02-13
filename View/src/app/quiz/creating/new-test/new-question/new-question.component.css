@@ -115,6 +115,7 @@ img{
 
 @media only screen and (max-width: 960px) {
     .questionList{
+        margin-top:100px;
     }
 }
 
