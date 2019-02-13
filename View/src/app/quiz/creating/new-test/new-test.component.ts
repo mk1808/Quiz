@@ -30,7 +30,8 @@ export class NewTestComponent implements OnInit {
   newUser: boolean = false;
   idSubject:number;
   modalRef: BsModalRef;
-
+  userRegistrationFailed=false;
+  oryginalTest:Subject;
   constructor(private fb: FormBuilder, private dictionary: DictionaryService,
     private creating: CreatingService, private cookie: CookieService,
     private router: Router, private route: ActivatedRoute, private test: TestService,
@@ -84,7 +85,7 @@ export class NewTestComponent implements OnInit {
         }
         else {
           this.test.getQuizDetails(this.idExistingTest).subscribe(x => {
-
+            this.oryginalTest=x;
             
             this.testName = x.name;
             let hoursN = Math.floor(x.time / 60);
@@ -97,28 +98,62 @@ export class NewTestComponent implements OnInit {
             if (minutesN < 10) minutes = "0" + String(minutesN);
 
             this.newUser = !isNaN(Number(x.course));
-            this.newTestForm = this.fb.group({
-              name: [x.name, Validators.required],
-              subject: [x.subject == 'java' ? 'Programowanie w języku Java' : 'Technologie Sieci WEB', Validators.required],
-              limitedTime: [x.limitedTime],
-              multipleChoice: [{
-                value: (x.multipleChoice == 0 ? 'jednokrotny' : 'wielokrotny'),
-                disabled: true
-              }, Validators.required],
-              time: [hours + ":" + minutes],
-              course: [x.course],
-              description: [x.description],
-              separatedPages: [x.separatePage],
-              canBack: [x.canBack],
-              randomize: [x.randomize],
-              newUser: [this.newUser],
-              email: [''],
-              password: [''],
-              passwordRepeat: ['']
-            });
-            this.initialized = true;
-            if (!x.separatePage)
-              this.newTestForm.controls.canBack.disable();
+            if(this.newUser){
+              this.auth.getUserDetails(x.course).subscribe(
+                y=>{
+                  this.newTestForm = this.fb.group({
+                name: [x.name, Validators.required],
+                subject: [x.subject == 'java' ? 'Programowanie w języku Java' : 'Technologie Sieci WEB', Validators.required],
+                limitedTime: [x.limitedTime],
+                multipleChoice: [{
+                  value: (x.multipleChoice == 0 ? 'jednokrotny' : 'wielokrotny'),
+                  disabled: true
+                }, Validators.required],
+                time: [hours + ":" + minutes],
+                course: [x.course],
+                description: [x.description],
+                separatedPages: [x.separatePage],
+                canBack: [x.canBack],
+                randomize: [x.randomize],
+                newUser: [this.newUser],
+                email: [y.email],
+                password: [''],
+                passwordRepeat: ['']
+              });
+              this.initialized = true;
+              if (!x.separatePage)
+                this.newTestForm.controls.canBack.disable();
+                }
+                )
+
+
+              
+            }
+            else {
+              this.newTestForm = this.fb.group({
+                name: [x.name, Validators.required],
+                subject: [x.subject == 'java' ? 'Programowanie w języku Java' : 'Technologie Sieci WEB', Validators.required],
+                limitedTime: [x.limitedTime],
+                multipleChoice: [{
+                  value: (x.multipleChoice == 0 ? 'jednokrotny' : 'wielokrotny'),
+                  disabled: true
+                }, Validators.required],
+                time: [hours + ":" + minutes],
+                course: [x.course],
+                description: [x.description],
+                separatedPages: [x.separatePage],
+                canBack: [x.canBack],
+                randomize: [x.randomize],
+                newUser: [this.newUser],
+                email: [''],
+                password: [''],
+                passwordRepeat: ['']
+              });
+              this.initialized = true;
+              if (!x.separatePage)
+                this.newTestForm.controls.canBack.disable();
+            }
+            
 
           });
         }
@@ -128,20 +163,6 @@ export class NewTestComponent implements OnInit {
 
   formValidator(group: FormGroup) {
     let correct = true;
-    //group.clearValidators();
-
-
-
-    //
-    //
-    //
-    //
-    //
-    // Tutaj coś neie działa przzy edycji czasem
-    //
-    //
-    //
-    //
 
     if (group.controls.multipleChoice.value == "Krotność") {
       group.controls.multipleChoice.setErrors({ 'invalid': true });
@@ -229,6 +250,7 @@ export class NewTestComponent implements OnInit {
   }
 
   onCreate() {
+      this.userRegistrationFailed=false;
     if (this.newTestForm.valid) {
       let subject = new Subject();
       subject.idAuthor = this.user.id;
@@ -268,65 +290,198 @@ export class NewTestComponent implements OnInit {
         user.name = "Użytkownik";
         user.surname = "Tymczasowy";
         user.course = "d";
-        this.auth.register(user).subscribe(userID => {
-          user.id = userID.user.id
-          subject.course = userID.user.id;
-          if (this.newTest) {
-            this.creating.createSubject(subject).subscribe(x => {
-
-              subject.id = x.id;
-              this.cookie.set("subject", JSON.stringify(subject), null, '/');
-
-              this.cookie.set("idSubject", x.id.toString(), null, "/");
-
-              if (this.newTestForm.controls.newUser.value) {
-
-                this.auth.logIn(user).subscribe(auth => {
-
-                  let data = auth.user
-                  user.id = data.id;
-                  user.course = data.id.toString()
-                  user.role = data.role.toString();
-                  user.email = this.newTestForm.controls.email.value;
-
-                  this.auth.updateUser(user, auth.token).subscribe(t => {
+        
+        
+        
+        if(!this.newTest && this.newTestForm.controls.password.value!=''){
+          this.auth.deleteUser(this.oryginalTest.course).subscribe(p=>{
+            this.auth.register(user).subscribe(userID => {
+              user.id = userID.user.id
+              subject.course = userID.user.id;
+              if (this.newTest) {
+                this.creating.createSubject(subject).subscribe(x => {
+    
+                  subject.id = x.id;
+                  this.cookie.set("subject", JSON.stringify(subject), null, '/');
+    
+                  this.cookie.set("idSubject", x.id.toString(), null, "/");
+    
+                  if (this.newTestForm.controls.newUser.value) {
+    
+                    this.auth.logIn(user).subscribe(auth => {
+    
+                      let data = auth.user
+                      user.id = data.id;
+                      user.course = data.id.toString()
+                      user.role = data.role.toString();
+                      user.email = this.newTestForm.controls.email.value;
+    
+                      this.auth.updateUser(user, auth.token).subscribe(t => {
+                        this.router.navigate(['./new_question'], { relativeTo: this.route });
+                      }, e => {
+                        this.auth.deleteUser(user.id)
+                      });
+    
+                    }, e => {
+                      this.auth.deleteUser(user.id)
+                    });
+                  }
+                  else {
                     this.router.navigate(['./new_question'], { relativeTo: this.route });
-                  }, e => {
-                    this.auth.deleteUser(user.id)
-                  });
-
+                  }
+                  //}
                 }, e => {
                   this.auth.deleteUser(user.id)
                 });
+              } else {
+                subject.id = this.idExistingTest;
+                try {
+                  this.creating.updateSubject(subject).subscribe(x => {
+    
+    
+                    if (this.newTestForm.controls.newUser.value) {
+                      this.auth.logIn(user).subscribe(auth => {
+    
+                        let data = auth.user
+                        user.id = data.id;
+                        user.course = data.id.toString()
+                        user.role = data.role.toString();
+                        user.email = this.newTestForm.controls.email.value;
+    
+                        this.auth.updateUser(user, auth.token).subscribe(t => {
+                          this.router.navigate(['./new_question'], { relativeTo: this.route });
+                        }, e => {
+                          this.auth.deleteUser(user.id)
+                        });
+    
+                      }, e => {
+                        this.auth.deleteUser(user.id)
+                      });
+                    }
+                    else {
+                      this.router.navigate(['./new_question'], { relativeTo: this.route });
+                    }
+    
+                  }, e => {
+                    this.auth.deleteUser(user.id)
+                  });
+                }
+                catch (e) {
+                }
               }
-              else {
-                this.router.navigate(['./new_question'], { relativeTo: this.route });
-              }
-              //}
-            }, e => {
-              this.auth.deleteUser(user.id)
+    
+            },e=>{
+              this.userRegistrationFailed=true;
             });
-          } else {
-            subject.id = this.idExistingTest;
-            try {
-              this.creating.updateSubject(subject).subscribe(x => {
-
-
+          },e=>{
+            this.auth.register(user).subscribe(userID => {
+              user.id = userID.user.id
+              subject.course = userID.user.id;
+              if (this.newTest) {
+                this.creating.createSubject(subject).subscribe(x => {
+    
+                  subject.id = x.id;
+                  this.cookie.set("subject", JSON.stringify(subject), null, '/');
+    
+                  this.cookie.set("idSubject", x.id.toString(), null, "/");
+    
+                  if (this.newTestForm.controls.newUser.value) {
+    
+                    this.auth.logIn(user).subscribe(auth => {
+    
+                      let data = auth.user
+                      user.id = data.id;
+                      user.course = data.id.toString()
+                      user.role = data.role.toString();
+                      user.email = this.newTestForm.controls.email.value;
+    
+                      this.auth.updateUser(user, auth.token).subscribe(t => {
+                        this.router.navigate(['./new_question'], { relativeTo: this.route });
+                      }, e => {
+                        this.auth.deleteUser(user.id)
+                      });
+    
+                    }, e => {
+                      this.auth.deleteUser(user.id)
+                    });
+                  }
+                  else {
+                    this.router.navigate(['./new_question'], { relativeTo: this.route });
+                  }
+                  //}
+                }, e => {
+                  this.auth.deleteUser(user.id)
+                });
+              } else {
+                subject.id = this.idExistingTest;
+                try {
+                  this.creating.updateSubject(subject).subscribe(x => {
+    
+    
+                    if (this.newTestForm.controls.newUser.value) {
+                      this.auth.logIn(user).subscribe(auth => {
+    
+                        let data = auth.user
+                        user.id = data.id;
+                        user.course = data.id.toString()
+                        user.role = data.role.toString();
+                        user.email = this.newTestForm.controls.email.value;
+    
+                        this.auth.updateUser(user, auth.token).subscribe(t => {
+                          this.router.navigate(['./new_question'], { relativeTo: this.route });
+                        }, e => {
+                          this.auth.deleteUser(user.id)
+                        });
+    
+                      }, e => {
+                        this.auth.deleteUser(user.id)
+                      });
+                    }
+                    else {
+                      this.router.navigate(['./new_question'], { relativeTo: this.route });
+                    }
+    
+                  }, e => {
+                    this.auth.deleteUser(user.id)
+                  });
+                }
+                catch (e) {
+                }
+              }
+    
+            },e=>{
+              this.userRegistrationFailed=true;
+            });
+          })
+        }
+        else if(this.newTest){
+          this.auth.register(user).subscribe(userID => {
+            user.id = userID.user.id
+            subject.course = userID.user.id;
+            if (this.newTest) {
+              this.creating.createSubject(subject).subscribe(x => {
+  
+                subject.id = x.id;
+                this.cookie.set("subject", JSON.stringify(subject), null, '/');
+  
+                this.cookie.set("idSubject", x.id.toString(), null, "/");
+  
                 if (this.newTestForm.controls.newUser.value) {
+  
                   this.auth.logIn(user).subscribe(auth => {
-
+  
                     let data = auth.user
                     user.id = data.id;
                     user.course = data.id.toString()
                     user.role = data.role.toString();
                     user.email = this.newTestForm.controls.email.value;
-
+  
                     this.auth.updateUser(user, auth.token).subscribe(t => {
                       this.router.navigate(['./new_question'], { relativeTo: this.route });
                     }, e => {
                       this.auth.deleteUser(user.id)
                     });
-
+  
                   }, e => {
                     this.auth.deleteUser(user.id)
                   });
@@ -334,16 +489,32 @@ export class NewTestComponent implements OnInit {
                 else {
                   this.router.navigate(['./new_question'], { relativeTo: this.route });
                 }
-
+                //}
               }, e => {
                 this.auth.deleteUser(user.id)
+              });
+            } 
+  
+          },e=>{
+            this.userRegistrationFailed=true;
+          });
+        }
+        else {
+            subject.id = this.idExistingTest;
+            subject.course = this.oryginalTest.course;
+            try {
+              this.creating.updateSubject(subject).subscribe(x => {
+                      this.router.navigate(['./new_question'], { relativeTo: this.route });
+
+              }, e => {
+               // this.auth.deleteUser(user.id)
               });
             }
             catch (e) {
             }
-          }
-
-        });
+          
+        }
+        
       }
       else {
         subject.course = this.newTestForm.controls.course.value;

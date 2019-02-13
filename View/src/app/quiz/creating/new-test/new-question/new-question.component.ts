@@ -505,7 +505,6 @@ changeListener($event): void {
 
 onPhoto(){
   this.file=null;
-  console.log(this.file);
   this.image=false;
 }
 
@@ -514,7 +513,6 @@ onPhoto(){
 readThis(inputValue: any): void {
   this.file = inputValue.files[0];
   this.newQuestionForm.controls.photo.setValue("");
-  console.log(this.file);
   var myReader: FileReader = new FileReader();
 
   myReader.onloadend = (e) => {

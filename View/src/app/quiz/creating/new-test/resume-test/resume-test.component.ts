@@ -3,6 +3,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { TestService } from 'src/app/quiz/shared/services/test.service';
 import { Subject } from 'src/app/quiz/shared/models/classes';
 import { Router, ActivatedRoute } from '@angular/router';
+import { AuthService } from 'src/app/quiz/shared/services/auth.service';
 
 
 @Component({
@@ -13,7 +14,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class ResumeTestComponent implements OnInit {
 
   constructor(private cookie: CookieService, private test: TestService,
-    private router: Router, private route: ActivatedRoute) {
+    private router: Router,private auth: AuthService,  private route: ActivatedRoute) {
   }
   idSubject: string;
   subject: Subject = new Subject();
@@ -35,9 +36,18 @@ export class ResumeTestComponent implements OnInit {
           this.idSubject = this.cookie.get('idSubject');
           this.test.getQuizDetails(this.idSubject).subscribe(x => {
         
-           
+            if(!isNaN(Number(x.course))){
+              this.auth.getUserDetails(x.course).subscribe(y=>{
+                x.course = y.email;
+                this.subject = x;
+                this.cookie.set("subject",JSON.stringify(this.subject),null,'/');
+              })
+            }else {
+
               this.subject = x;
               this.cookie.set("subject",JSON.stringify(this.subject),null,'/');
+            }
+           
           
             
           });
