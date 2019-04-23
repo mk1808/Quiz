@@ -21,7 +21,7 @@ export class AuthService {
       user, httpOptions);
   }
   public register(user: User): Observable<any> {
-    // return this.http.post<any>(this.path +'auth/createUser.php', JSON.stringify(user),   {observe: 'response'});
+   
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'

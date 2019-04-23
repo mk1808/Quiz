@@ -23,7 +23,7 @@ export class TestResultComponent implements OnInit {
   @Input() set setQuestion(question: QuestionStatus) {
     this.question = question;
    // if (window.location.href.split('/')[4] != 'demo' && window.location.href.split('/')[5] != 'demo') 
-    if (window.location.href.split('/').includes('demo'))
+    if (!window.location.href.split('/').includes('demo'))
     this.testService.getQuestionDetails(this.question.id).subscribe(x => this.checkAnswers(x) )
     else 
     this.testService.getQuestionDetailsDemo(this.question.id).subscribe(x => this.checkAnswers(x) )

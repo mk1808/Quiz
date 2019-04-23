@@ -60,7 +60,7 @@ export class NewTestComponent implements OnInit {
         });
         this.user = (JSON.parse(this.cookie.get('user')));
 
-        if (this.newTest) { // TUTAJ
+        if (this.newTest) { 
           this.newTestForm = this.fb.group({
             name: ['', Validators.required],
             subject: ['Przedmiot', Validators.required],
@@ -329,7 +329,7 @@ export class NewTestComponent implements OnInit {
                   else {
                     this.router.navigate(['./new_question'], { relativeTo: this.route });
                   }
-                  //}
+                
                 }, e => {
                   this.auth.deleteUser(user.id)
                 });

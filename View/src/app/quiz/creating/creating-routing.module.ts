@@ -14,7 +14,7 @@ const routes: Routes = [
   { path: 'new_test/resume', component: ResumeTestComponent},
   { path: 'new_test/:id', component: NewTestComponent},
   { path: 'teacher_panel', component: TeacherMainPanelComponent},
-  { path: 'testView', component: TestViewComponent},//nie trzeba
+  { path: 'testView', component: TestViewComponent},
   { path: '', redirectTo: '/creating/new_test', pathMatch: 'full'},
   { path:"**", redirectTo: '/creating/teacher_panel' }
 ];

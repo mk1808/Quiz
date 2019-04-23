@@ -27,12 +27,12 @@ export class TestEndComponent implements OnInit {
   ngOnInit() {
     window.scroll(0,0);
     if (this.cookie.get('user') == "") {
-      //if (window.location.href.split('/')[4] == 'demo' || window.location.href.split('/')[5] == 'demo') 
+     
       if (window.location.href.split('/').includes('demo'))
       {
         this.subjectObj = JSON.parse(this.cookie.get("subj"));
         let result: Result = this.testService.getResult();
-        //////dodac
+    
         this.total = result.total;
         if (this.total == null)
           this.router.navigate(['/']);
@@ -40,6 +40,24 @@ export class TestEndComponent implements OnInit {
         this.truePercent = Math.round(this.trueAns / this.total * 100);
         this.isPassed = this.truePercent >= 60;
         this.questions = this.testService.getQuestionsInResult();
+        let j: number;
+             
+        let markNumber:string=JSON.parse(this.cookie.get("markTable"))+'';
+        let markTable=markNumber.split(",").map(Number);
+        for (let i = markTable.length-1; i > -1; i--) {
+     
+          if (this.trueAns >= markTable[i]) {
+            j=i;
+            break;
+
+
+          }
+
+        }
+        this.mark=this.marks[j];
+
+
+
 
       }
       else { this.router.navigate(['/']); }

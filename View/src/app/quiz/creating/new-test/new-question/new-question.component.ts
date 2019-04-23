@@ -482,6 +482,7 @@ imageControl:string; //url do obrazka
     this.newQuestionForm.controls.answer1.markAsUntouched();
     this.newQuestionForm.controls.answer2.markAsUntouched();
     this.newQuestionForm.controls.answer3.markAsUntouched();
+    this.image=false;
     window.scroll(0, window.innerHeight / 3);
   }
   onBack() {

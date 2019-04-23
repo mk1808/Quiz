@@ -15,7 +15,7 @@ export class HeaderComponent implements OnInit {
   collapsed:boolean=true;
   constructor(private cookie:CookieService,private router:Router, private route:ActivatedRoute) {
     this.router.events.subscribe(event => {
-        //calls this stuff when navigation ends
+        
 
       if (event instanceof RoutesRecognized)
         this.checkLogged();

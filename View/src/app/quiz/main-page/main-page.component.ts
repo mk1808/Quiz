@@ -2,7 +2,7 @@ import { Component, OnInit, HostListener } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 
-//import { ParallaxModule, ParallaxConfig } from 'ngx-parallax';
+
 @Component({
   selector: 'app-main-page',
   templateUrl: './main-page.component.html',

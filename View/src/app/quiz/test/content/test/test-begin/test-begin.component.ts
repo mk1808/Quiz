@@ -25,7 +25,7 @@ export class TestBeginComponent implements OnInit {
     if (this.cookie.get('user') == "") {
 
       if (window.location.href.split('/').includes('demo'))
-   //   [4] == 'demo' || window.location.href.split('/')[5] == 'demo') {
+   
      {console.log("demo")
           this.demoTest = true;
         this.route.params.subscribe(x => {
@@ -70,7 +70,7 @@ export class TestBeginComponent implements OnInit {
     this.subject.description = x.description;
 
     this.subject.limitedTime = x.limitedTime;
-    //this.subject.time = x.time;
+  
     if (this.demoTest) {
       this.subject.limitedTime = true;
     
