@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TestService } from 'src/app/quiz/shared/services/test.service';
-import { Result, Question, QuestionStatus } from 'src/app/quiz/shared/models/classes';
+import { Result, Question, QuestionStatus, Subject } from 'src/app/quiz/shared/models/classes';
 import { CookieService } from 'ngx-cookie-service';
-import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-test-end',
@@ -18,9 +17,14 @@ export class TestEndComponent implements OnInit {
   marks: number[] = [2,2,3,3,3.5,3.5,4,4,4.5,4.5,5,5];
   questions: QuestionStatus[];
   mark:number;
-  subjectObj=new Subject();
+  subjectObj:Subject=new Subject();
+
+  initialized=false;
   
   scrollOpen:boolean=false;
+
+  trueSubject:Subject;
+
   constructor(private testService: TestService, private router: Router,
     private route: ActivatedRoute, private cookie: CookieService) { }
 
@@ -36,12 +40,21 @@ export class TestEndComponent implements OnInit {
         this.total = result.total;
         if (this.total == null)
           this.router.navigate(['/']);
-        this.trueAns = result.true;
+        this.trueAns = result.correct;
         this.truePercent = Math.round(this.trueAns / this.total * 100);
         this.isPassed = this.truePercent >= 60;
         this.questions = this.testService.getQuestionsInResult();
+        //console.log("kurwaaaa3",this.questions)
         let j: number;
-             
+        
+        this.testService.getQuizDemoDetails(this.subjectObj.course).subscribe(x=>{
+          this.trueSubject=x;
+          console.log(x);
+         // console.log(this.questions)
+          this.initialized=true;//////////////////////////////////////
+        })
+
+
         let markNumber:string=JSON.parse(this.cookie.get("markTable"))+'';
         let markTable=markNumber.split(",").map(Number);
         for (let i = markTable.length-1; i > -1; i--) {
@@ -49,19 +62,12 @@ export class TestEndComponent implements OnInit {
           if (this.trueAns >= markTable[i]) {
             j=i;
             break;
-
-
           }
 
         }
         this.mark=this.marks[j];
-
-
-
-
       }
       else { this.router.navigate(['/']); }
-
     }
     else {
       if (JSON.parse(this.cookie.get('user')).role == 1) {
@@ -83,9 +89,17 @@ export class TestEndComponent implements OnInit {
           this.total = result.total;
           if (this.total == null)
             this.router.navigate(['/quiz/begin']);
-          this.trueAns = result.true;
+          this.trueAns = result.correct;
           this.truePercent = Math.round(this.trueAns / this.total * 100);
           this.isPassed = this.truePercent >= 60;
+
+          console.log(this.subjectObj)
+          this.testService.getAnswerStatuses(this.subjectObj.id).subscribe(x=>{
+            this.trueSubject=x;
+            console.log(x);
+           // console.log(this.questions)
+            this.initialized=true;//////////////////////////////////////
+          })
 
           let j: number;
              
@@ -94,13 +108,9 @@ export class TestEndComponent implements OnInit {
             if (this.trueAns >= markTable[i]) {
               j=i;
               break;
-
-
             }
-
           }
-          this.mark=this.marks[j];
-          
+          this.mark=this.marks[j]; 
         }
       }
     }
@@ -127,4 +137,13 @@ export class TestEndComponent implements OnInit {
   }
    
   }
+
+  trueQuestion(question){
+    console.log(this.questions)
+    let a = this.trueSubject.questions.filter(x=>{return x.id==question.id})[0];
+
+    return  a;
+        
+  }
+
 }

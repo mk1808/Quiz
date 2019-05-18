@@ -26,9 +26,9 @@ export class TestComponent implements OnInit {
   questionIndex: number = 0;
   firstQuestion: boolean = true;
   lastQuestion: boolean = false;
+
   constructor(private testService: TestService, private router: Router,
     private route: ActivatedRoute, private cookie: CookieService) {
-
   }
 
   
@@ -43,13 +43,13 @@ export class TestComponent implements OnInit {
       {
         this.idSubject = this.cookie.get('idSubject')
         this.subjectObj = JSON.parse(this.cookie.get("subj"));
-        this.testService.getQuestionsByIdSubjectDemoWOStatus(this.idSubject).subscribe(x => {
+        this.testService.getQuestionsByIdSubjectDemoWOStatus(this.subjectObj.course).subscribe(x => {
         
-      
+            console.log(x);
            
             this.subject.limitedTime = true;
             //this.subject.time=12;
-            this.questions = x;
+            this.questions = x.questions;
             this.questions.forEach(
               question => {
                 let questionStatus = new QuestionStatus();
@@ -90,8 +90,8 @@ export class TestComponent implements OnInit {
           if (this.subjectObj.randomize) {
             this.testService.getRandQuestionsByIdSubject(this.idSubject).subscribe(x => {
               
-
-                this.questions = x;
+              
+                this.questions = x.questions;
 
                 this.questions.forEach(
                   question => {
@@ -106,8 +106,8 @@ export class TestComponent implements OnInit {
           }
           else {
             this.testService.getQuestionsByIdSubjectWOStatus(this.idSubject).subscribe(x => {
-          
-                this.questions = x;
+          console.log(x)
+                this.questions = x.questions;
 
                 this.questions.forEach(
                   question => {
@@ -177,9 +177,11 @@ export class TestComponent implements OnInit {
     clearInterval()
   //  if (window.location.href.split('/')[4] == 'demo' || window.location.href.split('/')[5] == 'demo') {
       if (window.location.href.split('/').includes('demo')){
+       // console.log(this.questionStatuses)
       this.testService.checkAnswersForDemo(this.questionStatuses).subscribe(
         x => {
           this.testService.setResult(x);
+          //console.log("kurwaaaa2222",this.questionStatuses)
           this.testService.setQuestionsInResult(this.questionStatuses);
           this.router.navigate(['../end'], { relativeTo: this.route });
         }

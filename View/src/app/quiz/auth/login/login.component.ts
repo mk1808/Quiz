@@ -4,7 +4,7 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { AuthService } from '../../shared/services/auth.service';
 import * as jwt_decode from "jwt-decode";
 import { CookieService } from 'ngx-cookie-service';
-import { User } from '../../shared/models/classes';
+import { User, SignInForm } from '../../shared/models/classes';
 
 @Component({
   selector: 'app-login',
@@ -42,16 +42,26 @@ export class LoginComponent implements OnInit {
 
   onLogIn() {
     if (this.userForm.valid) {
-      let user: User = new User;
-      user.email = this.userForm.controls.username.value;
+      let user: SignInForm = new SignInForm;
+      user.username = this.userForm.controls.username.value;
 
       user.password = this.userForm.controls.password.value;
       this.auth.logIn(user).subscribe
         (x => {
-          this.role = (x.user.role=='s'?2:1);
-          this.cookie.set("token", x.token, 0.5, "/");
-          x.user.role=this.role;
-          this.cookie.set("user", JSON.stringify(x.user), null, "/");
+          let token;
+          let user:User = new User;
+          token = jwt_decode(x.accessToken).user;
+          user.role = (token.role=="ROLE_USER")?"s":"n";
+          user.username = token.username;
+          user.name = token.name;
+          user.id = token.id;
+          user.surname = token.surname;
+          user.course=token.course;
+          user.email=token.email;
+          this.role = (user.role=='s'?2:1);
+          this.cookie.set("token", x.accessToken, 0.5, "/");
+          user.role=this.role;
+          this.cookie.set("user", JSON.stringify(user), null, "/");
          
           if (this.role == 1) {
             this.router.navigate(['creating/teacher_panel']);
@@ -60,6 +70,7 @@ export class LoginComponent implements OnInit {
             this.router.navigate(['quiz/student_panel']);
           }
         }, e => {
+          console.log(e);
           this.userForm.controls.username.setValue("");
           this.userForm.controls.password.setValue("");
           this.regFail=true;
@@ -70,4 +81,7 @@ export class LoginComponent implements OnInit {
       this.userForm.controls.password.markAsTouched();
     }
   }
+
+
+
 }

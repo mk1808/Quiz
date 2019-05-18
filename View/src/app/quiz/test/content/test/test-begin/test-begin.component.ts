@@ -29,7 +29,7 @@ export class TestBeginComponent implements OnInit {
      {console.log("demo")
           this.demoTest = true;
         this.route.params.subscribe(x => {
-          this.test.getDemoId(x['name']).subscribe(x => {
+          this.test.getDemoId(x['name']).subscribe(x => {/////////////////////////////////////////
   
             this.cookie.set("idSubject", x.id, null, '/');
             this.loadQuiz(x);
@@ -62,7 +62,8 @@ export class TestBeginComponent implements OnInit {
   }
 
   private loadQuiz(x) {
-
+    console.log(x)
+    this.subject.id=x.id;
     this.subject.name = x.name;
     this.subject.course = x.course;
     this.subject.nOQuestions = x.noQuestions;

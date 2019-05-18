@@ -24,7 +24,7 @@ export class TestService {
 
   public checkAnswers(questions: QuestionStatus[]): Observable<any> {
 
-    return  this.rest.post<Result>('/api/question/checkWR', questions );
+    return  this.rest.post<Result>('/api/subjects/result', questions );
   }
 
   public setResult(result: Result) {
@@ -55,31 +55,36 @@ export class TestService {
   }
 
   public getQuestionsByIdSubjectWOStatus(id): Observable<any> {
-    return this.rest.get<any>('/api/question/WAFQ/'+id);
+    return this.rest.get<any>('/api/subjects/withoutAnswers/'+id);
   }
 
   public getQuestionsByIdSubjectDemoWOStatus(id): Observable<any> {
-    return this.rest.get<any>('/api/question/demo/WAFQ/'+id);
+    return this.rest.get<any>('/api/subjects/demo/withoutAnswers/'+id);
   }
 
   public getRandQuestionsByIdSubject(id): Observable<any> {
-    return this.rest.get<any>('/api/question/random/'+id);
+    return this.rest.get<any>('/api/subjects/withoutAnswers/'+id);
   }
 
   public getQuizDetails(id): Observable<any> {
-  return this.rest.get<any>('/api/subject/details/'+id);
-}
+    return this.rest.get<any>('/api/subjects/withoutAnswers/'+id);  
+  }
+
+  public getQuizDemoDetails(id): Observable<any> {
+    return this.rest.get<any>('/api/subjects/demo/withAnswers/'+id);  
+  }
+
   public getDemoId(name): Observable<any> {
-    return this.rest.get<any>('/api/demo/details/'+ name);
+    return this.rest.get<any>('/api/subjects/demo/withoutAnswers/'+ name);
 }
 public checkAnswersForDemo(questions: QuestionStatus[]): Observable<any> {
 
-  return  this.rest.post<Result>('/api/question/checkWOR',questions   );
+  return  this.rest.post<Result>('/api/subjects/demo/result',questions   );
 }
 
 public getAnswerStatuses(id): Observable<any> {
 
-  return  this.rest.get<any>('/api/question/answerWS/'+id ) ;
+  return  this.rest.get<any>('/api/subjects/withAnswers/'+id ) ;
 }
 
 public getQuestionDetails(id): Observable<any> {
@@ -93,7 +98,7 @@ public getQuestionDetailsDemo(id): Observable<any> {
 }
 
 public getTestsByCourse(course): Observable<any> {
-  return this.rest.get<Subject[]>( '/api/subject/list/course/'+course);
+  return this.rest.get<Subject[]>( '/api/subjects/'+course);
 }
 
 public getUserResultForQuiz(idUser):Observable<any>{

@@ -34,10 +34,10 @@ export class StudentMainPanelComponent implements OnInit {
       else {
         this.course = JSON.parse(this.cookie.get('user')).course;
         this.idUser = JSON.parse(this.cookie.get('user')).id;
-        this.test.getUserResultForQuiz(this.idUser).subscribe(y => {
+        /*this.test.getUserResultForQuiz(this.idUser).subscribe(y => {
           this.allResults=y;
           if(this.tests.length>0)this.createResultTable();
-        })
+        })*/
         this.test.getTestsByCourse(this.course).subscribe(x => {
           this.tests = x;
           if(this.allResults.length>0)this.createResultTable();

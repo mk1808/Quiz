@@ -19,9 +19,9 @@ export class ChooseDemoComponent implements OnInit {
   }
 
   onTestJava() 
-  {  this.router.navigate(['/quiz/demo/java/begin']);}
+  {  this.router.navigate(['/quiz/demo/demojava/begin']);}
   onTestWeb()
-  { this.router.navigate(['/quiz/demo/web/begin']);}
+  { this.router.navigate(['/quiz/demo/demoweb/begin']);}
     
  
 }

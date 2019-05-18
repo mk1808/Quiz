@@ -4,7 +4,7 @@ import { AuthService } from '../../shared/services/auth.service';
 import { TestService } from '../../shared/services/test.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { User } from '../../shared/models/classes';
+import { User, Role } from '../../shared/models/classes';
 
 @Component({
   selector: 'app-edit-user-account',
@@ -32,6 +32,7 @@ export class EditUserAccountComponent implements OnInit {
 
       this.idUser = JSON.parse(this.cookie.get('user')).id;
       this.currentUser = JSON.parse(this.cookie.get('user'));
+      console.log(this.currentUser)
       this.editSuccessS = this.cookie.get('edit');
       this.editSuccess = this.editSuccessS == "true";
       this.cookie.set("edit", "", -0.5, "/");
@@ -43,7 +44,6 @@ export class EditUserAccountComponent implements OnInit {
         name: [this.currentUser.name, Validators.required],
         surname: [this.currentUser.surname, Validators.required],
         email: [{ value: this.currentUser.email, disabled: true }]
-
       }, {
           validator: this.formValidator
         }
@@ -86,22 +86,38 @@ export class EditUserAccountComponent implements OnInit {
       this.editFail = false;
       this.user.id = Number(this.idUser);
       this.user.email = this.editUserForm.controls.email.value;
+      this.user.username = this.editUserForm.controls.email.value;
       this.user.password = this.editUserForm.controls.password.value;
       this.user.c_password = this.editUserForm.controls.passwordRepeat.value;
       this.user.course = this.editUserForm.controls.course.value;
       this.user.name = this.editUserForm.controls.name.value;
       this.user.surname = this.editUserForm.controls.surname.value;
+        let role:Role=new Role;
+      if(this.currentUser.role==2){
+        role.id = 1;
+        role.name = "ROLE_USER"
+      }
+      else {
+        role.id = 2;
+        role.name = "ROLE_ADMIN"
+      }
+      this.user.role = role;
+
 
       this.auth.updateUserBySelf(this.user).subscribe(x => {
 
+        console.log(x);
 
-        this.cookie.set("token", x.token, 0.5, "/");
-        let role = (x.user.role=='s'?2:1);
-        x.user.role=role;
-        this.cookie.set("user", JSON.stringify(x.user), null, "/");
+        //this.cookie.set("token", x.token, 0.5, "/");
+        let role = (x.role=='ROLE_USER'?2:1);
+        x.role=role;
+        this.cookie.set("user", JSON.stringify(x), null, "/");
         this.editSuccess = true;
         this.cookie.set("edit", this.editSuccess.toString(), 0.001, "/");
-        window.location.reload();
+        
+      this.cookie.set('user','',-60,'/');   
+      this.cookie.set('token','',-60,'/');
+         this.router.navigate(['../logout'], { relativeTo: this.route });
 
       },
         e => {

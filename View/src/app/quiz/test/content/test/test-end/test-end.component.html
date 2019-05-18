@@ -47,9 +47,9 @@
       <button mat-raised-button class="continue showAnswers" data-toggle="collapse" aria-expanded="false" type="button"
         aria-controls="answers" data-target="#answers" (click)="scrollTop()">Zobacz odpowiedzi</button>
 
-      <div class="collapse" id="answers">
+      <div class="collapse" id="answers" *ngIf="initialized">
         <app-test-result *ngFor="let question of questions; let i = index;" 
-        [setQuestion]="question"  [number]='(i+1)+"/"+questions.length'>
+        [setQuestion]="question" [setQuestionWithAnswer]="this.trueSubject.questions[i]"  [number]='(i+1)+"/"+questions.length'>
         </app-test-result>
       </div>
 

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/index';
-import { Subject, User } from '../models/classes';
+import { Subject, User, SignUpForm, SignInForm } from '../models/classes';
 import { CookieService } from 'ngx-cookie-service';
 import { RestService } from './rest.service';
 
@@ -11,23 +11,24 @@ import { RestService } from './rest.service';
 export class AuthService {
   private path: string = "http://localhost/web/web/api/controllers/";
   constructor(private http: HttpClient, private cookie: CookieService, private rest:RestService) { }
-  public logIn(user: User): Observable<any> {
+  public logIn(user: SignInForm): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     };
-    return this.http.post<any>('/api/login',
+    return this.http.post<any>('/api/auth/signin',
       user, httpOptions);
   }
-  public register(user: User): Observable<any> {
+
+  public register(user: SignUpForm): Observable<any> {
    
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     };
-    return this.http.post<any>('/api/register', user, httpOptions);
+    return this.http.post<any>('/api/auth/signup', user, {observe: 'response'});
   }
   
 
@@ -55,7 +56,7 @@ export class AuthService {
   }
 
   public updateUserBySelf(user:User): Observable<any>{
-    return this.rest.put('/api/userOwn',user);
+    return this.rest.put('/api/users/update',user);
   }
 
   public getUserDetails(id): Observable<any>{

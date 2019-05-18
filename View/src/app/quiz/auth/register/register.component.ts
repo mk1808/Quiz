@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from '../../shared/models/classes';
+import { User, SignUpForm } from '../../shared/models/classes';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { AuthService } from '../../shared/services/auth.service';
 import { CookieService } from 'ngx-cookie-service';
@@ -13,7 +13,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class RegisterComponent implements OnInit {
   regSuccess: boolean = false;
   regFail: boolean = false;
-  user: User = new User;
+  user:SignUpForm = new SignUpForm;
   registerForm: FormGroup = this.fb.group({
     course: ['', Validators.required],
     password: ['', Validators.required],
@@ -109,22 +109,30 @@ export class RegisterComponent implements OnInit {
     if (this.registerForm.valid) {
       this.regSuccess = false;
       this.regFail = false;
+      this.user.username = this.registerForm.controls.email.value;
       this.user.email = this.registerForm.controls.email.value;
       this.user.password = this.registerForm.controls.password.value;
-      this.user.c_password = this.registerForm.controls.passwordRepeat.value;
+      //this.user.c_password = this.registerForm.controls.passwordRepeat.value;
       this.user.course = this.registerForm.controls.course.value;
       this.user.name = this.registerForm.controls.name.value;
       this.user.surname = this.registerForm.controls.surname.value;
+      this.user.role="user";
 
       this.auth.register(this.user).subscribe
         (x => {
+          console.log(x)
           this.regSuccess = true;
           this.onClear();
 
         },
           e => {
-          
-          this.regFail=true;  
+            if(e.status==200){
+              this.regSuccess = true;
+              this.onClear();
+
+            }
+         else
+            this.regFail=true;  
           });
    
         } else {

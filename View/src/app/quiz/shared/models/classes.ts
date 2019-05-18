@@ -14,6 +14,7 @@ export class Subject {
   description: string;
   jwt:string;
   subject:string;
+  questions:Question[];
 }
 
 export class Question {
@@ -36,7 +37,7 @@ export class Answer {
 
 export class AnswerStatus {
   id: number;
-  value: number;
+  status: number|boolean;
 }
 
 export class QuestionStatus {
@@ -46,25 +47,46 @@ export class QuestionStatus {
 
 export class Result {
   total: number;
-  true: number;
+  correct: number;
 }
 
 export class User{
   id:number;
+  username:string;
   name:string;
   surname:string;
   email:string;
   password:string;
-  role:number|string;
+  role:number|string|Role;
   course:string;
   jwt:string;
   c_password:string;
 }
+
+export class Role{
+  id:number;
+  name:string;
+}
+
 export class UserResult {
   id: number;
   idUser: number;
   idSubject: number;
   result: number;
+}
+
+export class SignInForm{
+  username:string;
+  password:string;
+}
+export class SignUpForm{
+  name:string;
+  username:string;
+  email:string;
+  role:string;
+  password:string;
+  surname:string;
+  course:string;
 }
 
 export class Category {

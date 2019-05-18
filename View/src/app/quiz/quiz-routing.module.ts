@@ -8,6 +8,7 @@ import { ContactComponent } from './contact/contact.component';
 import { EditUserAccountComponent } from './auth/edit-user-account/edit-user-account.component';
 import { UsersListComponent } from './auth/users-list/users-list.component';
 import { EditUserByTeacherComponent } from './auth/edit-user-by-teacher/edit-user-by-teacher.component';
+import { LogoutAlertComponent } from './auth/logout-alert/logout-alert.component';
 const routes: Routes = [
   {
     path: "", component: LayoutComponent,children:[ {
@@ -21,6 +22,10 @@ const routes: Routes = [
     {
       path: "login",
       component: LoginComponent 
+    },
+    {
+      path: "logout",
+      component: LogoutAlertComponent 
     },
     {
       path: "register",

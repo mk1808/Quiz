@@ -17,6 +17,7 @@ import { ParallaxModule } from 'ngx-parallax';
 import { EditUserAccountComponent } from './auth/edit-user-account/edit-user-account.component';
 import { UsersListComponent } from './auth/users-list/users-list.component';
 import { EditUserByTeacherComponent } from './auth/edit-user-by-teacher/edit-user-by-teacher.component';
+import { LogoutAlertComponent } from './auth/logout-alert/logout-alert.component';
 
 
 @NgModule({
@@ -41,6 +42,7 @@ import { EditUserByTeacherComponent } from './auth/edit-user-by-teacher/edit-use
     LoginComponent, RegisterComponent, MainPageComponent, ContactComponent,
      EditUserAccountComponent,
      UsersListComponent,
-     EditUserByTeacherComponent]
+     EditUserByTeacherComponent,
+     LogoutAlertComponent]
 })
 export class QuizModule { }

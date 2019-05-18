@@ -1,6 +1,6 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { Subject, Cours, User } from '../../shared/models/classes';
+import { Subject, Cours, User, SignUpForm, SignInForm } from '../../shared/models/classes';
 import { DictionaryService } from '../../shared/services/dictionary.service';
 import { CreatingService } from '../../shared/services/creating.service';
 import { CookieService } from 'ngx-cookie-service';
@@ -283,19 +283,22 @@ export class NewTestComponent implements OnInit {
       this.cookie.set("multiple", subject.multipleChoice.toString(), null, "/");
 
       if (this.newTestForm.controls.newUser.value) {
-        let user: User = new User();
+        let user: SignUpForm = new SignUpForm();
         user.email = this.newTestForm.controls.email.value + '@prz.pl';
         user.password = this.newTestForm.controls.password.value;
-        user.c_password = this.newTestForm.controls.passwordRepeat.value;
+        //user.c_password = this.newTestForm.controls.passwordRepeat.value;
         user.name = "Użytkownik";
         user.surname = "Tymczasowy";
         user.course = "d";
         
-        
+        let userSignIn:SignInForm = new SignInForm;
+        userSignIn.username=user.email;
+        userSignIn.password=user.password;
         
         if(!this.newTest && this.newTestForm.controls.password.value!=''){
           this.auth.deleteUser(this.oryginalTest.course).subscribe(p=>{
             this.auth.register(user).subscribe(userID => {
+              let user:User = new User;
               user.id = userID.user.id
               subject.course = userID.user.id;
               if (this.newTest) {
@@ -308,7 +311,7 @@ export class NewTestComponent implements OnInit {
     
                   if (this.newTestForm.controls.newUser.value) {
     
-                    this.auth.logIn(user).subscribe(auth => {
+                    this.auth.logIn(userSignIn).subscribe(auth => {
     
                       let data = auth.user
                       user.id = data.id;
@@ -340,7 +343,7 @@ export class NewTestComponent implements OnInit {
     
     
                     if (this.newTestForm.controls.newUser.value) {
-                      this.auth.logIn(user).subscribe(auth => {
+                      this.auth.logIn(userSignIn).subscribe(auth => {
     
                         let data = auth.user
                         user.id = data.id;
@@ -375,6 +378,7 @@ export class NewTestComponent implements OnInit {
             });
           },e=>{
             this.auth.register(user).subscribe(userID => {
+              let user:User = new User;
               user.id = userID.user.id
               subject.course = userID.user.id;
               if (this.newTest) {
@@ -387,7 +391,7 @@ export class NewTestComponent implements OnInit {
     
                   if (this.newTestForm.controls.newUser.value) {
     
-                    this.auth.logIn(user).subscribe(auth => {
+                    this.auth.logIn(userSignIn).subscribe(auth => {
     
                       let data = auth.user
                       user.id = data.id;
@@ -419,7 +423,7 @@ export class NewTestComponent implements OnInit {
     
     
                     if (this.newTestForm.controls.newUser.value) {
-                      this.auth.logIn(user).subscribe(auth => {
+                      this.auth.logIn(userSignIn).subscribe(auth => {
     
                         let data = auth.user
                         user.id = data.id;
@@ -456,6 +460,7 @@ export class NewTestComponent implements OnInit {
         }
         else if(this.newTest){
           this.auth.register(user).subscribe(userID => {
+            let user = new User;
             user.id = userID.user.id
             subject.course = userID.user.id;
             if (this.newTest) {
@@ -468,7 +473,7 @@ export class NewTestComponent implements OnInit {
   
                 if (this.newTestForm.controls.newUser.value) {
   
-                  this.auth.logIn(user).subscribe(auth => {
+                  this.auth.logIn(userSignIn).subscribe(auth => {
   
                     let data = auth.user
                     user.id = data.id;

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Question, QuestionStatus } from 'src/app/quiz/shared/models/classes';
+import { Question, QuestionStatus, Answer, AnswerStatus } from 'src/app/quiz/shared/models/classes';
 import { TestService } from 'src/app/quiz/shared/services/test.service';
 import { CookieService } from 'ngx-cookie-service';
 
@@ -9,29 +9,37 @@ import { CookieService } from 'ngx-cookie-service';
   styleUrls: ['./test-result.component.css']
 })
 export class TestResultComponent implements OnInit {
-  questionWithAnswer: Question;
   question: QuestionStatus;
   containsPhoto: boolean = false;
   containsCode: boolean = false;
-  multipleChoice: string;
+  multipleChoice: boolean;
   initialized: boolean = false;
   trueTable: boolean[] = [];
   answerStatuses: string[] = [];
   questionStatus:string="";
+loaded=false;
 
   @Input() number;
   @Input() set setQuestion(question: QuestionStatus) {
     this.question = question;
-   // if (window.location.href.split('/')[4] != 'demo' && window.location.href.split('/')[5] != 'demo') 
-    if (!window.location.href.split('/').includes('demo'))
-    this.testService.getQuestionDetails(this.question.id).subscribe(x => this.checkAnswers(x) )
-    else 
-    this.testService.getQuestionDetailsDemo(this.question.id).subscribe(x => this.checkAnswers(x) )
+    console.log(question)
+    this.multipleChoice = this.cookie.get('multipleChoice')=='true';
+    console.log(this.multipleChoice)
+    //if(this.loaded)
+   // this.checkAnswers();
+    //else this.loaded=true;
+}
 
-    this.multipleChoice = this.cookie.get('multipleChoice');
-    
+
+  @Input() set setQuestionWithAnswer(question:Question){
+    this.questionWithAnswer=question;
+    console.log(question);
+   // if(this.loaded)
+    this.checkAnswers();
+    //else this.loaded=true;
   }
-
+  questionWithAnswer: Question;
+  
 
 
   constructor(private testService: TestService, private cookie: CookieService) { }
@@ -41,22 +49,23 @@ export class TestResultComponent implements OnInit {
   }
 
   findAnswer(id) {
-    return this.question.answers.filter(x => x.id == id);
+    return this.question.answers.filter(x =>x.id == id);
   }
 
-  checkAnswers(x){
-    this.questionWithAnswer = x
-    let status=1;
-
-    this.questionWithAnswer.answers.forEach(x => {
-      this.trueTable.push(this.findAnswer(x.id)[0].value == 1 ? true : false)
+  checkAnswers(){
     
-      if ((x.status=='1' )&& this.trueTable[this.trueTable.length - 1]) {
+    let status=1;
+    
+    this.questionWithAnswer.answers.forEach(x => {
+     // console.log(this.findAnswer(x.id))
+      this.trueTable.push(this.findAnswer(x.id)[0].status==1)
+    
+      if ((x.status)&& this.trueTable[this.trueTable.length - 1]) {
          this.answerStatuses.push("correct"); }
-      else if (x.status=='1') {
+      else if (x.status) {
         this.answerStatuses.push("correct");
         status=-1;
-      }else if (!(x.status=='1')&& this.trueTable[this.trueTable.length - 1]){
+      }else if (!(x.status)&& this.trueTable[this.trueTable.length - 1]){
         this.answerStatuses.push("incorrect");
         status=-1;
       }
@@ -70,10 +79,12 @@ export class TestResultComponent implements OnInit {
     else {
       this.questionStatus="incorrect";
     }
+
     if ((this.questionWithAnswer.image != null) && (this.questionWithAnswer.image != undefined)
       && (this.questionWithAnswer.image != ""))
       this.containsPhoto = true;
     if (this.questionWithAnswer.code != null) this.containsCode = true;
+    // 
     this.initialized = true;
   
     let text = this.questionWithAnswer.text;

@@ -38,8 +38,8 @@
       <br>
       <mat-radio-group>
 
- <div *ngFor="let answer of  questionWithAnswer.answers; let i=index ">
-        <div fxLayout="row" *ngIf="multipleChoice==1">
+ <div *ngFor="let answer of questionWithAnswer.answers; let i=index ">
+        <div fxLayout="row" *ngIf="multipleChoice">
           <article class="message is-primary" >
             <div class="message-body answer answerStyle">
 
@@ -61,7 +61,7 @@
           </article>
         </div>
 
-        <div fxLayout="row" *ngIf="multipleChoice==0">
+        <div fxLayout="row" *ngIf="!multipleChoice">
           <article class="message is-primary"  >
             <div class="message-body answer answerStyle">
               <mat-radio-button color="primary" [value]="i" 

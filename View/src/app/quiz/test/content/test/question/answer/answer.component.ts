@@ -15,7 +15,7 @@ export class AnswerComponent implements OnInit, AfterViewInit {
   @Input() set setAnswer(answer: Answer) {
     this.answer = answer;
     this.answerS.id = this.answer.id;
-    this.answerS.value = 0;
+    this.answerS.status = 0;
   }
   @Output() onChange = new EventEmitter<AnswerStatus>();
   @ViewChild('checkbox')
@@ -26,13 +26,13 @@ export class AnswerComponent implements OnInit, AfterViewInit {
   constructor( private cookie:CookieService) { }
 
   public onClick() {
-    if (this.answerS.value === 0) {
-      this.answerS.value = 1;
+    if (this.answerS.status === 0) {
+      this.answerS.status = 1;
       if (!this.checkbox.checked) {
       this.checkbox.checked = true;
       }
       this.color = '#707070'; } else {
-      this.answerS.value = 0;
+      this.answerS.status = 0;
       if (this.checkbox.checked) {
       this.checkbox.toggle();
       }
@@ -45,7 +45,7 @@ export class AnswerComponent implements OnInit, AfterViewInit {
 	}
   }
   ngOnInit() {
-    this.multipleChoice=this.cookie.get('multipleChoice')=='1';
+    this.multipleChoice=this.cookie.get('multipleChoice')=='true';
     
       
   }
@@ -53,7 +53,7 @@ export class AnswerComponent implements OnInit, AfterViewInit {
 	  if(!this.multipleChoice){
     this.radio.radioGroup.change.subscribe(x=>
       {
-      this.answerS.value=this.radio.checked?1:0;
+      this.answerS.status=this.radio.checked?1:0;
       this.onChange.emit(this.answerS);
     })
 	  }

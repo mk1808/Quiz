@@ -69,7 +69,7 @@ export class QuestionComponent implements OnInit {
       answer => {
       const  answerStatus = new AnswerStatus();
         answerStatus.id = answer.id;
-        answerStatus.value = 0;
+        answerStatus.status = 0;
         this.status.answers.push(answerStatus);
         
       }
