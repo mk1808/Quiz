@@ -22,7 +22,7 @@ export class TestService {
        {observe: 'response'});
   }
 
-  public checkAnswers(questions: QuestionStatus[]): Observable<any> {
+  public checkAnswers(questions: Question[]): Observable<any> {
 
     return  this.rest.post<Result>('/api/subjects/result', questions );
   }
@@ -67,7 +67,7 @@ export class TestService {
   }
 
   public getQuizDetails(id): Observable<any> {
-    return this.rest.get<any>('/api/subjects/withoutAnswers/'+id);  
+    return this.rest.get<any>('/api/subjects/admin/withAnswers/'+id);  
   }
 
   public getQuizDemoDetails(id): Observable<any> {
@@ -77,7 +77,7 @@ export class TestService {
   public getDemoId(name): Observable<any> {
     return this.rest.get<any>('/api/subjects/demo/withoutAnswers/'+ name);
 }
-public checkAnswersForDemo(questions: QuestionStatus[]): Observable<any> {
+public checkAnswersForDemo(questions: Question[]): Observable<any> {
 
   return  this.rest.post<Result>('/api/subjects/demo/result',questions   );
 }

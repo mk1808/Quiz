@@ -1,7 +1,8 @@
 export class Subject {
   id: number;
   name: string;
-  idAuthor: number;
+  user:User;
+  idUser: number;
   nOQuestions: number;
   noQuestions: number;
   multipleChoice: boolean;
@@ -15,6 +16,7 @@ export class Subject {
   jwt:string;
   subject:string;
   questions:Question[];
+  userResults:UserResult[];
 }
 
 export class Question {
@@ -32,7 +34,7 @@ export class Answer {
   id: number;
   text: string;
   idQuestion:number;
-  status:string;
+  status:string|number|boolean;
 }
 
 export class AnswerStatus {

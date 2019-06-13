@@ -3,6 +3,7 @@ import {TestService} from "../../../../shared/services/test.service";
 import {Question} from "../../../../shared/models/classes";
 import { CookieService } from 'ngx-cookie-service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { CreatingService } from 'src/app/quiz/shared/services/creating.service';
 
 @Component({
   selector: 'app-question-list',
@@ -13,14 +14,15 @@ export class QuestionListComponent implements OnInit {
   idSubject:string;
   questions: Question[] = [];
   quizName:string;
-  constructor(private testService: TestService,  private cookie:CookieService,
+  constructor(private creatingService: CreatingService,  private cookie:CookieService,
     private test:TestService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
  
     this.idSubject=this.cookie.get('idSubject');
-    this.testService.getAnswerStatuses(this.idSubject).subscribe(x => {
-        x.forEach(element => {
+    this.creatingService.getAnswerStatuses(this.idSubject).subscribe(x => {
+      x=x.questions  
+      x.forEach(element => {
           let text = element.text;
           if(text!=null){
           while(text.indexOf('”')>=0)   {
@@ -52,7 +54,7 @@ export class QuestionListComponent implements OnInit {
        
       this.questions = x;
     });
-    this.test.getQuizDetails(this.idSubject).subscribe(x=>{
+    this.creatingService.getQuizDetails(this.idSubject).subscribe(x=>{
       
         
       this.quizName=x.name;

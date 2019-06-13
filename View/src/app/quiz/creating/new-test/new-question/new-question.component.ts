@@ -83,7 +83,7 @@ imageControl:string; //url do obrazka
               this.newQuestionForm.controls.checkAnswer3.setValue(false);
             }
 
-            this.test.getQuizDetails(this.idSubject).subscribe(x => {
+            this.creating.getQuizDetails(this.idSubject).subscribe(x => {
 
 
               this.quizName = x.name;
@@ -93,7 +93,7 @@ imageControl:string; //url do obrazka
         }
         else {
 
-          this.test.getQuestionDetails(this.idExistingQuestion).subscribe(x => {
+          this.creating.getQuestionById(this.idExistingQuestion).subscribe(x => {
             this.initForm(x);
           }
 
@@ -212,7 +212,7 @@ imageControl:string; //url do obrazka
 
     }
 
-    this.test.getQuizDetails(this.idSubject).subscribe(x => {
+    this.creating.getQuizDetails(this.idSubject).subscribe(x => {
 
 
       this.quizName = x.name;
@@ -335,7 +335,7 @@ imageControl:string; //url do obrazka
       question.idSubject = this.idSubject;
 
       let code = this.newQuestionForm.controls.code.value;
-      if (code != null) {
+      /*if (code != null) {
         while (code.indexOf('"') >= 0) {
           code = code.replace('"', "”");
         }
@@ -349,7 +349,8 @@ imageControl:string; //url do obrazka
           code = code.replace(">", "汉");
         }
       }
-      let text = this.newQuestionForm.controls.question.value
+      */
+      let text = this.newQuestionForm.controls.question.value/*
       if (text != null) {
         while (text.indexOf('"') >= 0) {
           text = text.replace('"', "”");
@@ -363,7 +364,7 @@ imageControl:string; //url do obrazka
         while (text.indexOf(">") >= 0) {
           text = text.replace(">", "汉");
         }
-      }
+      }*/
       question.code = code;
 
       question.text = text;
@@ -372,28 +373,23 @@ imageControl:string; //url do obrazka
       question.image=this.image;
       //question.image = this.image;
 
-      question.answers[0] = {
-        text: this.newQuestionForm.controls.answer0.value,
-        status: this.newQuestionForm.controls.checkAnswer0.value,
-        id: null, idQuestion: null
-      }
-      question.answers[1] = {
-        text: this.newQuestionForm.controls.answer1.value,
-        status: this.newQuestionForm.controls.checkAnswer1.value,
-        id: null, idQuestion: null
-      }
-      question.answers[2] = {
-        text: this.newQuestionForm.controls.answer2.value,
-        status: this.newQuestionForm.controls.checkAnswer2.value,
-        id: null, idQuestion: null
-      }
-      question.answers[3] = {
-        text: this.newQuestionForm.controls.answer3.value,
-        status: this.newQuestionForm.controls.checkAnswer3.value,
-        id: null, idQuestion: null
-      }
+      question.answers[0]=new Answer;
+      question.answers[0].text= this.newQuestionForm.controls.answer0.value;
+      question.answers[0].status= this.newQuestionForm.controls.checkAnswer0.value;
+      
+      question.answers[1]=new Answer;
+      question.answers[1].text= this.newQuestionForm.controls.answer1.value;
+      question.answers[1].status= this.newQuestionForm.controls.checkAnswer1.value;
+      
+      question.answers[2]=new Answer;
+      question.answers[2].text= this.newQuestionForm.controls.answer2.value;
+      question.answers[2].status= this.newQuestionForm.controls.checkAnswer2.value;
+      
+      question.answers[3]=new Answer;
+      question.answers[3].text= this.newQuestionForm.controls.answer3.value;
+      question.answers[3].status= this.newQuestionForm.controls.checkAnswer3.value;
 
-      question.answers.forEach(answer => {
+      /*question.answers.forEach(answer => {
         if (answer != null) {
           while (answer.text.indexOf('"') >= 0) {
             answer.text = answer.text.replace('"', "”");
@@ -408,7 +404,7 @@ imageControl:string; //url do obrazka
             answer.text = answer.text.replace(">", "汉");
           }
         }
-      })
+      })*/
 
 
       if (this.newQuestion) {

@@ -18,7 +18,6 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 })
 export class NewTestComponent implements OnInit {
   limitedTime: boolean = false;
-  coursesTable: Cours[] = [];
   multipleChoiceTable: string[] = ['jednokrotny', 'wielokrotny']
   subjects: string[] = ['Programowanie w języku Java', 'Technologie Sieci WEB']
   user: User;
@@ -55,9 +54,7 @@ export class NewTestComponent implements OnInit {
       else {
 
 
-        this.dictionary.getCourses().subscribe(x => {
-          this.coursesTable = x;
-        });
+       
         this.user = (JSON.parse(this.cookie.get('user')));
 
         if (this.newTest) { 
@@ -238,6 +235,12 @@ export class NewTestComponent implements OnInit {
       if (x){
         this.router.navigate(['/creating/teacher_panel']);
       }
+    }, e=>{
+      if(e.status ==200){
+        
+        this.router.navigate(['/creating/teacher_panel']);
+      }
+      console.log(e);
     });
     this.modalRef.hide();
   }
@@ -253,14 +256,17 @@ export class NewTestComponent implements OnInit {
       this.userRegistrationFailed=false;
     if (this.newTestForm.valid) {
       let subject = new Subject();
-      subject.idAuthor = this.user.id;
+      subject.id = null;
+      subject.nOQuestions=0;
+      subject.idUser = this.user.id;
       subject.description = this.newTestForm.controls.description.value;
       subject.name = this.newTestForm.controls.name.value;
       subject.limitedTime = this.newTestForm.controls.limitedTime.value;
       subject.separatePage = this.newTestForm.controls.separatedPages.value;
       subject.canBack = this.newTestForm.controls.canBack.value;
       subject.randomize = this.newTestForm.controls.randomize.value;
-
+      subject.questions=[];
+      subject.userResults=[];
 
       if (this.newTestForm.controls.limitedTime) {
         subject.time = (this.newTestForm.controls.time.value.split(":")[0]) * 60
@@ -337,7 +343,7 @@ export class NewTestComponent implements OnInit {
                   this.auth.deleteUser(user.id)
                 });
               } else {
-                subject.id = this.idExistingTest;
+                subject.id = this.idExistingTest*1;
                 try {
                   this.creating.updateSubject(subject).subscribe(x => {
     
@@ -417,7 +423,7 @@ export class NewTestComponent implements OnInit {
                   this.auth.deleteUser(user.id)
                 });
               } else {
-                subject.id = this.idExistingTest;
+                subject.id = this.idExistingTest*1;
                 try {
                   this.creating.updateSubject(subject).subscribe(x => {
     
@@ -505,7 +511,7 @@ export class NewTestComponent implements OnInit {
           });
         }
         else {
-            subject.id = this.idExistingTest;
+            subject.id = this.idExistingTest*1;
             subject.course = this.oryginalTest.course;
             try {
               this.creating.updateSubject(subject).subscribe(x => {
@@ -534,7 +540,7 @@ export class NewTestComponent implements OnInit {
 
           }, e => console.log(e));
         } else {
-          subject.id = this.idExistingTest;
+          subject.id = this.idExistingTest*1;
           try {
             this.creating.updateSubject(subject).subscribe(x => {
 

@@ -45,13 +45,14 @@ export class TestComponent implements OnInit {
         this.subjectObj = JSON.parse(this.cookie.get("subj"));
         this.testService.getQuestionsByIdSubjectDemoWOStatus(this.subjectObj.course).subscribe(x => {
         
-            console.log(x);
+            console.log(x.questions);
            
             this.subject.limitedTime = true;
             //this.subject.time=12;
             this.questions = x.questions;
             this.questions.forEach(
               question => {
+                question.idSubject=x.id;
                 let questionStatus = new QuestionStatus();
                 questionStatus.id = question.id;
                 this.questionStatuses.push(questionStatus);
@@ -92,9 +93,10 @@ export class TestComponent implements OnInit {
               
               
                 this.questions = x.questions;
-
+                console.log( x);
                 this.questions.forEach(
                   question => {
+                    question.idSubject=x.id;
                     let questionStatus = new QuestionStatus();
                     questionStatus.id = question.id;
                     this.questionStatuses.push(questionStatus);
@@ -111,6 +113,7 @@ export class TestComponent implements OnInit {
 
                 this.questions.forEach(
                   question => {
+                    question.idSubject=x.id;
                     let questionStatus = new QuestionStatus();
                     questionStatus.id = question.id;
                     this.questionStatuses.push(questionStatus);
@@ -176,19 +179,31 @@ export class TestComponent implements OnInit {
     this.isSubmitted = true;
     clearInterval()
   //  if (window.location.href.split('/')[4] == 'demo' || window.location.href.split('/')[5] == 'demo') {
-      if (window.location.href.split('/').includes('demo')){
+    let i = 0;
+    this.questionStatuses.forEach(x=>{
+     let j = 0;  
+     x.answers.forEach(y=>{
+        this.questions[i].answers[j].status=y.status;
+        j++;
+      })
+      i++;
+    })
+        
+  if (window.location.href.split('/').includes('demo')){
        // console.log(this.questionStatuses)
-      this.testService.checkAnswersForDemo(this.questionStatuses).subscribe(
+
+      this.testService.checkAnswersForDemo(this.questions).subscribe(
         x => {
           this.testService.setResult(x);
-          //console.log("kurwaaaa2222",this.questionStatuses)
+          
           this.testService.setQuestionsInResult(this.questionStatuses);
           this.router.navigate(['../end'], { relativeTo: this.route });
         }
       )
     }
     else {
-      this.testService.checkAnswers(this.questionStatuses).subscribe(x => {
+      
+      this.testService.checkAnswers(this.questions).subscribe(x => {
         this.testService.setQuestionsInResult(this.questionStatuses);
         this.testService.setResult(x);
         this.router.navigate(['../end'], { relativeTo: this.route });

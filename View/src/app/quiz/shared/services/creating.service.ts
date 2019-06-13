@@ -15,36 +15,50 @@ export class CreatingService {
 
   public createSubject(subject:Subject): Observable<any> {
 
-    return this.rest.post<any>('/api/subject',    subject);
+    return this.rest.post<any>('/api/subjects/create',    subject);
 }
 
 public updateSubject(subject:Subject): Observable<any> { 
 
-  return this.rest.put<any>('/api/subject', subject
+  return this.rest.put<any>('/api/subjects/update', subject
  
 );
 }
 
 public updateQuestion(question:Question): Observable<any> { 
   
-  return this.rest.put<any>('/api/question',question );
+  return this.rest.put<any>('/api/questions/update',question );
 }
 
 public createQuestion(question:Question): Observable<any> {
   
-  return this.rest.post('/api/question', question);
+  return this.rest.post('/api/questions/create', question);
 }
 
 
+public getQuestionById(id): Observable<any> {
+  
+  return this.rest.get('/api/questions/'+id);
+}
+
 public getTests(id): Observable<any> {
-  return this.rest.get<Subject[]>('/api/subject/list/author/'+ id.toString());
+  return this.rest.get<Subject[]>('/api/subjects/user/'+ id.toString());
 }
 
 public deleteQuestion(id):Observable<any>{
-  return this.rest.delete('/api/question/'+id);
+  return this.rest.delete('/api/questions/'+id);
 }
 
 public deleteSubject(id):Observable<any>{
-  return this.rest.delete('/api/subject/'+id);
+  return this.rest.delete('/api/subjects/'+id);
 }
+
+public getAnswerStatuses(id): Observable<any> {
+  return  this.rest.get<any>('/api/subjects/admin/withAnswers/'+id ) ;
+}
+
+public getQuizDetails(id): Observable<any> {
+  return  this.rest.get<any>('/api/subjects/admin/withAnswers/'+id ) ;
+}
+
 }
