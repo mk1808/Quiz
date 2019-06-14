@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Question, QuestionStatus, Result, Subject} from '../models/classes';
-import {Observable} from 'rxjs/index';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Question, QuestionStatus, Result, Subject } from '../models/classes';
+import { Observable } from 'rxjs/index';
 import { CookieService } from 'ngx-cookie-service';
 import { RestService } from './rest.service';
 
@@ -11,20 +11,20 @@ import { RestService } from './rest.service';
 export class TestService {
 
   private result = new Result();
-  private markTable:number[]=[];
-  private questions:QuestionStatus[]= [];
+  private markTable: number[] = [];
+  private questions: QuestionStatus[] = [];
 
-  constructor(private http: HttpClient, private cookie:CookieService,private rest:RestService) { }
+  constructor(private http: HttpClient, private cookie: CookieService, private rest: RestService) { }
 
   public getQuestions(): Observable<Question[]> {
-   
-      return this.http.post<Question[]>('http://localhost/web/web/api/controllers/getQuestionsQndAnswers.php',
-       {observe: 'response'});
+
+    return this.http.post<Question[]>('http://localhost/web/web/api/controllers/getQuestionsQndAnswers.php',
+      { observe: 'response' });
   }
 
   public checkAnswers(questions: Question[]): Observable<any> {
 
-    return  this.rest.post<Result>('/api/subjects/result', questions );
+    return this.rest.post<Result>('/api/subjects/result', questions);
   }
 
   public setResult(result: Result) {
@@ -34,75 +34,64 @@ export class TestService {
   public getResult(): Result {
     return this.result;
   }
- /* public setMarkTable(table:number[]) {
-    this.markTable = table;
-  }
 
-  public getMarkTable(): number[] {
-    return this.markTable;
-  }
-*/
   public setQuestionsInResult(questions: QuestionStatus[]) {
     this.questions = questions;
   }
 
-  public getQuestionsInResult():  QuestionStatus[] {
+  public getQuestionsInResult(): QuestionStatus[] {
     return this.questions;
   }
 
   public getQuestionsByIdSubject(id): Observable<any> {
-    return this.rest.get<any>('/api/question/answerWS/'+id);
+    return this.rest.get<any>('/api/question/answerWS/' + id);
   }
 
   public getQuestionsByIdSubjectWOStatus(id): Observable<any> {
-    return this.rest.get<any>('/api/subjects/withoutAnswers/'+id);
+    return this.rest.get<any>('/api/subjects/withoutAnswers/' + id);
   }
 
   public getQuestionsByIdSubjectDemoWOStatus(id): Observable<any> {
-    return this.rest.get<any>('/api/subjects/demo/withoutAnswers/'+id);
+    return this.rest.get<any>('/api/subjects/demo/withoutAnswers/' + id);
   }
 
   public getRandQuestionsByIdSubject(id): Observable<any> {
-    return this.rest.get<any>('/api/subjects/withoutAnswers/'+id);
+    return this.rest.get<any>('/api/subjects/withoutAnswers/' + id);
   }
 
   public getQuizDetails(id): Observable<any> {
-    return this.rest.get<any>('/api/subjects/admin/withAnswers/'+id);  
+    return this.rest.get<any>('/api/subjects/admin/withAnswers/' + id);
   }
 
   public getQuizDemoDetails(id): Observable<any> {
-    return this.rest.get<any>('/api/subjects/demo/withAnswers/'+id);  
+    return this.rest.get<any>('/api/subjects/demo/withAnswers/' + id);
   }
 
   public getDemoId(name): Observable<any> {
-    return this.rest.get<any>('/api/subjects/demo/withoutAnswers/'+ name);
-}
-public checkAnswersForDemo(questions: Question[]): Observable<any> {
+    return this.rest.get<any>('/api/subjects/demo/withoutAnswers/' + name);
+  }
+  public checkAnswersForDemo(questions: Question[]): Observable<any> {
+    return this.rest.post<Result>('/api/subjects/demo/result', questions);
+  }
 
-  return  this.rest.post<Result>('/api/subjects/demo/result',questions   );
-}
+  public getAnswerStatuses(id): Observable<any> {
+    return this.rest.get<any>('/api/subjects/withAnswers/' + id);
+  }
 
-public getAnswerStatuses(id): Observable<any> {
+  public getQuestionDetails(id): Observable<any> {
+    return this.rest.get<any>('/api/question/WA/' + id);
+  }
 
-  return  this.rest.get<any>('/api/subjects/withAnswers/'+id ) ;
-}
+  public getQuestionDetailsDemo(id): Observable<any> {
+    return this.rest.get<any>('/api/question/demo/WA/' + id);
+  }
 
-public getQuestionDetails(id): Observable<any> {
+  public getTestsByCourse(course): Observable<any> {
+    return this.rest.get<Subject[]>('/api/subjects/' + course);
+  }
 
-  return  this.rest.get<any>('/api/question/WA/'+id) ;
-}
-
-public getQuestionDetailsDemo(id): Observable<any> {
-
-  return  this.rest.get<any>('/api/question/demo/WA/'+id) ;
-}
-
-public getTestsByCourse(course): Observable<any> {
-  return this.rest.get<Subject[]>( '/api/subjects/'+course);
-}
-
-public getUserResultForQuiz(idUser):Observable<any>{
-  return this.rest.get('/api/subject/result/'+idUser);
-}
+  public getUserResultForQuiz(idUser): Observable<any> {
+    return this.rest.get('/api/subject/result/' + idUser);
+  }
 }
 

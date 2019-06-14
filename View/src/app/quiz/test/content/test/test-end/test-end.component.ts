@@ -14,29 +14,24 @@ export class TestEndComponent implements OnInit {
   trueAns: number;
   isPassed: boolean;
   truePercent: number;
-  marks: number[] = [2,2,3,3,3.5,3.5,4,4,4.5,4.5,5,5];
+  marks: number[] = [2, 2, 3, 3, 3.5, 3.5, 4, 4, 4.5, 4.5, 5, 5];
   questions: QuestionStatus[];
-  mark:number;
-  subjectObj:Subject=new Subject();
-
-  initialized=false;
-  
-  scrollOpen:boolean=false;
-
-  trueSubject:Subject;
+  mark: number;
+  subjectObj: Subject = new Subject();
+  initialized = false;
+  scrollOpen: boolean = false;
+  trueSubject: Subject;
 
   constructor(private testService: TestService, private router: Router,
     private route: ActivatedRoute, private cookie: CookieService) { }
 
   ngOnInit() {
-    window.scroll(0,0);
+    window.scroll(0, 0);
     if (this.cookie.get('user') == "") {
-     
-      if (window.location.href.split('/').includes('demo'))
-      {
+      if (window.location.href.split('/').includes('demo')) {
         this.subjectObj = JSON.parse(this.cookie.get("subj"));
         let result: Result = this.testService.getResult();
-    
+
         this.total = result.total;
         if (this.total == null)
           this.router.navigate(['/']);
@@ -44,28 +39,21 @@ export class TestEndComponent implements OnInit {
         this.truePercent = Math.round(this.trueAns / this.total * 100);
         this.isPassed = this.truePercent >= 60;
         this.questions = this.testService.getQuestionsInResult();
-        //console.log("kurwaaaa3",this.questions)
         let j: number;
-        
-        this.testService.getQuizDemoDetails(this.subjectObj.course).subscribe(x=>{
-          this.trueSubject=x;
-          console.log(x);
-         // console.log(this.questions)
-          this.initialized=true;//////////////////////////////////////
+        this.testService.getQuizDemoDetails(this.subjectObj.course).subscribe(x => {
+          this.trueSubject = x;
+          this.initialized = true;
         })
+        let markNumber: string = JSON.parse(this.cookie.get("markTable")) + '';
+        let markTable = markNumber.split(",").map(Number);
+        for (let i = markTable.length - 1; i > -1; i--) {
 
-
-        let markNumber:string=JSON.parse(this.cookie.get("markTable"))+'';
-        let markTable=markNumber.split(",").map(Number);
-        for (let i = markTable.length-1; i > -1; i--) {
-     
           if (this.trueAns >= markTable[i]) {
-            j=i;
+            j = i;
             break;
           }
-
         }
-        this.mark=this.marks[j];
+        this.mark = this.marks[j];
       }
       else { this.router.navigate(['/']); }
     }
@@ -73,77 +61,60 @@ export class TestEndComponent implements OnInit {
       if (JSON.parse(this.cookie.get('user')).role == 1) {
         this.router.navigate(['/creating/teacher_panel']);
       }
-
       else {
         if (this.cookie.get('idSubject') == "") {
           this.router.navigate(['/quiz/student_panel']);
         }
         else {
           this.subjectObj = JSON.parse(this.cookie.get("subj"));
-      
+
           this.questions = this.testService.getQuestionsInResult();
           let result: Result = this.testService.getResult();
-        let markNumber:string=JSON.parse(this.cookie.get("markTable"))+'';
-          let markTable=markNumber.split(",").map(Number);
-       
+          let markNumber: string = JSON.parse(this.cookie.get("markTable")) + '';
+          let markTable = markNumber.split(",").map(Number);
+
           this.total = result.total;
           if (this.total == null)
             this.router.navigate(['/quiz/begin']);
           this.trueAns = result.correct;
           this.truePercent = Math.round(this.trueAns / this.total * 100);
           this.isPassed = this.truePercent >= 60;
-
-          console.log(this.subjectObj)
-          this.testService.getAnswerStatuses(this.subjectObj.id).subscribe(x=>{
-            this.trueSubject=x;
-            console.log(x);
-           // console.log(this.questions)
-            this.initialized=true;//////////////////////////////////////
+          this.testService.getAnswerStatuses(this.subjectObj.id).subscribe(x => {
+            this.trueSubject = x;
+            this.initialized = true;
           })
-
           let j: number;
-             
-          for (let i = markTable.length-1; i > -1; i--) {
-       
+          for (let i = markTable.length - 1; i > -1; i--) {
             if (this.trueAns >= markTable[i]) {
-              j=i;
+              j = i;
               break;
             }
           }
-          this.mark=this.marks[j]; 
+          this.mark = this.marks[j];
         }
       }
     }
   }
   onSubmit() {
-
     this.router.navigate(['../begin'], { relativeTo: this.route });
-
   };
   onBack() {
-
     this.router.navigate(['../student_panel'], { relativeTo: this.route });
-
   };
 
   scrollTop() {
-    if (this.scrollOpen){
+    if (this.scrollOpen) {
       window.scroll(0, 0);
-      this.scrollOpen=false;
+      this.scrollOpen = false;
     }
-    else{ 
-      window.scroll(0, window.innerHeight*3/4);
-    this.scrollOpen=true;
-  }
-   
-  }
-
-  trueQuestion(question){
-    console.log(this.questions)
-    let a = this.trueSubject.questions.filter(x=>{return x.id==question.id})[0];
-
-    return  a;
-        
+    else {
+      window.scroll(0, window.innerHeight * 3 / 4);
+      this.scrollOpen = true;
+    }
   }
 
+  trueQuestion(question) {
+    let a = this.trueSubject.questions.filter(x => { return x.id == question.id })[0];
+    return a;
+  }
 }

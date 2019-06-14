@@ -1,50 +1,50 @@
 export class Subject {
   id: number;
   name: string;
-  user:User;
+  user: User;
   idUser: number;
   nOQuestions: number;
   noQuestions: number;
   multipleChoice: boolean;
-  separatePage: boolean=false;
-  canBack: boolean=false;
-  randomize: boolean=false;
+  separatePage: boolean = false;
+  canBack: boolean = false;
+  randomize: boolean = false;
   limitedTime: boolean;
   time: number;
   course: string;
   description: string;
-  jwt:string;
-  subject:string;
-  questions:Question[];
-  userResults:UserResult[];
+  jwt: string;
+  subject: string;
+  questions: Question[];
+  userResults: UserResult[];
 }
 
 export class Question {
   id: number;
   category: string;
-  idSubject:string;
+  idSubject: number;
   text: string;
   code: string;
   image: string;
-  answers: Answer[]=[];
-  jwt:string;
+  answers: Answer[] = [];
+  jwt: string;
 }
 
 export class Answer {
   id: number;
   text: string;
-  idQuestion:number;
-  status:string|number|boolean;
+  idQuestion: number;
+  status: string | number | boolean;
 }
 
 export class AnswerStatus {
   id: number;
-  status: number|boolean;
+  status: number | boolean;
 }
 
 export class QuestionStatus {
   id: number;
-  answers: AnswerStatus[]=[];
+  answers: AnswerStatus[] = [];
 }
 
 export class Result {
@@ -52,22 +52,22 @@ export class Result {
   correct: number;
 }
 
-export class User{
-  id:number;
-  username:string;
-  name:string;
-  surname:string;
-  email:string;
-  password:string;
-  role:number|string|Role;
-  course:string;
-  jwt:string;
-  c_password:string;
+export class User {
+  id: number;
+  username: string;
+  name: string;
+  surname: string;
+  email: string;
+  password: string;
+  role: number | string | Role;
+  course: string;
+  jwt: string;
+  c_password: string;
 }
 
-export class Role{
-  id:number;
-  name:string;
+export class Role {
+  id: number;
+  name: string;
 }
 
 export class UserResult {
@@ -77,18 +77,18 @@ export class UserResult {
   result: number;
 }
 
-export class SignInForm{
-  username:string;
-  password:string;
+export class SignInForm {
+  username: string;
+  password: string;
 }
-export class SignUpForm{
-  name:string;
-  username:string;
-  email:string;
-  role:string;
-  password:string;
-  surname:string;
-  course:string;
+export class SignUpForm {
+  name: string;
+  username: string;
+  email: string;
+  role: string;
+  password: string;
+  surname: string;
+  course: string;
 }
 
 export class Category {

@@ -19,35 +19,26 @@ export class TestBeginComponent implements OnInit {
     private cookie: CookieService, private test: TestService) {
 
   }
-
   ngOnInit() {
-
     if (this.cookie.get('user') == "") {
-
-      if (window.location.href.split('/').includes('demo'))
-   
-     {console.log("demo")
-          this.demoTest = true;
+      if (window.location.href.split('/').includes('demo')) {
+        this.demoTest = true;
         this.route.params.subscribe(x => {
-          this.test.getDemoId(x['name']).subscribe(x => {/////////////////////////////////////////
-  
+          this.test.getDemoId(x['name']).subscribe(x => {
+
             this.cookie.set("idSubject", x.id, null, '/');
             this.loadQuiz(x);
           });
         });
-
       }
       else {
         this.router.navigate(['/']);
       }
-
-
     }
     else {
       if (JSON.parse(this.cookie.get('user')).role == 1) {
         this.router.navigate(['/creating/teacher_panel']);
       }
-
       else {
         if (this.cookie.get('idSubject') == "") {
           this.router.navigate(['/quiz/student_panel']);
@@ -62,33 +53,23 @@ export class TestBeginComponent implements OnInit {
   }
 
   private loadQuiz(x) {
-    console.log(x)
-    this.subject.id=x.id;
+    this.subject.id = x.id;
     this.subject.name = x.name;
     this.subject.course = x.course;
     this.subject.nOQuestions = x.noQuestions;
     this.subject.multipleChoice = x.multipleChoice;
     this.subject.description = x.description;
-
     this.subject.limitedTime = x.limitedTime;
-  
     if (this.demoTest) {
       this.subject.limitedTime = true;
-    
-      if ((x.time == null)||(x.time <1)) {
+      if ((x.time == null) || (x.time < 1)) {
         this.subject.time = 60;
-      }else {
-        this.subject.time=x.time;
+      } else {
+        this.subject.time = x.time;
       }
-
-
-    }else {
-   
-      this.subject.time=x.time;
-
+    } else {
+      this.subject.time = x.time;
     }
-
-
     this.subject.separatePage = x.separatePage;
     this.subject.canBack = x.canBack;
     this.subject.randomize = (x.randomize == '1');
@@ -96,29 +77,22 @@ export class TestBeginComponent implements OnInit {
     let i = 0;
     let last: number;
     for (i = 0; i < this.mark.length; i = i + 2) {
-
       last = Math.ceil(this.subject.nOQuestions * 0.01 * this.mark[i]);
       this.markNumber[i] = last;
     }
     for (i = 1; i < this.mark.length - 1; i = i + 2) {
-
       this.markNumber[i] = this.markNumber[i + 1] - 1;
     }
     this.markNumber[11] = +this.subject.nOQuestions;
-
     this.cookie.set("markTable", JSON.stringify(this.markNumber), null, "/");
-    
-  this.cookie.set("multipleChoice", this.subject.multipleChoice.toString(), null, "/");
-
+    this.cookie.set("multipleChoice", this.subject.multipleChoice.toString(), null, "/");
     x = this.subject;
-    this.subject.multipleChoice = x.multipleChoice=='1';
-    this.subject.canBack = x.canBack=='1';
-    this.subject.limitedTime = x.limitedTime=='1';
-    this.subject.separatePage = x.separatePage=='1';
+    this.subject.multipleChoice = x.multipleChoice == '1';
+    this.subject.canBack = x.canBack == '1';
+    this.subject.limitedTime = x.limitedTime == '1';
+    this.subject.separatePage = x.separatePage == '1';
     this.cookie.set("time", JSON.stringify({ limitedTime: this.subject.limitedTime, time: this.subject.time }), null, "/");
-   
     this.cookie.set("subj", JSON.stringify(this.subject), null, "/");
-
   }
 
   onSubmit() {

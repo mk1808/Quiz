@@ -29,10 +29,9 @@ export class EditUserAccountComponent implements OnInit {
       this.router.navigate(['/']);
     }
     else {
-
       this.idUser = JSON.parse(this.cookie.get('user')).id;
       this.currentUser = JSON.parse(this.cookie.get('user'));
-      console.log(this.currentUser)
+
       this.editSuccessS = this.cookie.get('edit');
       this.editSuccess = this.editSuccessS == "true";
       this.cookie.set("edit", "", -0.5, "/");
@@ -55,7 +54,7 @@ export class EditUserAccountComponent implements OnInit {
   formValidator(group: FormGroup) {
     let correct = true;
 
-    if ((group.controls.password.value !='')&&(group.controls.password.value != group.controls.passwordRepeat.value)) {
+    if ((group.controls.password.value != '') && (group.controls.password.value != group.controls.passwordRepeat.value)) {
       correct = false;
       group.controls.passwordRepeat.setErrors({ 'invalid': true });
     }
@@ -75,8 +74,6 @@ export class EditUserAccountComponent implements OnInit {
       correct = false;
       group.controls.course.setErrors({ 'invalid': true });
     }
-
-
     return correct ? null : true;
   }
 
@@ -92,8 +89,8 @@ export class EditUserAccountComponent implements OnInit {
       this.user.course = this.editUserForm.controls.course.value;
       this.user.name = this.editUserForm.controls.name.value;
       this.user.surname = this.editUserForm.controls.surname.value;
-        let role:Role=new Role;
-      if(this.currentUser.role==2){
+      let role: Role = new Role;
+      if (this.currentUser.role == 2) {
         role.id = 1;
         role.name = "ROLE_USER"
       }
@@ -102,28 +99,20 @@ export class EditUserAccountComponent implements OnInit {
         role.name = "ROLE_ADMIN"
       }
       this.user.role = role;
-
-
       this.auth.updateUserBySelf(this.user).subscribe(x => {
-
-        console.log(x);
-
-        //this.cookie.set("token", x.token, 0.5, "/");
-        let role = (x.role=='ROLE_USER'?2:1);
-        x.role=role;
+        let role = (x.role == 'ROLE_USER' ? 2 : 1);
+        x.role = role;
         this.cookie.set("user", JSON.stringify(x), null, "/");
         this.editSuccess = true;
         this.cookie.set("edit", this.editSuccess.toString(), 0.001, "/");
-        
-      this.cookie.set('user','',-60,'/');   
-      this.cookie.set('token','',-60,'/');
-         this.router.navigate(['../logout'], { relativeTo: this.route });
 
+        this.cookie.set('user', '', -60, '/');
+        this.cookie.set('token', '', -60, '/');
+        this.router.navigate(['../logout'], { relativeTo: this.route });
       },
         e => {
           this.editFail = true;
         });
-
     } else {
       this.editUserForm.controls['email'].markAsTouched();
       this.editUserForm.controls['name'].markAsTouched();
@@ -132,8 +121,5 @@ export class EditUserAccountComponent implements OnInit {
       this.editUserForm.controls['password'].markAsTouched();
       this.editUserForm.controls['passwordRepeat'].markAsTouched();
     }
-
   }
-
-
 }

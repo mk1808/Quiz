@@ -22,20 +22,19 @@
                     keyboard_arrow_right
                   </i></span>
               </div>
-              <input type="text" class="form-control" placeholder="Podaj URL do zdjęcia" 
-                formControlName="photo" (change)="onPhoto()" >
+              <input type="text" class="form-control" placeholder="Podaj URL do zdjęcia" formControlName="photo"
+                (change)="onPhoto()">
             </div>
 
-  <input type="file"accept="image/*" #fileInput (change)="changeListener($event)" class="none">
-<button mat-raised-button class="continue " (click)="fileInput.click()">Wybierz zdjęcie z dysku…</button>
+            <input type="file" accept="image/*" #fileInput (change)="changeListener($event)" class="none">
 
 
             <div *ngIf="image" class="qImage">
-      
+
               <img [src]="domSanitizer.bypassSecurityTrustUrl(image)" />
             </div>
             <div *ngIf="imageControl && !image" class="qImage">
-              <img [src]="imageControl"class="qImage"    alt="Błędy adres obrazka"/>
+              <img [src]="imageControl" class="qImage" alt="Błędy adres obrazka" />
             </div>
 
           </div>
@@ -100,23 +99,23 @@
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
-              
-              <div class="modal-body text-center" >
-                
-                    Czy na pewno chcesz usunąć pytanie "{{questionText}}"?
+
+              <div class="modal-body text-center">
+
+                Czy na pewno chcesz usunąć pytanie "{{questionText}}"?
               </div>
-   
-                 
-                <div class="modal-body text-center"  fxLayout="row" fxFlex="100%">
-                  <div fxFlex="50%">
-                    <button mat-raised-button class="continue noBtn" (click)="onCancel()">Nie</button></div>
-                  
-                    <div fxFlex="50%">
-                       <button mat-raised-button class="continue" (click)="onDelet()">Tak, usuń</button>
-               </div> 
-                
+
+
+              <div class="modal-body text-center" fxLayout="row" fxFlex="100%">
+                <div fxFlex="50%">
+                  <button mat-raised-button class="continue noBtn" (click)="onCancel()">Nie</button></div>
+
+                <div fxFlex="50%">
+                  <button mat-raised-button class="continue" (click)="onDelet()">Tak, usuń</button>
                 </div>
-            
+
+              </div>
+
             </ng-template>
 
 

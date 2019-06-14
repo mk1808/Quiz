@@ -17,13 +17,13 @@ export class EditUserByTeacherComponent implements OnInit {
   editUserForm: FormGroup;
   currentUser: User = new User();
   user: User = new User();
-  initialized:boolean=false;
-  roles:string[]=["Nauczyciel","Student"];
+  initialized: boolean = false;
+  roles: string[] = ["Nauczyciel", "Student"];
   editSuccess: boolean = false;
   editFail: boolean = false;
   modalRef: BsModalRef;
   constructor(private fb: FormBuilder, private cookie: CookieService, private auth: AuthService,
-    private test: TestService, private creating:CreatingService,
+    private test: TestService, private creating: CreatingService,
     private router: Router, private route: ActivatedRoute, private modalService: BsModalService) { }
 
   ngOnInit() {
@@ -38,27 +38,22 @@ export class EditUserByTeacherComponent implements OnInit {
       else {
         this.route.params.subscribe(x => {
           let id = x['id'];
-        
           this.auth.getUserDetails(id).subscribe(y => {
-         
+
             this.currentUser = y;
-          
             this.editUserForm = this.fb.group({
               course: [this.currentUser.course, Validators.required],
               name: [this.currentUser.name, Validators.required],
               surname: [this.currentUser.surname, Validators.required],
-              role: [this.currentUser.role=='n'?this.roles[0]:this.roles[1], Validators.required],
+              role: [this.currentUser.role == 'n' ? this.roles[0] : this.roles[1], Validators.required],
               email: [{ value: this.currentUser.email, disabled: true }]
-
             },
               {
                 validator: this.formValidator
               })
-              this.initialized=true;
+            this.initialized = true;
           }
           );
-          
-
         }
         );
       }
@@ -67,7 +62,7 @@ export class EditUserByTeacherComponent implements OnInit {
 
   formValidator(group: FormGroup) {
     let correct = true;
-    
+
     if (group.controls.name.value == "") {
       correct = false;
       group.controls.name.setErrors({ 'invalid': true });
@@ -85,11 +80,10 @@ export class EditUserByTeacherComponent implements OnInit {
       correct = false;
       group.controls.role.setErrors({ 'invalid': true });
     }
-
     return correct ? null : true;
   }
 
-  onEdit(){
+  onEdit() {
     if (this.editUserForm.valid) {
       this.editSuccess = false;
       this.editFail = false;
@@ -98,43 +92,31 @@ export class EditUserByTeacherComponent implements OnInit {
       this.user.course = this.editUserForm.controls.course.value;
       this.user.name = this.editUserForm.controls.name.value;
       this.user.surname = this.editUserForm.controls.surname.value;
-      this.user.role=this.editUserForm.controls.role.value=="Nauczyciel"?"n":"s";
-      
-      this.auth.updateUserByTeacher(this.user).subscribe(x=>
-        {
-          this.editSuccess=true;
+      this.user.role = this.editUserForm.controls.role.value == "Nauczyciel" ? "n" : "s";
 
-        }),(e=>{
-          this.editFail=true;
-        })
-
-
-  }
-}
-openModal(template: TemplateRef<any>) {
-  this.modalRef = this.modalService.show(template);
-}
-onDelet(){
-
-  this.auth.deleteUser(Number(this.currentUser.id)).subscribe(x=>{
-
-    if (x){
-      this.router.navigate(['/usersList']);
+      this.auth.updateUserByTeacher(this.user).subscribe(x => {
+        this.editSuccess = true;
+      }), (e => {
+        this.editFail = true;
+      })
     }
-  });
-  this.modalRef.hide();
-}
+  }
+  openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template);
+  }
+  onDelet() {
 
-onCancel(){
-  this.modalRef.hide();
-}
+    this.auth.deleteUser(Number(this.currentUser.id)).subscribe(x => {
 
-/*
-onDelete(){
+      if (x) {
+        this.router.navigate(['/usersList']);
+      }
+    });
+    this.modalRef.hide();
+  }
 
-  this.auth.deleteUser(Number(this.currentUser.id)).subscribe(x=>
-    {
-      console.log(x);
-    })
-}*/
+  onCancel() {
+    this.modalRef.hide();
+  }
+
 }

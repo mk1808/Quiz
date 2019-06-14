@@ -39,12 +39,10 @@ export class NewQuestionComponent implements OnInit, AfterViewInit {
   modalRef: BsModalRef;
   questionText: string;
   file: File;
-  //fileName:string="Zdjęcie";
 
-  public files: UploadFile[] = []; //tablica przechowująca przeciągnięte plliki
-public image: any; //obraz w postaci stringa
-imageControl:string; //url do obrazka
-
+  public files: UploadFile[] = []; 
+public image: any; 
+imageControl:string; 
 
   constructor(private fb: FormBuilder, private creating: CreatingService,
     private test: TestService, private router: Router, private route: ActivatedRoute,
@@ -54,7 +52,6 @@ imageControl:string; //url do obrazka
       let id = x['id'];
       if (id != undefined) { this.newQuestion = false; this.idExistingQuestion = id; }
       else { this.newQuestion = true; }
-
     })
   }
 
@@ -82,32 +79,24 @@ imageControl:string; //url do obrazka
               this.newQuestionForm.controls.checkAnswer2.setValue(false);
               this.newQuestionForm.controls.checkAnswer3.setValue(false);
             }
-
             this.creating.getQuizDetails(this.idSubject).subscribe(x => {
-
-
               this.quizName = x.name;
-
             });
           }
         }
         else {
-
           this.creating.getQuestionById(this.idExistingQuestion).subscribe(x => {
             this.initForm(x);
           }
-
           )
-
         }
       }
-
     }
   }
+
   ngAfterViewInit() {
     if (this.newQuestion)
       this.subscribeRadioButton();
-
   }
 
   subscribeRadioButton() {
@@ -117,8 +106,6 @@ imageControl:string; //url do obrazka
         this.newQuestionForm.controls.checkAnswer1.setValue(false);
         this.newQuestionForm.controls.checkAnswer2.setValue(false);
         this.newQuestionForm.controls.checkAnswer3.setValue(false);
-
-
         switch (x.value) {
           case ("0"): {
             this.newQuestionForm.controls.checkAnswer0.setValue(true);
@@ -142,50 +129,12 @@ imageControl:string; //url do obrazka
   }
 
   initForm(x) {
-
     let code = x.code;
-    if (code != null) {
-      while (code.indexOf('”') >= 0) {
-        code = code.replace("”", '"');
-      }
-      while (code.indexOf("字") >= 0) {
-        code = code.replace("字", "<");
-      }
-      while (code.indexOf("汉") >= 0) {
-        code = code.replace("汉", ">");
-      }
-    }
-
     let text = x.text;
-    if (text != null) {
-      while (text.indexOf('”') >= 0) {
-        text = text.replace("”", '"');
-      }
-      while (text.indexOf("字") >= 0) {
-        text = text.replace("字", "<");
-      }
-      while (text.indexOf("汉") >= 0) {
-        text = text.replace("汉", ">");
-      }
-    }
-    x.answers.forEach(answer => {
-      if (answer != null) {
-        while (answer.text.indexOf('”') >= 0) {
-          answer.text = answer.text.replace("”", '"');
-        }
-        while (answer.text.indexOf("字") >= 0) {
-          answer.text = answer.text.replace("字", "<");
-        }
-        while (answer.text.indexOf("汉") >= 0) {
-          answer.text = answer.text.replace("汉", ">");
-        }
-      }
-    })
     this.question = x;
     let answers = x.answers;
     this.questionText = text;
     this.newQuestionForm = this.fb.group({
-
       question: [text, Validators.required],
       photo: [x.image],
       code: [code],
@@ -209,12 +158,8 @@ imageControl:string; //url do obrazka
       this.newQuestionForm.controls.checkAnswer1.setValue(x.answers[1].status == 1);
       this.newQuestionForm.controls.checkAnswer2.setValue(x.answers[2].status == 1);
       this.newQuestionForm.controls.checkAnswer3.setValue(x.answers[3].status == 1);
-
     }
-
     this.creating.getQuizDetails(this.idSubject).subscribe(x => {
-
-
       this.quizName = x.name;
       this.subscribeRadioButton();
       if (!this.subject.multipleChoice) {
@@ -228,13 +173,11 @@ imageControl:string; //url do obrazka
           i++;
         });
       }
-
     });
   }
 
   initEmptyForm() {
     this.newQuestionForm = this.fb.group({
-
       question: ['', Validators.required],
       photo: [null],
       code: [null],
@@ -249,7 +192,6 @@ imageControl:string; //url do obrazka
       radioGroup: [null]
     }, { validator: this.formValidator });
     this.initialized = true;
-    
     this.newQuestionForm.statusChanges.subscribe(x => {
       this.checkAnswerValid();
     });
@@ -260,12 +202,10 @@ imageControl:string; //url do obrazka
     if (group.controls.answer0.value == "") {
       correct = false;
       group.controls.answer0.setErrors({ 'invalid': true });
-
     }
     if (group.controls.answer1.value == "") {
       correct = false;
       group.controls.answer1.setErrors({ 'invalid': true });
-
     }
     if (group.controls.answer2.value == "") {
       correct = false;
@@ -281,7 +221,6 @@ imageControl:string; //url do obrazka
       !group.controls.checkAnswer2.value &&
       !group.controls.checkAnswer3.value) {
       group.controls.checkAnswer3.setErrors({ 'invalid': true });
-
     }
     else
       group.controls.checkAnswer3.setErrors(null);
@@ -322,6 +261,10 @@ imageControl:string; //url do obrazka
       if (x) {
         this.router.navigate(["/creating/new_test/resume"]);
       }
+    }, e=>{
+      if(e.status ==200){
+        this.router.navigate(['/creating/new_test/resume']);
+      }
     }
     );
     this.modalRef.hide();
@@ -329,50 +272,15 @@ imageControl:string; //url do obrazka
 
   onAdd() {
     if (this.newQuestionForm.valid) {
-
       let question = new Question;
-      //////////////////////////////////////////
-      question.idSubject = this.idSubject;
-
+      question.idSubject =Number( this.idSubject);
       let code = this.newQuestionForm.controls.code.value;
-      /*if (code != null) {
-        while (code.indexOf('"') >= 0) {
-          code = code.replace('"', "”");
-        }
-        while (code.indexOf("'") >= 0) {
-          code = code.replace("'", "”");
-        }
-        while (code.indexOf('<') >= 0) {
-          code = code.replace('<', "字");
-        }
-        while (code.indexOf(">") >= 0) {
-          code = code.replace(">", "汉");
-        }
-      }
-      */
-      let text = this.newQuestionForm.controls.question.value/*
-      if (text != null) {
-        while (text.indexOf('"') >= 0) {
-          text = text.replace('"', "”");
-        }
-        while (text.indexOf("'") >= 0) {
-          text = text.replace("'", "”");
-        }
-        while (text.indexOf('<') >= 0) {
-          text = text.replace('<', "字");
-        }
-        while (text.indexOf(">") >= 0) {
-          text = text.replace(">", "汉");
-        }
-      }*/
+      let text = this.newQuestionForm.controls.question.value;
       question.code = code;
-
       question.text = text;
-
       this.file==null?question.image=this.newQuestionForm.controls.photo.value:
       question.image=this.image;
-      //question.image = this.image;
-
+      
       question.answers[0]=new Answer;
       question.answers[0].text= this.newQuestionForm.controls.answer0.value;
       question.answers[0].status= this.newQuestionForm.controls.checkAnswer0.value;
@@ -389,52 +297,27 @@ imageControl:string; //url do obrazka
       question.answers[3].text= this.newQuestionForm.controls.answer3.value;
       question.answers[3].status= this.newQuestionForm.controls.checkAnswer3.value;
 
-      /*question.answers.forEach(answer => {
-        if (answer != null) {
-          while (answer.text.indexOf('"') >= 0) {
-            answer.text = answer.text.replace('"', "”");
-          }
-          while (answer.text.indexOf("'") >= 0) {
-            answer.text = answer.text.replace("'", "”");
-          }
-          while (answer.text.indexOf('<') >= 0) {
-            answer.text = answer.text.replace('<', "字");
-          }
-          while (answer.text.indexOf(">") >= 0) {
-            answer.text = answer.text.replace(">", "汉");
-          }
-        }
-      })*/
-
-
       if (this.newQuestion) {
         this.creating.createQuestion(question).subscribe(x => {
-
-
-
           this.questionList.ngOnInit();
           this.onClear();
 
-        }, e => console.log(e));
-
+        }, e => {});
       }
       else {
         question.id = this.question.id;
         for (let i = 0; i < 4; i++) {
           question.answers[i].id = this.question.answers[i].id;
-          question.answers[i].idQuestion = this.question.answers[i].idQuestion;
-
         }
         this.creating.updateQuestion(question).subscribe(
           x => {
-            this.router.navigate(["/creating/new_test/resume"]);
+            this.ngOnInit();
+            this.questionList.ngOnInit();
           }
-
         )
       }
     }
     else {
-
       this.newQuestionForm.controls.question.markAsTouched();
       this.newQuestionForm.controls.answer0.markAsTouched();
       this.newQuestionForm.controls.answer1.markAsTouched();
@@ -455,7 +338,6 @@ imageControl:string; //url do obrazka
   }
 
   onClear() {
-
     this.newQuestionForm.controls.question.setValue('');
     this.newQuestionForm.controls.code.setValue('');
     this.newQuestionForm.controls.photo.setValue('');
@@ -468,12 +350,12 @@ imageControl:string; //url do obrazka
     this.newQuestionForm.controls.checkAnswer2.setValue(false);
     this.newQuestionForm.controls.checkAnswer3.setValue(false);
     this.newQuestionForm.controls.radioGroup.setValue(null);
-
     this.pleaseCheckAnswer = false;
+   
     for (let i = 0; i < 4; i++)
       this.answerStyles[i] = '';
-
-    this.newQuestionForm.controls.question.markAsUntouched();
+   
+      this.newQuestionForm.controls.question.markAsUntouched();
     this.newQuestionForm.controls.answer0.markAsUntouched();
     this.newQuestionForm.controls.answer1.markAsUntouched();
     this.newQuestionForm.controls.answer2.markAsUntouched();
@@ -481,6 +363,7 @@ imageControl:string; //url do obrazka
     this.image=false;
     window.scroll(0, window.innerHeight / 3);
   }
+
   onBack() {
     if (this.newQuestion) {
       let id = this.subject.id;
@@ -490,11 +373,11 @@ imageControl:string; //url do obrazka
       this.router.navigate(['/creating/new_test/resume']);
     }
   }
+
   onResume() {
     this.router.navigate(["/creating/new_test/resume"]);
   }
-
-  //ta metoda używana jest przy przycisku uploadu zdjęcia
+  
 changeListener($event): void {
   this.readThis($event.target);
   
@@ -505,8 +388,6 @@ onPhoto(){
   this.image=false;
 }
 
-
-//metoda przekształacnia zdjęcia z przycisku
 readThis(inputValue: any): void {
   this.file = inputValue.files[0];
   this.newQuestionForm.controls.photo.setValue("");
@@ -514,7 +395,7 @@ readThis(inputValue: any): void {
 
   myReader.onloadend = (e) => {
     this.image = myReader.result;
-    this.imageControl=''; // kasowanie zawartości pola z url obrazka bo korzystamy z tego przeciągniętego
+    this.imageControl=''; 
   }
   myReader.readAsDataURL(this.file);
 }

@@ -13,7 +13,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class RegisterComponent implements OnInit {
   regSuccess: boolean = false;
   regFail: boolean = false;
-  user:SignUpForm = new SignUpForm;
+  user: SignUpForm = new SignUpForm;
   registerForm: FormGroup = this.fb.group({
     course: ['', Validators.required],
     password: ['', Validators.required],
@@ -21,7 +21,6 @@ export class RegisterComponent implements OnInit {
     name: ['', Validators.required],
     surname: ['', Validators.required],
     email: ['', Validators.required]
-
   }, { validator: this.formValidator }
   );
   constructor(private fb: FormBuilder, private auth: AuthService, private cookie: CookieService,
@@ -29,7 +28,6 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit() {
     if (this.cookie.get('user') == "") {
-
     }
     else {
       if (JSON.parse(this.cookie.get('user')).role == 1) {
@@ -68,11 +66,11 @@ export class RegisterComponent implements OnInit {
 
         if (group.controls.email.value.split('@')[1].includes('.')) {
           let length = group.controls.email.value.split('@')[1].split('.').length;
-        for (let i = 0; i < length; i++) {
-            if (group.controls.email.value.split('@')[1].split('.')[i].length >=1) {
+          for (let i = 0; i < length; i++) {
+            if (group.controls.email.value.split('@')[1].split('.')[i].length >= 1) {
             } else {
               correct = false; group.controls.email.setErrors({ 'invalid': true });
-            break;
+              break;
             }
           }
 
@@ -84,8 +82,6 @@ export class RegisterComponent implements OnInit {
       correct = false;
       group.controls.course.setErrors({ 'invalid': true });
     }
-
-
     return correct ? null : true;
   }
 
@@ -96,7 +92,7 @@ export class RegisterComponent implements OnInit {
     this.registerForm.controls.course.setValue('');
     this.registerForm.controls.password.setValue('');
     this.registerForm.controls.passwordRepeat.setValue('');
- 
+
     this.registerForm.controls['email'].markAsUntouched();
     this.registerForm.controls['name'].markAsUntouched();
     this.registerForm.controls['surname'].markAsUntouched();
@@ -112,30 +108,25 @@ export class RegisterComponent implements OnInit {
       this.user.username = this.registerForm.controls.email.value;
       this.user.email = this.registerForm.controls.email.value;
       this.user.password = this.registerForm.controls.password.value;
-      //this.user.c_password = this.registerForm.controls.passwordRepeat.value;
       this.user.course = this.registerForm.controls.course.value;
       this.user.name = this.registerForm.controls.name.value;
       this.user.surname = this.registerForm.controls.surname.value;
-      this.user.role="user";
+      this.user.role = "user";
 
       this.auth.register(this.user).subscribe
         (x => {
-          console.log(x)
           this.regSuccess = true;
           this.onClear();
-
         },
           e => {
-            if(e.status==200){
+            if (e.status == 200) {
               this.regSuccess = true;
               this.onClear();
-
             }
-         else
-            this.regFail=true;  
+            else
+              this.regFail = true;
           });
-   
-        } else {
+    } else {
       this.registerForm.controls['email'].markAsTouched();
       this.registerForm.controls['name'].markAsTouched();
       this.registerForm.controls['surname'].markAsTouched();

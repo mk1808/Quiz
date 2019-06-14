@@ -49,20 +49,20 @@ export class LoginComponent implements OnInit {
       this.auth.logIn(user).subscribe
         (x => {
           let token;
-          let user:User = new User;
+          let user: User = new User;
           token = jwt_decode(x.accessToken).user;
-          user.role = (token.role=="ROLE_USER")?"s":"n";
+          user.role = (token.role == "ROLE_USER") ? "s" : "n";
           user.username = token.username;
           user.name = token.name;
           user.id = token.id;
           user.surname = token.surname;
-          user.course=token.course;
-          user.email=token.email;
-          this.role = (user.role=='s'?2:1);
+          user.course = token.course;
+          user.email = token.email;
+          this.role = (user.role == 's' ? 2 : 1);
           this.cookie.set("token", x.accessToken, 0.5, "/");
-          user.role=this.role;
+          user.role = this.role;
           this.cookie.set("user", JSON.stringify(user), null, "/");
-         
+
           if (this.role == 1) {
             this.router.navigate(['creating/teacher_panel']);
           }
@@ -70,10 +70,10 @@ export class LoginComponent implements OnInit {
             this.router.navigate(['quiz/student_panel']);
           }
         }, e => {
-          console.log(e);
+
           this.userForm.controls.username.setValue("");
           this.userForm.controls.password.setValue("");
-          this.regFail=true;
+          this.regFail = true;
         });
     } else {
       this.userForm.controls.username.markAsTouched();
@@ -81,7 +81,4 @@ export class LoginComponent implements OnInit {
       this.userForm.controls.password.markAsTouched();
     }
   }
-
-
-
 }
