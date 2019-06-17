@@ -60,7 +60,7 @@ export class TestService {
   }
 
   public getQuizDetails(id): Observable<any> {
-    return this.rest.get<any>('/api/subjects/admin/withAnswers/' + id);
+    return this.rest.get<any>('/api/subjects/withoutAnswers/' + id);
   }
 
   public getQuizDemoDetails(id): Observable<any> {

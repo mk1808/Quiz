@@ -83,7 +83,7 @@ export class EditUserAccountComponent implements OnInit {
       this.editFail = false;
       this.user.id = Number(this.idUser);
       this.user.email = this.editUserForm.controls.email.value;
-      this.user.username = this.editUserForm.controls.email.value;
+      this.user.username = this.currentUser.username;
       this.user.password = this.editUserForm.controls.password.value;
       this.user.c_password = this.editUserForm.controls.passwordRepeat.value;
       this.user.course = this.editUserForm.controls.course.value;

@@ -100,7 +100,7 @@
       
       <div fxLAyout="row">
         <button mat-raised-button class="continue"
-        (click)="openModal(template)">Usuń użytkownika</button>
+        (click)="openModal(template)" [disabled]="editUserForm.controls.role.value == 'Nauczyciel'">Usuń użytkownika</button>
         <ng-template #template>
           <div class="modal-header">
             <h4 class="modal-title pull-left">Prośba o potwierdzenie</h4>
@@ -120,7 +120,7 @@
                 <button mat-raised-button class="continue noBtn" (click)="onCancel()">Nie</button></div>
               
                 <div fxFlex="50%">
-                   <button mat-raised-button class="continue" (click)="onDelet()">Tak, usuń</button>
+                   <button mat-raised-button class="continue" (click)="onDelet()" >Tak, usuń</button>
            </div> 
             
             </div>

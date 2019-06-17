@@ -33,7 +33,7 @@ export class NewTestComponent implements OnInit {
   oryginalTest: Subject;
   constructor(private fb: FormBuilder, private dictionary: DictionaryService,
     private creating: CreatingService, private cookie: CookieService,
-    private router: Router, private route: ActivatedRoute, private test: TestService,
+    private router: Router, private route: ActivatedRoute,// private test: TestService,
     private auth: AuthService, private modalService: BsModalService) {
     this.route.params.subscribe(x => {
       let id = x['id'];
@@ -74,7 +74,7 @@ export class NewTestComponent implements OnInit {
           this.newTestForm.controls.canBack.disable();
         }
         else {
-          this.test.getQuizDetails(this.idExistingTest).subscribe(x => {
+          this.creating.getQuizDetails(this.idExistingTest).subscribe(x => {
             this.oryginalTest = x;
             this.testName = x.name;
             let hoursN = Math.floor(x.time / 60);
@@ -265,6 +265,8 @@ export class NewTestComponent implements OnInit {
       if (this.newTestForm.controls.newUser.value) {
         let user: SignUpForm = new SignUpForm();
         user.email = this.newTestForm.controls.email.value + '@prz.pl';
+        user.username = user.email;
+        user.role="user";
         user.password = this.newTestForm.controls.password.value;
         user.name = "Użytkownik";
         user.surname = "Tymczasowy";
@@ -439,6 +441,7 @@ export class NewTestComponent implements OnInit {
         else if (this.newTest) {
           this.auth.register(user).subscribe(userID => {
             let user = new User;
+            console.log(userID);
             user.id = userID.user.id
             subject.course = userID.user.id;
             if (this.newTest) {

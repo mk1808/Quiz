@@ -68,7 +68,7 @@
 
     <ng-container matColumnDef="role">
       <th mat-header-cell *matHeaderCellDef> Rola </th>
-      <td mat-cell *matCellDef="let element"> {{element.role=='s'?'student':'nauczyciel'}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.role=='ROLE_USER'?'student':'nauczyciel'}} </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="['email','name','surname','group','role']"></tr>

@@ -45,7 +45,7 @@ export class EditUserByTeacherComponent implements OnInit {
               course: [this.currentUser.course, Validators.required],
               name: [this.currentUser.name, Validators.required],
               surname: [this.currentUser.surname, Validators.required],
-              role: [this.currentUser.role == 'n' ? this.roles[0] : this.roles[1], Validators.required],
+              role: [this.currentUser.role == 'ROLE_ADMIN' ? this.roles[0] : this.roles[1], Validators.required],
               email: [{ value: this.currentUser.email, disabled: true }]
             },
               {
@@ -89,13 +89,16 @@ export class EditUserByTeacherComponent implements OnInit {
       this.editFail = false;
       this.user.id = Number(this.currentUser.id);
       this.user.email = this.editUserForm.controls.email.value;
+      this.user.username = this.user.email;
+      this.user.password = null;
       this.user.course = this.editUserForm.controls.course.value;
       this.user.name = this.editUserForm.controls.name.value;
       this.user.surname = this.editUserForm.controls.surname.value;
-      this.user.role = this.editUserForm.controls.role.value == "Nauczyciel" ? "n" : "s";
+      this.user.role = this.editUserForm.controls.role.value == "Nauczyciel" ? "admin" : "user";
 
       this.auth.updateUserByTeacher(this.user).subscribe(x => {
         this.editSuccess = true;
+        this.router.navigate(['/usersList']);
       }), (e => {
         this.editFail = true;
       })
@@ -111,7 +114,8 @@ export class EditUserByTeacherComponent implements OnInit {
       if (x) {
         this.router.navigate(['/usersList']);
       }
-    });
+    },e=>
+    this.router.navigate(['/usersList']));
     this.modalRef.hide();
   }
 

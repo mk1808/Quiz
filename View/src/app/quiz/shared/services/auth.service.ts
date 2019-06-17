@@ -44,15 +44,15 @@ export class AuthService {
   }
 
   public deleteUser(id):Observable<any>{
-    return this.rest.delete('/api/user/'+id);
+    return this.rest.delete('/api/users/'+id);
   }
   
   public getUserList(email,course,name,surname): Observable<User[]>{
-    return this.rest.get('/api/usersList/'+email+'=/'+name+'=/'+surname+'=/'+course+'=');
+    return this.rest.get('/api/users')///'+email+'=/'+name+'=/'+surname+'=/'+course+'=');
   }
 
   public updateUserByTeacher(user:User): Observable<User>{
-    return this.rest.put('/api/user',user);
+    return this.rest.put('/api/users/admin/update',user);
   }
 
   public updateUserBySelf(user:User): Observable<any>{
@@ -61,7 +61,7 @@ export class AuthService {
 
   public getUserDetails(id): Observable<any>{
 
-    return this.rest.get('/api/user/'+id);
+    return this.rest.get('/api/users/'+id);
   }
 
 
