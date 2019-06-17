@@ -32,11 +32,12 @@ export class UsersListComponent implements OnInit {
       email:[''],
       name:[''],
       surname:[''],
-      course:['']
+      username:['']
     })
     this.searchForm.valueChanges.subscribe(x=>{
-       this.users=this.authService.getUserList(this.searchForm.controls.email.value,
-        this.searchForm.controls.course.value,
+       this.users=this.authService.getUserList(
+         this.searchForm.controls.email.value,
+        this.searchForm.controls.username.value,
         this.searchForm.controls.name.value,
         this.searchForm.controls.surname.value);
     })

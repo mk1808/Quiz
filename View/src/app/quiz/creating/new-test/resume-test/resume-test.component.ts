@@ -39,7 +39,7 @@ export class ResumeTestComponent implements OnInit {
         
             if(!isNaN(Number(x.course))){
               this.auth.getUserDetails(x.course).subscribe(y=>{
-                x.course = y.email;
+                x.course = y.username+" (uczeń)";
                 this.subject = x;
                 this.cookie.set("subject",JSON.stringify(this.subject),null,'/');
               })

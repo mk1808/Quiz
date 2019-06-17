@@ -102,7 +102,7 @@ export class NewTestComponent implements OnInit {
                     canBack: [x.canBack],
                     randomize: [x.randomize],
                     newUser: [this.newUser],
-                    email: [y.email],
+                    email: [y.username],
                     password: [''],
                     passwordRepeat: ['']
                   });
@@ -152,7 +152,7 @@ export class NewTestComponent implements OnInit {
       group.controls.subject.setErrors({ 'invalid': true });
     }
     if (group.controls.newUser.value) {
-      if (group.controls.email.value == "") {
+      if (group.controls.email.value == ""||group.controls.email.value.length<6) {
         correct = false;
         group.controls.email.setErrors({ 'invalid': true });
       }
@@ -360,8 +360,8 @@ export class NewTestComponent implements OnInit {
           }, e => {
             this.auth.register(user).subscribe(userID => {
               let user: User = new User;
-              user.id = userID.user.id
-              subject.course = userID.user.id;
+              user.id = userID.body.id
+              subject.course = userID.body.id;
               if (this.newTest) {
                 this.creating.createSubject(subject).subscribe(x => {
 
@@ -405,13 +405,21 @@ export class NewTestComponent implements OnInit {
                     if (this.newTestForm.controls.newUser.value) {
                       this.auth.logIn(userSignIn).subscribe(auth => {
 
-                        let data = auth.user
-                        user.id = data.id;
-                        user.course = data.id.toString()
-                        user.role = data.role.toString();
-                        user.email = this.newTestForm.controls.email.value;
+                        let token;
+          let user: User = new User;
+        
+          token = jwt_decode(auth.accessToken).user;
+          user.role = (token.role == "ROLE_USER") ? "user" : "admin";
+          user.username = this.newTestForm.controls.email.value;
+          user.name = token.name;
+          user.id = token.id;
+          user.surname = token.surname;
+          user.course = token.id;
+          user.email = token.email;
+          user.password="";
 
-                        this.auth.updateUser(user, auth.token).subscribe(t => {
+
+                        this.auth.updateUser(user, auth.accessToken).subscribe(t => {
                           this.router.navigate(['./new_question'], { relativeTo: this.route });
                         }, e => {
                           this.auth.deleteUser(user.id)
@@ -441,9 +449,9 @@ export class NewTestComponent implements OnInit {
         else if (this.newTest) {
           this.auth.register(user).subscribe(userID => {
             let user = new User;
-            console.log(userID);
-            user.id = userID.user.id
-            subject.course = userID.user.id;
+            console.log(userID.body.id);
+            user.id = userID.body.id
+            subject.course = userID.body.id;
             if (this.newTest) {
               this.creating.createSubject(subject).subscribe(x => {
 
@@ -455,14 +463,22 @@ export class NewTestComponent implements OnInit {
                 if (this.newTestForm.controls.newUser.value) {
 
                   this.auth.logIn(userSignIn).subscribe(auth => {
+                   
+                    let token;
+          let user: User = new User;
+        
+          token = jwt_decode(auth.accessToken).user;
+          user.role = (token.role == "ROLE_USER") ? "user" : "admin";
+          user.username = this.newTestForm.controls.email.value;
+          user.name = token.name;
+          user.id = token.id;
+          user.surname = token.surname;
+          user.course = token.id;
+          user.email = token.email;
+          user.password="";
 
-                    let data = auth.user
-                    user.id = data.id;
-                    user.course = data.id.toString()
-                    user.role = data.role.toString();
-                    user.email = this.newTestForm.controls.email.value;
 
-                    this.auth.updateUser(user, auth.token).subscribe(t => {
+                    this.auth.updateUser(user, auth.accessToken).subscribe(t => {
                       this.router.navigate(['./new_question'], { relativeTo: this.route });
                     }, e => {
                       this.auth.deleteUser(user.id)

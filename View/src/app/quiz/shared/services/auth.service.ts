@@ -40,15 +40,15 @@ export class AuthService {
         'Authorization': 'Bearer ' +token
       })
     };
-    return this.http.put('/api/updateUser', user, httpOptions);
+    return this.http.put('/api/users/update', user, httpOptions);
   }
 
   public deleteUser(id):Observable<any>{
     return this.rest.delete('/api/users/'+id);
   }
   
-  public getUserList(email,course,name,surname): Observable<User[]>{
-    return this.rest.get('/api/users')///'+email+'=/'+name+'=/'+surname+'=/'+course+'=');
+  public getUserList(email,username,name,surname): Observable<User[]>{
+    return this.rest.get('/api/users/all?email='+email+'&username='+username+'&name='+name+'&surname='+surname);
   }
 
   public updateUserByTeacher(user:User): Observable<User>{
